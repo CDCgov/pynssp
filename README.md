@@ -4,6 +4,15 @@
 ## Overview
 A Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice. A collection of classes and methods to advance the practice of Syndromic Surveillance. This python package serves as a Python alternative to the [`Rnssp` R package](https://github.com/CDCgov/Rnssp).
 
+## Installation
+
+You can install `pynssp` from PyPI:
+
+```python
+# install the pynssp package
+pip install pynssp
+```
+
 ## Usage
 *Development in progress...*
 
