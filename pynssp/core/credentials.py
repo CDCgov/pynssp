@@ -1,11 +1,13 @@
 import requests
 import json
 from pandas import json_normalize
+from cryptography.fernet import Fernet
 
 class Credentials:
     def __init__(self, username, password):
-        self.username = username
-        self.password = password
+        self._k_ = Fernet(Fernet.generate_key())
+        self.username = self._k_.encrypt(username.encode())
+        self.password = self._k_.encrypt(password.encode())
     
 
     def get_api_response(url):
@@ -20,7 +22,7 @@ class Credentials:
         else:
             pass
     
-    
+
     def get_api_graph(url, file_ext = ".png"):
         pass
 
