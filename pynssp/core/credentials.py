@@ -17,7 +17,7 @@ class Credentials:
         auth = (self.__k.decrypt(self.username.value.encode()), 
                 self.__k.decrypt(self.password.value.encode()))
         response = requests.get(url, auth = auth)
-        print("%s: %s".format(response.status_code, response.reason))
+        print("{}: {}".format(response.status_code, response.reason))
         if response.status_code == 200:
             return response
     
