@@ -3,8 +3,9 @@ from json import loads
 from io import StringIO
 from pandas import json_normalize, read_csv
 from cryptography.fernet import Fernet
-from pynssp.core.container import NSSPContainer, APIGraph
 from tempfile import TemporaryFile
+from pynssp.core.container import NSSPContainer, APIGraph
+from pynssp.core.constants import HTTP_STATUSES
 
 class Token:
     def __init__(self, token, access_token = "Bearer"):
@@ -18,7 +19,7 @@ class Token:
             format(self.access_token, self.__k.decrypt(self.__token.value))
             }
         response = get(url, headers=headers)
-        print("{}: {}".format(response.status_code, response.reason))
+        print("{}: {}".format(response.status_code, HTTP_STATUSES[str(response.status_code)]))
         if response.status_code == 200:
             return response
 
