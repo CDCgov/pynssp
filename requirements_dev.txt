@@ -11,3 +11,4 @@ wheel>=0.37.1
 cryptography
 requests
 pandas
+pillow
