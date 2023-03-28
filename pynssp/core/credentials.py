@@ -31,8 +31,8 @@ class Credentials:
         @param url: a string of API URL
         @return: an object of class response
         """
-        auth = (self.__k.decrypt(self.__username.value), 
-                self.__k.decrypt(self.__password.value))
+        auth = (self.__k.decrypt(self.__username.value).decode(), 
+                self.__k.decrypt(self.__password.value).decode())
         response = get(url, auth = auth)
         print("{}: {}".format(response.status_code, HTTP_STATUSES[str(response.status_code)]))
         if response.status_code == 200:

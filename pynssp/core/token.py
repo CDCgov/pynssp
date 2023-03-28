@@ -31,8 +31,9 @@ class Token:
         @return: an object of class response
         """
         headers = {
-            'Authorization': self.access_token + " " + self.__k.decrypt(self.__token.value)
-            }
+            'Authorization': "{} {}".
+            format(self.access_token, self.__k.decrypt(self.__token.value).decode())
+        }
         response = get(url, headers=headers)
         print("{}: {}".format(response.status_code, HTTP_STATUSES[str(response.status_code)]))
         if response.status_code == 200:
