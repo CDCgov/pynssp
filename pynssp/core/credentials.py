@@ -66,4 +66,17 @@ class Credentials:
         img_file = NamedTemporaryFile(suffix=file_ext, delete=False)
         img_file.write(response.content)
         return APIGraph(path=img_file.name, response=response)
-
+    
+    def pickle(self, file=None, ext = ".pkl"):
+        """
+        Save an object of class Credentials to file
+        @param ext: a non-empty character vector giving the file extension. (Default value = ".pkl")
+        """
+        from pickle import dump
+        file_name = "tokenProfile" + ext
+        if file != None:
+            file_name = file
+        with open(file_name, "wb") as f:
+            dump(self, f)
+        
+        
