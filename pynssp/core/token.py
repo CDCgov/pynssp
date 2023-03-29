@@ -62,7 +62,6 @@ class Token:
         @return: an object of type APIGraph
         """
         response = self.get_api_response(url)
-        img_file = NamedTemporaryFile(suffix=file_ext)
-        with open(img_file.name, 'wb') as f:
-            f.write(response.content)
-        return APIGraph(path=img_file.name, response=response)
+        img_file = NamedTemporaryFile(suffix=file_ext, delete=False)
+        img_file.write(response.content)
+        return APIGraph(path=img_file, response=response)
