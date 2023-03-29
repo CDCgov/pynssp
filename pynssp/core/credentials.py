@@ -3,7 +3,7 @@ from json import loads
 from io import StringIO
 from pandas import json_normalize, read_csv
 from cryptography.fernet import Fernet
-from tempfile import TemporaryFile
+from tempfile import NamedTemporaryFile
 from pynssp.core.container import NSSPContainer, APIGraph
 from pynssp.core.constants import HTTP_STATUSES
 
@@ -63,9 +63,8 @@ class Credentials:
         @return: an object of type APIGraph
         """
         response = self.get_api_response(url)
-        img_file = TemporaryFile(suffix=file_ext).name
-        with open(img_file, 'wb') as f:
-            f.write(response.content)
-        return APIGraph(path=img_file, response=response)
+        img_file = NamedTemporaryFile(suffix=file_ext)
+        img_file.write(response.content)
+        return APIGraph(path=img_file.name, response=response)
 
 
