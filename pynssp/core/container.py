@@ -32,9 +32,17 @@ class APIGraph:
     return f"{self.path}"
 
   """
-  A method to display a graph
+  A method to display an APIGraph object
   """
   def show(self):
-     from PIL import Image
-     img = Image.open(self.path)
-     img.show()
+    from PIL import Image
+    img = Image.open(self.path)
+    img.show()
+
+  """
+  A method to plot an APIGraph object
+  """
+  def plot(self):
+    from skimage.io import imread, imshow
+    img = imread(self.path)
+    imshow(img)
