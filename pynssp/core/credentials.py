@@ -64,7 +64,8 @@ class Credentials:
         """
         response = self.get_api_response(url)
         img_file = NamedTemporaryFile(suffix=file_ext)
-        img_file.write(response.content)
+        with open(img_file.name, 'wb') as f:
+            f.write(response.content)
         return APIGraph(path=img_file.name, response=response)
 
 
