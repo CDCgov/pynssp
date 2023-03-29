@@ -64,4 +64,4 @@ class Token:
         response = self.get_api_response(url)
         img_file = NamedTemporaryFile(suffix=file_ext, delete=False)
         img_file.write(response.content)
-        return APIGraph(path=img_file, response=response)
+        return APIGraph(path=img_file.name, response=response)
