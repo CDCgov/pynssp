@@ -8,18 +8,19 @@ from pynssp.core.container import NSSPContainer, APIGraph
 from pynssp.core.constants import HTTP_STATUSES
 
 
-"""
-A Token Class Representing a Credentials object
-@decription: A Credentials object has a username, a password and a key.
-@details: A Credentials object can get API data via an API URL.
-"""
 class Credentials:
-    """ 
-    Initializes a new Credentials object.
-    @param username: a string for username
-    @param password: a string for password
     """
+    A Token Class Representing a Credentials object
+    @decription: A Credentials object has a username, a password and a key.
+    @details: A Credentials object can get API data via an API URL.
+    """
+    
     def __init__(self, username, password):
+        """ 
+        Initializes a new Credentials object.
+        @param username: a string for username
+        @param password: a string for password
+        """
         self.__k = Fernet(Fernet.generate_key())
         self.__username = NSSPContainer(self.__k.encrypt(username.encode()))
         self.__password = NSSPContainer(self.__k.encrypt(password.encode()))
@@ -67,16 +68,15 @@ class Credentials:
         img_file.write(response.content)
         return APIGraph(path=img_file.name, response=response)
     
-    def pickle(self, file=None, ext = ".pkl"):
+
+    def pickle(self, file=None, file_ext = ".pkl"):
         """
         Save an object of class Credentials to file
-        @param ext: a non-empty character vector giving the file extension. (Default value = ".pkl")
+        @param file_ext: a non-empty character vector giving the file extension. (Default value = ".pkl")
         """
         from pickle import dump
-        file_name = "tokenProfile" + ext
+        file_name = "myProfile" + file_ext
         if file != None:
             file_name = file
         with open(file_name, "wb") as f:
             dump(self, f)
-        
-        

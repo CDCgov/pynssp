@@ -8,22 +8,25 @@ from pynssp.core.container import NSSPContainer, APIGraph
 from pynssp.core.constants import HTTP_STATUSES
 
 
-"""
-A Token Class Representing a Token object
-@decription: A Token object has a token string and a key.
-@details: A Token object can get API data via an API URL.
-"""
 class Token:
-    """ 
-    Initializes a new Token object.
-    @param token: a token string
-    @param access_token: type of HTTP authentication. Should be `Bearer` or `Basic`. (Default value = "Bearer")
     """
+    A Token Class Representing a Token object
+    @decription: A Token object has a token string and a key.
+    @details: A Token object can get API data via an API URL.
+    """
+    
+
     def __init__(self, token, access_token = "Bearer"):
+        """ 
+        Initializes a new Token object.
+        @param token: a token string
+        @param access_token: type of HTTP authentication. Should be `Bearer` or `Basic`. (Default value = "Bearer")
+        """
         self.__k = Fernet(Fernet.generate_key())
         self.__token = NSSPContainer(self.__k.encrypt(token.encode()))
         self.access_token = access_token
     
+
     def get_api_response(self, url):
         """
         Get API response
@@ -34,10 +37,11 @@ class Token:
             'Authorization': "{} {}".
             format(self.access_token, self.__k.decrypt(self.__token.value).decode())
         }
-        response = get(url, headers=headers)
+        response = get(url, headers = headers)
         print("{}: {}".format(response.status_code, HTTP_STATUSES[str(response.status_code)]))
         if response.status_code == 200:
             return response
+
 
     def get_api_data(self, url, fromCSV = False, encoding = "utf-8"):
         """
@@ -54,6 +58,7 @@ class Token:
         else:
             return read_csv(StringIO(response_content.decode(encoding)))
 
+
     def get_api_graph(self, url, file_ext = ".png"):
         """
         Get API graph
@@ -66,15 +71,15 @@ class Token:
         img_file.write(response.content)
         return APIGraph(path=img_file.name, response=response)
 
-    def pickle(self, file=None, ext = ".pkl"):
+
+    def pickle(self, file = None, file_ext = ".pkl"):
         """
         Save an object of class Credentials to file
-        @param ext: a non-empty character vector giving the file extension. (Default value = ".pkl")
+        @param file_ext: a non-empty character vector giving the file extension. (Default value = ".pkl")
         """
         from pickle import dump
-        file_name = "myProfile" + ext
+        file_name = "tokenProfile" + file_ext
         if file != None:
             file_name = file
         with open(file_name, "wb") as f:
             dump(self, f)
-        
