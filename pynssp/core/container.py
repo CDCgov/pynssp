@@ -1,48 +1,54 @@
-"""
-A NSSPContainer Class to store a value or an object
-@description: An object of class NSSPContainer stores a value or an object
-@details: The NSSPContainer class is used to encapsulate a value or an object
-"""
 class NSSPContainer:
+  """
+  A NSSPContainer Class to store a value or an object
+  @description: An object of class NSSPContainer stores a value or an object
+  @details: The NSSPContainer class is used to encapsulate a value or an object
+  """
+
+
+  def __init__(self, value):
     """
     Initializes an NSSPContainer class
     @param value: value to store
     """
-    def __init__(self, value):
-        self.value = value
+    self.value = value
 
 
-"""
-An class to store an API graph
-"""
 class APIGraph:
   """
-  Initializes an APIGraph class
-  @param path: a string representing the location of a graph
-  @param response: an object of class response
+  An class to store an API graph
   """
+
   def __init__(self, path, response):
+    """
+    Initializes an APIGraph class
+    @param path: a string representing the location of a graph
+    @param response: an object of class response
+    """
     self.path = path
     self.response = response
 
-  """
-  Print an API object
-  """
+
   def __str__(self):
+    """
+    Print an API object
+    """
     return f"{self.path}"
 
-  """
-  A method to display an APIGraph object
-  """
+
   def show(self):
+    """
+    A method to display an APIGraph object
+    """
     from PIL import Image
     img = Image.open(self.path)
     img.show()
 
-  """
-  A method to plot an APIGraph object
-  """
+
   def plot(self):
+    """
+    A method to plot an APIGraph object
+    """
     from skimage.io import imread, imshow
     img = imread(self.path)
     imshow(img)

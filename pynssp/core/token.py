@@ -14,7 +14,7 @@ class Token:
     @decription: A Token object has a token string and a key.
     @details: A Token object can get API data via an API URL.
     """
-    
+
 
     def __init__(self, token, access_token = "Bearer"):
         """ 
@@ -25,7 +25,7 @@ class Token:
         self.__k = Fernet(Fernet.generate_key())
         self.__token = NSSPContainer(self.__k.encrypt(token.encode()))
         self.access_token = access_token
-    
+
 
     def get_api_response(self, url):
         """
@@ -79,7 +79,7 @@ class Token:
         """
         from pickle import dump
         file_name = "tokenProfile" + file_ext
-        if file != None:
+        if file is not None:
             file_name = file
         with open(file_name, "wb") as f:
             dump(self, f)
