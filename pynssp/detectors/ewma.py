@@ -6,6 +6,7 @@ from scipy import stats
 
 def ewma_loop(df, t, y, B, g, w1, w2):
     """Loop for EWMA
+    
     Loop for EWMA and adjustment of outlying smoothed values
 
     :param df: A pandas data frame
