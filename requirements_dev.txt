@@ -12,3 +12,7 @@ cryptography
 requests
 pandas
 pillow
+scikit-image
+matplotlib
+statsmodels
+scipy

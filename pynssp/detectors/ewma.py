@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from statsmodels.stats.diagnostic import acorr_ljungbox
-from tqdm.auto import tqdm
 from scipy import stats
 
 
