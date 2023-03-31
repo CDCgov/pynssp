@@ -9,18 +9,18 @@ from pynssp.core.constants import HTTP_STATUSES
 
 
 class Credentials:
-    """
-    A Token Class Representing a Credentials object
-    @decription: A Credentials object has a username, a password and a key.
-    @details: A Credentials object can get API data via an API URL.
+    """A Token Class Representing a Credentials object
+
+    A Credentials object has a username, a password and a key.
+    A Credentials object gets API data via an API URL.
     """
 
 
-    def __init__(self, username = None, password = None):
-        """ 
-        Initializes a new Credentials object.
-        @param username: a string for username (Default username = None)
-        @param password: a string for password (Default password = None)
+    def __init__(self, username=None, password=None):
+        """Initializes a new Credentials object.
+
+        :param username: a string for username (Default username = None)
+        :param password: a string for password (Default password = None)
         """
         self.__k = Fernet(Fernet.generate_key())
         self.__username = NSSPContainer(self.__k.encrypt(username.encode())) \
@@ -30,10 +30,11 @@ class Credentials:
 
 
     def get_api_response(self, url):
-        """
-        Get API response
-        @param url: a string of API URL
-        @return: an object of class response
+        """Get API response
+
+        :param url: a string of API URL
+        :returns: an object of class response
+
         """
         auth = (self.__k.decrypt(self.__username.value).decode(), 
                 self.__k.decrypt(self.__password.value).decode()) \
@@ -44,13 +45,13 @@ class Credentials:
             return response
 
 
-    def get_api_data(self, url, fromCSV = False, encoding = "utf-8"):
-        """
-        Get API data
-        @param url: a string of API URL
-        @param fromCSV: a logical, defines whether data are received in .csv format or .json format (Default value = False)
-        @param encoding: an encoding standard (Default value = "utf-8")
-        @return: A pandas dataframe
+    def get_api_data(self, url, fromCSV=False, encoding="utf-8"):
+        """Get API data
+
+        :param url: a string of API URL
+        :param fromCSV: a logical, defines whether data are received in .csv format or .json format (Default value = False)
+        :param encoding: an encoding standard (Default value = "utf-8")
+        :returns: A pandas dataframe
         """
         response_content = self.get_api_response(url).content
         if not fromCSV:
@@ -60,12 +61,12 @@ class Credentials:
             return read_csv(StringIO(response_content.decode(encoding)))
 
 
-    def get_api_graph(self, url, file_ext = ".png"):
-        """
-        Get API graph
-        @param url: a string of API URL
-        @param file_ext: a non-empty character vector giving the file extension. (Default value = ".png")
-        @return: an object of type APIGraph
+    def get_api_graph(self, url, file_ext=".png"):
+        """Get API graph
+
+        :param url: a string of API URL
+        :param file_ext: a non-empty character vector giving the file extension. (Default value = ".png")
+        :returns: an object of type APIGraph
         """
         response = self.get_api_response(url)
         img_file = NamedTemporaryFile(suffix=file_ext, delete=False)
@@ -73,10 +74,11 @@ class Credentials:
         return APIGraph(path=img_file.name, response=response)
 
 
-    def pickle(self, file=None, file_ext = ".pkl"):
-        """
-        Save an object of class Credentials to file
-        @param file_ext: a non-empty character vector giving the file extension. (Default value = ".pkl")
+    def pickle(self, file=None, file_ext=".pkl"):
+        """Save an object of class Credentials to file
+
+        :param file_ext: a non-empty character vector giving the file extension. (Default value = ".pkl")
+        :param file:  (Default value = None)
         """
         from pickle import dump
         file_name = "myProfile" + file_ext
