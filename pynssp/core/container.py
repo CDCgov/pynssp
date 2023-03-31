@@ -1,11 +1,10 @@
 class NSSPContainer:
-  """
-  A NSSPContainer Class to store a value or an object
-  @description: An object of class NSSPContainer stores a value or an object
-  @details: The NSSPContainer class is used to encapsulate a value or an object
-  """
+    """A NSSPContainer Class to store a value or an object
 
-
+    An object of class NSSPContainer stores a value or an object
+    The NSSPContainer class is used to encapsulate a value or an object
+  """
+  
   def __init__(self, value):
     """
     Initializes an NSSPContainer class
