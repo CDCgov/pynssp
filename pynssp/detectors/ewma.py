@@ -29,7 +29,7 @@ def ewma_loop(df, t, y, B, g, w1, w2):
 
     """
     # Vector of observations
-    y = df[y]
+    y = df[y].tolist()
 
     N = len(df)
 
@@ -68,7 +68,10 @@ def ewma_loop(df, t, y, B, g, w1, w2):
         n_df = len(ndx_baseline) - 1
 
         # Baseline and current data
-        y_baseline = y[ndx_baseline]
+        try:
+            y_baseline = y[ndx_baseline]
+        except:
+            y_baseline = pd.Series(y)[ndx_baseline]
 
         expected[i] = np.mean(y_baseline)
         sigma = np.std(y_baseline, ddof=1)
@@ -128,11 +131,11 @@ def ewma_loop(df, t, y, B, g, w1, w2):
             test_stat[i] = test_stat2[i]
             z[i] = z2[i]
 
-    return pd.DataFrame({
+    return pd.concat([df, pd.DataFrame({
         'baseline_expected': expected,
         'test_statistic': test_stat,
         'p_value': p_val
-    })
+    })], axis=0)
 
 
 def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
@@ -194,18 +197,22 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
         raise ValueError("Error in alert_ewma: guardband length argument 'g' cannot be negative")
     
     # Check for sufficient baseline data
-    if df.shape[0] < B + g + 1:
+    if df.size()[0] < B + g + 1:
         raise ValueError("Error in alert_ewma: not enough historical data")
         
     # Check for grouping variables
-    grouped_df = isinstance(df.index, pd.MultiIndex)
+    # grouped_df = isinstance(df.index, pd.MultiIndex)
+    try:
+        grouped_df = df.ngroups > 1
+    except:
+        grouped_df = False
     
     if grouped_df:
-        groups = df.index.names
-        base_tbl = df.reset_index()
+        # groups = df.grouper.names
+        # groups = list(df.groups.keys())
+        # base_tbl = df.apply(lambda x: x.reset_index(drop=True)).explode(groups)
         
-        alert_tbl = base_tbl\
-            .groupby(groups)\
+        alert_tbl = df\
             .apply(lambda x: ewma_loop(x, t, y, B, g, w1, w2))
         
         alert_tbl = alert_tbl.reset_index(drop=True)
@@ -219,6 +226,8 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
             ['red', 'yellow', 'blue'], 
             default='grey'
         )
+
+        # alert_tbl = pd.concat([base_tbl, alert_tbl], axis=0)
         
     else:
         base_tbl = df.copy()
@@ -244,5 +253,7 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
             ['red', 'yellow', 'blue'], 
             default='grey'
         )
+
+        # alert_tbl = pd.concat([df, alert_tbl], axis=0)
     
     return alert_tbl
