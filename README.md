@@ -14,7 +14,35 @@ pip install pynssp
 ```
 
 ## Usage
-*Development in progress...*
+```python
+import pandas as pd
+from pynssp.core.credentials import Credentials
+from pynssp.utils import *
+from getpass import getpass
+from datetime import date, timedelta
+
+
+## Creating a user profile (username and password)
+myProfile = Credentials(input("Enter username: "), getpass())
+
+## JSON URL from ESSENCE API
+url = "https://essence.syndromicsurveillance.org/nssp_essence/api/alerts/regionSyndromeAlerts?end_date=31Jan2021&start_date=29Jan2021"
+
+## Update Start and End dates in ESSENCE API URL
+startDate = date.today() - timedelta(days=30)
+endDate = date.today()
+
+url = change_dates(url, start_date = startDate, end_date = endDate)
+
+## Pull Time Series Data from NSSP-ESSENCE
+api_data = myProfile.get_api_data(url)
+
+## Inspect data object structure
+api_data.columns
+
+## Get a glimpse of the pulled dataset
+pd.json_normalize(api_data["regionSyndromeAlerts"][0]).head()
+```
 
 ## Contributing to this project
 Should you want to contribute to this project, submit a push request to this Github repository and consider submitting a request to be added as a developer to gazondekon@cdc.gov.
