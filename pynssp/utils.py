@@ -1,5 +1,6 @@
 import re
-from datetime import datetime
+from datetime import datetime, date
+from dateutil.parser import parse as date_parser
 
 def change_dates(url, start_date=None, end_date=None):
     """Changes the start and end dates in a given URL to new dates, if provided.
@@ -29,9 +30,15 @@ def change_dates(url, start_date=None, end_date=None):
     new_end = old_end
     new_start = old_start
     if end_date is not None:
-        new_end = datetime.strptime(end_date, "%d%b%Y").strftime("%d%b%Y").strip()
+        if isinstance(end_date, date):
+            new_end = end_date.strftime("%d%b%y").strip()
+        else:
+            new_end = date_parser(end_date).strftime("%d%b%y").strip()
     if start_date is not None:
-        new_start = datetime.strptime(start_date, "%d%b%Y").strftime("%d%b%Y").strip()
+        if isinstance(start_date, date):
+            new_start = start_date.strftime("%d%b%y").strip()
+        else:
+            new_start = date_parser(start_date).strftime("%d%b%y").strip()
     
     # Convert new start and end dates to datetime objects for comparison.
     new_startd = datetime.strptime(new_start, "%d%b%Y") if len(new_start) > 7 else datetime.strptime(new_start, "%d%b%y")
