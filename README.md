@@ -25,10 +25,10 @@ from datetime import date, timedelta
 ## Creating a user profile (username and password)
 myProfile = Credentials(input("Enter username: "), getpass())
 
-## JSON URL from ESSENCE API
+## JSON URL from NSSP-ESSENCE API
 url = "https://essence.syndromicsurveillance.org/nssp_essence/api/alerts/regionSyndromeAlerts?end_date=31Jan2021&start_date=29Jan2021"
 
-## Update Start and End dates in ESSENCE API URL
+## Update Start and End dates in NSSP-ESSENCE API URL
 startDate = date.today() - timedelta(days=30)
 endDate = date.today()
 
