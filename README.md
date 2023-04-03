@@ -8,7 +8,7 @@ A Python package for the National Syndromic Surveillance Program (NSSP) and its 
 
 You can install `pynssp` from PyPI:
 
-```python
+```sh
 # install the pynssp package
 pip install pynssp
 ```
