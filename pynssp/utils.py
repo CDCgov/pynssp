@@ -162,6 +162,8 @@ def get_essence_data(url, start_date=None, end_date=None, profile=None, **kwargs
         return profile.get_api_graph(url_new)
     elif api_type == "tableBuilder/csv":
         return profile.get_api_data(url_new, fromCSV=True, **kwargs)
+    elif api_type == "tableBuilder":
+        return profile.get_api_data(url_new, **kwargs)
     elif api_type == "dataDetails":
         api_data = profile.get_api_data(url_new, **kwargs)
         return pd.json_normalize(api_data["dataDetails"][0])
