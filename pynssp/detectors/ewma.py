@@ -197,7 +197,13 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
         raise ValueError("Error in alert_ewma: guardband length argument 'g' cannot be negative")
     
     # Check for sufficient baseline data
-    if df.size < B + g + 1:
+
+    if isinstance(df, pd.DataFrame):
+        df_size = df.size
+    else:
+        df_size = df.size()[0]
+    
+    if df_size < B + g + 1:
         raise ValueError("Error in alert_ewma: not enough historical data")
         
     # Check for grouping variables
