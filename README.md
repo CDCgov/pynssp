@@ -41,8 +41,11 @@ api_data = get_api_data(url, profile=myProfile)
 ## Inspect data object structure
 api_data.columns
 
+## Extract table of interest
+api_data = pd.json_normalize(api_data["regionSyndromeAlerts"][0])
+
 ## Get a glimpse of the pulled dataset
-pd.json_normalize(api_data["regionSyndromeAlerts"][0]).head()
+api_data.head()
 ```
 
 ## Contributing to this project
