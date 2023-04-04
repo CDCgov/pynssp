@@ -20,8 +20,11 @@ from pynssp.utils import *
 from datetime import date, timedelta
 
 
+## Creating a user profile (token)
+myProfile = create_token_profile()
+
 ## Creating a user profile (username and password)
-myProfile = Credentials(input("Enter username: "), getpass())
+myProfile = create_profile()
 
 ## JSON URL from NSSP-ESSENCE API
 url = "https://essence.syndromicsurveillance.org/nssp_essence/api/alerts/regionSyndromeAlerts?end_date=31Jan2021&start_date=29Jan2021"
@@ -33,7 +36,7 @@ endDate = date.today()
 url = change_dates(url, start_date = startDate, end_date = endDate)
 
 ## Pull Time Series Data from NSSP-ESSENCE
-api_data = myProfile.get_api_data(url)
+api_data = get_api_data(url, profile=myProfile)
 
 ## Inspect data object structure
 api_data.columns
