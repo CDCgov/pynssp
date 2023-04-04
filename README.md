@@ -13,6 +13,12 @@ You can install `pynssp` from PyPI:
 pip install pynssp
 ```
 
+You may also install `pynssp` from Github:
+
+```sh
+pip install git+https://github.com/cdcent/pynssp.git
+```
+
 ## Usage
 ```python
 import pandas as pd
