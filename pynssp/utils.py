@@ -1,6 +1,10 @@
 import re
+import pandas as pd
+from .core.credentials import Credentials
+from .core.token import Token
 from datetime import datetime, date
 from dateutil.parser import parse as date_parser
+from getpass import getpass
 
 def change_dates(url, start_date=None, end_date=None):
     """Changes the start and end dates in a given URL to new dates, if provided.
@@ -55,3 +59,122 @@ def change_dates(url, start_date=None, end_date=None):
     new_url = re.sub(r"\s+", "", new_url)
     
     return new_url
+
+
+def create_profile(username=None, password=None):
+    """
+    Create a new user profile with the given username and password.
+
+    :param username: A string representing the username. If not provided, the user will be prompted to enter it.
+    :param password: A string representing the user's password. If not provided, the user will be prompted to enter it securely.
+    :return: A new Credentials object with the given username and password.
+    """
+    if username is None:
+        username = input("Please enter your username: ")
+    if password is None:
+        password = getpass()
+    return Credentials(username=username, password=password)
+
+
+def create_token_profile(token=None, access_token="Bearer"):
+    """
+    Create a new token profile with the given token and authentication type.
+
+    :param token: A string representing the token. If not provided, the user will be prompted to enter it securely.
+    :param auth_type: A string representing the authentication type. Defaults to "Bearer".
+    :return: A new Token object with the given token and authentication type.
+    """
+    if token is None:
+        getpass(prompt="Enter/Paste a token: ")
+    return Token(token=token, access_token=access_token)
+
+
+def get_api_response(url, profile=None):
+    """
+    Retrieve a response from an API using the provided profile.
+
+    :param url: A string representing the URL of the API endpoint.
+    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
+    :return: The response object returned by the API.
+    """
+    try:
+        return profile.get_api_response(url=url)
+    except (NameError, AttributeError):
+        raise ValueError("Invalid profile name or missing `get_api_response` method.")
+
+
+def get_api_data(url, fromCSV=False, profile=None, encoding="utf-8", **kwargs):
+    """
+    Retrieve data from an API using the provided profile.
+
+    :param url: A string representing the URL of the API endpoint.
+    :param fromCSV: A boolean indicating whether the data should be retrieved from a CSV file. Defaults to False.
+    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
+    :param kwargs: Additional keyword arguments to be passed to the profile's get_api_data method.
+    :return: The data retrieved from the API.
+    """
+    try:
+        return profile.get_api_data(url=url, fromCSV=fromCSV, encoding=encoding, **kwargs)
+    except (NameError, AttributeError):
+        raise ValueError("Invalid profile name or missing `get_api_data` method.")
+
+
+def get_api_graph(url, file_ext=".png", profile=None):
+    """
+    Retrieve a graph from an API using the provided profile.
+
+    :param url: A string representing the URL of the API endpoint.
+    :param file_ext: A string representing the file extension of the graph. Defaults to ".png".
+    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
+    :return: The graph retrieved from the API.
+    """
+    try:
+        return profile.get_api_graph(url=url, file_ext=file_ext)
+    except (NameError, AttributeError):
+        raise ValueError("Invalid profile name or missing `get_api_graph` method.")
+
+
+def get_essence_data(url, start_date=None, end_date=None, profile=None, **kwargs):
+    """
+    Retrieve data from the ESSENCE API using the provided profile.
+
+    :param url: A string representing the URL of the ESSENCE API endpoint.
+    :param start_date: A string representing the start date of the data to retrieve.
+    :param end_date: A string representing the end date of the data to retrieve.
+    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
+    :param kwargs: Additional arguments to be passed to the get_api_data function.
+    :return: The data retrieved from the ESSENCE API.
+    """
+    if profile is None:
+        raise ValueError("Please, provide a profile object of type `Credentials` or `Token`!")
+
+    api_type = re.search(r"(?<=api/).+(?=\?)", url).group()
+
+    if not api_type:
+        raise ValueError("URL is not of ESSENCE type. Check your URL or use get_api_data instead!")
+
+    url_new = change_dates(url, start_date, end_date)
+    
+    if api_type == "timeSeries":
+        api_data = profile.get_api_data(url_new, **kwargs)
+        return pd.json_normalize(api_data["timeSeriesData"][0])
+    elif api_type == "timeSeries/graph":
+        return profile.get_api_graph(url_new)
+    elif api_type == "tableBuilder/csv":
+        return profile.get_api_data(url_new, fromCSV=True, **kwargs)
+    elif api_type == "dataDetails":
+        api_data = profile.get_api_data(url_new, **kwargs)
+        return pd.json_normalize(api_data["dataDetails"][0])
+    elif api_type == "dataDetails/csv":
+        return profile.get_api_data(url_new, fromCSV=True, **kwargs)
+    elif api_type == "summaryData":
+        api_data = profile.get_api_data(url_new, **kwargs)
+        return pd.json_normalize(api_data["summaryData"][0])
+    elif api_type == "alerts/regionSyndromeAlerts":
+        api_data = profile.get_api_data(url_new, **kwargs)
+        return pd.json_normalize(api_data["regionSyndromeAlerts"][0])
+    elif api_type == "alerts/hospitalSyndromeAlerts":
+        api_data = profile.get_api_data(url_new, **kwargs)
+        return pd.json_normalize(api_data["hospitalSyndromeAlerts"][0])
+    else:
+        raise ValueError("URL is not of ESSENCE type. Check your URL or use the `get_api_data()` function instead!")
