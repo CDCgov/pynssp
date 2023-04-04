@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from statsmodels.stats.diagnostic import acorr_ljungbox
 from scipy import stats
 
 
@@ -130,12 +129,13 @@ def ewma_loop(df, t, y, B, g, w1, w2):
             p_val[i] = pval2[i]
             test_stat[i] = test_stat2[i]
             z[i] = z2[i]
+    
+    alert_table = df
+    alert_table['baseline_expected'] = expected
+    alert_table['test_statistic'] = test_stat
+    alert_table['p_value'] = p_val
 
-    return pd.concat([df, pd.DataFrame({
-        'baseline_expected': expected,
-        'test_statistic': test_stat,
-        'p_value': p_val
-    })], axis=0)
+    return alert_table
 
 
 def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
@@ -197,20 +197,16 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
         raise ValueError("Error in alert_ewma: guardband length argument 'g' cannot be negative")
     
     # Check for sufficient baseline data
-    if df.size()[0] < B + g + 1:
+    if df.size < B + g + 1:
         raise ValueError("Error in alert_ewma: not enough historical data")
         
     # Check for grouping variables
-    # grouped_df = isinstance(df.index, pd.MultiIndex)
     try:
         grouped_df = df.ngroups > 1
     except:
         grouped_df = False
     
     if grouped_df:
-        # groups = df.grouper.names
-        # groups = list(df.groups.keys())
-        # base_tbl = df.apply(lambda x: x.reset_index(drop=True)).explode(groups)
         
         alert_tbl = df\
             .apply(lambda x: ewma_loop(x, t, y, B, g, w1, w2))
@@ -226,8 +222,6 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
             ['red', 'yellow', 'blue'], 
             default='grey'
         )
-
-        # alert_tbl = pd.concat([base_tbl, alert_tbl], axis=0)
         
     else:
         base_tbl = df.copy()
@@ -253,7 +247,5 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
             ['red', 'yellow', 'blue'], 
             default='grey'
         )
-
-        # alert_tbl = pd.concat([df, alert_tbl], axis=0)
     
     return alert_tbl

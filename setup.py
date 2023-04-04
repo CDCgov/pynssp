@@ -12,7 +12,7 @@ with open('HISTORY.md') as history_file:
 
 requirements = [ 
     "pandas", "cryptography", "pillow", "scikit-image", "matplotlib", "statsmodels",
-    "scipy" 
+    "scipy", "datetime", "dateutil" 
     ]
 
 test_requirements = ['pytest>=3', ]
