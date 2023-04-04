@@ -44,12 +44,13 @@ class Token:
             return response
 
 
-    def get_api_data(self, url, fromCSV=False, encoding="utf-8"):
+    def get_api_data(self, url, fromCSV=False, encoding="utf-8", **kwargs):
         """Get API data
 
         :param url: a string of API URL
         :param fromCSV: a logical, defines whether data are received in .csv format or .json format (Default value = False)
         :param encoding: an encoding standard (Default value = "utf-8")
+        :param **kwargs: Additional keyword arguments to pass to `pandas.read_csv()` if `fromCSV` is True.
         :returns: A pandas dataframe
         """
         response_content = self.get_api_response(url).content

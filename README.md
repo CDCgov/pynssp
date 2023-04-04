@@ -16,9 +16,7 @@ pip install pynssp
 ## Usage
 ```python
 import pandas as pd
-from pynssp.core.credentials import Credentials
 from pynssp.utils import *
-from getpass import getpass
 from datetime import date, timedelta
 
 
