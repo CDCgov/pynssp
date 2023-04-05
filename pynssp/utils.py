@@ -85,7 +85,7 @@ def create_token_profile(token=None, access_token="Bearer"):
     :return: A new Token object with the given token and authentication type.
     """
     if token is None:
-        getpass(prompt="Enter/Paste a token: ")
+        token = getpass(prompt="Enter/Paste a token: ")
     return Token(token=token, access_token=access_token)
 
 
