@@ -37,11 +37,18 @@ def ewma_loop(df, t, y, B, g, w1, w2):
     max_baseline = B
 
     # Initialize result vectors
-    z = z1 = z2 = \
-        sigma1 = sigma2 = \
-        test_stat = test_stat1 = test_stat2 = \
-        p_val = pval1 = pval2 = \
-        expected = np.repeat(np.nan, N)
+    z = np.repeat(np.nan, N)
+    z1 = np.repeat(np.nan, N)
+    z2 = np.repeat(np.nan, N)
+    sigma1 = np.repeat(np.nan, N)
+    sigma2 = np.repeat(np.nan, N)
+    test_stat = np.repeat(np.nan, N)
+    test_stat1 = np.repeat(np.nan, N)
+    test_stat2 = np.repeat(np.nan, N)
+    p_val = np.repeat(np.nan, N)
+    pval1 = np.repeat(np.nan, N)
+    pval2 = np.repeat(np.nan, N)
+    expected = np.repeat(np.nan, N)
 
     # Initialize EWMA values
     z1[0] = z2[0] = y[0]
@@ -57,8 +64,8 @@ def ewma_loop(df, t, y, B, g, w1, w2):
     for i in range(min_baseline + g, N):
 
         # Pad baseline until full baseline is obtained
-        if ndx_baseline[-1] < max_baseline - 1:
-            ndx_baseline = np.insert(ndx_baseline, 0, -1)
+        if ndx_baseline[-1] < max_baseline:
+            ndx_baseline = np.insert(ndx_baseline, 0, 0)
 
         # Advance baseline for current iteration
         ndx_baseline += 1
@@ -67,25 +74,18 @@ def ewma_loop(df, t, y, B, g, w1, w2):
         n_df = len(ndx_baseline) - 1
 
         # Baseline and current data
-        try:
-            y_baseline = y[ndx_baseline]
-        except:
-            y_baseline = pd.Series(y)[ndx_baseline]
+        y_baseline = pd.Series(y)[ndx_baseline]
 
         expected[i] = np.mean(y_baseline)
         sigma = np.std(y_baseline, ddof=1)
 
-        sigma_correction1 = np.sqrt(
-            (w1 / (2 - w1))
-            + (1 / len(ndx_baseline))
-            - 2 * (1 - w1) ** (g + 1)
-            * ((1 - (1 - w1) ** len(ndx_baseline)) / len(ndx_baseline))
+        sigma_correction1 = np.sqrt(\
+            (w1 / (2 - w1)) + (1 / len(ndx_baseline)) - 2 * (1 - w1) ** (g + 1) * \
+                ((1 - (1 - w1) ** len(ndx_baseline)) / len(ndx_baseline))
         )
-        sigma_correction2 = np.sqrt(
-            (w2 / (2 - w2))
-            + (1 / len(ndx_baseline))
-            - 2 * (1 - w2) ** (g + 1)
-            * ((1 - (1 - w2) ** len(ndx_baseline)) / len(ndx_baseline))
+        sigma_correction2 = np.sqrt(\
+            (w2 / (2 - w2)) + (1 / len(ndx_baseline)) - 2 * (1 - w2) ** (g + 1) * \
+                ((1 - (1 - w2) ** len(ndx_baseline)) / len(ndx_baseline))
         )
 
         ucl_alert = np.round(stats.t.ppf(1 - 0.01, df=n_df), 5)
@@ -94,9 +94,9 @@ def ewma_loop(df, t, y, B, g, w1, w2):
         min_sigma1 = (w1 / ucl_warning) * (1 + 0.5 * (1 - w1)**2)
         min_sigma2 = (w2 / ucl_warning) * (1 + 0.5 * (1 - w2)**2)
 
-        constant1 = (0.1289 - (0.2414 - 0.1826 * (1 - w1)**4) *
+        constant1 = (0.1289 - (0.2414 - 0.1826 * (1 - w1)**4) * \
                     np.log(10 * 0.05)) * (w1 / ucl_warning)
-        constant2 = (0.1289 - (0.2414 - 0.1826 * (1 - w2)**4) *
+        constant2 = (0.1289 - (0.2414 - 0.1826 * (1 - w2)**4) * \
                     np.log(10 * 0.05)) * (w2 / ucl_warning)
 
         sigma1[i] = max(min_sigma1, sigma * sigma_correction1 + constant1)
@@ -130,12 +130,11 @@ def ewma_loop(df, t, y, B, g, w1, w2):
             test_stat[i] = test_stat2[i]
             z[i] = z2[i]
     
-    alert_table = df
-    alert_table['baseline_expected'] = expected
-    alert_table['test_statistic'] = test_stat
-    alert_table['p_value'] = p_val
+    df['baseline_expected'] = expected
+    df['test_statistic'] = test_stat
+    df['p_value'] = p_val
 
-    return alert_table
+    return df
 
 
 def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
@@ -197,8 +196,9 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
         raise ValueError("Error in alert_ewma: guardband length argument 'g' cannot be negative")
     
     # Check for sufficient baseline data
+    grouped_df = isinstance(df, pd.core.groupby.DataFrameGroupBy)
 
-    if isinstance(df, pd.DataFrame):
+    if not grouped_df:
         df_size = df.size
     else:
         df_size = df.size()[0]
@@ -207,11 +207,6 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
         raise ValueError("Error in alert_ewma: not enough historical data")
         
     # Check for grouping variables
-    try:
-        grouped_df = df.ngroups > 1
-    except:
-        grouped_df = False
-    
     if grouped_df:
         
         alert_tbl = df\
