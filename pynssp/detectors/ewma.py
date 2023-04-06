@@ -10,7 +10,7 @@ def ewma_loop(df, t, y, B, g, w1, w2):
 
     :param df: A pandas data frame
     :param t: Name of the column of type Date containing the dates
-    :param y: Numeric vector of counts or percentages
+    :param y: Name of the column containing the response variable data
     :param mu: Numeric vector of baseline averages
     :param B: Baseline parameter. The baseline length is the number of days used to
         calculate rolling averages, standard deviations, and exponentially weighted
@@ -169,6 +169,7 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
     :param w2: Smoothed coefficient for sensitivity to sudden events. Must be between
         0 and 1 and is recommended to be above 0.7 to account for sudden events.
         Defaults to 0.9 to match ESSENCE implementation and approximate the C2 algorithm.
+    :rtype: pandas.DataFrame
     :returns: Original pandas data frame with detection results.
     :examples:
         # Example 1

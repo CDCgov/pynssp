@@ -55,12 +55,6 @@ def adaptive_regression(df, t, y, B, g):
     sigma = np.repeat(np.nan, N)
     r_sqrd_adj = np.repeat(np.nan, N)
 
-    # # Vector of dates
-    # dates = df[t].values
-
-    # # Vector of observations
-    # y_obs = df[y].values
-
     # Initialize baseline indices
     ndx_baseline = np.arange(1, min_baseline)
 
@@ -102,19 +96,20 @@ def adaptive_regression(df, t, y, B, g):
         )
 
         # Fit regression model with linear regression
+        X = sm.add_constant(X)
         lr_fit = sm.OLS(baseline_obs, X).fit() #LinearRegression().fit(X, baseline_obs)
 
         # Extract model components
         beta = lr_fit.params.tolist() #np.concatenate(([lr_fit.intercept_], lr_fit.coef_))
-        fit_vals = lr_fit.predict(X)
-        res = baseline_obs - fit_vals
-        mse = np.mean(res**2)
+        # fit_vals = lr_fit.fittedvalues #lr_fit.predict(X)
+        # res = lr_fit.resid #baseline_obs - fit_vals
+        mse = lr_fit.mse_resid #(1/n_df) * np.sum(res**2)
 
         # Compute adjusted R-squared value
-        mss = np.sum((fit_vals - np.mean(fit_vals))**2)
-        rss = np.sum(res**2)
-        r2 = mss / (rss + mss)
-        r2_adj = 1 - (1 - r2) * ((len(ndx_baseline) - 1) / lr_fit.df_resid)
+        # mss = np.sum((fit_vals - np.mean(fit_vals))**2)
+        # rss = np.sum(res**2)
+        # r2 = lr_fit.rsquared #mss / (rss + mss)
+        r2_adj = lr_fit.rsquared_adj #1 - (1 - r2) * ((len(ndx_baseline) - 1) / lr_fit.df_resid)
         r_sqrd_adj[i] = r2_adj if not np.isnan(r2_adj) else 0
 
         # Calculate bounded standard error of regression with derived formula for efficiency
@@ -138,21 +133,14 @@ def adaptive_regression(df, t, y, B, g):
         # Calculate p-value
         p_val[i] = 1 - stats.t.cdf(test_stat[i], n_df)
 
-    return pd.DataFrame({
-        "baseline_expected": expected,
-        "test_statistic": test_stat,
-        "p.value": p_val,
-        "sigma": sigma,
-        "adjusted_r_squared": r_sqrd_adj,
-    })
+    return df.assign(
+        baseline_expected = expected,
+        test_statistic = test_stat,
+        p_value = p_val,
+        sigma = sigma,
+        adjusted_r_squared = r_sqrd_adj
+    )
 
-
-#####################
-
-import pandas as pd
-import numpy as np
-from statsmodels.regression.linear_model import OLS
-from statsmodels.tools.tools import add_constant
 
 def alert_regression(df, t='date', y='count', B=28, g=2):
     """
@@ -172,16 +160,6 @@ def alert_regression(df, t='date', y='count', B=28, g=2):
         g (int, optional): The length of the guard band (in days). Must be non-negative.
             Defaults to 2.
 
-    Returns:
-        pandas.DataFrame: A copy of the input dataframe with additional columns:
-            - The predicted values for each observation (pred)
-            - The residuals (error)
-            - The p-value for each observation (p.value)
-            - An alert flag indicating the severity of the anomaly (alert).
-            The alert flag can take one of four values: 'red', 'yellow', 'blue', or 'grey'.
-            Observations with a 'red' or 'yellow' alert indicate a high or moderate likelihood
-            of an anomaly, respectively. Observations with a 'blue' alert indicate a low likelihood
-            of an anomaly, and observations with a 'grey' alert indicate that no anomaly was detected.
     """
     
     # Check baseline length argument
@@ -207,25 +185,16 @@ def alert_regression(df, t='date', y='count', B=28, g=2):
     if df_size < B + g + 1:
         raise ValueError("Error in alert_regression: not enough historical data")
         
-    # Check for grouping variables
-    # base_tbl = df
-    # base_tbl['dow'] = df[t].dt.strftime("%A").str[:3]
-    # base_tbl['dummy'] = 1
-    # base_tbl = pd.concat([df, base_tbl.pivot(index=None, columns='dow', values='dummy').fillna(0)], axis=1)
-
     if grouped_df:
-        # groups = df.grouper.keys
 
         df_result = df\
             .apply(lambda data: adaptive_regression(data, t=t, y=y, B=B, g=g))
         
         df_result = df_result.reset_index(drop=True)
 
-        df_result['anomalies'] = df_result['anomalies'].apply(pd.Series)
-        df_result = pd.concat([df_result.drop(['anomalies'], axis=1), df_result['anomalies'].apply(pd.Series)], axis=1)
-        df_result['alert'] = np.select([(df_result['p.value'] < 0.01),
-                                        (df_result['p.value'] >= 0.01) & (df_result['p.value'] < 0.05),
-                                        (df_result['p.value'] >= 0.05)],
+        df_result['alert'] = np.select([(df_result['p_value'] < 0.01),
+                                        (df_result['p_value'] >= 0.01) & (df_result['p_value'] < 0.05),
+                                        (df_result['p_value'] >= 0.05)],
                                         ['red', 'yellow', 'blue'], default='grey')
         df_result = df_result.drop(columns=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
     else:
@@ -233,15 +202,11 @@ def alert_regression(df, t='date', y='count', B=28, g=2):
         if len(unique_dates) != len(df):
             raise ValueError("Error in alert_regression: Number of unique dates does not equal the number of rows. Should your dataframe be grouped?")
 
-        df_result = df.assign(data_split = df[list(df.columns)]) \
-                    .groupby('data_split') \
-                    .apply(lambda data: adaptive_regression(data, t=t, y=y, B=B, g=g))
+        df_result = adaptive_regression(df, t=t, y=y, B=B, g=g)
         df_result = df_result.reset_index()
-        df_result['anomalies'] = df_result['anomalies'].apply(pd.Series)
-        df_result = pd.concat([df_result.drop(['anomalies'], axis=1), df_result['anomalies'].apply(pd.Series)], axis=1)
-        df_result['alert'] = np.select([(df_result['p.value'] < 0.01),
-                                        (df_result['p.value'] >= 0.01) & (df_result['p.value'] < 0.05),
-                                        (df_result['p.value'] >= 0.05)],
+        df_result['alert'] = np.select([(df_result['p_value'] < 0.01),
+                                        (df_result['p_value'] >= 0.01) & (df_result['p_value'] < 0.05),
+                                        (df_result['p_value'] >= 0.05)],
                                         ['red', 'yellow', 'blue'], default='grey')
         df_result = df_result.drop(columns=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
         
