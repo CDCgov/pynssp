@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import scipy.stats as stats
-# from statistics import LinearRegression
 import statsmodels.api as sm
 
 def adaptive_regression(df, t, y, B, g):
