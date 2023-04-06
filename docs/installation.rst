@@ -26,7 +26,14 @@ you through the process.
 From sources
 ------------
 
-The sources for pynssp can be downloaded from the `Github repo`_.
+You may install from source with `pip`_ by running this command in your terminal.
+
+.. code-block:: console
+
+    $ pip install git+https://github.com/cdcgov/pynssp.git
+
+
+Alternatively, the sources for pynssp can be downloaded from the `Github repo`_.
 
 You can either clone the public repository:
 
@@ -45,7 +52,6 @@ Once you have a copy of the source, you can install it with:
 .. code-block:: console
 
     $ python setup.py install
-
 
 .. _Github repo: https://github.com/cdcgov/pynssp
 .. _tarball: https://github.com/cdcgov/pynssp/tarball/master
