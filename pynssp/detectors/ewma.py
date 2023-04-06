@@ -154,7 +154,7 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
     occur. Grey values represent instances where anomaly detection did not apply
     (i.e., observations for which baseline data were unavailable).
 
-    :param df: A pandas data frame
+    :param df: A pandas data frame containing time series data
     :param t: Name of the column of type Date containing the dates (Default value = 'date')
     :param y: Name of the column of type Numeric containing counts or percentages (Default value = 'count')
     :param B: Baseline parameter. The baseline length is the number of days used to
@@ -169,7 +169,6 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
     :param w2: Smoothed coefficient for sensitivity to sudden events. Must be between
         0 and 1 and is recommended to be above 0.7 to account for sudden events.
         Defaults to 0.9 to match ESSENCE implementation and approximate the C2 algorithm.
-    :rtype: pandas.DataFrame
     :returns: Original pandas data frame with detection results.
     :examples:
         # Example 1

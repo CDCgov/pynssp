@@ -152,20 +152,14 @@ def alert_regression(df, t='date', y='count', B=28, g=2):
             containing the dates or times of observations (default: 'date'), and another
             containing the values of the time series (default: 'count'). If the dataset is
             grouped, the group variables should be included in the dataframe.
-    :type df: pandas.DataFrame
     :param t: The name of the column in df that contains the dates or times of
             observations. Defaults to 'date'.
-    :type t: str
     :param y: The name of the column in df that contains the values of the
             time series. Defaults to 'count'.
-    :type y: str
     :param B: The length of the baseline period (in days). Must be a multiple
             of 7 and at least 7. Defaults to 28.
-    :type B: int
     :param g: The length of the guard band (in days). Must be non-negative.
             Defaults to 2.
-    :type g: int
-    :rtype: pandas.DataFrame
     :returns: Original pandas data frame with detection results.
     :examples:
         # Example 1
