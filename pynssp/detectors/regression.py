@@ -9,7 +9,7 @@ def adaptive_regression(df, t, y, B, g):
 
     Adaptive Regression helper function for Adaptive Multiple Regression
 
-    :param df: A pandas data frame
+    :param df: A pandas data frame containing time series data
     :param t: Name of the column of type Date containing the dates
     :param y: Name of the column containing the response variable data
     :param B: Baseline parameter. The baseline length is the number of days to
@@ -148,10 +148,7 @@ def alert_regression(df, t='date', y='count', B=28, g=2):
     Grey values represent instances where anomaly detection did not apply
     (i.e., observations for which baseline data were unavailable).
 
-    :param df: A time series dataset with at least two columns: one
-            containing the dates or times of observations (default: 'date'), and another
-            containing the values of the time series (default: 'count'). If the dataset is
-            grouped, the group variables should be included in the dataframe.
+    :param df: A pandas data frame containing time series data
     :param t: The name of the column in df that contains the dates or times of
             observations. Defaults to 'date'.
     :param y: The name of the column in df that contains the values of the
