@@ -5,34 +5,28 @@ import scipy.stats as stats
 import statsmodels.api as sm
 
 def adaptive_regression(df, t, y, B, g):
-    """
-    Perform adaptive regression on a given data frame.
+    """Adaptive Regression
 
-    Parameters:
-    -----------
-    df: pandas.DataFrame
-        The data frame containing the data to perform regression on.
-    t: str
-        The name of the column containing the time data.
-    y: str
-        The name of the column containing the response variable data.
-    B: int
-        The maximum size of the baseline.
-    g: int
-        The number of gaps between the baseline and the test point.
+    Adaptive Regression helper function for Adaptive Multiple Regression
 
-    Returns:
-    --------
-    pandas.DataFrame
-        A data frame containing the results of the regression.
+    :param df: A pandas data frame
+    :param t: Name of the column of type Date containing the dates
+    :param y: Name of the column containing the response variable data
+    :param B: Baseline parameter. The baseline length is the number of days to
+            which each liner model is fit.
+    :param g: Guardband parameter. The guardband length is the number of days
+            separating the baseline from the current date in consideration for alerting.
+    :returns: A pandas data frame with p-values and test statistics
+    
     """
+    df = df.reset_index(drop=True)
     base_tbl = df
-    base_tbl['dow'] = df[t].dt.strftime("%A").str[:3]
+    base_tbl['dow'] = pd.to_datetime(df[t]).dt.strftime("%A").str[:3]
     base_tbl['dummy'] = 1
     df = pd.concat([df, base_tbl.pivot(index=None, columns='dow', values='dummy').fillna(0)], axis=1)
-    # Convert t and y to quosures
-    dates = base_tbl[t].tolist() #pd.api.terms.term_from_vec(t, data=base_tbl)
-    y_obs = base_tbl[y].tolist() #pd.api.terms.term_from_vec(y, data=base_tbl)
+    
+    dates = pd.to_datetime(base_tbl[t]).tolist()
+    y_obs = base_tbl[y].tolist()
 
     N = len(df)
 
@@ -97,19 +91,14 @@ def adaptive_regression(df, t, y, B, g):
 
         # Fit regression model with linear regression
         X = sm.add_constant(X)
-        lr_fit = sm.OLS(baseline_obs, X).fit() #LinearRegression().fit(X, baseline_obs)
+        lr_fit = sm.OLS(baseline_obs, X).fit()
 
         # Extract model components
-        beta = lr_fit.params.tolist() #np.concatenate(([lr_fit.intercept_], lr_fit.coef_))
-        # fit_vals = lr_fit.fittedvalues #lr_fit.predict(X)
-        # res = lr_fit.resid #baseline_obs - fit_vals
-        mse = lr_fit.mse_resid #(1/n_df) * np.sum(res**2)
+        beta = lr_fit.params.tolist()
+        mse = lr_fit.mse_resid
 
         # Compute adjusted R-squared value
-        # mss = np.sum((fit_vals - np.mean(fit_vals))**2)
-        # rss = np.sum(res**2)
-        # r2 = lr_fit.rsquared #mss / (rss + mss)
-        r2_adj = lr_fit.rsquared_adj #1 - (1 - r2) * ((len(ndx_baseline) - 1) / lr_fit.df_resid)
+        r2_adj = lr_fit.rsquared_adj
         r_sqrd_adj[i] = r2_adj if not np.isnan(r2_adj) else 0
 
         # Calculate bounded standard error of regression with derived formula for efficiency
@@ -143,22 +132,55 @@ def adaptive_regression(df, t, y, B, g):
 
 
 def alert_regression(df, t='date', y='count', B=28, g=2):
-    """
-    Detect anomalies in a time series dataset using adaptive regression.
+    """Adaptive Multiple Regression
 
-    Args:
-        df (pandas.DataFrame): A time series dataset with at least two columns: one
+    The adaptive multiple regression algorithm fits a linear model to a baseline
+    of counts or percentages of length B, and forecasts a predicted value g + 1
+    days later (guard-band). This value is compared to the current observed value
+    and divided by the standard error of prediction in the test-statistic.
+    The model includes terms to account for linear trends and day-of-week effects.
+    Note that this implementation does NOT account for federal holidays as in the
+    Regression 1.2 algorithm in ESSENCE. An alert (red value) is signaled if
+    the statistical test (student's t-test) applied to the test statistic yields
+    a p-value less than 0.01. If the p-value is greater than or equal to 0.01
+    and strictly less than 0.05, a warning (yellow value) is signaled.
+    Blue values are returned if an alert or warning does not occur.
+    Grey values represent instances where anomaly detection did not apply
+    (i.e., observations for which baseline data were unavailable).
+
+    :param df: A time series dataset with at least two columns: one
             containing the dates or times of observations (default: 'date'), and another
             containing the values of the time series (default: 'count'). If the dataset is
             grouped, the group variables should be included in the dataframe.
-        t (str, optional): The name of the column in df that contains the dates or times of
+    :type df: pandas.DataFrame
+    :param t: The name of the column in df that contains the dates or times of
             observations. Defaults to 'date'.
-        y (str, optional): The name of the column in df that contains the values of the
+    :type t: str
+    :param y: The name of the column in df that contains the values of the
             time series. Defaults to 'count'.
-        B (int, optional): The length of the baseline period (in days). Must be a multiple
+    :type y: str
+    :param B: The length of the baseline period (in days). Must be a multiple
             of 7 and at least 7. Defaults to 28.
-        g (int, optional): The length of the guard band (in days). Must be non-negative.
+    :type B: int
+    :param g: The length of the guard band (in days). Must be non-negative.
             Defaults to 2.
+    :type g: int
+    :rtype: pandas.DataFrame
+    :returns: Original pandas data frame with detection results.
+    :examples:
+        # Example 1
+        import pandas as pd
+        import numpy as np
+        from pynssp.detectors.regression import *
+    
+        df = pd.DataFrame({
+            'date': pd.date_range('2020-01-01', '2020-12-31'),
+            'count': np.random.randint(0, 101, size=366)
+        })
+
+        df_regression = alert_regression(df)
+
+        df_regression.head()
 
     """
     
