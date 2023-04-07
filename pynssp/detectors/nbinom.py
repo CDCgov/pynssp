@@ -5,28 +5,20 @@ from statsmodels.api import families, formula
 from statsmodels.genmod.families import links
 
 def nb_model(df, t, y, baseline_end, include_time):
-    """
-    Fits a negative binomial model to predict the count variable y over time t,
-    and computes upper confidence bounds and alarm thresholds for baseline and
-    prediction periods.
+    """Negative binomial regression model for weekly counts
 
-    :param df: pandas DataFrame with columns 't' and 'y', representing the time
-        variable and the count variable, respectively.
-    :type df: pandas.DataFrame
-    :param t: name of the time variable column in df.
-    :type t: str
-    :param y: name of the count variable column in df.
-    :type y: str
-    :param baseline_end: date at which the baseline period ends.
-    :type baseline_end: datetime.date
-    :param include_time: whether to include a time variable (in weeks) in the model.
-    :type include_time: bool
-    :return: pandas DataFrame with columns 'obs', 'cos', 'sin', 'split',
-        'estimate', 'threshold', 'alarm', 'time_term', representing the
-        observation number, the cosine and sine of the week number, the split
-        period (baseline or prediction), the predicted count estimate, the
-        upper alarm threshold, the alarm status, and whether time was included
-        in the model.
+    Negative binomial model helper function for monitoring weekly
+    count time series with seasonality
+
+    :param df: A pandas data frame
+    :param t: Name of the column of type Date containing the dates
+    :param y Name of the column of type Numeric containing counts
+    :param baseline_end: Object of type Date defining the end of the
+        baseline/training period
+    :param include_time: Logical indicating whether or not to include time term
+        in regression model
+
+    :returns: A pandas data frame.
     """
     df = df.reset_index(drop=True)
 
@@ -98,7 +90,29 @@ def nb_model(df, t, y, baseline_end, include_time):
 
 
 def alert_nbinom(df, baseline_end, t='date', y='count', include_time=True):
-    """
+    """Negative binomial detection algorithm for weekly counts
+    
+    The negative binomial regression algorithm fits a negative binomial regression
+    model with a time term and order 1 Fourier terms to a baseline period that
+    spans 2 or more years. Inclusion of Fourier terms in the model is intended
+    to account for seasonality common in multi-year weekly time series of counts.
+    Order 1 sine and cosine terms are included to account for annual seasonality
+    that is common to syndromes and diseases such as influenza, RSV, and norovirus.
+    Each baseline model is used to make weekly forecasts for all weeks following
+    the baseline period. One-sided upper 95% prediction interval bounds are
+    computed for each week in the prediction period. Alarms are signaled for
+    any week during for which weekly counts fall above the upper bound of
+    the prediction interval.
+
+    :param df: A pandas data frame containing time series data
+    :param t: Name of the column of type Date containing the dates (Default value = 'date')
+    :param y: Name of the column of type Numeric containing counts or percentages (Default value = 'count')
+    :param baseline_end: date of the end of the baseline/training period (in date or string class)
+    :param include_time: Indicate whether or not to include time term in regression model (default is True)
+
+    :returns: Original pandas dataframe with model estimates, upper prediction interval bounds,
+        a binary alarm indicator field, and a binary indicator field of
+        whether or not a time term was included.
     :examples:
         import pandas as pd
         import numpy as np
