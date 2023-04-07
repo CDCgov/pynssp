@@ -126,26 +126,6 @@ def alert_nbinom(df, baseline_end, t='date', y='count', include_time=True):
     """
     grouped_df = isinstance(df, pd.core.groupby.DataFrameGroupBy)
 
-    # df[t] = pd.to_datetime(df[t])
-    # df[y] = pd.to_numeric(df[y])
-
-    # # Check baseline length and for sufficient historical data
-    # baseline = df if baseline_end is None else df[df[t] <= pd.to_datetime(baseline_end)]
-    # baseline_n_wks = baseline[t].nunique()
-    # baseline_n_yrs = baseline_n_wks / 52
-    # if baseline_n_yrs < 2:
-    #     raise ValueError("Error in {.fn alert_nbinom}: baseline length must be greater than or equal to 2 years")
-
-    # baseline_dates = baseline[t].unique()
-    # if len(pd.date_range(start=min(baseline_dates), end=max(baseline_dates), freq='W')) != baseline_n_wks:
-    #     raise ValueError("Error in alert_nbinom: not all weeks in intended baseline date range were found")
-
-    # # Check that time series observations are non-negative integer counts
-    # ts_obs = df[y]
-    # ts_obs_int = ts_obs.astype(int)
-    # if not all(ts_obs == ts_obs_int) or not all(ts_obs >= 0):
-    #     raise ValueError("Error in {.fn alert_nbinom}: time series observations must be non-negative integer counts")
-
     # Check for grouping variables
     if grouped_df:
         df = df\
