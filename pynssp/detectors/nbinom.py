@@ -17,7 +17,6 @@ def nb_model(df, t, y, baseline_end, include_time):
         baseline/training period
     :param include_time: Logical indicating whether or not to include time term
         in regression model
-
     :returns: A pandas data frame.
     """
     df = df.reset_index(drop=True)
