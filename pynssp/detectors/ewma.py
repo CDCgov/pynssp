@@ -58,14 +58,14 @@ def ewma_loop(df, t, y, B, g, w1, w2):
         z2[i_0] = w2 * y[i_0] + (1 - w2) * z2[i_0 - 1]
 
     # Initialize baseline indices
-    ndx_baseline = np.arange(0, min_baseline)
+    ndx_baseline = np.arange(0, min_baseline-1)
 
     # EWMA loop
     for i in range(min_baseline + g, N):
 
         # Pad baseline until full baseline is obtained
         if ndx_baseline[-1] < max_baseline:
-            ndx_baseline = np.insert(ndx_baseline, 0, 0)
+            ndx_baseline = np.insert(ndx_baseline, 0, -1)
 
         # Advance baseline for current iteration
         ndx_baseline += 1
