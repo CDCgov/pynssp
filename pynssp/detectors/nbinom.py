@@ -12,11 +12,9 @@ def nb_model(df, t, y, baseline_end, include_time):
 
     :param df: A pandas data frame
     :param t: Name of the column of type Date containing the dates
-    :param y Name of the column of type Numeric containing counts
-    :param baseline_end: Object of type Date defining the end of the
-        baseline/training period
-    :param include_time: Logical indicating whether or not to include time term
-        in regression model
+    :param y: Name of the column of type Numeric containing counts
+    :param baseline_end: Object of type Date defining the end of the baseline/training period
+    :param include_time: Logical indicating whether or not to include time term in regression model
     :returns: A pandas data frame.
     """
     df = df.reset_index(drop=True)
@@ -56,26 +54,16 @@ def nb_model(df, t, y, baseline_end, include_time):
 
     baseline_model = formula.glm(formula_str, data=baseline_data, family=families.NegativeBinomial(link=links.log()))\
         .fit()
-    # df_residual = baseline_model.df_resid
-    # theta = baseline_model.scale
 
     baseline_fit = baseline_data.copy()
     baseline_preds = baseline_model.get_prediction(baseline_fit)
-    baseline_pred_ci = pd.DataFrame(baseline_preds.conf_int(alpha=0.05), columns=['lower_ci', 'upper_ci'])
-    baseline_fit['estimate'] = baseline_preds.predicted_mean
-    # baseline_fit['se_link'] = baseline_model.bse
-    # baseline_fit['fit_link'] = np.log(baseline_fit['fit_link'])
-    baseline_fit['upper_ci'] = baseline_pred_ci['upper_ci'].tolist() #np.exp(baseline_fit['fit_link'] + stats.anglit.ppf(1 - 0.05/2, df_residual) * baseline_fit['se_link'])
-    # baseline_fit['threshold'] = stats.nbinom.ppf(1 - 0.05, n=theta, p=theta/(theta+baseline_fit['estimate']))
+    baseline_pred_ci = baseline_preds.summary_frame(alpha=0.05) 
+    baseline_fit['estimate'], _, _, baseline_fit['threshold'] = baseline_pred_ci.values.T
 
     predict_fit = predict_data.copy()
     predict_preds = baseline_model.get_prediction(predict_fit)
-    predict_pred_ci = pd.DataFrame(predict_preds.conf_int(alpha=0.05), columns=['lower_ci', 'upper_ci'])
-    predict_fit['estimate'] = predict_preds.predicted_mean
-    # predict_fit['se_link'] = baseline_model.get_prediction(predict_data).se_mean
-    # predict_fit['fit_link'] = np.exp(predict_fit['fit_link'])
-    predict_fit['upper_ci'] = predict_pred_ci['upper_ci'].tolist() #np.exp(predict_fit['fit_link'] + stats.t.ppf(1 - 0.05/2, df_residual) * predict_fit['se_link'])
-    # predict_fit['threshold'] = stats.nbinom.ppf(1 - 0.05, n=theta, p=theta/(theta+predict_fit['estimate']))
+    predict_pred_ci = predict_preds.summary_frame(alpha=0.05) 
+    predict_fit['estimate'], _, _, predict_fit['threshold'] = predict_pred_ci.values.T
 
     result = pd.concat([baseline_fit, predict_fit])
     result.sort_values(by=t, inplace=True)
@@ -83,7 +71,7 @@ def nb_model(df, t, y, baseline_end, include_time):
     result['split'] = pd.Categorical(result['split'], categories=["Baseline Period", "Prediction Period"])
     result['alarm'] = np.where(result[y] > result['threshold'], True, False)
     result['time_term'] = include_time
-    result.drop(columns=['obs', 'cos', 'sin', 'upper_ci'], inplace=True)
+    result.drop(columns=['obs', 'cos', 'sin'], inplace=True)
 
     return result
 
