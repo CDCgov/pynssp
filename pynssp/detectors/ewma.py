@@ -130,14 +130,14 @@ def ewma_loop(df, t, y, B, g, w1, w2):
             test_stat[i] = test_stat2[i]
             z[i] = z2[i]
     
-    df['baseline_expected'] = expected
-    df['test_statistic'] = test_stat
-    df['p_value'] = p_val
+    df["baseline_expected"] = expected
+    df["test_statistic"] = test_stat
+    df["p_value"] = p_val
 
     return df
 
 
-def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
+def alert_ewma(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
     """Exponentially Weighted Moving Average (EWMA)
     
     The EWMA compares a weighted average of the most recent visit counts
@@ -148,15 +148,15 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
     for Emergency Department data from certain hospital groups and for time series with
     small counts (daily average below 10) because of the limited case definition or
     chosen geographic region. An alert (red value) is signaled if the statistical test
-    (student's t-test) applied to the test statistic yields a p-value less than 0.01.
+    (student"s t-test) applied to the test statistic yields a p-value less than 0.01.
     If the p-value is greater than or equal to 0.01 and strictly less than 0.05, a warning
     (yellow value) is signaled. Blue values are returned if an alert or warning does not
     occur. Grey values represent instances where anomaly detection did not apply
     (i.e., observations for which baseline data were unavailable).
 
     :param df: A pandas data frame containing time series data
-    :param t: Name of the column of type Date containing the dates (Default value = 'date')
-    :param y: Name of the column of type Numeric containing counts or percentages (Default value = 'count')
+    :param t: Name of the column of type Date containing the dates (Default value = "date")
+    :param y: Name of the column of type Numeric containing counts or percentages (Default value = "count")
     :param B: Baseline parameter. The baseline length is the number of days used to
         calculate rolling averages, standard deviations, and exponentially weighted
         moving averages. Defaults to 28 days to match ESSENCE implementation.
@@ -177,8 +177,8 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
         from pynssp.detectors.ewma import *
     
         df = pd.DataFrame({
-            'date': pd.date_range('2020-01-01', '2020-12-31'),
-            'count': np.random.randint(0, 101, size=366)
+            "date": pd.date_range("2020-01-01", "2020-12-31"),
+            "count": np.random.randint(0, 101, size=366)
         })
 
         df_ewma = alert_ewma(df)
@@ -189,11 +189,11 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
     
     # Check baseline length argument
     if B < 7:
-        raise ValueError("Error in alert_ewma: baseline length argument 'B' must be greater than or equal to 7")
+        raise ValueError("Error in alert_ewma: baseline length argument `B` must be greater than or equal to 7")
         
     # Check guardband length argument
     if g < 0:
-        raise ValueError("Error in alert_ewma: guardband length argument 'g' cannot be negative")
+        raise ValueError("Error in alert_ewma: guardband length argument `g` cannot be negative")
     
     # Check for sufficient baseline data
     grouped_df = isinstance(df, pd.core.groupby.DataFrameGroupBy)
@@ -214,14 +214,14 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
         
         alert_tbl = alert_tbl.reset_index(drop=True)
 
-        alert_tbl['alert'] = np.select(
+        alert_tbl["alert"] = np.select(
             [
-                alert_tbl['p_value'] < 0.01,
-                (alert_tbl['p_value'] >= 0.01) & (alert_tbl['p_value'] < 0.05),
-                alert_tbl['p_value'] >= 0.05
+                alert_tbl["p_value"] < 0.01,
+                (alert_tbl["p_value"] >= 0.01) & (alert_tbl["p_value"] < 0.05),
+                alert_tbl["p_value"] >= 0.05
             ], 
-            ['red', 'yellow', 'blue'], 
-            default='grey'
+            ["red", "yellow", "blue"], 
+            default="grey"
         )
         
     else:
@@ -239,14 +239,14 @@ def alert_ewma(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
         
         alert_tbl = alert_tbl.reset_index(drop=True)
 
-        alert_tbl['alert'] = np.select(
+        alert_tbl["alert"] = np.select(
             [
-                alert_tbl['p_value'] < 0.01,
-                (alert_tbl['p_value'] >= 0.01) & (alert_tbl['p_value'] < 0.05),
-                alert_tbl['p_value'] >= 0.05
+                alert_tbl["p_value"] < 0.01,
+                (alert_tbl["p_value"] >= 0.01) & (alert_tbl["p_value"] < 0.05),
+                alert_tbl["p_value"] >= 0.05
             ], 
-            ['red', 'yellow', 'blue'], 
-            default='grey'
+            ["red", "yellow", "blue"], 
+            default="grey"
         )
     
     return alert_tbl

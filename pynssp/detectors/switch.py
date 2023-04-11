@@ -3,7 +3,7 @@ import numpy as np
 from .ewma import *
 from .regression import *
 
-def alert_switch(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
+def alert_switch(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
     """Regression/EWMA Switch
 
     The NSSP-ESSENCE Regression/EWMA Switch algorithm generalized the Regression and
@@ -17,9 +17,9 @@ def alert_switch(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
 
     :param df: A dataframe containing the time series data.
     :param t: The name of the column in `df` containing the time information.
-            Defaults to 'date'.
+            Defaults to "date".
     :param y: The name of the column in `df` containing the values to be analyzed.
-            Defaults to 'count'.
+            Defaults to "count".
     :param B: The length of the baseline period in days, must be a multiple of 7 and
             greater than or equal to 7. Defaults to 28.
     :param g: The length of the guardband period in days. Must be non-negative.
@@ -38,8 +38,8 @@ def alert_switch(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
         from pynssp.detectors.switch import *
     
         df = pd.DataFrame({
-            'date': pd.date_range('2020-01-01', '2020-12-31'),
-            'count': np.random.randint(0, 101, size=366)
+            "date": pd.date_range("2020-01-01", "2020-12-31"),
+            "count": np.random.randint(0, 101, size=366)
         })
 
         df_switch = alert_switch(df)
@@ -73,16 +73,16 @@ def alert_switch(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
     
     # Check for grouping variables
     base_tbl = df
-    s_cols = ['dow', 'dummy', 'sigma'] if grouped_df else ['dow', 'dummy', 'sigma', 'index']
+    s_cols = ["dow", "dummy", "sigma"] if grouped_df else ["dow", "dummy", "sigma", "index"]
 
     alert_tbl_reg = alert_regression(base_tbl, t, y, B, g)\
         .drop(columns=s_cols)\
         .reset_index(drop=True)
-    alert_tbl_reg['detector'] = "Adaptive Multiple Regression"
+    alert_tbl_reg["detector"] = "Adaptive Multiple Regression"
 
     alert_tbl_ewma = alert_ewma(base_tbl, t, y, B, g, w1, w2)\
         .reset_index(drop=True)
-    alert_tbl_ewma['detector'] = "EWMA"
+    alert_tbl_ewma["detector"] = "EWMA"
 
     stats_cols = [
        "baseline_expected", "test_statistic", "p_value", 
@@ -93,38 +93,38 @@ def alert_switch(df, t='date', y='count', B=28, g=2, w1=0.4, w2=0.9):
 
     replace_dates = pd.merge(
        alert_tbl_reg\
-        .query('(adjusted_r_squared.isna()) | (adjusted_r_squared < 0.60)')\
+        .query("(adjusted_r_squared.isna()) | (adjusted_r_squared < 0.60)")\
         .drop(columns=stats_cols),
         alert_tbl_ewma,
         on=join_cols,
-        how='inner'
+        how="inner"
     )
 
     if grouped_df:
        groups = list(df.grouper.names)
        combined_out = pd.concat([
-         alert_tbl_reg.query('(adjusted_r_squared >= 0.60)'),
+         alert_tbl_reg.query("(adjusted_r_squared >= 0.60)"),
          replace_dates
-        ]).drop(columns='adjusted_r_squared')\
+        ]).drop(columns="adjusted_r_squared")\
           .sort_values(by=groups + [t])
        
-       combined_out['detector'] = np.where(
-         combined_out['test_statistic'].isna(), 
+       combined_out["detector"] = np.where(
+         combined_out["test_statistic"].isna(), 
          np.nan, 
-         combined_out['detector']
+         combined_out["detector"]
         )
     else:
        combined_out = pd.concat([
           alert_tbl_reg\
-          .query('(adjusted_r_squared >= 0.60)'),
+          .query("(adjusted_r_squared >= 0.60)"),
           replace_dates
-        ]).drop(columns='adjusted_r_squared')\
+        ]).drop(columns="adjusted_r_squared")\
           .sort_values(by=t)
        
-       combined_out['detector'] = np.where(
-          combined_out['test_statistic'].isna(), 
+       combined_out["detector"] = np.where(
+          combined_out["test_statistic"].isna(), 
           np.nan, 
-          combined_out['detector']
+          combined_out["detector"]
         )
 
     return combined_out

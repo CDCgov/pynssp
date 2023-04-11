@@ -20,9 +20,9 @@ def adaptive_regression(df, t, y, B, g):
     """
     df = df.reset_index(drop=True)
     base_tbl = df
-    base_tbl['dow'] = pd.to_datetime(df[t]).dt.strftime("%A").str[:3]
-    base_tbl['dummy'] = 1
-    df = pd.concat([df, base_tbl.pivot(index=None, columns='dow', values='dummy').fillna(0)], axis=1)
+    base_tbl["dow"] = pd.to_datetime(df[t]).dt.strftime("%A").str[:3]
+    base_tbl["dummy"] = 1
+    df = pd.concat([df, base_tbl.pivot(index=None, columns="dow", values="dummy").fillna(0)], axis=1)
     
     dates = pd.to_datetime(base_tbl[t]).tolist()
     y_obs = base_tbl[y].tolist()
@@ -130,7 +130,7 @@ def adaptive_regression(df, t, y, B, g):
     )
 
 
-def alert_regression(df, t='date', y='count', B=28, g=2):
+def alert_regression(df, t="date", y="count", B=28, g=2):
     """Adaptive Multiple Regression
 
     The adaptive multiple regression algorithm fits a linear model to a baseline
@@ -140,7 +140,7 @@ def alert_regression(df, t='date', y='count', B=28, g=2):
     The model includes terms to account for linear trends and day-of-week effects.
     Note that this implementation does NOT account for federal holidays as in the
     Regression 1.2 algorithm in ESSENCE. An alert (red value) is signaled if
-    the statistical test (student's t-test) applied to the test statistic yields
+    the statistical test (student"s t-test) applied to the test statistic yields
     a p-value less than 0.01. If the p-value is greater than or equal to 0.01
     and strictly less than 0.05, a warning (yellow value) is signaled.
     Blue values are returned if an alert or warning does not occur.
@@ -149,9 +149,9 @@ def alert_regression(df, t='date', y='count', B=28, g=2):
 
     :param df: A pandas data frame containing time series data
     :param t: The name of the column in df that contains the dates or times of
-            observations. Defaults to 'date'.
+            observations. Defaults to "date".
     :param y: The name of the column in df that contains the values of the
-            time series. Defaults to 'count'.
+            time series. Defaults to "count".
     :param B: The length of the baseline period (in days). Must be a multiple
             of 7 and at least 7. Defaults to 28.
     :param g: The length of the guard band (in days). Must be non-negative.
@@ -164,8 +164,8 @@ def alert_regression(df, t='date', y='count', B=28, g=2):
         from pynssp.detectors.regression import *
     
         df = pd.DataFrame({
-            'date': pd.date_range('2020-01-01', '2020-12-31'),
-            'count': np.random.randint(0, 101, size=366)
+            "date": pd.date_range("2020-01-01", "2020-12-31"),
+            "count": np.random.randint(0, 101, size=366)
         })
 
         df_regression = alert_regression(df)
@@ -204,11 +204,11 @@ def alert_regression(df, t='date', y='count', B=28, g=2):
         
         df_result = df_result.reset_index(drop=True)
 
-        df_result['alert'] = np.select([(df_result['p_value'] < 0.01),
-                                        (df_result['p_value'] >= 0.01) & (df_result['p_value'] < 0.05),
-                                        (df_result['p_value'] >= 0.05)],
-                                        ['red', 'yellow', 'blue'], default='grey')
-        df_result = df_result.drop(columns=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
+        df_result["alert"] = np.select([(df_result["p_value"] < 0.01),
+                                        (df_result["p_value"] >= 0.01) & (df_result["p_value"] < 0.05),
+                                        (df_result["p_value"] >= 0.05)],
+                                        ["red", "yellow", "blue"], default="grey")
+        df_result = df_result.drop(columns=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
     else:
         unique_dates = df[t].unique()
         if len(unique_dates) != len(df):
@@ -216,10 +216,10 @@ def alert_regression(df, t='date', y='count', B=28, g=2):
 
         df_result = adaptive_regression(df, t=t, y=y, B=B, g=g)
         df_result = df_result.reset_index()
-        df_result['alert'] = np.select([(df_result['p_value'] < 0.01),
-                                        (df_result['p_value'] >= 0.01) & (df_result['p_value'] < 0.05),
-                                        (df_result['p_value'] >= 0.05)],
-                                        ['red', 'yellow', 'blue'], default='grey')
-        df_result = df_result.drop(columns=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
+        df_result["alert"] = np.select([(df_result["p_value"] < 0.01),
+                                        (df_result["p_value"] >= 0.01) & (df_result["p_value"] < 0.05),
+                                        (df_result["p_value"] >= 0.05)],
+                                        ["red", "yellow", "blue"], default="grey")
+        df_result = df_result.drop(columns=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
         
     return df_result

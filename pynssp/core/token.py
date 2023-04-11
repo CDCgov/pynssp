@@ -35,7 +35,7 @@ class Token:
 
         """
         headers = {
-            'Authorization': "{} {}".
+            "Authorization": "{} {}".
             format(self.access_token, self.__k.decrypt(self.__token.value).decode())
         }
         response = get(url, headers = headers)

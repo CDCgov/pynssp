@@ -30,7 +30,7 @@ def nb_model(df, t, y, baseline_end, include_time):
         raise ValueError("Baseline length must be greater than or equal to 2 years")
 
     baseline_dates = baseline[t].unique()
-    if len(pd.date_range(start=min(baseline_dates), end=max(baseline_dates), freq='W')) != baseline_n_wks:
+    if len(pd.date_range(start=min(baseline_dates), end=max(baseline_dates), freq="W")) != baseline_n_wks:
         raise ValueError("Not all weeks in intended baseline date range were found")
 
     # Check that time series observations are non-negative integer counts
@@ -39,18 +39,18 @@ def nb_model(df, t, y, baseline_end, include_time):
     if not all(ts_obs == ts_obs_int) or not all(ts_obs >= 0):
         raise ValueError("Time series observations must be non-negative integer counts")
 
-    df['obs'] = np.arange(1, len(df)+1)
-    df['cos'] = np.cos(2 * np.pi * df['obs'] / 52.18)
-    df['sin'] = np.sin(2 * np.pi * df['obs'] / 52.18)
-    df['split'] = np.where(df[t] <= pd.to_datetime(baseline_end), "Baseline Period", "Prediction Period")
+    df["obs"] = np.arange(1, len(df)+1)
+    df["cos"] = np.cos(2 * np.pi * df["obs"] / 52.18)
+    df["sin"] = np.sin(2 * np.pi * df["obs"] / 52.18)
+    df["split"] = np.where(df[t] <= pd.to_datetime(baseline_end), "Baseline Period", "Prediction Period")
 
-    baseline_data = df[df['split'] == "Baseline Period"]
-    predict_data = df[df['split'] == "Prediction Period"]
+    baseline_data = df[df["split"] == "Baseline Period"]
+    predict_data = df[df["split"] == "Prediction Period"]
 
     if include_time:
-        formula_str = y + ' ~ obs + cos + sin'
+        formula_str = y + " ~ obs + cos + sin"
     else:
-        formula_str = y + ' ~ cos + sin'
+        formula_str = y + " ~ cos + sin"
 
     baseline_model = formula.glm(formula_str, data=baseline_data, family=families.NegativeBinomial(link=links.log()))\
         .fit()
@@ -58,25 +58,25 @@ def nb_model(df, t, y, baseline_end, include_time):
     baseline_fit = baseline_data.copy()
     baseline_preds = baseline_model.get_prediction(baseline_fit)
     baseline_pred_ci = baseline_preds.summary_frame(alpha=0.05) 
-    baseline_fit['estimate'], _, _, baseline_fit['threshold'] = baseline_pred_ci.values.T
+    baseline_fit["estimate"], _, _, baseline_fit["threshold"] = baseline_pred_ci.values.T
 
     predict_fit = predict_data.copy()
     predict_preds = baseline_model.get_prediction(predict_fit)
     predict_pred_ci = predict_preds.summary_frame(alpha=0.05) 
-    predict_fit['estimate'], _, _, predict_fit['threshold'] = predict_pred_ci.values.T
+    predict_fit["estimate"], _, _, predict_fit["threshold"] = predict_pred_ci.values.T
 
     result = pd.concat([baseline_fit, predict_fit])
     result.sort_values(by=t, inplace=True)
     result.reset_index(drop=True, inplace=True)
-    result['split'] = pd.Categorical(result['split'], categories=["Baseline Period", "Prediction Period"])
-    result['alarm'] = np.where(result[y] > result['threshold'], True, False)
-    result['time_term'] = include_time
-    result.drop(columns=['obs', 'cos', 'sin'], inplace=True)
+    result["split"] = pd.Categorical(result["split"], categories=["Baseline Period", "Prediction Period"])
+    result["alarm"] = np.where(result[y] > result["threshold"], True, False)
+    result["time_term"] = include_time
+    result.drop(columns=["obs", "cos", "sin"], inplace=True)
 
     return result
 
 
-def alert_nbinom(df, baseline_end, t='date', y='count', include_time=True):
+def alert_nbinom(df, baseline_end, t="date", y="count", include_time=True):
     """Negative binomial detection algorithm for weekly counts
     
     The negative binomial regression algorithm fits a negative binomial regression
@@ -92,8 +92,8 @@ def alert_nbinom(df, baseline_end, t='date', y='count', include_time=True):
     the prediction interval.
 
     :param df: A pandas data frame containing time series data
-    :param t: Name of the column of type Date containing the dates (Default value = 'date')
-    :param y: Name of the column of type Numeric containing counts or percentages (Default value = 'count')
+    :param t: Name of the column of type Date containing the dates (Default value = "date")
+    :param y: Name of the column of type Numeric containing counts or percentages (Default value = "count")
     :param baseline_end: date of the end of the baseline/training period (in date or string class)
     :param include_time: Indicate whether or not to include time term in regression model (default is True)
 
@@ -105,8 +105,8 @@ def alert_nbinom(df, baseline_end, t='date', y='count', include_time=True):
         import numpy as np
 
         df = pd.DataFrame({
-            'date': pd.date_range(start='2014-01-05', end='2022-02-05', freq='W'),
-            'count': np.random.poisson(lam=25, size=(len(pd.date_range(start='2014-01-05', end='2022-02-05', freq='W')),))
+            "date": pd.date_range(start="2014-01-05", end="2022-02-05", freq="W"),
+            "count": np.random.poisson(lam=25, size=(len(pd.date_range(start="2014-01-05", end="2022-02-05", freq="W")),))
         })
 
         df_nbinom = alert_nbinom(df, baseline_end = "2020-03-01")
