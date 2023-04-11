@@ -62,8 +62,7 @@ def change_dates(url, start_date=None, end_date=None):
 
 
 def create_profile(username=None, password=None):
-    """
-    Create a new user profile with the given username and password.
+    """Create a new user profile with the given username and password.
 
     :param username: A string representing the username. If not provided, the user will be prompted to enter it.
     :param password: A string representing the user's password. If not provided, the user will be prompted to enter it securely.
@@ -77,8 +76,7 @@ def create_profile(username=None, password=None):
 
 
 def create_token_profile(token=None, access_token="Bearer"):
-    """
-    Create a new token profile with the given token and authentication type.
+    """Create a new token profile with the given token and authentication type.
 
     :param token: A string representing the token. If not provided, the user will be prompted to enter it securely.
     :param auth_type: A string representing the authentication type. Defaults to "Bearer".
@@ -90,8 +88,7 @@ def create_token_profile(token=None, access_token="Bearer"):
 
 
 def get_api_response(url, profile=None):
-    """
-    Retrieve a response from an API using the provided profile.
+    """Retrieve a response from an API using the provided profile.
 
     :param url: A string representing the URL of the API endpoint.
     :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
@@ -104,8 +101,7 @@ def get_api_response(url, profile=None):
 
 
 def get_api_data(url, fromCSV=False, profile=None, encoding="utf-8", **kwargs):
-    """
-    Retrieve data from an API using the provided profile.
+    """Retrieve data from an API using the provided profile.
 
     :param url: A string representing the URL of the API endpoint.
     :param fromCSV: A boolean indicating whether the data should be retrieved from a CSV file. Defaults to False.
@@ -120,8 +116,7 @@ def get_api_data(url, fromCSV=False, profile=None, encoding="utf-8", **kwargs):
 
 
 def get_api_graph(url, file_ext=".png", profile=None):
-    """
-    Retrieve a graph from an API using the provided profile.
+    """Retrieve a graph from an API using the provided profile.
 
     :param url: A string representing the URL of the API endpoint.
     :param file_ext: A string representing the file extension of the graph. Defaults to ".png".
@@ -135,15 +130,14 @@ def get_api_graph(url, file_ext=".png", profile=None):
 
 
 def get_essence_data(url, start_date=None, end_date=None, profile=None, **kwargs):
-    """
-    Retrieve data from the ESSENCE API using the provided profile.
+    """Retrieve data from the NSSP-ESSENCE API using the provided profile.
 
-    :param url: A string representing the URL of the ESSENCE API endpoint.
+    :param url: A string representing the URL of the NSSP-ESSENCE API endpoint.
     :param start_date: A string representing the start date of the data to retrieve.
     :param end_date: A string representing the end date of the data to retrieve.
     :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
     :param kwargs: Additional arguments to be passed to the get_api_data function.
-    :return: The data retrieved from the ESSENCE API.
+    :return: The data retrieved from the NSSP-ESSENCE API.
     """
     if profile is None:
         raise ValueError("Please, provide a profile object of type `Credentials` or `Token`!")
@@ -151,7 +145,7 @@ def get_essence_data(url, start_date=None, end_date=None, profile=None, **kwargs
     api_type = re.search(r"(?<=api/).+(?=\?)", url).group()
 
     if not api_type:
-        raise ValueError("URL is not of ESSENCE type. Check your URL or use get_api_data instead!")
+        raise ValueError("URL is not of NSSP-ESSENCE type. Check your URL or use get_api_data instead!")
 
     url_new = change_dates(url, start_date, end_date)
     
