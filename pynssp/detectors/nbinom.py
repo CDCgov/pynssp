@@ -61,23 +61,24 @@ def nb_model(df, t, y, baseline_end, include_time):
         exog=sm.add_constant(baseline_data[responses])
     ).fit().params[-1]
 
-    theta = 1/baseline_model.params[-1]
+    theta = 1/alpha
 
     # Fit the baseline negative binomial model
     baseline_model = formula.glm(
-        formula_str, data=baseline_data, 
+        formula_str, 
+        data=baseline_data, 
         family=families.NegativeBinomial(link=links.log(), alpha=alpha)
     ).fit()
 
     # Predictions
     baseline_fit = baseline_data.copy()
-    baseline_preds = baseline_model.predict(baseline_fit)
-    baseline_pred_ci = baseline_preds.summary_frame(alpha=0.05) 
+    baseline_preds = baseline_model.get_prediction(baseline_fit)
+    baseline_pred_ci = baseline_preds.summary_frame(alpha=0.05)
     baseline_fit["estimate"], _, _, baseline_fit["upper_ci"] = baseline_pred_ci.values.T
     baseline_fit["threshold"] = stats.nbinom.ppf(
         1 - 0.05, 
         n=theta, 
-        p=theta/(theta+baseline_fit['estimate'])
+        p=theta/(theta+baseline_fit['upper_ci'])
     )
 
     predict_fit = predict_data.copy()
@@ -87,7 +88,7 @@ def nb_model(df, t, y, baseline_end, include_time):
     predict_fit["threshold"] = stats.nbinom.ppf(
         1 - 0.05, 
         n=theta, 
-        p=theta/(theta+predict_fit['estimate'])
+        p=theta/(theta+predict_fit['upper_ci'])
     )
 
     result = pd.concat([baseline_fit, predict_fit])
