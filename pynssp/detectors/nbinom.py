@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from scipy import stats
+import statsmodels.api as sm
 from statsmodels.api import families, formula
 from statsmodels.genmod.families import links
 
@@ -48,22 +49,46 @@ def nb_model(df, t, y, baseline_end, include_time):
     predict_data = df[df["split"] == "Prediction Period"]
 
     if include_time:
+        responses = ["obs", "cos", "sin"] 
         formula_str = y + " ~ obs + cos + sin"
     else:
+        responses = ["obs", "sin"] 
         formula_str = y + " ~ cos + sin"
+    
+    # Calculate the dispersion parameter `theta` using the inverse link function
+    alpha = sm.NegativeBinomial(
+        endog=baseline_data[y], 
+        exog=sm.add_constant(baseline_data[responses])
+    ).fit().params[-1]
 
-    baseline_model = formula.glm(formula_str, data=baseline_data, family=families.NegativeBinomial(link=links.log()))\
-        .fit()
+    theta = 1/baseline_model.params[-1]
 
+    # Fit the baseline negative binomial model
+    baseline_model = formula.glm(
+        formula_str, data=baseline_data, 
+        family=families.NegativeBinomial(link=links.log(), alpha=alpha)
+    ).fit()
+
+    # Predictions
     baseline_fit = baseline_data.copy()
-    baseline_preds = baseline_model.get_prediction(baseline_fit)
+    baseline_preds = baseline_model.predict(baseline_fit)
     baseline_pred_ci = baseline_preds.summary_frame(alpha=0.05) 
-    baseline_fit["estimate"], _, _, baseline_fit["threshold"] = baseline_pred_ci.values.T
+    baseline_fit["estimate"], _, _, baseline_fit["upper_ci"] = baseline_pred_ci.values.T
+    baseline_fit["threshold"] = stats.nbinom.ppf(
+        1 - 0.05, 
+        n=theta, 
+        p=theta/(theta+baseline_fit['estimate'])
+    )
 
     predict_fit = predict_data.copy()
     predict_preds = baseline_model.get_prediction(predict_fit)
     predict_pred_ci = predict_preds.summary_frame(alpha=0.05) 
-    predict_fit["estimate"], _, _, predict_fit["threshold"] = predict_pred_ci.values.T
+    predict_fit["estimate"], _, _, predict_fit["upper_ci"] = predict_pred_ci.values.T
+    predict_fit["threshold"] = stats.nbinom.ppf(
+        1 - 0.05, 
+        n=theta, 
+        p=theta/(theta+predict_fit['estimate'])
+    )
 
     result = pd.concat([baseline_fit, predict_fit])
     result.sort_values(by=t, inplace=True)
@@ -71,7 +96,7 @@ def nb_model(df, t, y, baseline_end, include_time):
     result["split"] = pd.Categorical(result["split"], categories=["Baseline Period", "Prediction Period"])
     result["alarm"] = np.where(result[y] > result["threshold"], True, False)
     result["time_term"] = include_time
-    result.drop(columns=["obs", "cos", "sin"], inplace=True)
+    result.drop(columns=["obs", "cos", "sin", "upper_ci"], inplace=True)
 
     return result
 
