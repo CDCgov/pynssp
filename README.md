@@ -16,7 +16,7 @@ pip install pynssp
 You may also install `pynssp` from Github:
 
 ```sh
-pip install git+https://github.com/cdcent/pynssp.git
+pip install git+https://github.com/CDCgov/pynssp.git
 ```
 
 ## Usage
