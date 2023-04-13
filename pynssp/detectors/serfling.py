@@ -43,7 +43,7 @@ def serfling_model(df, t, y, baseline_end):
 
     baseline_model = sm.OLS(Y, X).fit()
 
-    input_data["estimate"], _, _, input_data["threshold"], _, _ = \
+    input_data["estimate"], _, _, _, _, input_data["threshold"] = \
         baseline_model.get_prediction(sm.add_constant(input_data[["obs", "cos", "sin"]]))\
                       .summary_frame(alpha=0.1).values.T
     input_data = input_data.drop(columns=["obs", "cos", "sin"])
