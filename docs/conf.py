@@ -113,7 +113,7 @@ latex_elements = {
 
     # The font size ('10pt', '11pt' or '12pt').
     #
-    # 'pointsize': '10pt',
+    'pointsize': '12pt',
 
     # Additional stuff for the LaTeX preamble.
     #
@@ -122,6 +122,11 @@ latex_elements = {
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
+
+    # Eliminate blank pages per http://stackoverflow.com/questions/5422997/
+    'babel' : r'\usepackage[english]{babel}',
+    'classoptions': ',openany,oneside',
+    'fncychap': r'\usepackage[Lenny]{fncychap}',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
