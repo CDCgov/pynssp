@@ -3,7 +3,7 @@
 
 ## Development Lead
 
-* Gbedegnon Roseric Azondekon <gazondekon@cdc.gov, roseric_2000@yahoo.fr>
+* [Gbedegnon Roseric Azondekon](https://rosericazondekon.github.io/) 
 
 ## Contributors
 
