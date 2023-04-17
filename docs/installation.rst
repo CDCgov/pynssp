@@ -23,15 +23,18 @@ you through the process.
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 
-From sources
+Development version
 ------------
 
-You may install from source with `pip`_ by running this command in your terminal.
+You may install the development version with `pip`_ by running this command in your terminal.
 
 .. code-block:: console
 
     $ pip install git+https://github.com/cdcgov/pynssp.git
 
+
+From sources
+------------
 
 Alternatively, the sources for pynssp can be downloaded from the `Github repo`_.
 
