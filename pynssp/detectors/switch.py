@@ -93,7 +93,7 @@ def alert_switch(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
 
     replace_dates = pd.merge(
        alert_tbl_reg\
-        .query("(adjusted_r_squared.isna()) | (adjusted_r_squared < 0.60)")\
+        .query("(adjusted_r_squared.isna()) | (adjusted_r_squared < 0.60)", engine="python")\
         .drop(columns=stats_cols),
         alert_tbl_ewma,
         on=join_cols,
@@ -103,7 +103,7 @@ def alert_switch(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
     if grouped_df:
        groups = list(df.grouper.names)
        combined_out = pd.concat([
-         alert_tbl_reg.query("(adjusted_r_squared >= 0.60)"),
+         alert_tbl_reg.query("(adjusted_r_squared >= 0.60)", engine="python"),
          replace_dates
         ]).drop(columns="adjusted_r_squared")\
           .sort_values(by=groups + [t])
@@ -116,7 +116,7 @@ def alert_switch(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
     else:
        combined_out = pd.concat([
           alert_tbl_reg\
-          .query("(adjusted_r_squared >= 0.60)"),
+          .query("(adjusted_r_squared >= 0.60)", engine="python"),
           replace_dates
         ]).drop(columns="adjusted_r_squared")\
           .sort_values(by=t)
