@@ -1,0 +1,11 @@
+cff-version: 1.1.0
+message: "If you use this software, please cite it using these metadata."
+authors:
+  - family-names: Azondekon
+    given-names: Gbedegnon Roseric
+    orcid: "https://orcid.org/0000-0001-9155-4153"
+title: "pynssp: A Signature Python package for the National Syndromic Surveillance Program (NSSP)"
+version: 0.1.0
+date-released: TBD
+license: "Apache License (>= 2)"
+repository-code: "https://github.com/CDCgov/Rnssp"
