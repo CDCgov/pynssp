@@ -46,4 +46,5 @@ setup(
     url='https://github.com/cdcgov/pynssp',
     version='0.1.0',
     zip_safe=False,
+    package_data={'': ['data/*.csv']},
 )
