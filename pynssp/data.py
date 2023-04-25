@@ -31,3 +31,19 @@ def get_scenario2():
     """Return a subset of the simulated time series data ('scenario #2')."""
     simulated_ts = load_simulated_ts()
     return load_simulated_ts()[simulated_ts["id"] == "Scenario #2"]
+
+
+def load_nssp_stopwords():
+    """Return a dataframe of NSSP-curated stopwords.
+
+    Contains the following fields:
+         #   Column      Non-Null Count  Dtype
+        ---  ------      --------------  -----
+         1   word        835 non-null    object
+         2   type        835 non-null    object
+        dtypes: int64(1), object(2)
+        memory usage: 13.2+ KB
+    """
+    
+    stream = pkg_resources.resource_stream(__name__, 'data/nssp_stopwords.csv')
+    return pd.read_csv(stream)

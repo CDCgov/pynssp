@@ -1,0 +1,836 @@
+word,type
+ABNORMAL,Medical Process Terms
+ACCESS,Medical Process Terms
+ACHE,Medical Process Terms
+ACHES,Medical Process Terms
+ACTIVE,Medical Process Terms
+ACUTE,Medical Process Terms
+ADMINISTERED,Medical Process Terms
+ADVICE,Medical Process Terms
+AFFECTED,Medical Process Terms
+AFFORD,Medical Process Terms
+AFTERWARDS,Medical Process Terms
+AGO,Medical Process Terms
+ALMOST,Medical Process Terms
+ALONE,Medical Process Terms
+ALREADY,Medical Process Terms
+AMOUNT,Medical Process Terms
+ANSWER,Medical Process Terms
+ANSWERING,Medical Process Terms
+APPEAR,Medical Process Terms
+APPEARED,Medical Process Terms
+APPEARS,Medical Process Terms
+APPLIED,Medical Process Terms
+APPOINTMENT,Medical Process Terms
+APPROPRIATELY,Medical Process Terms
+APPROXIMATELY,Medical Process Terms
+ARRIVED,Medical Process Terms
+ASKED,Medical Process Terms
+ASSESSMENT,Medical Process Terms
+BECAME,Medical Process Terms
+BECOME,Medical Process Terms
+BECOMES,Medical Process Terms
+BEGINNING,Medical Process Terms
+BROUGHT,Medical Process Terms
+CALL,Medical Process Terms
+CARE,Medical Process Terms
+CAUSE,Medical Process Terms
+CAUSING,Medical Process Terms
+CHANGE,Medical Process Terms
+CHECK,Medical Process Terms
+CHECKED,Medical Process Terms
+CLINIC,Medical Process Terms
+COMES,Medical Process Terms
+COMMANDS,Medical Process Terms
+COMPLAINED,Medical Process Terms
+COMPLAINING,Medical Process Terms
+COMPLAINS,Medical Process Terms
+COMPLAINT,Medical Process Terms
+COMPLAINTS,Medical Process Terms
+COMPLETE,Medical Process Terms
+COMPLETED,Medical Process Terms
+CONCERNED,Medical Process Terms
+CONCERNS,Medical Process Terms
+CONDITION,Medical Process Terms
+CONFIRMED,Medical Process Terms
+CONSTANTLY,Medical Process Terms
+CONSULT,Medical Process Terms
+CONTACTED,Medical Process Terms
+CONTINUE,Medical Process Terms
+CONTINUED,Medical Process Terms
+CONTINUES,Medical Process Terms
+CONTROLLED,Medical Process Terms
+COULD,Medical Process Terms
+COUNT,Medical Process Terms
+CURRENT,Medical Process Terms
+CURRENTLY,Medical Process Terms
+DECIDED,Medical Process Terms
+DECREASED,Medical Process Terms
+DENIED,Medical Process Terms
+DENIES,Medical Process Terms
+DESCRIBES,Medical Process Terms
+DIAGNOSED,Medical Process Terms
+DIAGNOSIS,Medical Process Terms
+DIFFCULTY,Medical Process Terms
+DIFFERENT,Medical Process Terms
+DIFFICULT,Medical Process Terms
+DIFFICULTY,Medical Process Terms
+DISCOMFORT,Medical Process Terms
+DISEASE,Medical Process Terms
+DISTRESS,Medical Process Terms
+DOCTOR,Medical Process Terms
+DONT,Medical Process Terms
+DUPLICATION,Medical Process Terms
+EITHER,Medical Process Terms
+ELSE,Medical Process Terms
+ENOUGH,Medical Process Terms
+ENTIRE,Medical Process Terms
+ERROR,Medical Process Terms
+ESPECIALLY,Medical Process Terms
+EVALUATED,Medical Process Terms
+EVALUATION,Medical Process Terms
+EXPERIENCING,Medical Process Terms
+EXTRA,Medical Process Terms
+FEEL,Medical Process Terms
+FINISHED,Medical Process Terms
+FOLLOW,Medical Process Terms
+FOLLOWED,Medical Process Terms
+FOLLOWING,Medical Process Terms
+FULL,Medical Process Terms
+FUNCTION,Medical Process Terms
+GENERAL,Medical Process Terms
+GENERALIZED,Medical Process Terms
+GOING,Medical Process Terms
+GOOD,Medical Process Terms
+GOT,Medical Process Terms
+GREATER,Medical Process Terms
+HAPPENS,Medical Process Terms
+HEALING,Medical Process Terms
+HELPING,Medical Process Terms
+HISTORY,Medical Process Terms
+HRS,Medical Process Terms
+HUMAN,Medical Process Terms
+HURT,Medical Process Terms
+HURTING,Medical Process Terms
+HURTS,Medical Process Terms
+ILL,Medical Process Terms
+IMPROVED,Medical Process Terms
+IMPROVEMENT,Medical Process Terms
+IMPROVING,Medical Process Terms
+INCLUDING,Medical Process Terms
+INITIALLY,Medical Process Terms
+INSTEAD,Medical Process Terms
+INTAKE,Medical Process Terms
+INVOLVED,Medical Process Terms
+ISSUES,Medical Process Terms
+JUST,Medical Process Terms
+KEEPING,Medical Process Terms
+LAST,Medical Process Terms
+LASTED,Medical Process Terms
+LATELY,Medical Process Terms
+LATER,Medical Process Terms
+LEAVING,Medical Process Terms
+LESS,Medical Process Terms
+LET,Medical Process Terms
+LIMITED,Medical Process Terms
+LOOKS,Medical Process Terms
+LOTS,Medical Process Terms
+MAKES,Medical Process Terms
+MAKING,Medical Process Terms
+MANY,Medical Process Terms
+MEDICAL,Medical Process Terms
+MEDICATION,Medical Process Terms
+MEDICATIONS,Medical Process Terms
+MIGHT,Medical Process Terms
+MINUTE,Medical Process Terms
+MOST,Medical Process Terms
+MOSTLY,Medical Process Terms
+MOVED,Medical Process Terms
+MULTIPLE,Medical Process Terms
+NEVER,Medical Process Terms
+NEXT,Medical Process Terms
+NON,Medical Process Terms
+NONSTRESS,Medical Process Terms
+NORMAL,Medical Process Terms
+NORMALIZED,Medical Process Terms
+NORMALLY,Medical Process Terms
+NOTED,Medical Process Terms
+NOTHING,Medical Process Terms
+NOTICED,Medical Process Terms
+NOTIFIED,Medical Process Terms
+NOTING,Medical Process Terms
+NUMEROUS,Medical Process Terms
+OBSERVED,Medical Process Terms
+OCCURED,Medical Process Terms
+OCCURS,Medical Process Terms
+ONLY,Medical Process Terms
+ONSET,Medical Process Terms
+OWN,Medical Process Terms
+PAIN,Medical Process Terms
+PAINS,Medical Process Terms
+PATIENT,Medical Process Terms
+PATIENTS,Medical Process Terms
+PERSON,Medical Process Terms
+PHYSICIAN,Medical Process Terms
+PLACED,Medical Process Terms
+PLUS,Medical Process Terms
+POSSIBLE,Medical Process Terms
+POSSIBLY,Medical Process Terms
+POTENTIAL,Medical Process Terms
+PRESCRIBED,Medical Process Terms
+PRESENTLY,Medical Process Terms
+PRESENTS,Medical Process Terms
+PRIMARY,Medical Process Terms
+PRIOR,Medical Process Terms
+PROBLEM,Medical Process Terms
+PROBLEMS,Medical Process Terms
+QUESTIONS,Medical Process Terms
+QUIT,Medical Process Terms
+QUITE,Medical Process Terms
+READY,Medical Process Terms
+REALLY,Medical Process Terms
+REASON,Medical Process Terms
+RECENT,Medical Process Terms
+RECENTLY,Medical Process Terms
+RECHECK,Medical Process Terms
+RECHECKED,Medical Process Terms
+REFERRED,Medical Process Terms
+REFILL,Medical Process Terms
+REFUSED,Medical Process Terms
+REGULAR,Medical Process Terms
+RELIEF,Medical Process Terms
+REPLACED,Medical Process Terms
+REPORT,Medical Process Terms
+REPORTED,Medical Process Terms
+REPORTEDLY,Medical Process Terms
+REPORTING,Medical Process Terms
+REQUESTS,Medical Process Terms
+RESULT,Medical Process Terms
+RESULTS,Medical Process Terms
+RETURN,Medical Process Terms
+RETURNING,Medical Process Terms
+ROUTINE,Medical Process Terms
+SAY,Medical Process Terms
+SCHEDULED,Medical Process Terms
+SEEM,Medical Process Terms
+SEEMED,Medical Process Terms
+SEEMS,Medical Process Terms
+SENT,Medical Process Terms
+SHOW,Medical Process Terms
+SHOWS,Medical Process Terms
+SICK,Medical Process Terms
+SIGN,Medical Process Terms
+SIGNIFICANT,Medical Process Terms
+SIGNS,Medical Process Terms
+SIMILAR,Medical Process Terms
+SOMETHING,Medical Process Terms
+SPOKE,Medical Process Terms
+SPRAY,Medical Process Terms
+STARTED,Medical Process Terms
+STARTS,Medical Process Terms
+STATEMENTS,Medical Process Terms
+STATING,Medical Process Terms
+STATUS,Medical Process Terms
+STAYING,Medical Process Terms
+STOP,Medical Process Terms
+STRONG,Medical Process Terms
+STRONGER,Medical Process Terms
+SUBSIDED,Medical Process Terms
+SUSPECTED,Medical Process Terms
+SYMPTOMS,Medical Process Terms
+TEST,Medical Process Terms
+TESTED,Medical Process Terms
+TESTING,Medical Process Terms
+THING,Medical Process Terms
+TILL,Medical Process Terms
+TISSUE,Medical Process Terms
+TODAY,Medical Process Terms
+TOLD,Medical Process Terms
+TONIGHT,Medical Process Terms
+TOTAL,Medical Process Terms
+TREATED,Medical Process Terms
+TREATMENT,Medical Process Terms
+TREATMENTS,Medical Process Terms
+UNKNOWN,Medical Process Terms
+UNUSUAL,Medical Process Terms
+URGENCY,Medical Process Terms
+USED,Medical Process Terms
+USING,Medical Process Terms
+USUALLY,Medical Process Terms
+VOICED,Medical Process Terms
+WAIT,Medical Process Terms
+WAITING,Medical Process Terms
+WANTS,Medical Process Terms
+WONT,Medical Process Terms
+WORDS,Medical Process Terms
+WORSE,Medical Process Terms
+WORSEN,Medical Process Terms
+WORSENING,Medical Process Terms
+WRONG,Medical Process Terms
+YESTERDAY,Medical Process Terms
+A,Stop Words
+ABOUT,Stop Words
+ABOVE,Stop Words
+AFTER,Stop Words
+AGAIN,Stop Words
+AGAINST,Stop Words
+ALL,Stop Words
+AM,Stop Words
+AN,Stop Words
+AND,Stop Words
+ANY,Stop Words
+ARE,Stop Words
+ARENT,Stop Words
+AS,Stop Words
+AT,Stop Words
+BE,Stop Words
+BECAUSE,Stop Words
+BEEN,Stop Words
+BEFORE,Stop Words
+BEING,Stop Words
+BELOW,Stop Words
+BETWEEN,Stop Words
+BOTH,Stop Words
+BUT,Stop Words
+BY,Stop Words
+CANNOT,Stop Words
+CANT,Stop Words
+COULD,Stop Words
+COULDNT,Stop Words
+DID,Stop Words
+DIDNT,Stop Words
+DO,Stop Words
+DOES,Stop Words
+DOESNT,Stop Words
+DOING,Stop Words
+DONT,Stop Words
+DOWN,Stop Words
+DURING,Stop Words
+EACH,Stop Words
+FEW,Stop Words
+FOR,Stop Words
+FROM,Stop Words
+FURTHER,Stop Words
+HAD,Stop Words
+HADNT,Stop Words
+HAS,Stop Words
+HASNT,Stop Words
+HAVE,Stop Words
+HAVENT,Stop Words
+HAVING,Stop Words
+HE,Stop Words
+HED,Stop Words
+HELL,Stop Words
+HER,Stop Words
+HERE,Stop Words
+HERES,Stop Words
+HERS,Stop Words
+HERSELF,Stop Words
+HES,Stop Words
+HIM,Stop Words
+HIMSELF,Stop Words
+HIS,Stop Words
+HOW,Stop Words
+HOWS,Stop Words
+I,Stop Words
+ID,Stop Words
+IF,Stop Words
+ILL,Stop Words
+IM,Stop Words
+IN,Stop Words
+INTO,Stop Words
+IS,Stop Words
+ISNT,Stop Words
+IT,Stop Words
+ITS,Stop Words
+ITS,Stop Words
+ITSELF,Stop Words
+IVE,Stop Words
+LETS,Stop Words
+ME,Stop Words
+MORE,Stop Words
+MOST,Stop Words
+MUSTNT,Stop Words
+MY,Stop Words
+MYSELF,Stop Words
+NO,Stop Words
+NOR,Stop Words
+NOT,Stop Words
+OF,Stop Words
+OFF,Stop Words
+ON,Stop Words
+ONCE,Stop Words
+ONLY,Stop Words
+OR,Stop Words
+OTHER,Stop Words
+OUGHT,Stop Words
+OUR,Stop Words
+OURS,Stop Words
+OURSELVES,Stop Words
+OUT,Stop Words
+OVER,Stop Words
+OWN,Stop Words
+SAME,Stop Words
+SHANT,Stop Words
+SHE,Stop Words
+SHED,Stop Words
+SHELL,Stop Words
+SHES,Stop Words
+SHOULD,Stop Words
+SHOULDNT,Stop Words
+SO,Stop Words
+SOME,Stop Words
+SUCH,Stop Words
+THAN,Stop Words
+THAT,Stop Words
+THATS,Stop Words
+THE,Stop Words
+THEIR,Stop Words
+THEIRS,Stop Words
+THEM,Stop Words
+THEMSELVES,Stop Words
+THEN,Stop Words
+THERE,Stop Words
+THERES,Stop Words
+THESE,Stop Words
+THEY,Stop Words
+THEYD,Stop Words
+THEYLL,Stop Words
+THEYRE,Stop Words
+THEYVE,Stop Words
+THIS,Stop Words
+THOSE,Stop Words
+THROUGH,Stop Words
+TO,Stop Words
+TOO,Stop Words
+UNDER,Stop Words
+UNTIL,Stop Words
+UP,Stop Words
+VERY,Stop Words
+WAS,Stop Words
+WASNT,Stop Words
+WE,Stop Words
+WED,Stop Words
+WELL,Stop Words
+WERE,Stop Words
+WERE,Stop Words
+WERENT,Stop Words
+WEVE,Stop Words
+WHAT,Stop Words
+WHATS,Stop Words
+WHEN,Stop Words
+WHENS,Stop Words
+WHERE,Stop Words
+WHERES,Stop Words
+WHICH,Stop Words
+WHILE,Stop Words
+WHO,Stop Words
+WHOM,Stop Words
+WHOS,Stop Words
+WHY,Stop Words
+WHYS,Stop Words
+WITH,Stop Words
+WONT,Stop Words
+WOULD,Stop Words
+WOULDNT,Stop Words
+X,Stop Words
+YOU,Stop Words
+YOUD,Stop Words
+YOULL,Stop Words
+YOUR,Stop Words
+YOURE,Stop Words
+YOURS,Stop Words
+YOURSELF,Stop Words
+YOURSELVES,Stop Words
+YOUVE,Stop Words
+AWAITING,Ignored Terms
+NEW,Ignored Terms
+SUBJECTIVE,Ignored Terms
+ANYONE,Ignored Terms
+SITES,Ignored Terms
+RIGHT,Ignored Terms
+LAB,Ignored Terms
+TRACKING,Ignored Terms
+WORK,Ignored Terms
+COWORKER,Ignored Terms
+PHYSICAL,Ignored Terms
+SITE,Ignored Terms
+FOREIGN,Ignored Terms
+NEEDS,Ignored Terms
+DISORDER,Ignored Terms
+EXAM,Ignored Terms
+CODE,Ignored Terms
+TERM,Ignored Terms
+DRUG,Ignored Terms
+STATE,Ignored Terms
+STATES,Ignored Terms
+USE,Ignored Terms
+LEVEL,Ignored Terms
+LEVELS,Ignored Terms
+POST,Ignored Terms
+EMPLOYEE,Ignored Terms
+FELL,Ignored Terms
+FALL,Ignored Terms
+WENT,Ignored Terms
+PER,Ignored Terms
+MOM,Ignored Terms
+DAD,Ignored Terms
+SEAT,Ignored Terms
+BED,Ignored Terms
+PROGRAM,Ignored Terms
+EXERCISE,Ignored Terms
+SPECIFIED,Ignored Terms
+UNSPECIFIED,Ignored Terms
+EXAMINATION,Ignored Terms
+ENCOUNTER,Ignored Terms
+MANAGEMENT,Ignored Terms
+TYPE,Ignored Terms
+EXEMPT,Ignored Terms
+LONG,Ignored Terms
+SIDE,Ignored Terms
+EMS,Ignored Terms
+OBJECT,Ignored Terms
+OBJECTS,Ignored Terms
+OBSERVATION,Ignored Terms
+OBSERVATIONS,Ignored Terms
+CRASH,Ignored Terms
+COLLISION,Ignored Terms
+ACCIDENT,Ignored Terms
+CAR,Ignored Terms
+BIKE,Ignored Terms
+REAR,Ignored Terms
+FRONT,Ignored Terms
+CAME,Ignored Terms
+COME,Ignored Terms
+HEALTH,Ignored Terms
+SELF,Ignored Terms
+CONTACT,Ignored Terms
+TRAVEL,Ignored Terms
+VEHICLE,Ignored Terms
+AREA,Ignored Terms
+THINK,Ignored Terms
+THINKS,Ignored Terms
+PASS,Ignored Terms
+PASSED,Ignored Terms
+EVEN,Ignored Terms
+DOSES,Ignored Terms
+DOSE,Ignored Terms
+RECEIVED,Ignored Terms
+CONCERN,Ignored Terms
+CONCERNS,Ignored Terms
+EMERGENCY,Ignored Terms
+ROOM,Ignored Terms
+LEFT,Ignored Terms
+RIGHT,Ignored Terms
+MONDAY,Ignored Terms
+TUESDAY,Ignored Terms
+WEDNESDAY,Ignored Terms
+THURSDAY,Ignored Terms
+FRIDAY,Ignored Terms
+SATURDAY,Ignored Terms
+SUNDAY,Ignored Terms
+MON,Ignored Terms
+TUE,Ignored Terms
+WED,Ignored Terms
+THU,Ignored Terms
+FRI,Ignored Terms
+SAT,Ignored Terms
+SUN,Ignored Terms
+JANUARY,Ignored Terms
+FEBRUARY,Ignored Terms
+MARCH,Ignored Terms
+APRIL,Ignored Terms
+MAY,Ignored Terms
+JUNE,Ignored Terms
+JULY,Ignored Terms
+AUGUST,Ignored Terms
+SEPTEMBER,Ignored Terms
+OCTOBER,Ignored Terms
+NOVEMBER,Ignored Terms
+DECEMBER,Ignored Terms
+JAN,Ignored Terms
+FEB,Ignored Terms
+MAR,Ignored Terms
+APR,Ignored Terms
+JUN,Ignored Terms
+JUL,Ignored Terms
+AUG,Ignored Terms
+SEP,Ignored Terms
+OCT,Ignored Terms
+NOV,Ignored Terms
+DEC,Ignored Terms
+MORNING,Ignored Terms
+AFTERNOON,Ignored Terms
+NOON,Ignored Terms
+EVENING,Ignored Terms
+NIGHT,Ignored Terms
+MIDNIGHT,Ignored Terms
+TRIAGE,Ignored Terms
+DEPARTMENT,Ignored Terms
+ADMIT,Ignored Terms
+ADMISSION,Ignored Terms
+CARE,Ignored Terms
+URGENT,Ignored Terms
+SETTING,Ignored Terms
+SET,Ignored Terms
+OBJECT,Ignored Terms
+BIB,Ignored Terms
+SECOND,Ignored Terms
+ADMINISTRATION,Ignored Terms
+BAM,Ignored Terms
+DOT,Ignored Terms
+SCREEN,Ignored Terms
+CHECKUP,Ignored Terms
+DENTAL,Ignored Terms
+CRISIS,Ignored Terms
+INTERNAL,Ignored Terms
+ASSIST,Ignored Terms
+DEVICE,Ignored Terms
+CLUB,Ignored Terms
+AMBULANCE,Ignored Terms
+PARENTS,Ignored Terms
+ACCOMPANIED,Ignored Terms
+SEE,Ignored Terms
+NURSE,Ignored Terms
+WITH,Ignored Terms
+WITHOUT,Ignored Terms
+DEFICIT,Ignored Terms
+LABORATORY,Ignored Terms
+LAB,Ignored Terms
+FINDINGS,Ignored Terms
+REGISTER,Ignored Terms
+IMMUNIZATION,Ignored Terms
+SCREENING,Ignored Terms
+SCREEN,Ignored Terms
+DAILY,Ignored Terms
+ABLE,Ignored Terms
+CELL,Ignored Terms
+LOCATION,Ignored Terms
+SHELBY,Ignored Terms
+AAA,Ignored Terms
+AIR,Ignored Terms
+FEELS,Ignored Terms
+FEEL,Ignored Terms
+RELATED,Ignored Terms
+BIBA,Ignored Terms
+PROVIDER,Ignored Terms
+VALLEY,Ignored Terms
+PARK,Ignored Terms
+VISIT,Ignored Terms
+HOLD,Ignored Terms
+QUEUE,Ignored Terms
+FULLY,Ignored Terms
+VAXD,Ignored Terms
+BASED,Ignored Terms
+RECURRENT,Ignored Terms
+SUPPORT,Ignored Terms
+REVIEW,Ignored Terms
+SYNDROME,Ignored Terms
+INFANT,Ignored Terms
+CHILD,Ignored Terms
+FIXATION,Ignored Terms
+CLASSIFIED,Ignored Terms
+DUE,Ignored Terms
+NEGATIVE,Ignored Terms
+POSITIVE,Ignored Terms
+CHRONIC,Ignored Terms
+PANEL,Ignored Terms
+REQUEST,Ignored Terms
+REFERRAL,Ignored Terms
+DOCUMENTATION,Ignored Terms
+AMB,Ignored Terms
+READING,Ignored Terms
+REDUCATION,Ignored Terms
+FIXATION,Ignored Terms
+RECEPTOR,Ignored Terms
+STAGE,Ignored Terms
+SCHOOL,Ignored Terms
+PREGANCY,Ignored Terms
+ULTRASOUND,Ignored Terms
+PRESENCE,Ignored Terms
+INJECTION,Ignored Terms
+STEADY,Ignored Terms
+MENTION,Ignored Terms
+CLIENT,Ignored Terms
+BLUECREEK,Ignored Terms
+YES,Ignored Terms
+DATE,Ignored Terms
+BASED,Ignored Terms
+CONSENT,Ignored Terms
+WALK,Ignored Terms
+ACCOUNT,Ignored Terms
+ACCT,Ignored Terms
+OPEN,Ignored Terms
+LOCATED,Ignored Terms
+LOCATION,Ignored Terms
+ECW,Ignored Terms
+ATTENTION,Ignored Terms
+PATH,Ignored Terms
+SPEAKS,Ignored Terms
+COMPLEX,Ignored Terms
+CMS,Ignored Terms
+OFFICE,Ignored Terms
+ADULT,Ignored Terms
+TENT,Ignored Terms
+COHERENCE,Ignored Terms
+ELSEWHERE,Ignored Terms
+HCC,Ignored Terms
+GARAGE,Ignored Terms
+ALSO,Ignored Terms
+COMPREHENSIVE,Ignored Terms
+VIA,Ignored Terms
+DRIVE,Ignored Terms
+THRU,Ignored Terms
+DEPT,Ignored Terms
+APOWW,Ignored Terms
+DPD,Ignored Terms
+DATA,Ignored Terms
+ENTRY,Ignored Terms
+ASYMPTOMATIC,Ignored Terms
+SYMPTOMATIC,Ignored Terms
+SYMPTOM,Ignored Terms
+SYMPTOMS,Ignored Terms
+ANN,Ignored Terms
+MAMM,Ignored Terms
+MAMMO,Ignored Terms
+TOMO,Ignored Terms
+EPISODE,Ignored Terms
+REQUIRE,Ignored Terms
+REQUIRES,Ignored Terms
+REGION,Ignored Terms
+CONDITIONS,Ignored Terms
+CONDITION,Ignored Terms
+HOME,Ignored Terms
+PARTICIPANTS,Ignored Terms
+MEN,Ignored Terms
+WOMEN,Ignored Terms
+MENS,Ignored Terms
+WOMENS,Ignored Terms
+FAMILY,Ignored Terms
+FAMILIES,Ignored Terms
+PERSONAL,Ignored Terms
+PERSON,Ignored Terms
+BEHAVIOR,Ignored Terms
+CONTROL,Ignored Terms
+SMRT,Ignored Terms
+RAPID,Ignored Terms
+REPORT,Ignored Terms
+REPORTS,Ignored Terms
+ANTIBODIES,Ignored Terms
+POSTOPERATIVE,Ignored Terms
+EXPOSURE,Ignored Terms
+INVOLVEMENT,Ignored Terms
+AIRBAG,Ignored Terms
+HOPE,Ignored Terms
+CENTER,Ignored Terms
+INDUCE,Ignored Terms
+INDUCED,Ignored Terms
+ROLE,Ignored Terms
+TELEMEDICINE,Ignored Terms
+HEALED,Ignored Terms
+DISORDER,Ignored Terms
+DISORDERS,Ignored Terms
+FIRST,Ignored Terms
+SECOND,Ignored Terms
+THIRD,Ignored Terms
+FOURTH,Ignored Terms
+FIFTH,Ignored Terms
+SIXTH,Ignored Terms
+SEVENTH,Ignored Terms
+EIGHTS,Ignored Terms
+NINTH,Ignored Terms
+TENTH,Ignored Terms
+FLOOR,Ignored Terms
+AWHILE,Ignored Terms
+FILTER,Ignored Terms
+IVC,Ignored Terms
+BIOPSY,Ignored Terms
+THERAPY,Ignored Terms
+CERTIFICATION,Ignored Terms
+INSIDE,Ignored Terms
+OUTSIDE,Ignored Terms
+VACCINE,Ignored Terms
+VACCINATION,Ignored Terms
+CF5,Ignored Terms
+INS,Ignored Terms
+BCBS,Ignored Terms
+CONTACT,Ignored Terms
+CONTACTS,Ignored Terms
+MTH,Ignored Terms
+FUP,Ignored Terms
+BENIGN,Ignored Terms
+LOW,Ignored Terms
+HIGH,Ignored Terms
+REACTIVE,Ignored Terms
+REACTION,Ignored Terms
+ORTHOPEDIC,Ignored Terms
+PROSTHETIC,Ignored Terms
+CHENAL,Ignored Terms
+NSL,Ignored Terms
+TOMOGRAPHY,Ignored Terms
+MEDIA,Ignored Terms
+EVERY,Ignored Terms
+BCG,Ignored Terms
+GCS,Ignored Terms
+IOL,Ignored Terms
+PHACO,Ignored Terms
+WELLNESS,Ignored Terms
+LABS,Ignored Terms
+VERBALLY,Ignored Terms
+VERBAL,Ignored Terms
+APG,Ignored Terms
+AUTHORIZED,Ignored Terms
+RISE,Ignored Terms
+BAR,Ignored Terms
+SHAFT,Ignored Terms
+RADIUS,Ignored Terms
+CLOS,Ignored Terms
+ROUTN,Ignored Terms
+CEMENT,Ignored Terms
+ARRIVAL,Ignored Terms
+ARRIVE,Ignored Terms
+ARRIVED,Ignored Terms
+IMMUNIZATION,Ignored Terms
+IMMUNIZATIONS,Ignored Terms
+MAINOR,Ignored Terms
+FLAG,Ignored Terms
+FOOTBALL,Ignored Terms
+RESTAAGING,Ignored Terms
+STAGE,Ignored Terms
+CUFF,Ignored Terms
+BLOCK,Ignored Terms
+ISAACS,Ignored Terms
+RET,Ignored Terms
+INFORMED,Ignored Terms
+BLACK,Ignored Terms
+ACHIEVED,Ignored Terms
+COMPLICATION,Ignored Terms
+INTACT,Ignored Terms
+NATIVE,Ignored Terms
+SINCE,Ignored Terms
+BILATERAL,Ignored Terms
+FLANK,Ignored Terms
+ALLEGED,Ignored Terms
+ASSAULT,Ignored Terms
+MIXED,Ignored Terms
+ADJUSTMENT,Ignored Terms
+ACQUIRED,Ignored Terms
+ABSENCE,Ignored Terms
+SIMPLE,Ignored Terms
+CREATED,Ignored Terms
+ALERT,Ignored Terms
+ORIENTED,Ignored Terms
+PSA,Ignored Terms
+ANTIGEN,Ignored Terms
+DENSITY,Ignored Terms
+INITIAL,Ignored Terms
+TIME,Ignored Terms
+HARD,Ignored Terms
+DRAW,Ignored Terms
+TUBE,Ignored Terms
+EATING,Ignored Terms
+DRINKING,Ignored Terms
+BEHIND,Ignored Terms
+BODY,Ignored Terms
+EAT,Ignored Terms
+DRINK,Ignored Terms
