@@ -1,5 +1,6 @@
 bump2version>=1.0.1
 coverage>=6.2
+pkg_resources
 m2r
 flake8
 pytest
