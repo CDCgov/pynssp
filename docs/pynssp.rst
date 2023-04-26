@@ -13,6 +13,14 @@ Subpackages
 Submodules
 ----------
 
+pynssp.data module
+------------------
+
+.. automodule:: pynssp.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pynssp.pynssp module
 --------------------
 
