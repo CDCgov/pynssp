@@ -17,7 +17,7 @@ def load_simulated_ts():
         memory usage: 24.6+ KB
     """
     
-    stream = pkg_resources.resource_stream(__name__, 'data/simulated_ts.csv')
+    stream = pkg_resources.resource_stream(__name__, "data/simulated_ts.csv")
     return pd.read_csv(stream)
 
 
@@ -45,5 +45,5 @@ def load_nssp_stopwords():
         memory usage: 13.2+ KB
     """
     
-    stream = pkg_resources.resource_stream(__name__, 'data/nssp_stopwords.csv')
+    stream = pkg_resources.resource_stream(__name__, "data/nssp_stopwords.csv")
     return pd.read_csv(stream)
