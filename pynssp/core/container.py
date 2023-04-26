@@ -14,7 +14,7 @@ class NSSPContainer:
 
 
 class APIGraph:
-  """An class to store an API graph"""
+  """A class to store an API graph"""
 
   def __init__(self, path, response):
     """Initializes an APIGraph class
