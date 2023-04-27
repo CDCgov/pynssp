@@ -19,11 +19,9 @@
 #
 import os
 import sys
-import pynssp
-
 from os.path import basename, dirname, realpath
-
 sys.path.insert(0, os.path.abspath('..'))
+import pynssp
 
 # -- General configuration ---------------------------------------------
 
