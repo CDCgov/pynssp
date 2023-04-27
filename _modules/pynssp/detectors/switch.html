@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynssp.detectors.switch &mdash; pynssp 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pynssp
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">About pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pynssp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynssp.detectors.switch</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynssp.detectors.switch</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.ewma</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.regression</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="alert_switch"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.switch.alert_switch">[docs]</a><span class="k">def</span> <span class="nf">alert_switch</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w1</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">w2</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Regression/EWMA Switch</span>
+
+<span class="sd">    The NSSP-ESSENCE Regression/EWMA Switch algorithm generalized the Regression and</span>
+<span class="sd">    EWMA algorithms by applying the most appropriate algorithm for the data in the</span>
+<span class="sd">    baseline. First, multiple adaptive regression is applied where the adjusted R</span>
+<span class="sd">    squared value of the model is examined to see if it meets a threshold of 0.60. If</span>
+<span class="sd">    this threshold is not met, then the model is considered to not explain the data well.</span>
+<span class="sd">    In this case, the algorithm switches to the EWMA algorithm, which is more appropriate</span>
+<span class="sd">    for sparser time series that are common with county level trends. The smoothing</span>
+<span class="sd">    coefficient for the EWMA algorithm is fixed to 0.4.</span>
+
+<span class="sd">    :param df: A dataframe containing the time series data.</span>
+<span class="sd">    :param t: The name of the column in `df` containing the time information.</span>
+<span class="sd">            Defaults to &quot;date&quot;.</span>
+<span class="sd">    :param y: The name of the column in `df` containing the values to be analyzed.</span>
+<span class="sd">            Defaults to &quot;count&quot;.</span>
+<span class="sd">    :param B: The length of the baseline period in days, must be a multiple of 7 and</span>
+<span class="sd">            greater than or equal to 7. Defaults to 28.</span>
+<span class="sd">    :param g: The length of the guardband period in days. Must be non-negative.</span>
+<span class="sd">            Defaults to 2.</span>
+<span class="sd">    :param w1: Smoothing coefficient for sensitivity to gradual events. Must be between</span>
+<span class="sd">            0 and 1 and is recommended to be between 0.3 and 0.5 to account for gradual</span>
+<span class="sd">            effects. Defaults to 0.4 to match NSSP-ESSENCE implementation.</span>
+<span class="sd">    :param w2: Smoothed coefficient for sensitivity to sudden events. Must be between</span>
+<span class="sd">            0 and 1 and is recommended to be above 0.7 to account for sudden events.</span>
+<span class="sd">            Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algorithm.</span>
+<span class="sd">    :returns: A dataframe containing the results of the analysis.</span>
+<span class="sd">    :examples:</span>
+<span class="sd">        # Example 1</span>
+<span class="sd">        import pandas as pd</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        from pynssp.detectors.switch import *</span>
+<span class="sd">    </span>
+<span class="sd">        df = pd.DataFrame({</span>
+<span class="sd">            &quot;date&quot;: pd.date_range(&quot;2020-01-01&quot;, &quot;2020-12-31&quot;),</span>
+<span class="sd">            &quot;count&quot;: np.random.randint(0, 101, size=366)</span>
+<span class="sd">        })</span>
+
+<span class="sd">        df_switch = alert_switch(df)</span>
+
+<span class="sd">        df_switch.head()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+  
+    <span class="c1"># Check baseline length argument</span>
+    <span class="k">if</span> <span class="n">B</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_switch: baseline length argument B must be greater than or equal to 7&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">B</span> <span class="o">%</span> <span class="mi">7</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_switch: baseline length argument B must be a multiple of 7&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Check guardband length argument</span>
+    <span class="k">if</span> <span class="n">g</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_switch: guardband length argument g cannot be negative&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Check for sufficient baseline data</span>
+    <span class="n">grouped_df</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">groupby</span><span class="o">.</span><span class="n">DataFrameGroupBy</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">grouped_df</span><span class="p">:</span>
+        <span class="n">df_size</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df_size</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Check for sufficient baseline data</span>
+    <span class="k">if</span> <span class="n">df_size</span> <span class="o">&lt;</span> <span class="n">B</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_switch: not enough historical data&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Check for grouping variables</span>
+    <span class="n">base_tbl</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="n">s_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dow&quot;</span><span class="p">,</span> <span class="s2">&quot;dummy&quot;</span><span class="p">,</span> <span class="s2">&quot;sigma&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">grouped_df</span> <span class="k">else</span> <span class="p">[</span><span class="s2">&quot;dow&quot;</span><span class="p">,</span> <span class="s2">&quot;dummy&quot;</span><span class="p">,</span> <span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">]</span>
+
+    <span class="n">alert_tbl_reg</span> <span class="o">=</span> <span class="n">alert_regression</span><span class="p">(</span><span class="n">base_tbl</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">s_cols</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">alert_tbl_reg</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Adaptive Multiple Regression&quot;</span>
+
+    <span class="n">alert_tbl_ewma</span> <span class="o">=</span> <span class="n">alert_ewma</span><span class="p">(</span><span class="n">base_tbl</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">alert_tbl_ewma</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;EWMA&quot;</span>
+
+    <span class="n">stats_cols</span> <span class="o">=</span> <span class="p">[</span>
+       <span class="s2">&quot;baseline_expected&quot;</span><span class="p">,</span> <span class="s2">&quot;test_statistic&quot;</span><span class="p">,</span> <span class="s2">&quot;p_value&quot;</span><span class="p">,</span> 
+       <span class="s2">&quot;adjusted_r_squared&quot;</span><span class="p">,</span> <span class="s2">&quot;alert&quot;</span><span class="p">,</span> <span class="s2">&quot;detector&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">join_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">alert_tbl_reg</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">stats_cols</span><span class="p">))</span>
+
+    <span class="n">replace_dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+       <span class="n">alert_tbl_reg</span>\
+        <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;(adjusted_r_squared.isna()) | (adjusted_r_squared &lt; 0.60)&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">stats_cols</span><span class="p">),</span>
+        <span class="n">alert_tbl_ewma</span><span class="p">,</span>
+        <span class="n">on</span><span class="o">=</span><span class="n">join_cols</span><span class="p">,</span>
+        <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">grouped_df</span><span class="p">:</span>
+       <span class="n">groups</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">grouper</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+       <span class="n">combined_out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+         <span class="n">alert_tbl_reg</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;(adjusted_r_squared &gt;= 0.60)&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">),</span>
+         <span class="n">replace_dates</span>
+        <span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;adjusted_r_squared&quot;</span><span class="p">)</span>\
+          <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">groups</span> <span class="o">+</span> <span class="p">[</span><span class="n">t</span><span class="p">])</span>
+       
+       <span class="n">combined_out</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+         <span class="n">combined_out</span><span class="p">[</span><span class="s2">&quot;test_statistic&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> 
+         <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> 
+         <span class="n">combined_out</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+       <span class="n">combined_out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+          <span class="n">alert_tbl_reg</span>\
+          <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;(adjusted_r_squared &gt;= 0.60)&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">),</span>
+          <span class="n">replace_dates</span>
+        <span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;adjusted_r_squared&quot;</span><span class="p">)</span>\
+          <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+       
+       <span class="n">combined_out</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+          <span class="n">combined_out</span><span class="p">[</span><span class="s2">&quot;test_statistic&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> 
+          <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> 
+          <span class="n">combined_out</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">combined_out</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

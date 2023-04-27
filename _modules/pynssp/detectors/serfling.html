@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynssp.detectors.serfling &mdash; pynssp 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pynssp
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">About pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pynssp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynssp.detectors.serfling</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynssp.detectors.serfling</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<div class="viewcode-block" id="serfling_model"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.serfling.serfling_model">[docs]</a><span class="k">def</span> <span class="nf">serfling_model</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">baseline_end</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Original Serfling method for weekly time series</span>
+
+<span class="sd">    Serfling model helper function for monitoring weekly time series with seasonality</span>
+
+<span class="sd">    :param df: A pandas data frame</span>
+<span class="sd">    :param t: Name of the column of type Date containing the dates</span>
+<span class="sd">    :param y: Name of the column of type Numeric containing counts</span>
+<span class="sd">    :param baseline_end: date of the end of the baseline/training period (date or string class)</span>
+<span class="sd">    :returns: A pandas data frame.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">input_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">input_data</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+    <span class="n">input_data</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+
+    <span class="c1"># Check baseline length and for sufficient historical data</span>
+    <span class="n">baseline</span> <span class="o">=</span> <span class="n">input_data</span><span class="p">[</span><span class="n">input_data</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">baseline_end</span><span class="p">)]</span>
+    <span class="n">baseline_dates</span> <span class="o">=</span> <span class="n">baseline</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+    <span class="n">baseline_n_wks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">baseline_dates</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+    <span class="n">baseline_n_yrs</span> <span class="o">=</span> <span class="n">baseline_n_wks</span> <span class="o">/</span> <span class="mi">52</span>
+    
+    <span class="k">if</span> <span class="n">baseline_n_yrs</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Baseline length must be greater than or equal to 2 years.&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">baseline_dates</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">baseline_dates</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">))</span> <span class="o">!=</span> <span class="n">baseline_n_wks</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not all weeks in intended baseline date range were found.&quot;</span><span class="p">)</span>
+
+    <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;cos&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mf">52.18</span><span class="p">)</span>
+    <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;sin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mf">52.18</span><span class="p">)</span>
+    <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">baseline_end</span><span class="p">,</span> <span class="s2">&quot;Baseline Period&quot;</span><span class="p">,</span> <span class="s2">&quot;Prediction Period&quot;</span><span class="p">)</span>
+    <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;epidemic_period&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">input_data</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">),</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">baseline_data</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Baseline Period&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;epidemic_period&quot;</span><span class="p">])]</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">baseline_data</span><span class="p">[[</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;cos&quot;</span><span class="p">,</span> <span class="s2">&quot;sin&quot;</span><span class="p">]])</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">baseline_data</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
+
+    <span class="n">baseline_model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+    <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;estimate&quot;</span><span class="p">],</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;threshold&quot;</span><span class="p">]</span> <span class="o">=</span> \
+        <span class="n">baseline_model</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">input_data</span><span class="p">[[</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;cos&quot;</span><span class="p">,</span> <span class="s2">&quot;sin&quot;</span><span class="p">]]))</span>\
+                      <span class="o">.</span><span class="n">summary_frame</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">input_data</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;cos&quot;</span><span class="p">,</span> <span class="s2">&quot;sin&quot;</span><span class="p">])</span>
+    <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">],</span> <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Baseline Period&quot;</span><span class="p">,</span> <span class="s2">&quot;Prediction Period&quot;</span><span class="p">])</span>
+    <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;alarm&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">input_data</span><span class="p">[</span><span class="s2">&quot;threshold&quot;</span><span class="p">],</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">input_data</span></div>
+
+
+<div class="viewcode-block" id="alert_serfling"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.serfling.alert_serfling">[docs]</a><span class="k">def</span> <span class="nf">alert_serfling</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">baseline_end</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Original Serfling method for weekly time series</span>
+
+<span class="sd">    The original Serfling algorithm fits a linear regression model with</span>
+<span class="sd">    a time term and order 1 Fourier terms to a baseline period that ideally spans</span>
+<span class="sd">    5 or more years. Inclusion of Fourier terms in the model is intended to</span>
+<span class="sd">    account for seasonality common in multi-year weekly time series. Order 1 sine</span>
+<span class="sd">    and cosine terms are included to account for annual seasonality that is</span>
+<span class="sd">    common to syndromes and diseases such as influenza, RSV, and norovirus. Each</span>
+<span class="sd">    baseline model is used to make weekly forecasts for all weeks following the</span>
+<span class="sd">    baseline period. One-sided upper 95% prediction interval bounds are computed</span>
+<span class="sd">    for each week in the prediction period. Alarms are signaled for any week</span>
+<span class="sd">    during for which weekly observations fall above the upper bound of the</span>
+<span class="sd">    prediction interval. This implementation follows the approach of the original</span>
+<span class="sd">    Serfling method in which weeks between October of the starting year of a</span>
+<span class="sd">    season and May of the ending year of a season are considered to be in the</span>
+<span class="sd">    epidemic period. Weeks in the epidemic period are removed from the baseline</span>
+<span class="sd">    prior to fitting the regression model.</span>
+<span class="sd">    </span>
+<span class="sd">    :param df: A pandas data frame containing time series data</span>
+<span class="sd">    :param t: Name of the column of type Date containing the dates (Default value = &quot;date&quot;)</span>
+<span class="sd">    :param y: Name of the column of type Numeric containing counts or percentages (Default value = &quot;count&quot;)</span>
+<span class="sd">    :param baseline_end: date of the end of the baseline/training period (in date or string class)</span>
+<span class="sd">    :returns: Original pandas dataframe with model estimates, upper prediction interval bounds,</span>
+<span class="sd">        a binary alarm indicator field, and a binary indicator</span>
+<span class="sd">    :examples:</span>
+<span class="sd">        import pandas as pd</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        df = pd.DataFrame({</span>
+<span class="sd">            &quot;date&quot;: pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;),</span>
+<span class="sd">            &quot;count&quot;: np.random.poisson(lam=25, size=(len(pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;)),))</span>
+<span class="sd">        })</span>
+<span class="sd">        df_serfling  = alert_serfling(df, baseline_end = &quot;2020-03-01&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grouped_df</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">groupby</span><span class="o">.</span><span class="n">DataFrameGroupBy</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">grouped_df</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">serfling_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">baseline_end</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">serfling_model</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">baseline_end</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

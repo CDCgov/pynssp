@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynssp package &mdash; pynssp 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pynssp.core package" href="pynssp.core.html" />
+    <link rel="prev" title="pynssp" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pynssp
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">About pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Get started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pynssp</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pynssp package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html">pynssp.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.detectors.html">pynssp.detectors package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pynssp.data">pynssp.data module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.data.get_scenario1"><code class="docutils literal notranslate"><span class="pre">get_scenario1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.data.get_scenario2"><code class="docutils literal notranslate"><span class="pre">get_scenario2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.data.load_nssp_stopwords"><code class="docutils literal notranslate"><span class="pre">load_nssp_stopwords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.data.load_simulated_ts"><code class="docutils literal notranslate"><span class="pre">load_simulated_ts()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pynssp.pynssp">pynssp.pynssp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pynssp.utils">pynssp.utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.change_dates"><code class="docutils literal notranslate"><span class="pre">change_dates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.create_profile"><code class="docutils literal notranslate"><span class="pre">create_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.create_token_profile"><code class="docutils literal notranslate"><span class="pre">create_token_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.get_api_data"><code class="docutils literal notranslate"><span class="pre">get_api_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.get_api_graph"><code class="docutils literal notranslate"><span class="pre">get_api_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.get_api_response"><code class="docutils literal notranslate"><span class="pre">get_api_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.get_essence_data"><code class="docutils literal notranslate"><span class="pre">get_essence_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pynssp">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pynssp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">pynssp</a></li>
+      <li class="breadcrumb-item active">pynssp package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pynssp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pynssp-package">
+<h1>pynssp package<a class="headerlink" href="#pynssp-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pynssp.core.html">pynssp.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.core.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.core.html#module-pynssp.core.constants">pynssp.core.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.core.html#module-pynssp.core.container">pynssp.core.container module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.core.html#pynssp.core.container.APIGraph"><code class="docutils literal notranslate"><span class="pre">APIGraph</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html#pynssp.core.container.APIGraph.plot"><code class="docutils literal notranslate"><span class="pre">APIGraph.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html#pynssp.core.container.APIGraph.show"><code class="docutils literal notranslate"><span class="pre">APIGraph.show()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.core.html#pynssp.core.container.NSSPContainer"><code class="docutils literal notranslate"><span class="pre">NSSPContainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.core.html#module-pynssp.core.credentials">pynssp.core.credentials module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.core.html#pynssp.core.credentials.Credentials"><code class="docutils literal notranslate"><span class="pre">Credentials</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html#pynssp.core.credentials.Credentials.get_api_data"><code class="docutils literal notranslate"><span class="pre">Credentials.get_api_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html#pynssp.core.credentials.Credentials.get_api_graph"><code class="docutils literal notranslate"><span class="pre">Credentials.get_api_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html#pynssp.core.credentials.Credentials.get_api_response"><code class="docutils literal notranslate"><span class="pre">Credentials.get_api_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html#pynssp.core.credentials.Credentials.pickle"><code class="docutils literal notranslate"><span class="pre">Credentials.pickle()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.core.html#module-pynssp.core.token">pynssp.core.token module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.core.html#pynssp.core.token.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html#pynssp.core.token.Token.get_api_data"><code class="docutils literal notranslate"><span class="pre">Token.get_api_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html#pynssp.core.token.Token.get_api_graph"><code class="docutils literal notranslate"><span class="pre">Token.get_api_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html#pynssp.core.token.Token.get_api_response"><code class="docutils literal notranslate"><span class="pre">Token.get_api_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html#pynssp.core.token.Token.pickle"><code class="docutils literal notranslate"><span class="pre">Token.pickle()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.core.html#module-pynssp.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pynssp.detectors.html">pynssp.detectors package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.detectors.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.detectors.html#module-pynssp.detectors.ewma">pynssp.detectors.ewma module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.detectors.html#pynssp.detectors.ewma.alert_ewma"><code class="docutils literal notranslate"><span class="pre">alert_ewma()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.detectors.html#pynssp.detectors.ewma.ewma_loop"><code class="docutils literal notranslate"><span class="pre">ewma_loop()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.detectors.html#module-pynssp.detectors.farrington">pynssp.detectors.farrington module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.detectors.html#module-pynssp.detectors.nbinom">pynssp.detectors.nbinom module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.detectors.html#pynssp.detectors.nbinom.alert_nbinom"><code class="docutils literal notranslate"><span class="pre">alert_nbinom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.detectors.html#pynssp.detectors.nbinom.nb_model"><code class="docutils literal notranslate"><span class="pre">nb_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.detectors.html#module-pynssp.detectors.regression">pynssp.detectors.regression module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.detectors.html#pynssp.detectors.regression.adaptive_regression"><code class="docutils literal notranslate"><span class="pre">adaptive_regression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.detectors.html#pynssp.detectors.regression.alert_regression"><code class="docutils literal notranslate"><span class="pre">alert_regression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.detectors.html#module-pynssp.detectors.serfling">pynssp.detectors.serfling module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.detectors.html#pynssp.detectors.serfling.alert_serfling"><code class="docutils literal notranslate"><span class="pre">alert_serfling()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.detectors.html#pynssp.detectors.serfling.serfling_model"><code class="docutils literal notranslate"><span class="pre">serfling_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.detectors.html#module-pynssp.detectors.switch">pynssp.detectors.switch module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.detectors.html#pynssp.detectors.switch.alert_switch"><code class="docutils literal notranslate"><span class="pre">alert_switch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.detectors.html#module-pynssp.detectors.trend">pynssp.detectors.trend module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pynssp.detectors.html#module-pynssp.detectors">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-pynssp.data">
+<span id="pynssp-data-module"></span><h2>pynssp.data module<a class="headerlink" href="#module-pynssp.data" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.data.get_scenario1">
+<span class="sig-prename descclassname"><span class="pre">pynssp.data.</span></span><span class="sig-name descname"><span class="pre">get_scenario1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/data.html#get_scenario1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.data.get_scenario1" title="Permalink to this definition"></a></dt>
+<dd><p>Return a subset of the simulated time series data ('scenario #1').</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.data.get_scenario2">
+<span class="sig-prename descclassname"><span class="pre">pynssp.data.</span></span><span class="sig-name descname"><span class="pre">get_scenario2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/data.html#get_scenario2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.data.get_scenario2" title="Permalink to this definition"></a></dt>
+<dd><p>Return a subset of the simulated time series data ('scenario #2').</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.data.load_nssp_stopwords">
+<span class="sig-prename descclassname"><span class="pre">pynssp.data.</span></span><span class="sig-name descname"><span class="pre">load_nssp_stopwords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/data.html#load_nssp_stopwords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.data.load_nssp_stopwords" title="Permalink to this definition"></a></dt>
+<dd><p>Return a dataframe of NSSP-curated stopwords.</p>
+<dl>
+<dt>Contains the following fields:</dt><dd><blockquote>
+<div><p>#   Column      Non-Null Count  Dtype</p>
+</div></blockquote>
+<dl class="simple">
+<dt>---  ------      --------------  -----</dt><dd><p>1   word        835 non-null    object
+2   type        835 non-null    object</p>
+</dd>
+</dl>
+<p>dtypes: int64(1), object(2)
+memory usage: 13.2+ KB</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.data.load_simulated_ts">
+<span class="sig-prename descclassname"><span class="pre">pynssp.data.</span></span><span class="sig-name descname"><span class="pre">load_simulated_ts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/data.html#load_simulated_ts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.data.load_simulated_ts" title="Permalink to this definition"></a></dt>
+<dd><p>Return a dataframe of simulated time series.</p>
+<dl>
+<dt>Contains the following fields:</dt><dd><blockquote>
+<div><p>#   Column  Non-Null Count  Dtype</p>
+</div></blockquote>
+<dl class="simple">
+<dt>---  ------  --------------  -----</dt><dd><p>0   date    626 non-null    object
+1   week    626 non-null    int64
+2   year    626 non-null    int64
+3   cases   626 non-null    int64
+4   id      626 non-null    object</p>
+</dd>
+</dl>
+<p>dtypes: int64(3), object(2)
+memory usage: 24.6+ KB</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pynssp.pynssp">
+<span id="pynssp-pynssp-module"></span><h2>pynssp.pynssp module<a class="headerlink" href="#module-pynssp.pynssp" title="Permalink to this heading"></a></h2>
+<p>Main module.</p>
+</section>
+<section id="module-pynssp.utils">
+<span id="pynssp-utils-module"></span><h2>pynssp.utils module<a class="headerlink" href="#module-pynssp.utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.utils.change_dates">
+<span class="sig-prename descclassname"><span class="pre">pynssp.utils.</span></span><span class="sig-name descname"><span class="pre">change_dates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/utils.html#change_dates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.utils.change_dates" title="Permalink to this definition"></a></dt>
+<dd><p>Changes the start and end dates in a given URL to new dates, if provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> -- str): The URL containing the start and end dates to be changed.</p></li>
+<li><p><strong>start_date</strong> -- str): A new start date to replace the existing start date in the URL. (Default value = None)</p></li>
+<li><p><strong>end_date</strong> -- str): A new end date to replace the existing end date in the URL. (Default value = None)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The modified URL with the new start and end dates.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>:examples</dt><dd><p>from pynssp.utils import *
+url = &quot;<a class="reference external" href="https://example.com/data?startDate=01Jan2022&amp;endDate=31Dec2022">https://example.com/data?startDate=01Jan2022&amp;endDate=31Dec2022</a>&quot;
+change_dates(url, start_date=&quot;01Jan2021&quot;, end_date=&quot;31Dec2021&quot;)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.utils.create_profile">
+<span class="sig-prename descclassname"><span class="pre">pynssp.utils.</span></span><span class="sig-name descname"><span class="pre">create_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/utils.html#create_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.utils.create_profile" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new user profile with the given username and password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> -- A string representing the username. If not provided, the user will be prompted to enter it.</p></li>
+<li><p><strong>password</strong> -- A string representing the user's password. If not provided, the user will be prompted to enter it securely.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new Credentials object with the given username and password.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.utils.create_token_profile">
+<span class="sig-prename descclassname"><span class="pre">pynssp.utils.</span></span><span class="sig-name descname"><span class="pre">create_token_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Bearer'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/utils.html#create_token_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.utils.create_token_profile" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new token profile with the given token and authentication type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token</strong> -- A string representing the token. If not provided, the user will be prompted to enter it securely.</p></li>
+<li><p><strong>auth_type</strong> -- A string representing the authentication type. Defaults to &quot;Bearer&quot;.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new Token object with the given token and authentication type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.utils.get_api_data">
+<span class="sig-prename descclassname"><span class="pre">pynssp.utils.</span></span><span class="sig-name descname"><span class="pre">get_api_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromCSV</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/utils.html#get_api_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.utils.get_api_data" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve data from an API using the provided profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> -- A string representing the URL of the API endpoint.</p></li>
+<li><p><strong>fromCSV</strong> -- A boolean indicating whether the data should be retrieved from a CSV file. Defaults to False.</p></li>
+<li><p><strong>profile</strong> -- An profile object of class <cite>pynssp.core.credentials.Credentials</cite> or <cite>pynssp.core.token.Token</cite>.</p></li>
+<li><p><strong>kwargs</strong> -- Additional keyword arguments to be passed to the profile's get_api_data method.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The data retrieved from the API.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.utils.get_api_graph">
+<span class="sig-prename descclassname"><span class="pre">pynssp.utils.</span></span><span class="sig-name descname"><span class="pre">get_api_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.png'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/utils.html#get_api_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.utils.get_api_graph" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve a graph from an API using the provided profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> -- A string representing the URL of the API endpoint.</p></li>
+<li><p><strong>file_ext</strong> -- A string representing the file extension of the graph. Defaults to &quot;.png&quot;.</p></li>
+<li><p><strong>profile</strong> -- An profile object of class <cite>pynssp.core.credentials.Credentials</cite> or <cite>pynssp.core.token.Token</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The graph retrieved from the API.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.utils.get_api_response">
+<span class="sig-prename descclassname"><span class="pre">pynssp.utils.</span></span><span class="sig-name descname"><span class="pre">get_api_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/utils.html#get_api_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.utils.get_api_response" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve a response from an API using the provided profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> -- A string representing the URL of the API endpoint.</p></li>
+<li><p><strong>profile</strong> -- An profile object of class <cite>pynssp.core.credentials.Credentials</cite> or <cite>pynssp.core.token.Token</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response object returned by the API.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.utils.get_essence_data">
+<span class="sig-prename descclassname"><span class="pre">pynssp.utils.</span></span><span class="sig-name descname"><span class="pre">get_essence_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/utils.html#get_essence_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.utils.get_essence_data" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve data from the NSSP-ESSENCE API using the provided profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> -- A string representing the URL of the NSSP-ESSENCE API endpoint.</p></li>
+<li><p><strong>start_date</strong> -- A string representing the start date of the data to retrieve.</p></li>
+<li><p><strong>end_date</strong> -- A string representing the end date of the data to retrieve.</p></li>
+<li><p><strong>profile</strong> -- An profile object of class <cite>pynssp.core.credentials.Credentials</cite> or <cite>pynssp.core.token.Token</cite>.</p></li>
+<li><p><strong>kwargs</strong> -- Additional arguments to be passed to the get_api_data function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The data retrieved from the NSSP-ESSENCE API.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pynssp">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pynssp" title="Permalink to this heading"></a></h2>
+<p>Top-level package for pynssp.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="pynssp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pynssp.core.html" class="btn btn-neutral float-right" title="pynssp.core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

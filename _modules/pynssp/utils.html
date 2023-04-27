@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynssp.utils &mdash; pynssp 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            pynssp
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">About pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pynssp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynssp.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynssp.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">.core.credentials</span> <span class="kn">import</span> <span class="n">Credentials</span>
+<span class="kn">from</span> <span class="nn">.core.token</span> <span class="kn">import</span> <span class="n">Token</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="n">parse</span> <span class="k">as</span> <span class="n">date_parser</span>
+<span class="kn">from</span> <span class="nn">getpass</span> <span class="kn">import</span> <span class="n">getpass</span>
+
+<div class="viewcode-block" id="change_dates"><a class="viewcode-back" href="../../pynssp.html#pynssp.utils.change_dates">[docs]</a><span class="k">def</span> <span class="nf">change_dates</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Changes the start and end dates in a given URL to new dates, if provided.</span>
+
+<span class="sd">    :param url: str): The URL containing the start and end dates to be changed.</span>
+<span class="sd">    :param start_date: str): A new start date to replace the existing start date in the URL. (Default value = None)</span>
+<span class="sd">    :param end_date: str): A new end date to replace the existing end date in the URL. (Default value = None)</span>
+<span class="sd">    :returns: The modified URL with the new start and end dates.</span>
+<span class="sd">    :examples</span>
+<span class="sd">        from pynssp.utils import *</span>
+<span class="sd">        url = &quot;https://example.com/data?startDate=01Jan2022&amp;endDate=31Dec2022&quot;</span>
+<span class="sd">        change_dates(url, start_date=&quot;01Jan2021&quot;, end_date=&quot;31Dec2021&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Assert that the input URL is a string.</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span> <span class="s2">&quot;URL must be a string.&quot;</span>
+    
+    <span class="c1"># Define regular expression patterns to match prefixes of the start and end date parameters.</span>
+    <span class="n">epref</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(endDate|end_date)=\d+[A-Za-z]+\d+&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span>
+    <span class="n">spref</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(startDate|start_date)=\d+[A-Za-z]+\d+&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span>
+    
+    <span class="c1"># Extract the current start and end dates from the URL string.</span>
+    <span class="n">old_end</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(endDate|end_date)=\d+[A-Za-z]+\d+&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">epref</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">old_start</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(startDate|start_date)=\d+[A-Za-z]+\d+&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">spref</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># If new start or end dates are provided, replace the old dates with the new dates.</span>
+    <span class="n">new_end</span> <span class="o">=</span> <span class="n">old_end</span>
+    <span class="n">new_start</span> <span class="o">=</span> <span class="n">old_start</span>
+    <span class="k">if</span> <span class="n">end_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+            <span class="n">new_end</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_end</span> <span class="o">=</span> <span class="n">date_parser</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">start_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+            <span class="n">new_start</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_start</span> <span class="o">=</span> <span class="n">date_parser</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    
+    <span class="c1"># Convert new start and end dates to datetime objects for comparison.</span>
+    <span class="n">new_startd</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_start</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%Y&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_start</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">7</span> <span class="k">else</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_start</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span>
+    <span class="n">new_endd</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_end</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%Y&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_end</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">7</span> <span class="k">else</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_end</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Check that the new start date is not after the new end date.</span>
+    <span class="k">if</span> <span class="n">new_startd</span> <span class="o">&gt;</span> <span class="n">new_endd</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Start Date &#39;</span><span class="si">{</span><span class="n">new_start</span><span class="si">}</span><span class="s2">&#39; is posterior to End Date &#39;</span><span class="si">{</span><span class="n">new_end</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Replace the old start and end dates with the new start and end dates in the URL string.</span>
+    <span class="n">new_url</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">old_end</span><span class="p">,</span> <span class="n">new_end</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">old_start</span><span class="p">,</span> <span class="n">new_start</span><span class="p">)</span>
+    
+    <span class="c1"># Remove any whitespace characters from the modified URL string.</span>
+    <span class="n">new_url</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">new_url</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">new_url</span></div>
+
+
+<div class="viewcode-block" id="create_profile"><a class="viewcode-back" href="../../pynssp.html#pynssp.utils.create_profile">[docs]</a><span class="k">def</span> <span class="nf">create_profile</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new user profile with the given username and password.</span>
+
+<span class="sd">    :param username: A string representing the username. If not provided, the user will be prompted to enter it.</span>
+<span class="sd">    :param password: A string representing the user&#39;s password. If not provided, the user will be prompted to enter it securely.</span>
+<span class="sd">    :return: A new Credentials object with the given username and password.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">username</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please enter your username: &quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">password</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">Credentials</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="create_token_profile"><a class="viewcode-back" href="../../pynssp.html#pynssp.utils.create_token_profile">[docs]</a><span class="k">def</span> <span class="nf">create_token_profile</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="s2">&quot;Bearer&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new token profile with the given token and authentication type.</span>
+
+<span class="sd">    :param token: A string representing the token. If not provided, the user will be prompted to enter it securely.</span>
+<span class="sd">    :param auth_type: A string representing the authentication type. Defaults to &quot;Bearer&quot;.</span>
+<span class="sd">    :return: A new Token object with the given token and authentication type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="s2">&quot;Enter/Paste a token: &quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Token</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="n">access_token</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_api_response"><a class="viewcode-back" href="../../pynssp.html#pynssp.utils.get_api_response">[docs]</a><span class="k">def</span> <span class="nf">get_api_response</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve a response from an API using the provided profile.</span>
+
+<span class="sd">    :param url: A string representing the URL of the API endpoint.</span>
+<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
+<span class="sd">    :return: The response object returned by the API.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_response</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">NameError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid profile name or missing `get_api_response` method.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_api_data"><a class="viewcode-back" href="../../pynssp.html#pynssp.utils.get_api_data">[docs]</a><span class="k">def</span> <span class="nf">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">fromCSV</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve data from an API using the provided profile.</span>
+
+<span class="sd">    :param url: A string representing the URL of the API endpoint.</span>
+<span class="sd">    :param fromCSV: A boolean indicating whether the data should be retrieved from a CSV file. Defaults to False.</span>
+<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
+<span class="sd">    :param kwargs: Additional keyword arguments to be passed to the profile&#39;s get_api_data method.</span>
+<span class="sd">    :return: The data retrieved from the API.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">fromCSV</span><span class="o">=</span><span class="n">fromCSV</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">NameError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid profile name or missing `get_api_data` method.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_api_graph"><a class="viewcode-back" href="../../pynssp.html#pynssp.utils.get_api_graph">[docs]</a><span class="k">def</span> <span class="nf">get_api_graph</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">file_ext</span><span class="o">=</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve a graph from an API using the provided profile.</span>
+
+<span class="sd">    :param url: A string representing the URL of the API endpoint.</span>
+<span class="sd">    :param file_ext: A string representing the file extension of the graph. Defaults to &quot;.png&quot;.</span>
+<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
+<span class="sd">    :return: The graph retrieved from the API.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_graph</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">file_ext</span><span class="o">=</span><span class="n">file_ext</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">NameError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid profile name or missing `get_api_graph` method.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_essence_data"><a class="viewcode-back" href="../../pynssp.html#pynssp.utils.get_essence_data">[docs]</a><span class="k">def</span> <span class="nf">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve data from the NSSP-ESSENCE API using the provided profile.</span>
+
+<span class="sd">    :param url: A string representing the URL of the NSSP-ESSENCE API endpoint.</span>
+<span class="sd">    :param start_date: A string representing the start date of the data to retrieve.</span>
+<span class="sd">    :param end_date: A string representing the end date of the data to retrieve.</span>
+<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
+<span class="sd">    :param kwargs: Additional arguments to be passed to the get_api_data function.</span>
+<span class="sd">    :return: The data retrieved from the NSSP-ESSENCE API.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">profile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please, provide a profile object of type `Credentials` or `Token`!&quot;</span><span class="p">)</span>
+
+    <span class="n">api_type</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(?&lt;=api/).+(?=\?)&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">api_type</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;URL is not of NSSP-ESSENCE type. Check your URL or use get_api_data instead!&quot;</span><span class="p">)</span>
+
+    <span class="n">url_new</span> <span class="o">=</span> <span class="n">change_dates</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">api_type</span> <span class="o">==</span> <span class="s2">&quot;timeSeries&quot;</span><span class="p">:</span>
+        <span class="n">api_data</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_data</span><span class="p">(</span><span class="n">url_new</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">api_data</span><span class="p">[</span><span class="s2">&quot;timeSeriesData&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">api_type</span> <span class="o">==</span> <span class="s2">&quot;timeSeries/graph&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_graph</span><span class="p">(</span><span class="n">url_new</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">api_type</span> <span class="o">==</span> <span class="s2">&quot;tableBuilder/csv&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_data</span><span class="p">(</span><span class="n">url_new</span><span class="p">,</span> <span class="n">fromCSV</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">api_type</span> <span class="o">==</span> <span class="s2">&quot;tableBuilder&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_data</span><span class="p">(</span><span class="n">url_new</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">api_type</span> <span class="o">==</span> <span class="s2">&quot;dataDetails&quot;</span><span class="p">:</span>
+        <span class="n">api_data</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_data</span><span class="p">(</span><span class="n">url_new</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">api_data</span><span class="p">[</span><span class="s2">&quot;dataDetails&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">api_type</span> <span class="o">==</span> <span class="s2">&quot;dataDetails/csv&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_data</span><span class="p">(</span><span class="n">url_new</span><span class="p">,</span> <span class="n">fromCSV</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">api_type</span> <span class="o">==</span> <span class="s2">&quot;summaryData&quot;</span><span class="p">:</span>
+        <span class="n">api_data</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_data</span><span class="p">(</span><span class="n">url_new</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">api_data</span><span class="p">[</span><span class="s2">&quot;summaryData&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">api_type</span> <span class="o">==</span> <span class="s2">&quot;alerts/regionSyndromeAlerts&quot;</span><span class="p">:</span>
+        <span class="n">api_data</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_data</span><span class="p">(</span><span class="n">url_new</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">api_data</span><span class="p">[</span><span class="s2">&quot;regionSyndromeAlerts&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">api_type</span> <span class="o">==</span> <span class="s2">&quot;alerts/hospitalSyndromeAlerts&quot;</span><span class="p">:</span>
+        <span class="n">api_data</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_data</span><span class="p">(</span><span class="n">url_new</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">api_data</span><span class="p">[</span><span class="s2">&quot;hospitalSyndromeAlerts&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;URL is not of ESSENCE type. Check your URL or use the `get_api_data()` function instead!&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

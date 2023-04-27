@@ -1,0 +1,1 @@
+.. mdinclude:: ./articles/intro.md

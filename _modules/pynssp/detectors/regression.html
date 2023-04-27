@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynssp.detectors.regression &mdash; pynssp 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pynssp
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">About pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pynssp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynssp.detectors.regression</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynssp.detectors.regression</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<div class="viewcode-block" id="adaptive_regression"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.regression.adaptive_regression">[docs]</a><span class="k">def</span> <span class="nf">adaptive_regression</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adaptive Regression</span>
+
+<span class="sd">    Adaptive Regression helper function for Adaptive Multiple Regression</span>
+
+<span class="sd">    :param df: A pandas data frame containing time series data</span>
+<span class="sd">    :param t: Name of the column of type Date containing the dates</span>
+<span class="sd">    :param y: Name of the column containing the response variable data</span>
+<span class="sd">    :param B: Baseline parameter. The baseline length is the number of days to</span>
+<span class="sd">            which each liner model is fit.</span>
+<span class="sd">    :param g: Guardband parameter. The guardband length is the number of days</span>
+<span class="sd">            separating the baseline from the current date in consideration for alerting.</span>
+<span class="sd">    :returns: A pandas data frame with p-values and test statistics</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">base_tbl</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="n">base_tbl</span><span class="p">[</span><span class="s2">&quot;dow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">base_tbl</span><span class="p">[</span><span class="s2">&quot;dummy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">base_tbl</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;dow&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;dummy&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">base_tbl</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">y_obs</span> <span class="o">=</span> <span class="n">base_tbl</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># Populate algorithm parameters</span>
+    <span class="n">min_df</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">min_baseline</span> <span class="o">=</span> <span class="mi">11</span>
+    <span class="n">max_baseline</span> <span class="o">=</span> <span class="n">B</span>
+    <span class="n">df_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">B</span> <span class="o">-</span> <span class="n">min_df</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># ucl_alert = np.round(stats.t.ppf(1 - 0.01, df=df_range), 5)</span>
+    <span class="n">ucl_warning</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df_range</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="c1"># Bound standard error of regression</span>
+    <span class="n">min_sigma</span> <span class="o">=</span> <span class="mf">1.01</span> <span class="o">/</span> <span class="n">ucl_warning</span>
+
+    <span class="c1"># Initialize result vectors</span>
+    <span class="n">test_stat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">p_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">r_sqrd_adj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+    <span class="c1"># Initialize baseline indices</span>
+    <span class="n">ndx_baseline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_baseline</span><span class="p">)</span>
+
+    <span class="c1"># Adaptive multiple regression loop</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_baseline</span> <span class="o">+</span> <span class="n">g</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+
+        <span class="c1"># Pad baseline until full baseline is obtained</span>
+        <span class="k">if</span> <span class="n">ndx_baseline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">max_baseline</span><span class="p">:</span>
+            <span class="n">ndx_baseline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Advance baseline for current iteration</span>
+        <span class="n">ndx_baseline</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Indices for baseline and test date</span>
+        <span class="k">if</span> <span class="n">ndx_baseline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">max_baseline</span><span class="p">:</span>
+            <span class="n">ndx_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">ndx_test</span> <span class="o">=</span> <span class="n">ndx_baseline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ndx_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">B</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">ndx_test</span> <span class="o">=</span> <span class="n">B</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># Set number of degrees of freedom</span>
+        <span class="n">n_df</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">)</span> <span class="o">-</span> <span class="mi">8</span>
+
+        <span class="c1"># Baseline and current data</span>
+        <span class="n">baseline_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">ndx_baseline</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="n">B_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">)</span>
+
+        <span class="c1"># Baseline observed values</span>
+        <span class="n">baseline_obs</span> <span class="o">=</span> <span class="n">baseline_data</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
+
+        <span class="c1"># Form regression matrix</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">ndx_time</span><span class="p">,</span>
+                <span class="n">baseline_data</span><span class="p">[[</span><span class="s2">&quot;Mon&quot;</span><span class="p">,</span> <span class="s2">&quot;Tue&quot;</span><span class="p">,</span> <span class="s2">&quot;Wed&quot;</span><span class="p">,</span> <span class="s2">&quot;Thu&quot;</span><span class="p">,</span> <span class="s2">&quot;Fri&quot;</span><span class="p">,</span> <span class="s2">&quot;Sat&quot;</span><span class="p">]]</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Fit regression model with linear regression</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">lr_fit</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">baseline_obs</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+        <span class="c1"># Extract model components</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="n">lr_fit</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">mse</span> <span class="o">=</span> <span class="n">lr_fit</span><span class="o">.</span><span class="n">mse_resid</span>
+
+        <span class="c1"># Compute adjusted R-squared value</span>
+        <span class="n">r2_adj</span> <span class="o">=</span> <span class="n">lr_fit</span><span class="o">.</span><span class="n">rsquared_adj</span>
+        <span class="n">r_sqrd_adj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">r2_adj</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">r2_adj</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+
+        <span class="c1"># Calculate bounded standard error of regression with derived formula for efficiency</span>
+        <span class="n">sigma</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">B_length</span> <span class="o">+</span> <span class="mi">7</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">B_length</span> <span class="o">-</span> <span class="mi">4</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">B_length</span> <span class="o">*</span> <span class="p">(</span><span class="n">B_length</span> <span class="o">-</span> <span class="mi">7</span><span class="p">))),</span>
+            <span class="n">min_sigma</span><span class="p">[</span><span class="n">n_df</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Day of week for test date</span>
+        <span class="n">dow_test</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%u</span><span class="s2">&quot;</span><span class="p">))</span>
+
+        <span class="c1"># Calculate forecast on test date</span>
+        <span class="k">if</span> <span class="n">dow_test</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
+            <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">ndx_test</span> <span class="o">*</span> <span class="n">beta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">beta</span><span class="p">[</span><span class="n">dow_test</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">ndx_test</span> <span class="o">*</span> <span class="n">beta</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Calculate test statistic</span>
+        <span class="n">test_stat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_obs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="c1"># Calculate p-value</span>
+        <span class="n">p_val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">test_stat</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">n_df</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">baseline_expected</span> <span class="o">=</span> <span class="n">expected</span><span class="p">,</span>
+        <span class="n">test_statistic</span> <span class="o">=</span> <span class="n">test_stat</span><span class="p">,</span>
+        <span class="n">p_value</span> <span class="o">=</span> <span class="n">p_val</span><span class="p">,</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span><span class="p">,</span>
+        <span class="n">adjusted_r_squared</span> <span class="o">=</span> <span class="n">r_sqrd_adj</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="alert_regression"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.regression.alert_regression">[docs]</a><span class="k">def</span> <span class="nf">alert_regression</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adaptive Multiple Regression</span>
+
+<span class="sd">    The adaptive multiple regression algorithm fits a linear model to a baseline</span>
+<span class="sd">    of counts or percentages of length B, and forecasts a predicted value g + 1</span>
+<span class="sd">    days later (guard-band). This value is compared to the current observed value</span>
+<span class="sd">    and divided by the standard error of prediction in the test-statistic.</span>
+<span class="sd">    The model includes terms to account for linear trends and day-of-week effects.</span>
+<span class="sd">    Note that this implementation does NOT account for federal holidays as in the</span>
+<span class="sd">    Regression 1.2 algorithm in ESSENCE. An alert (red value) is signaled if</span>
+<span class="sd">    the statistical test (student&quot;s t-test) applied to the test statistic yields</span>
+<span class="sd">    a p-value less than 0.01. If the p-value is greater than or equal to 0.01</span>
+<span class="sd">    and strictly less than 0.05, a warning (yellow value) is signaled.</span>
+<span class="sd">    Blue values are returned if an alert or warning does not occur.</span>
+<span class="sd">    Grey values represent instances where anomaly detection did not apply</span>
+<span class="sd">    (i.e., observations for which baseline data were unavailable).</span>
+
+<span class="sd">    :param df: A pandas data frame containing time series data</span>
+<span class="sd">    :param t: The name of the column in df that contains the dates or times of</span>
+<span class="sd">            observations. Defaults to &quot;date&quot;.</span>
+<span class="sd">    :param y: The name of the column in df that contains the values of the</span>
+<span class="sd">            time series. Defaults to &quot;count&quot;.</span>
+<span class="sd">    :param B: The length of the baseline period (in days). Must be a multiple</span>
+<span class="sd">            of 7 and at least 7. Defaults to 28.</span>
+<span class="sd">    :param g: The length of the guard band (in days). Must be non-negative.</span>
+<span class="sd">            Defaults to 2.</span>
+<span class="sd">    :returns: Original pandas data frame with detection results.</span>
+<span class="sd">    :examples:</span>
+<span class="sd">        # Example 1</span>
+<span class="sd">        import pandas as pd</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        from pynssp.detectors.regression import *</span>
+<span class="sd">    </span>
+<span class="sd">        df = pd.DataFrame({</span>
+<span class="sd">            &quot;date&quot;: pd.date_range(&quot;2020-01-01&quot;, &quot;2020-12-31&quot;),</span>
+<span class="sd">            &quot;count&quot;: np.random.randint(0, 101, size=366)</span>
+<span class="sd">        })</span>
+
+<span class="sd">        df_regression = alert_regression(df)</span>
+
+<span class="sd">        df_regression.head()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Check baseline length argument</span>
+    <span class="k">if</span> <span class="n">B</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in alert_regression: baseline length argument B=</span><span class="si">{</span><span class="n">B</span><span class="si">}</span><span class="s2"> must be greater than or equal to 7&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">B</span> <span class="o">%</span> <span class="mi">7</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in alert_regression: baseline length argument B=</span><span class="si">{</span><span class="n">B</span><span class="si">}</span><span class="s2"> must be a multiple of 7&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Check guardband length argument</span>
+    <span class="k">if</span> <span class="n">g</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in alert_regression: guardband length argument g=</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s2"> cannot be negative&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Check for sufficient baseline data</span>
+    <span class="n">grouped_df</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">groupby</span><span class="o">.</span><span class="n">DataFrameGroupBy</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">grouped_df</span><span class="p">:</span>
+        <span class="n">df_size</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df_size</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Check for sufficient baseline data</span>
+    <span class="k">if</span> <span class="n">df_size</span> <span class="o">&lt;</span> <span class="n">B</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_regression: not enough historical data&quot;</span><span class="p">)</span>
+        
+    <span class="k">if</span> <span class="n">grouped_df</span><span class="p">:</span>
+
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df</span>\
+            <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">data</span><span class="p">:</span> <span class="n">adaptive_regression</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">))</span>
+        
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;alert&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">([(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.05</span><span class="p">)],</span>
+                                        <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Mon&quot;</span><span class="p">,</span> <span class="s2">&quot;Tue&quot;</span><span class="p">,</span> <span class="s2">&quot;Wed&quot;</span><span class="p">,</span> <span class="s2">&quot;Thu&quot;</span><span class="p">,</span> <span class="s2">&quot;Fri&quot;</span><span class="p">,</span> <span class="s2">&quot;Sat&quot;</span><span class="p">,</span> <span class="s2">&quot;Sun&quot;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">unique_dates</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_dates</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_regression: Number of unique dates does not equal the number of rows. Should your dataframe be grouped?&quot;</span><span class="p">)</span>
+
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">adaptive_regression</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">)</span>
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;alert&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">([(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.05</span><span class="p">)],</span>
+                                        <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Mon&quot;</span><span class="p">,</span> <span class="s2">&quot;Tue&quot;</span><span class="p">,</span> <span class="s2">&quot;Wed&quot;</span><span class="p">,</span> <span class="s2">&quot;Thu&quot;</span><span class="p">,</span> <span class="s2">&quot;Fri&quot;</span><span class="p">,</span> <span class="s2">&quot;Sat&quot;</span><span class="p">,</span> <span class="s2">&quot;Sun&quot;</span><span class="p">])</span>
+        
+    <span class="k">return</span> <span class="n">df_result</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

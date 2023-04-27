@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynssp.detectors.nbinom &mdash; pynssp 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pynssp
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">About pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pynssp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynssp.detectors.nbinom</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynssp.detectors.nbinom</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.api</span> <span class="kn">import</span> <span class="n">families</span><span class="p">,</span> <span class="n">formula</span>
+<span class="kn">from</span> <span class="nn">statsmodels.genmod.families</span> <span class="kn">import</span> <span class="n">links</span>
+
+<div class="viewcode-block" id="nb_model"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.nbinom.nb_model">[docs]</a><span class="k">def</span> <span class="nf">nb_model</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">baseline_end</span><span class="p">,</span> <span class="n">include_time</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Negative binomial regression model for weekly counts</span>
+
+<span class="sd">    Negative binomial model helper function for monitoring weekly</span>
+<span class="sd">    count time series with seasonality</span>
+
+<span class="sd">    :param df: A pandas data frame</span>
+<span class="sd">    :param t: Name of the column of type Date containing the dates</span>
+<span class="sd">    :param y: Name of the column of type Numeric containing counts</span>
+<span class="sd">    :param baseline_end: Object of type Date defining the end of the baseline/training period</span>
+<span class="sd">    :param include_time: Logical indicating whether or not to include time term in regression model</span>
+<span class="sd">    :returns: A pandas data frame.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+
+    <span class="c1"># Check baseline length and for sufficient historical data</span>
+    <span class="n">baseline</span> <span class="o">=</span> <span class="n">df</span> <span class="k">if</span> <span class="n">baseline_end</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">baseline_end</span><span class="p">)]</span>
+    <span class="n">baseline_n_wks</span> <span class="o">=</span> <span class="n">baseline</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+    <span class="n">baseline_n_yrs</span> <span class="o">=</span> <span class="n">baseline_n_wks</span> <span class="o">/</span> <span class="mi">52</span>
+    <span class="k">if</span> <span class="n">baseline_n_yrs</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Baseline length must be greater than or equal to 2 years&quot;</span><span class="p">)</span>
+
+    <span class="n">baseline_dates</span> <span class="o">=</span> <span class="n">baseline</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">baseline_dates</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">baseline_dates</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">))</span> <span class="o">!=</span> <span class="n">baseline_n_wks</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not all weeks in intended baseline date range were found&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Check that time series observations are non-negative integer counts</span>
+    <span class="n">ts_obs</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
+    <span class="n">ts_obs_int</span> <span class="o">=</span> <span class="n">ts_obs</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">ts_obs</span> <span class="o">==</span> <span class="n">ts_obs_int</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">ts_obs</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Time series observations must be non-negative integer counts&quot;</span><span class="p">)</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;cos&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mf">52.18</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mf">52.18</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">baseline_end</span><span class="p">),</span> <span class="s2">&quot;Baseline Period&quot;</span><span class="p">,</span> <span class="s2">&quot;Prediction Period&quot;</span><span class="p">)</span>
+
+    <span class="n">baseline_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Baseline Period&quot;</span><span class="p">]</span>
+    <span class="n">predict_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Prediction Period&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">include_time</span><span class="p">:</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;cos&quot;</span><span class="p">,</span> <span class="s2">&quot;sin&quot;</span><span class="p">]</span> 
+        <span class="n">formula_str</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="s2">&quot; ~ obs + cos + sin&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;sin&quot;</span><span class="p">]</span> 
+        <span class="n">formula_str</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="s2">&quot; ~ cos + sin&quot;</span>
+    
+    <span class="c1"># Calculate the dispersion parameter `theta` using the inverse link function</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">NegativeBinomial</span><span class="p">(</span>
+        <span class="n">endog</span><span class="o">=</span><span class="n">baseline_data</span><span class="p">[</span><span class="n">y</span><span class="p">],</span> 
+        <span class="n">exog</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">baseline_data</span><span class="p">[</span><span class="n">responses</span><span class="p">])</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">theta</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">alpha</span>
+
+    <span class="c1"># Fit the baseline negative binomial model</span>
+    <span class="n">baseline_model</span> <span class="o">=</span> <span class="n">formula</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span>
+        <span class="n">formula_str</span><span class="p">,</span> 
+        <span class="n">data</span><span class="o">=</span><span class="n">baseline_data</span><span class="p">,</span> 
+        <span class="n">family</span><span class="o">=</span><span class="n">families</span><span class="o">.</span><span class="n">NegativeBinomial</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="n">links</span><span class="o">.</span><span class="n">log</span><span class="p">(),</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+    <span class="c1"># Predictions</span>
+    <span class="n">baseline_fit</span> <span class="o">=</span> <span class="n">baseline_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">baseline_preds</span> <span class="o">=</span> <span class="n">baseline_model</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">baseline_fit</span><span class="p">)</span>
+    <span class="n">baseline_pred_ci</span> <span class="o">=</span> <span class="n">baseline_preds</span><span class="o">.</span><span class="n">summary_frame</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">baseline_fit</span><span class="p">[</span><span class="s2">&quot;estimate&quot;</span><span class="p">],</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">baseline_fit</span><span class="p">[</span><span class="s2">&quot;upper_ci&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">baseline_pred_ci</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">baseline_fit</span><span class="p">[</span><span class="s2">&quot;threshold&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">nbinom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span>
+        <span class="mi">1</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">,</span> 
+        <span class="n">n</span><span class="o">=</span><span class="n">theta</span><span class="p">,</span> 
+        <span class="n">p</span><span class="o">=</span><span class="n">theta</span><span class="o">/</span><span class="p">(</span><span class="n">theta</span><span class="o">+</span><span class="n">baseline_fit</span><span class="p">[</span><span class="s1">&#39;upper_ci&#39;</span><span class="p">])</span>
+    <span class="p">)</span>
+
+    <span class="n">predict_fit</span> <span class="o">=</span> <span class="n">predict_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">predict_preds</span> <span class="o">=</span> <span class="n">baseline_model</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">predict_fit</span><span class="p">)</span>
+    <span class="n">predict_pred_ci</span> <span class="o">=</span> <span class="n">predict_preds</span><span class="o">.</span><span class="n">summary_frame</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span> 
+    <span class="n">predict_fit</span><span class="p">[</span><span class="s2">&quot;estimate&quot;</span><span class="p">],</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">predict_fit</span><span class="p">[</span><span class="s2">&quot;upper_ci&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predict_pred_ci</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">predict_fit</span><span class="p">[</span><span class="s2">&quot;threshold&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">nbinom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span>
+        <span class="mi">1</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">,</span> 
+        <span class="n">n</span><span class="o">=</span><span class="n">theta</span><span class="p">,</span> 
+        <span class="n">p</span><span class="o">=</span><span class="n">theta</span><span class="o">/</span><span class="p">(</span><span class="n">theta</span><span class="o">+</span><span class="n">predict_fit</span><span class="p">[</span><span class="s1">&#39;upper_ci&#39;</span><span class="p">])</span>
+    <span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">baseline_fit</span><span class="p">,</span> <span class="n">predict_fit</span><span class="p">])</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">],</span> <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Baseline Period&quot;</span><span class="p">,</span> <span class="s2">&quot;Prediction Period&quot;</span><span class="p">])</span>
+    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;alarm&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;threshold&quot;</span><span class="p">],</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;time_term&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">include_time</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;cos&quot;</span><span class="p">,</span> <span class="s2">&quot;sin&quot;</span><span class="p">,</span> <span class="s2">&quot;upper_ci&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="alert_nbinom"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.nbinom.alert_nbinom">[docs]</a><span class="k">def</span> <span class="nf">alert_nbinom</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">baseline_end</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">include_time</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Negative binomial detection algorithm for weekly counts</span>
+<span class="sd">    </span>
+<span class="sd">    The negative binomial regression algorithm fits a negative binomial regression</span>
+<span class="sd">    model with a time term and order 1 Fourier terms to a baseline period that</span>
+<span class="sd">    spans 2 or more years. Inclusion of Fourier terms in the model is intended</span>
+<span class="sd">    to account for seasonality common in multi-year weekly time series of counts.</span>
+<span class="sd">    Order 1 sine and cosine terms are included to account for annual seasonality</span>
+<span class="sd">    that is common to syndromes and diseases such as influenza, RSV, and norovirus.</span>
+<span class="sd">    Each baseline model is used to make weekly forecasts for all weeks following</span>
+<span class="sd">    the baseline period. One-sided upper 95% prediction interval bounds are</span>
+<span class="sd">    computed for each week in the prediction period. Alarms are signaled for</span>
+<span class="sd">    any week during for which weekly counts fall above the upper bound of</span>
+<span class="sd">    the prediction interval.</span>
+
+<span class="sd">    :param df: A pandas data frame containing time series data</span>
+<span class="sd">    :param t: Name of the column of type Date containing the dates (Default value = &quot;date&quot;)</span>
+<span class="sd">    :param y: Name of the column of type Numeric containing counts or percentages (Default value = &quot;count&quot;)</span>
+<span class="sd">    :param baseline_end: date of the end of the baseline/training period (in date or string class)</span>
+<span class="sd">    :param include_time: Indicate whether or not to include time term in regression model (default is True)</span>
+
+<span class="sd">    :returns: Original pandas dataframe with model estimates, upper prediction interval bounds,</span>
+<span class="sd">        a binary alarm indicator field, and a binary indicator field of</span>
+<span class="sd">        whether or not a time term was included.</span>
+<span class="sd">    :examples:</span>
+<span class="sd">        import pandas as pd</span>
+<span class="sd">        import numpy as np</span>
+
+<span class="sd">        df = pd.DataFrame({</span>
+<span class="sd">            &quot;date&quot;: pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;),</span>
+<span class="sd">            &quot;count&quot;: np.random.poisson(lam=25, size=(len(pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;)),))</span>
+<span class="sd">        })</span>
+
+<span class="sd">        df_nbinom = alert_nbinom(df, baseline_end = &quot;2020-03-01&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grouped_df</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">groupby</span><span class="o">.</span><span class="n">DataFrameGroupBy</span><span class="p">)</span>
+
+    <span class="c1"># Check for grouping variables</span>
+    <span class="k">if</span> <span class="n">grouped_df</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span>\
+            <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">data</span><span class="p">:</span> <span class="n">nb_model</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">baseline_end</span><span class="o">=</span><span class="n">baseline_end</span><span class="p">,</span> <span class="n">include_time</span><span class="o">=</span><span class="n">include_time</span><span class="p">))</span>\
+            <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">unique_dates</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_dates</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_nbinom: Number of unique dates does not equal the number of rows. Should your dataframe be grouped?&quot;</span><span class="p">)</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">nb_model</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">baseline_end</span><span class="o">=</span><span class="n">baseline_end</span><span class="p">,</span> <span class="n">include_time</span><span class="o">=</span><span class="n">include_time</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynssp.detectors.ewma &mdash; pynssp 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pynssp
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">About pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pynssp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynssp.detectors.ewma</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynssp.detectors.ewma</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+
+
+<div class="viewcode-block" id="ewma_loop"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.ewma.ewma_loop">[docs]</a><span class="k">def</span> <span class="nf">ewma_loop</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loop for EWMA</span>
+<span class="sd">    </span>
+<span class="sd">    Loop for EWMA and adjustment of outlying smoothed values</span>
+
+<span class="sd">    :param df: A pandas data frame</span>
+<span class="sd">    :param t: Name of the column of type Date containing the dates</span>
+<span class="sd">    :param y: Name of the column containing the response variable data</span>
+<span class="sd">    :param mu: Numeric vector of baseline averages</span>
+<span class="sd">    :param B: Baseline parameter. The baseline length is the number of days used to</span>
+<span class="sd">        calculate rolling averages, standard deviations, and exponentially weighted</span>
+<span class="sd">        moving averages. Defaults to 28 days to match NSSP-ESSENCE implementation.</span>
+<span class="sd">    :param g: Guardband parameter. The guardband length is the number of days separating</span>
+<span class="sd">        the baseline from the current test date. Defaults to 2 days to match NSSP-ESSENCE</span>
+<span class="sd">        implementation.</span>
+<span class="sd">    :param w1: Smoothing coefficient for sensitivity to gradual events. Must be between</span>
+<span class="sd">        0 and 1 and is recommended to be between 0.3 and 0.5 to account for gradual</span>
+<span class="sd">        effects. Defaults to 0.4 to match NSSP-ESSENCE implementation.</span>
+<span class="sd">    :param w2: Smoothed coefficient for sensitivity to sudden events. Must be between</span>
+<span class="sd">        0 and 1 and is recommended to be above 0.7 to account for sudden events.</span>
+<span class="sd">        Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algorithm.</span>
+<span class="sd">    :returns: A pandas data frame with p-values and test statistics</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Vector of observations</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># Populate algorithm parameters</span>
+    <span class="n">min_baseline</span> <span class="o">=</span> <span class="mi">11</span>
+    <span class="n">max_baseline</span> <span class="o">=</span> <span class="n">B</span>
+
+    <span class="c1"># Initialize result vectors</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">z1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">z2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">sigma1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">sigma2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">test_stat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">test_stat1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">test_stat2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">p_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">pval1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">pval2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+    <span class="c1"># Initialize EWMA values</span>
+    <span class="n">z1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">z2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i_0</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_baseline</span> <span class="o">+</span> <span class="n">g</span><span class="p">):</span>
+        <span class="n">z1</span><span class="p">[</span><span class="n">i_0</span><span class="p">]</span> <span class="o">=</span> <span class="n">w1</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">i_0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w1</span><span class="p">)</span> <span class="o">*</span> <span class="n">z1</span><span class="p">[</span><span class="n">i_0</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">z2</span><span class="p">[</span><span class="n">i_0</span><span class="p">]</span> <span class="o">=</span> <span class="n">w2</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">i_0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z2</span><span class="p">[</span><span class="n">i_0</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Initialize baseline indices</span>
+    <span class="n">ndx_baseline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">min_baseline</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># EWMA loop</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_baseline</span> <span class="o">+</span> <span class="n">g</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+
+        <span class="c1"># Pad baseline until full baseline is obtained</span>
+        <span class="k">if</span> <span class="n">ndx_baseline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">max_baseline</span><span class="p">:</span>
+            <span class="n">ndx_baseline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Advance baseline for current iteration</span>
+        <span class="n">ndx_baseline</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Set number of degrees of freedom</span>
+        <span class="n">n_df</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="c1"># Baseline and current data</span>
+        <span class="n">y_baseline</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y</span><span class="p">)[</span><span class="n">ndx_baseline</span><span class="p">]</span>
+
+        <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_baseline</span><span class="p">)</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_baseline</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">sigma_correction1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>\
+            <span class="p">(</span><span class="n">w1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">w1</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">))</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w1</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> \
+                <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w1</span><span class="p">)</span> <span class="o">**</span> <span class="nb">len</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">sigma_correction2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>\
+            <span class="p">(</span><span class="n">w2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">w2</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">))</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w2</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> \
+                <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w2</span><span class="p">)</span> <span class="o">**</span> <span class="nb">len</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ndx_baseline</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="n">ucl_alert</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">n_df</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="n">ucl_warning</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.025</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">n_df</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+
+        <span class="n">min_sigma1</span> <span class="o">=</span> <span class="p">(</span><span class="n">w1</span> <span class="o">/</span> <span class="n">ucl_warning</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">min_sigma2</span> <span class="o">=</span> <span class="p">(</span><span class="n">w2</span> <span class="o">/</span> <span class="n">ucl_warning</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">constant1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.1289</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.2414</span> <span class="o">-</span> <span class="mf">0.1826</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w1</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> \
+                    <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mf">0.05</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">w1</span> <span class="o">/</span> <span class="n">ucl_warning</span><span class="p">)</span>
+        <span class="n">constant2</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.1289</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.2414</span> <span class="o">-</span> <span class="mf">0.1826</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w2</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> \
+                    <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mf">0.05</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">w2</span> <span class="o">/</span> <span class="n">ucl_warning</span><span class="p">)</span>
+
+        <span class="n">sigma1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">min_sigma1</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">sigma_correction1</span> <span class="o">+</span> <span class="n">constant1</span><span class="p">)</span>
+        <span class="n">sigma2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">min_sigma2</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">sigma_correction2</span> <span class="o">+</span> <span class="n">constant2</span><span class="p">)</span>
+
+        <span class="c1"># EWMA values</span>
+        <span class="n">z1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">w1</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w1</span><span class="p">)</span> <span class="o">*</span> <span class="n">z1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">z2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">w2</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z2</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Calculate test statistics</span>
+        <span class="n">test_stat1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">z1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">sigma1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">test_stat2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">z2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">sigma2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">test_stat1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">ucl_alert</span><span class="p">:</span>
+            <span class="n">z1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">test_stat1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">ucl_alert</span> <span class="o">*</span> <span class="n">sigma1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">test_stat2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">ucl_alert</span><span class="p">:</span>
+            <span class="n">z2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">test_stat2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">ucl_alert</span> <span class="o">*</span> <span class="n">sigma2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="c1"># Compute p-values</span>
+        <span class="n">pval1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">test_stat1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">df</span><span class="o">=</span><span class="n">n_df</span><span class="p">)</span>
+        <span class="n">pval2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">test_stat2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">df</span><span class="o">=</span><span class="n">n_df</span><span class="p">)</span>
+
+        <span class="c1"># Determine minimum p-value</span>
+        <span class="k">if</span> <span class="n">pval1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pval2</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="n">p_val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pval1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">test_stat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_stat1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">z1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p_val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pval2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">test_stat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_stat2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">z2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;baseline_expected&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">expected</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;test_statistic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_stat</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_val</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="alert_ewma"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.ewma.alert_ewma">[docs]</a><span class="k">def</span> <span class="nf">alert_ewma</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w1</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">w2</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exponentially Weighted Moving Average (EWMA)</span>
+<span class="sd">    </span>
+<span class="sd">    The EWMA compares a weighted average of the most recent visit counts</span>
+<span class="sd">    to a baseline expectation. For the weighted average to be tested, an exponential</span>
+<span class="sd">    weighting gives the most influence to the most recent observations.</span>
+<span class="sd">    This algorithm is appropriate for daily counts that do not have the</span>
+<span class="sd">    characteristic features modeled in the regression algorithm. It is more applicable</span>
+<span class="sd">    for Emergency Department data from certain hospital groups and for time series with</span>
+<span class="sd">    small counts (daily average below 10) because of the limited case definition or</span>
+<span class="sd">    chosen geographic region. An alert (red value) is signaled if the statistical test</span>
+<span class="sd">    (student&quot;s t-test) applied to the test statistic yields a p-value less than 0.01.</span>
+<span class="sd">    If the p-value is greater than or equal to 0.01 and strictly less than 0.05, a warning</span>
+<span class="sd">    (yellow value) is signaled. Blue values are returned if an alert or warning does not</span>
+<span class="sd">    occur. Grey values represent instances where anomaly detection did not apply</span>
+<span class="sd">    (i.e., observations for which baseline data were unavailable).</span>
+
+<span class="sd">    :param df: A pandas data frame containing time series data</span>
+<span class="sd">    :param t: Name of the column of type Date containing the dates (Default value = &quot;date&quot;)</span>
+<span class="sd">    :param y: Name of the column of type Numeric containing counts or percentages (Default value = &quot;count&quot;)</span>
+<span class="sd">    :param B: Baseline parameter. The baseline length is the number of days used to</span>
+<span class="sd">        calculate rolling averages, standard deviations, and exponentially weighted</span>
+<span class="sd">        moving averages. Defaults to 28 days to match ESSENCE implementation.</span>
+<span class="sd">    :param g: Guardband parameter. The guardband length is the number of days separating</span>
+<span class="sd">        the baseline from the current test date. Defaults to 2 days to match ESSENCE</span>
+<span class="sd">        implementation.</span>
+<span class="sd">    :param w1: Smoothing coefficient for sensitivity to gradual events. Must be between</span>
+<span class="sd">        0 and 1 and is recommended to be between 0.3 and 0.5 to account for gradual</span>
+<span class="sd">        effects. Defaults to 0.4 to match ESSENCE implementation.</span>
+<span class="sd">    :param w2: Smoothed coefficient for sensitivity to sudden events. Must be between</span>
+<span class="sd">        0 and 1 and is recommended to be above 0.7 to account for sudden events.</span>
+<span class="sd">        Defaults to 0.9 to match ESSENCE implementation and approximate the C2 algorithm.</span>
+<span class="sd">    :returns: Original pandas data frame with detection results.</span>
+<span class="sd">    :examples:</span>
+<span class="sd">        # Example 1</span>
+<span class="sd">        import pandas as pd</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        from pynssp.detectors.ewma import *</span>
+<span class="sd">    </span>
+<span class="sd">        df = pd.DataFrame({</span>
+<span class="sd">            &quot;date&quot;: pd.date_range(&quot;2020-01-01&quot;, &quot;2020-12-31&quot;),</span>
+<span class="sd">            &quot;count&quot;: np.random.randint(0, 101, size=366)</span>
+<span class="sd">        })</span>
+
+<span class="sd">        df_ewma = alert_ewma(df)</span>
+
+<span class="sd">        df_ewma.head()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Check baseline length argument</span>
+    <span class="k">if</span> <span class="n">B</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_ewma: baseline length argument `B` must be greater than or equal to 7&quot;</span><span class="p">)</span>
+        
+    <span class="c1"># Check guardband length argument</span>
+    <span class="k">if</span> <span class="n">g</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_ewma: guardband length argument `g` cannot be negative&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Check for sufficient baseline data</span>
+    <span class="n">grouped_df</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">groupby</span><span class="o">.</span><span class="n">DataFrameGroupBy</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">grouped_df</span><span class="p">:</span>
+        <span class="n">df_size</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df_size</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">df_size</span> <span class="o">&lt;</span> <span class="n">B</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_ewma: not enough historical data&quot;</span><span class="p">)</span>
+        
+    <span class="c1"># Check for grouping variables</span>
+    <span class="k">if</span> <span class="n">grouped_df</span><span class="p">:</span>
+        
+        <span class="n">alert_tbl</span> <span class="o">=</span> <span class="n">df</span>\
+            <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ewma_loop</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">))</span>
+        
+        <span class="n">alert_tbl</span> <span class="o">=</span> <span class="n">alert_tbl</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">alert_tbl</span><span class="p">[</span><span class="s2">&quot;alert&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">alert_tbl</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">alert_tbl</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">alert_tbl</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">),</span>
+                <span class="n">alert_tbl</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.05</span>
+            <span class="p">],</span> 
+            <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">],</span> 
+            <span class="n">default</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span>
+        <span class="p">)</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">base_tbl</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base_tbl</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">):</span>
+            <span class="n">base_tbl</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">base_tbl</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+        
+        <span class="n">unique_dates</span> <span class="o">=</span> <span class="n">base_tbl</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_dates</span><span class="p">)</span> <span class="o">!=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_ewma: Number of unique dates does not equal the number of rows. Should your dataframe be grouped?&quot;</span><span class="p">)</span>
+            
+        <span class="n">alert_tbl</span> <span class="o">=</span> <span class="n">ewma_loop</span><span class="p">(</span><span class="n">base_tbl</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">w1</span><span class="o">=</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="o">=</span><span class="n">w2</span><span class="p">)</span>
+        
+        <span class="n">alert_tbl</span> <span class="o">=</span> <span class="n">alert_tbl</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">alert_tbl</span><span class="p">[</span><span class="s2">&quot;alert&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">alert_tbl</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">alert_tbl</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">alert_tbl</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">),</span>
+                <span class="n">alert_tbl</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.05</span>
+            <span class="p">],</span> 
+            <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">],</span> 
+            <span class="n">default</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span>
+        <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">alert_tbl</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
