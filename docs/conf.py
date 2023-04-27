@@ -19,10 +19,11 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
-import sphinx_rtd_theme
-
 import pynssp
+
+from os.path import basename, dirname, realpath
+
+sys.path.insert(0, os.path.abspath('..'))
 
 # -- General configuration ---------------------------------------------
 
@@ -61,6 +62,11 @@ project = 'pynssp'
 copyright = "2023, Gbedegnon Roseric Azondekon"
 author = "Gbedegnon Roseric Azondekon"
 
+github_user = "cdcgov"
+github_repo_name = "pynssp"  # auto-detected from dirname if blank
+github_version = "master"
+conf_py_path = "/docs/"
+
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
 # the built documents.
@@ -95,6 +101,16 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme' #'alabaster', 'book', ...https://sphinxthemes.com/
+
+html_context = {
+    "display_github": True,
+    "github_user": github_user,
+    # Auto-detect directory name.  This can break, but
+    # useful as a default.
+    "github_repo": github_repo_name or basename(dirname(realpath(__file__))),
+    "github_version": github_version,
+    "conf_py_path": conf_py_path,
+}
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
