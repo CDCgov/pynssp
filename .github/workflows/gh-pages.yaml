@@ -1,0 +1,35 @@
+# Syntax reference for this file:
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+
+name: sphinx
+on: [push, pull_request]
+
+# https://gist.github.com/c-bata/ed5e7b7f8015502ee5092a3e77937c99
+jobs:
+  build-and-delpoy:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/marketplace/actions/checkout
+      - uses: actions/checkout@v2
+      # https://github.com/marketplace/actions/setup-python
+      # ^-- This gives info on matrix testing.
+      - name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        run: |
+          pip install -r requirements_dev.txt
+      - name: Build Sphinx docs
+        run: |
+          make html
+
+      # https://github.com/peaceiris/actions-gh-pages
+      - name: Deploy
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.API_TOKEN_GITHUB }}
+          publish_dir: _build/html/
