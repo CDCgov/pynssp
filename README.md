@@ -8,8 +8,8 @@ A Python package for the National Syndromic Surveillance Program (NSSP) and its 
 
 You can install the development version of `pynssp` from Github:
 
-```sh
-pip install git+https://github.com/CDCgov/pynssp.git
+```console
+$ pip install git+https://github.com/CDCgov/pynssp.git
 ```
 
 ## Usage

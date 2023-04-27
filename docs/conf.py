@@ -36,15 +36,10 @@ extensions = [
     'sphinx.ext.viewcode', 
     'm2r', 
     'sphinx_rtd_theme',
-    'sphinxcontrib.googleanalytics'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
-
-# Google Analytics
-googleanalytics_id = "G-5FTLT9PCW7"
-googleanalytics_enabled = True
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
