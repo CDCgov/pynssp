@@ -20,7 +20,7 @@ jobs:
           python-version: 3.11
       - name: Install dependencies
         run: |
-          pip install -r requirements_dev.txt
+          pip install -r requirements_dev.txt && pip install sphinxcontrib-googleanalytics
       - name: Build Sphinx docs
         run: |
           make docs
