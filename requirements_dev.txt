@@ -16,3 +16,4 @@ scikit-image
 matplotlib
 statsmodels
 scipy
+sphinx_rtd_theme
