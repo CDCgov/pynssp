@@ -6,14 +6,7 @@ A Python package for the National Syndromic Surveillance Program (NSSP) and its 
 
 ## Installation
 
-You can install `pynssp` from PyPI:
-
-```sh
-# install the pynssp package
-pip install pynssp
-```
-
-You may also install `pynssp` from Github:
+You can install the development version of `pynssp` from Github:
 
 ```sh
 pip install git+https://github.com/CDCgov/pynssp.git
