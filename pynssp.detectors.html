@@ -1,17 +1,8 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="English" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5FTLT9PCW7"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-5FTLT9PCW7');
-    </script>
-    
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pynssp.detectors package &mdash; pynssp 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -125,7 +116,7 @@ characteristic features modeled in the regression algorithm. It is more applicab
 for Emergency Department data from certain hospital groups and for time series with
 small counts (daily average below 10) because of the limited case definition or
 chosen geographic region. An alert (red value) is signaled if the statistical test
-(student&quot;s t-test) applied to the test statistic yields a p-value less than 0.01.
+(student”s t-test) applied to the test statistic yields a p-value less than 0.01.
 If the p-value is greater than or equal to 0.01 and strictly less than 0.05, a warning
 (yellow value) is signaled. Blue values are returned if an alert or warning does not
 occur. Grey values represent instances where anomaly detection did not apply
@@ -133,19 +124,19 @@ occur. Grey values represent instances where anomaly detection did not apply
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> -- A pandas data frame containing time series data</p></li>
-<li><p><strong>t</strong> -- Name of the column of type Date containing the dates (Default value = &quot;date&quot;)</p></li>
-<li><p><strong>y</strong> -- Name of the column of type Numeric containing counts or percentages (Default value = &quot;count&quot;)</p></li>
-<li><p><strong>B</strong> -- Baseline parameter. The baseline length is the number of days used to
+<li><p><strong>df</strong> – A pandas data frame containing time series data</p></li>
+<li><p><strong>t</strong> – Name of the column of type Date containing the dates (Default value = “date”)</p></li>
+<li><p><strong>y</strong> – Name of the column of type Numeric containing counts or percentages (Default value = “count”)</p></li>
+<li><p><strong>B</strong> – Baseline parameter. The baseline length is the number of days used to
 calculate rolling averages, standard deviations, and exponentially weighted
 moving averages. Defaults to 28 days to match ESSENCE implementation.</p></li>
-<li><p><strong>g</strong> -- Guardband parameter. The guardband length is the number of days separating
+<li><p><strong>g</strong> – Guardband parameter. The guardband length is the number of days separating
 the baseline from the current test date. Defaults to 2 days to match ESSENCE
 implementation.</p></li>
-<li><p><strong>w1</strong> -- Smoothing coefficient for sensitivity to gradual events. Must be between
+<li><p><strong>w1</strong> – Smoothing coefficient for sensitivity to gradual events. Must be between
 0 and 1 and is recommended to be between 0.3 and 0.5 to account for gradual
 effects. Defaults to 0.4 to match ESSENCE implementation.</p></li>
-<li><p><strong>w2</strong> -- Smoothed coefficient for sensitivity to sudden events. Must be between
+<li><p><strong>w2</strong> – Smoothed coefficient for sensitivity to sudden events. Must be between
 0 and 1 and is recommended to be above 0.7 to account for sudden events.
 Defaults to 0.9 to match ESSENCE implementation and approximate the C2 algorithm.</p></li>
 </ul>
@@ -159,8 +150,8 @@ import pandas as pd
 import numpy as np
 from pynssp.detectors.ewma import *</p>
 <dl class="simple">
-<dt>df = pd.DataFrame({</dt><dd><p>&quot;date&quot;: pd.date_range(&quot;2020-01-01&quot;, &quot;2020-12-31&quot;),
-&quot;count&quot;: np.random.randint(0, 101, size=366)</p>
+<dt>df = pd.DataFrame({</dt><dd><p>“date”: pd.date_range(“2020-01-01”, “2020-12-31”),
+“count”: np.random.randint(0, 101, size=366)</p>
 </dd>
 </dl>
 <p>})</p>
@@ -178,20 +169,20 @@ from pynssp.detectors.ewma import *</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> -- A pandas data frame</p></li>
-<li><p><strong>t</strong> -- Name of the column of type Date containing the dates</p></li>
-<li><p><strong>y</strong> -- Name of the column containing the response variable data</p></li>
-<li><p><strong>mu</strong> -- Numeric vector of baseline averages</p></li>
-<li><p><strong>B</strong> -- Baseline parameter. The baseline length is the number of days used to
+<li><p><strong>df</strong> – A pandas data frame</p></li>
+<li><p><strong>t</strong> – Name of the column of type Date containing the dates</p></li>
+<li><p><strong>y</strong> – Name of the column containing the response variable data</p></li>
+<li><p><strong>mu</strong> – Numeric vector of baseline averages</p></li>
+<li><p><strong>B</strong> – Baseline parameter. The baseline length is the number of days used to
 calculate rolling averages, standard deviations, and exponentially weighted
 moving averages. Defaults to 28 days to match NSSP-ESSENCE implementation.</p></li>
-<li><p><strong>g</strong> -- Guardband parameter. The guardband length is the number of days separating
+<li><p><strong>g</strong> – Guardband parameter. The guardband length is the number of days separating
 the baseline from the current test date. Defaults to 2 days to match NSSP-ESSENCE
 implementation.</p></li>
-<li><p><strong>w1</strong> -- Smoothing coefficient for sensitivity to gradual events. Must be between
+<li><p><strong>w1</strong> – Smoothing coefficient for sensitivity to gradual events. Must be between
 0 and 1 and is recommended to be between 0.3 and 0.5 to account for gradual
 effects. Defaults to 0.4 to match NSSP-ESSENCE implementation.</p></li>
-<li><p><strong>w2</strong> -- Smoothed coefficient for sensitivity to sudden events. Must be between
+<li><p><strong>w2</strong> – Smoothed coefficient for sensitivity to sudden events. Must be between
 0 and 1 and is recommended to be above 0.7 to account for sudden events.
 Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algorithm.</p></li>
 </ul>
@@ -226,11 +217,11 @@ the prediction interval.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> -- A pandas data frame containing time series data</p></li>
-<li><p><strong>t</strong> -- Name of the column of type Date containing the dates (Default value = &quot;date&quot;)</p></li>
-<li><p><strong>y</strong> -- Name of the column of type Numeric containing counts or percentages (Default value = &quot;count&quot;)</p></li>
-<li><p><strong>baseline_end</strong> -- date of the end of the baseline/training period (in date or string class)</p></li>
-<li><p><strong>include_time</strong> -- Indicate whether or not to include time term in regression model (default is True)</p></li>
+<li><p><strong>df</strong> – A pandas data frame containing time series data</p></li>
+<li><p><strong>t</strong> – Name of the column of type Date containing the dates (Default value = “date”)</p></li>
+<li><p><strong>y</strong> – Name of the column of type Numeric containing counts or percentages (Default value = “count”)</p></li>
+<li><p><strong>baseline_end</strong> – date of the end of the baseline/training period (in date or string class)</p></li>
+<li><p><strong>include_time</strong> – Indicate whether or not to include time term in regression model (default is True)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -242,12 +233,12 @@ whether or not a time term was included.</p>
 <dd class="field-odd"><p>import pandas as pd
 import numpy as np</p>
 <dl class="simple">
-<dt>df = pd.DataFrame({</dt><dd><p>&quot;date&quot;: pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;),
-&quot;count&quot;: np.random.poisson(lam=25, size=(len(pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;)),))</p>
+<dt>df = pd.DataFrame({</dt><dd><p>“date”: pd.date_range(start=”2014-01-05”, end=”2022-02-05”, freq=”W”),
+“count”: np.random.poisson(lam=25, size=(len(pd.date_range(start=”2014-01-05”, end=”2022-02-05”, freq=”W”)),))</p>
 </dd>
 </dl>
 <p>})</p>
-<p>df_nbinom = alert_nbinom(df, baseline_end = &quot;2020-03-01&quot;)</p>
+<p>df_nbinom = alert_nbinom(df, baseline_end = “2020-03-01”)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -261,11 +252,11 @@ count time series with seasonality</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> -- A pandas data frame</p></li>
-<li><p><strong>t</strong> -- Name of the column of type Date containing the dates</p></li>
-<li><p><strong>y</strong> -- Name of the column of type Numeric containing counts</p></li>
-<li><p><strong>baseline_end</strong> -- Object of type Date defining the end of the baseline/training period</p></li>
-<li><p><strong>include_time</strong> -- Logical indicating whether or not to include time term in regression model</p></li>
+<li><p><strong>df</strong> – A pandas data frame</p></li>
+<li><p><strong>t</strong> – Name of the column of type Date containing the dates</p></li>
+<li><p><strong>y</strong> – Name of the column of type Numeric containing counts</p></li>
+<li><p><strong>baseline_end</strong> – Object of type Date defining the end of the baseline/training period</p></li>
+<li><p><strong>include_time</strong> – Logical indicating whether or not to include time term in regression model</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -285,12 +276,12 @@ count time series with seasonality</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> -- A pandas data frame containing time series data</p></li>
-<li><p><strong>t</strong> -- Name of the column of type Date containing the dates</p></li>
-<li><p><strong>y</strong> -- Name of the column containing the response variable data</p></li>
-<li><p><strong>B</strong> -- Baseline parameter. The baseline length is the number of days to
+<li><p><strong>df</strong> – A pandas data frame containing time series data</p></li>
+<li><p><strong>t</strong> – Name of the column of type Date containing the dates</p></li>
+<li><p><strong>y</strong> – Name of the column containing the response variable data</p></li>
+<li><p><strong>B</strong> – Baseline parameter. The baseline length is the number of days to
 which each liner model is fit.</p></li>
-<li><p><strong>g</strong> -- Guardband parameter. The guardband length is the number of days
+<li><p><strong>g</strong> – Guardband parameter. The guardband length is the number of days
 separating the baseline from the current date in consideration for alerting.</p></li>
 </ul>
 </dd>
@@ -311,7 +302,7 @@ and divided by the standard error of prediction in the test-statistic.
 The model includes terms to account for linear trends and day-of-week effects.
 Note that this implementation does NOT account for federal holidays as in the
 Regression 1.2 algorithm in ESSENCE. An alert (red value) is signaled if
-the statistical test (student&quot;s t-test) applied to the test statistic yields
+the statistical test (student”s t-test) applied to the test statistic yields
 a p-value less than 0.01. If the p-value is greater than or equal to 0.01
 and strictly less than 0.05, a warning (yellow value) is signaled.
 Blue values are returned if an alert or warning does not occur.
@@ -320,14 +311,14 @@ Grey values represent instances where anomaly detection did not apply
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> -- A pandas data frame containing time series data</p></li>
-<li><p><strong>t</strong> -- The name of the column in df that contains the dates or times of
-observations. Defaults to &quot;date&quot;.</p></li>
-<li><p><strong>y</strong> -- The name of the column in df that contains the values of the
-time series. Defaults to &quot;count&quot;.</p></li>
-<li><p><strong>B</strong> -- The length of the baseline period (in days). Must be a multiple
+<li><p><strong>df</strong> – A pandas data frame containing time series data</p></li>
+<li><p><strong>t</strong> – The name of the column in df that contains the dates or times of
+observations. Defaults to “date”.</p></li>
+<li><p><strong>y</strong> – The name of the column in df that contains the values of the
+time series. Defaults to “count”.</p></li>
+<li><p><strong>B</strong> – The length of the baseline period (in days). Must be a multiple
 of 7 and at least 7. Defaults to 28.</p></li>
-<li><p><strong>g</strong> -- The length of the guard band (in days). Must be non-negative.
+<li><p><strong>g</strong> – The length of the guard band (in days). Must be non-negative.
 Defaults to 2.</p></li>
 </ul>
 </dd>
@@ -340,8 +331,8 @@ import pandas as pd
 import numpy as np
 from pynssp.detectors.regression import *</p>
 <dl class="simple">
-<dt>df = pd.DataFrame({</dt><dd><p>&quot;date&quot;: pd.date_range(&quot;2020-01-01&quot;, &quot;2020-12-31&quot;),
-&quot;count&quot;: np.random.randint(0, 101, size=366)</p>
+<dt>df = pd.DataFrame({</dt><dd><p>“date”: pd.date_range(“2020-01-01”, “2020-12-31”),
+“count”: np.random.randint(0, 101, size=366)</p>
 </dd>
 </dl>
 <p>})</p>
@@ -376,10 +367,10 @@ prior to fitting the regression model.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> -- A pandas data frame containing time series data</p></li>
-<li><p><strong>t</strong> -- Name of the column of type Date containing the dates (Default value = &quot;date&quot;)</p></li>
-<li><p><strong>y</strong> -- Name of the column of type Numeric containing counts or percentages (Default value = &quot;count&quot;)</p></li>
-<li><p><strong>baseline_end</strong> -- date of the end of the baseline/training period (in date or string class)</p></li>
+<li><p><strong>df</strong> – A pandas data frame containing time series data</p></li>
+<li><p><strong>t</strong> – Name of the column of type Date containing the dates (Default value = “date”)</p></li>
+<li><p><strong>y</strong> – Name of the column of type Numeric containing counts or percentages (Default value = “count”)</p></li>
+<li><p><strong>baseline_end</strong> – date of the end of the baseline/training period (in date or string class)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -391,11 +382,11 @@ a binary alarm indicator field, and a binary indicator</p>
 import numpy as np
 df = pd.DataFrame({</p>
 <blockquote>
-<div><p>&quot;date&quot;: pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;),
-&quot;count&quot;: np.random.poisson(lam=25, size=(len(pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;)),))</p>
+<div><p>“date”: pd.date_range(start=”2014-01-05”, end=”2022-02-05”, freq=”W”),
+“count”: np.random.poisson(lam=25, size=(len(pd.date_range(start=”2014-01-05”, end=”2022-02-05”, freq=”W”)),))</p>
 </div></blockquote>
 <p>})
-df_serfling  = alert_serfling(df, baseline_end = &quot;2020-03-01&quot;)</p>
+df_serfling  = alert_serfling(df, baseline_end = “2020-03-01”)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -408,10 +399,10 @@ df_serfling  = alert_serfling(df, baseline_end = &quot;2020-03-01&quot;)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> -- A pandas data frame</p></li>
-<li><p><strong>t</strong> -- Name of the column of type Date containing the dates</p></li>
-<li><p><strong>y</strong> -- Name of the column of type Numeric containing counts</p></li>
-<li><p><strong>baseline_end</strong> -- date of the end of the baseline/training period (date or string class)</p></li>
+<li><p><strong>df</strong> – A pandas data frame</p></li>
+<li><p><strong>t</strong> – Name of the column of type Date containing the dates</p></li>
+<li><p><strong>y</strong> – Name of the column of type Numeric containing counts</p></li>
+<li><p><strong>baseline_end</strong> – date of the end of the baseline/training period (date or string class)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -438,19 +429,19 @@ coefficient for the EWMA algorithm is fixed to 0.4.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> -- A dataframe containing the time series data.</p></li>
-<li><p><strong>t</strong> -- The name of the column in <cite>df</cite> containing the time information.
-Defaults to &quot;date&quot;.</p></li>
-<li><p><strong>y</strong> -- The name of the column in <cite>df</cite> containing the values to be analyzed.
-Defaults to &quot;count&quot;.</p></li>
-<li><p><strong>B</strong> -- The length of the baseline period in days, must be a multiple of 7 and
+<li><p><strong>df</strong> – A dataframe containing the time series data.</p></li>
+<li><p><strong>t</strong> – The name of the column in <cite>df</cite> containing the time information.
+Defaults to “date”.</p></li>
+<li><p><strong>y</strong> – The name of the column in <cite>df</cite> containing the values to be analyzed.
+Defaults to “count”.</p></li>
+<li><p><strong>B</strong> – The length of the baseline period in days, must be a multiple of 7 and
 greater than or equal to 7. Defaults to 28.</p></li>
-<li><p><strong>g</strong> -- The length of the guardband period in days. Must be non-negative.
+<li><p><strong>g</strong> – The length of the guardband period in days. Must be non-negative.
 Defaults to 2.</p></li>
-<li><p><strong>w1</strong> -- Smoothing coefficient for sensitivity to gradual events. Must be between
+<li><p><strong>w1</strong> – Smoothing coefficient for sensitivity to gradual events. Must be between
 0 and 1 and is recommended to be between 0.3 and 0.5 to account for gradual
 effects. Defaults to 0.4 to match NSSP-ESSENCE implementation.</p></li>
-<li><p><strong>w2</strong> -- Smoothed coefficient for sensitivity to sudden events. Must be between
+<li><p><strong>w2</strong> – Smoothed coefficient for sensitivity to sudden events. Must be between
 0 and 1 and is recommended to be above 0.7 to account for sudden events.
 Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algorithm.</p></li>
 </ul>
@@ -464,8 +455,8 @@ import pandas as pd
 import numpy as np
 from pynssp.detectors.switch import *</p>
 <dl class="simple">
-<dt>df = pd.DataFrame({</dt><dd><p>&quot;date&quot;: pd.date_range(&quot;2020-01-01&quot;, &quot;2020-12-31&quot;),
-&quot;count&quot;: np.random.randint(0, 101, size=366)</p>
+<dt>df = pd.DataFrame({</dt><dd><p>“date”: pd.date_range(“2020-01-01”, “2020-12-31”),
+“count”: np.random.randint(0, 101, size=366)</p>
 </dd>
 </dl>
 <p>})</p>
@@ -513,17 +504,17 @@ from pynssp.detectors.switch import *</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
- 
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("G-5FTLT9PCW7");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5FTLT9PCW7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
+      gtag('config', 'G-5FTLT9PCW7', {
+          'anonymize_ip': false,
+      });
+    </script> 
 
 </body>
 </html>

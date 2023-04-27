@@ -1,17 +1,8 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="English" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5FTLT9PCW7"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-5FTLT9PCW7');
-    </script>
-    
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pynssp.core package &mdash; pynssp 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -161,10 +152,10 @@ A Credentials object gets API data via an API URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> -- a string of API URL</p></li>
-<li><p><strong>fromCSV</strong> -- a logical, defines whether data are received in .csv format or .json format (Default value = False)</p></li>
-<li><p><strong>encoding</strong> -- an encoding standard (Default value = &quot;utf-8&quot;)</p></li>
-<li><p><strong>**kwargs</strong> -- <p>Additional keyword arguments to pass to <cite>pandas.read_csv()</cite> if <cite>fromCSV</cite> is True.</p>
+<li><p><strong>url</strong> – a string of API URL</p></li>
+<li><p><strong>fromCSV</strong> – a logical, defines whether data are received in .csv format or .json format (Default value = False)</p></li>
+<li><p><strong>encoding</strong> – an encoding standard (Default value = “utf-8”)</p></li>
+<li><p><strong>**kwargs</strong> – <p>Additional keyword arguments to pass to <cite>pandas.read_csv()</cite> if <cite>fromCSV</cite> is True.</p>
 </p></li>
 </ul>
 </dd>
@@ -181,8 +172,8 @@ A Credentials object gets API data via an API URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> -- a string of API URL</p></li>
-<li><p><strong>file_ext</strong> -- a non-empty character vector giving the file extension. (Default value = &quot;.png&quot;)</p></li>
+<li><p><strong>url</strong> – a string of API URL</p></li>
+<li><p><strong>file_ext</strong> – a non-empty character vector giving the file extension. (Default value = “.png”)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -197,7 +188,7 @@ A Credentials object gets API data via an API URL.</p>
 <dd><p>Get API response</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>url</strong> -- a string of API URL</p>
+<dd class="field-odd"><p><strong>url</strong> – a string of API URL</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>an object of class response</p>
@@ -212,8 +203,8 @@ A Credentials object gets API data via an API URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file_ext</strong> -- a non-empty character vector giving the file extension. (Default value = &quot;.pkl&quot;)</p></li>
-<li><p><strong>file</strong> -- (Default value = None)</p></li>
+<li><p><strong>file_ext</strong> – a non-empty character vector giving the file extension. (Default value = “.pkl”)</p></li>
+<li><p><strong>file</strong> – (Default value = None)</p></li>
 </ul>
 </dd>
 </dl>
@@ -238,10 +229,10 @@ A Token object can get API data via an API URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> -- a string of API URL</p></li>
-<li><p><strong>fromCSV</strong> -- a logical, defines whether data are received in .csv format or .json format (Default value = False)</p></li>
-<li><p><strong>encoding</strong> -- an encoding standard (Default value = &quot;utf-8&quot;)</p></li>
-<li><p><strong>**kwargs</strong> -- <p>Additional keyword arguments to pass to <cite>pandas.read_csv()</cite> if <cite>fromCSV</cite> is True.</p>
+<li><p><strong>url</strong> – a string of API URL</p></li>
+<li><p><strong>fromCSV</strong> – a logical, defines whether data are received in .csv format or .json format (Default value = False)</p></li>
+<li><p><strong>encoding</strong> – an encoding standard (Default value = “utf-8”)</p></li>
+<li><p><strong>**kwargs</strong> – <p>Additional keyword arguments to pass to <cite>pandas.read_csv()</cite> if <cite>fromCSV</cite> is True.</p>
 </p></li>
 </ul>
 </dd>
@@ -258,8 +249,8 @@ A Token object can get API data via an API URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> -- a string of API URL</p></li>
-<li><p><strong>file_ext</strong> -- a non-empty character vector giving the file extension. (Default value = &quot;.png&quot;)</p></li>
+<li><p><strong>url</strong> – a string of API URL</p></li>
+<li><p><strong>file_ext</strong> – a non-empty character vector giving the file extension. (Default value = “.png”)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -274,7 +265,7 @@ A Token object can get API data via an API URL.</p>
 <dd><p>Get API response</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>url</strong> -- a string of API URL</p>
+<dd class="field-odd"><p><strong>url</strong> – a string of API URL</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>an object of class response</p>
@@ -289,8 +280,8 @@ A Token object can get API data via an API URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file_ext</strong> -- a non-empty character vector giving the file extension. (Default value = &quot;.pkl&quot;)</p></li>
-<li><p><strong>file</strong> -- (Default value = None)</p></li>
+<li><p><strong>file_ext</strong> – a non-empty character vector giving the file extension. (Default value = “.pkl”)</p></li>
+<li><p><strong>file</strong> – (Default value = None)</p></li>
 </ul>
 </dd>
 </dl>
@@ -333,17 +324,17 @@ A Token object can get API data via an API URL.</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
- 
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("G-5FTLT9PCW7");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5FTLT9PCW7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
+      gtag('config', 'G-5FTLT9PCW7', {
+          'anonymize_ip': false,
+      });
+    </script> 
 
 </body>
 </html>
