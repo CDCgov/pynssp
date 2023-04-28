@@ -176,6 +176,7 @@ latex_documents = [
      'Gbedegnon Roseric Azondekon', 'manual'),
 ]
 
+latex_engine = 'pdflatex'
 
 # -- Options for manual page output ------------------------------------
 
