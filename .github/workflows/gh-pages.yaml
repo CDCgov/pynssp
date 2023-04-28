@@ -24,7 +24,7 @@ jobs:
       - name: Build Sphinx docs
         run: |
           make docs
-          cd docs && make latexpdf
+          docs/make latexpdf
 
       # https://github.com/peaceiris/actions-gh-pages
       - name: Deploy
