@@ -24,6 +24,7 @@ jobs:
       - name: Build Sphinx docs
         run: |
           make docs
+          cd docs && make latexpdf
 
       # https://github.com/peaceiris/actions-gh-pages
       - name: Deploy
@@ -37,10 +38,8 @@ jobs:
       # Deploy Package build
       - name: Deploy PDF doc
         run: |
-          mkdir public
-          docs/make latexpdf
-          cp -r docs/_build/latex/pynssp.pdf public
-          
+          mkdir public && cp -r docs/_build/latex/pynssp.pdf public
+
       # Upload Pipeline Artifact
       - name: Upload PDF doc
         uses: actions/upload-artifact@v2
