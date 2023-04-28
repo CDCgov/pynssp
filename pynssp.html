@@ -45,11 +45,14 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+              <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="readme.html">About pynssp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Get started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pynssp</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pynssp package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
@@ -81,9 +84,14 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">ChangeLogs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeofconduct.html">Creating a Culture of Innovation</a></li>
 </ul>
 
         </div>
@@ -255,7 +263,7 @@ memory usage: 24.6+ KB</p>
 <dt class="sig sig-object py" id="pynssp.utils.change_dates">
 <span class="sig-prename descclassname"><span class="pre">pynssp.utils.</span></span><span class="sig-name descname"><span class="pre">change_dates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/utils.html#change_dates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.utils.change_dates" title="Permalink to this definition"></a></dt>
 <dd><p>Changes the start and end dates in a given URL to new dates, if provided.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> – str): The URL containing the start and end dates to be changed.</p></li>
@@ -266,11 +274,10 @@ memory usage: 24.6+ KB</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The modified URL with the new start and end dates.</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>:examples</dt><dd><p>from pynssp.utils import *
-url = “<a class="reference external" href="https://example.com/data?startDate=01Jan2022&amp;endDate=31Dec2022">https://example.com/data?startDate=01Jan2022&amp;endDate=31Dec2022</a>”
-change_dates(url, start_date=”01Jan2021”, end_date=”31Dec2021”)</p>
+<dt class="field-odd">Examples<span class="colon">:</span></dt>
+<dd class="field-odd"><p>from pynssp.utils import *</p>
+<p>url = “<a class="reference external" href="https://example.com/data?startDate=01Jan2022&amp;endDate=31Dec2022">https://example.com/data?startDate=01Jan2022&amp;endDate=31Dec2022</a>”</p>
+<p>change_dates(url, start_date=”01Jan2021”, end_date=”31Dec2021”)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -429,7 +436,41 @@ change_dates(url, start_date=”01Jan2021”, end_date=”31Dec2021”)</p>
       gtag('config', 'G-5FTLT9PCW7', {
           'anonymize_ip': false,
       });
-    </script> 
+    </script>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+      <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Read the Docs</span>
+        v: latest
+        <span class="fa fa-caret-down"></span>
+      </span>
+      <div class="rst-other-versions">
+        <dl>
+          <dt>Versions</dt>
+            <dd><a href="#">latest</a></dd>
+            <dd><a href="#">0.1.0</a></dd>
+            <!-- <dd><a href="#">1.1</a></dd> -->
+        </dl>
+        <dl>
+          <dt>Downloads</dt>
+          <dd><a href="#">PDF</a></dd>
+          <dd><a href="#">ePub</a></dd>
+          <!-- <dd><a href="#">HTML</a></dd> -->
+        </dl>
+        <dl>
+          <dt>On this Documentation</dt>
+            <dd>
+              <a href="https://github.com/CDCgov/pynssp/tree/master/docs">doc source</a>
+            </dd>
+            <dd>
+              <a href="https://github.com/CDCgov/pynssp/tree/gh-pages">build source</a>
+            </dd>
+        </dl>
+        <!-- <dl>
+          <dt>Debug</dt>
+          <dd><a href="#" data-toggle="rst-debug-badge">Swap badge position</a></dd>
+        </dl> -->
+      </div>
+    </div>
 
 </body>
 </html>

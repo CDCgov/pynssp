@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="next" title="ChangeLogs" href="history.html" />
     <link rel="prev" title="pynssp.core package" href="pynssp.core.html" /> 
 </head>
 
@@ -45,11 +45,14 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+              <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="readme.html">About pynssp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Get started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pynssp</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="pynssp.html">pynssp package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="pynssp.html#subpackages">Subpackages</a><ul class="current">
@@ -66,9 +69,14 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">ChangeLogs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeofconduct.html">Creating a Culture of Innovation</a></li>
 </ul>
 
         </div>
@@ -145,10 +153,9 @@ Defaults to 0.9 to match ESSENCE implementation and approximate the C2 algorithm
 <dd class="field-even"><p>Original pandas data frame with detection results.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><p># Example 1
-import pandas as pd
-import numpy as np
-from pynssp.detectors.ewma import *</p>
+<dd class="field-odd"><p>import pandas as pd</p>
+<p>import numpy as np</p>
+<p>from pynssp.detectors.ewma import *</p>
 <dl class="simple">
 <dt>df = pd.DataFrame({</dt><dd><p>“date”: pd.date_range(“2020-01-01”, “2020-12-31”),
 “count”: np.random.randint(0, 101, size=366)</p>
@@ -230,8 +237,8 @@ a binary alarm indicator field, and a binary indicator field of
 whether or not a time term was included.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><p>import pandas as pd
-import numpy as np</p>
+<dd class="field-odd"><p>import pandas as pd</p>
+<p>import numpy as np</p>
 <dl class="simple">
 <dt>df = pd.DataFrame({</dt><dd><p>“date”: pd.date_range(start=”2014-01-05”, end=”2022-02-05”, freq=”W”),
 “count”: np.random.poisson(lam=25, size=(len(pd.date_range(start=”2014-01-05”, end=”2022-02-05”, freq=”W”)),))</p>
@@ -326,10 +333,9 @@ Defaults to 2.</p></li>
 <dd class="field-even"><p>Original pandas data frame with detection results.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><p># Example 1
-import pandas as pd
-import numpy as np
-from pynssp.detectors.regression import *</p>
+<dd class="field-odd"><p>import pandas as pd</p>
+<p>import numpy as np</p>
+<p>from pynssp.detectors.regression import *</p>
 <dl class="simple">
 <dt>df = pd.DataFrame({</dt><dd><p>“date”: pd.date_range(“2020-01-01”, “2020-12-31”),
 “count”: np.random.randint(0, 101, size=366)</p>
@@ -378,15 +384,15 @@ prior to fitting the regression model.</p>
 a binary alarm indicator field, and a binary indicator</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><p>import pandas as pd
-import numpy as np
-df = pd.DataFrame({</p>
-<blockquote>
-<div><p>“date”: pd.date_range(start=”2014-01-05”, end=”2022-02-05”, freq=”W”),
+<dd class="field-odd"><p>import pandas as pd</p>
+<p>import numpy as np</p>
+<dl class="simple">
+<dt>df = pd.DataFrame({</dt><dd><p>“date”: pd.date_range(start=”2014-01-05”, end=”2022-02-05”, freq=”W”),
 “count”: np.random.poisson(lam=25, size=(len(pd.date_range(start=”2014-01-05”, end=”2022-02-05”, freq=”W”)),))</p>
-</div></blockquote>
-<p>})
-df_serfling  = alert_serfling(df, baseline_end = “2020-03-01”)</p>
+</dd>
+</dl>
+<p>})</p>
+<p>df_serfling  = alert_serfling(df, baseline_end = “2020-03-01”)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -450,10 +456,9 @@ Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algo
 <dd class="field-even"><p>A dataframe containing the results of the analysis.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><p># Example 1
-import pandas as pd
-import numpy as np
-from pynssp.detectors.switch import *</p>
+<dd class="field-odd"><p>import pandas as pd</p>
+<p>import numpy as np</p>
+<p>from pynssp.detectors.switch import *</p>
 <dl class="simple">
 <dt>df = pd.DataFrame({</dt><dd><p>“date”: pd.date_range(“2020-01-01”, “2020-12-31”),
 “count”: np.random.randint(0, 101, size=366)</p>
@@ -480,7 +485,7 @@ from pynssp.detectors.switch import *</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pynssp.core.html" class="btn btn-neutral float-left" title="pynssp.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="history.html" class="btn btn-neutral float-right" title="ChangeLogs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -514,7 +519,41 @@ from pynssp.detectors.switch import *</p>
       gtag('config', 'G-5FTLT9PCW7', {
           'anonymize_ip': false,
       });
-    </script> 
+    </script>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+      <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Read the Docs</span>
+        v: latest
+        <span class="fa fa-caret-down"></span>
+      </span>
+      <div class="rst-other-versions">
+        <dl>
+          <dt>Versions</dt>
+            <dd><a href="#">latest</a></dd>
+            <dd><a href="#">0.1.0</a></dd>
+            <!-- <dd><a href="#">1.1</a></dd> -->
+        </dl>
+        <dl>
+          <dt>Downloads</dt>
+          <dd><a href="#">PDF</a></dd>
+          <dd><a href="#">ePub</a></dd>
+          <!-- <dd><a href="#">HTML</a></dd> -->
+        </dl>
+        <dl>
+          <dt>On this Documentation</dt>
+            <dd>
+              <a href="https://github.com/CDCgov/pynssp/tree/master/docs">doc source</a>
+            </dd>
+            <dd>
+              <a href="https://github.com/CDCgov/pynssp/tree/gh-pages">build source</a>
+            </dd>
+        </dl>
+        <!-- <dl>
+          <dt>Debug</dt>
+          <dd><a href="#" data-toggle="rst-debug-badge">Swap badge position</a></dd>
+        </dl> -->
+      </div>
+    </div>
 
 </body>
 </html>
