@@ -3,15 +3,27 @@ Welcome to pynssp's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Overview:
 
    readme
    installation
    usage
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Modules:
+
    modules
-   contributing
-   authors
    history
+
+.. toctree::
+   :maxdepth: 2
+   :caption: About:
+   
+   authors
+   contributing
+   disclaimer
+   codeofconduct
 
 Indices and tables
 ==================
