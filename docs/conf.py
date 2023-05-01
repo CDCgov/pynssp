@@ -38,9 +38,13 @@ extensions = [
     'sphinx.ext.viewcode', 
     'sphinx.ext.mathjax',
     'sphinx.ext.napoleon', 
+    'sphinx_copybutton',
     'm2r', 
     'sphinx_rtd_theme',
 ]
+
+# Automatic exclusion of prompts from the copies
+copybutton_exclude = '.linenos, .gp, .go'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
