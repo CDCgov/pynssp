@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Get started &mdash; pynssp 0.1.0 documentation</title>
+  <title>Getting started &mdash; pynssp 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pynssp" href="modules.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="prev" title="Installing pynssp" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,8 +48,8 @@
               <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">About pynssp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Get started</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing pynssp</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-an-nssp-user-profile">Creating an NSSP user profile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#time-series-data-table">Time Series Data Table</a></li>
@@ -77,7 +77,7 @@
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">pynssp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="history.html">ChangeLogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">About:</span></p>
 <ul>
@@ -101,7 +101,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Get started</li>
+      <li class="breadcrumb-item active">Getting started</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/cdcgov/pynssp/blob/master/docs/usage.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -111,8 +111,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="get-started">
-<h1>Get started<a class="headerlink" href="#get-started" title="Permalink to this heading"></a></h1>
+  <section id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <p>The goal of the <code class="docutils literal notranslate"><span class="pre">pynssp</span></code> package is to facilitate the access to the Electronic Surveillance System for the Early Notification
@@ -131,19 +131,17 @@ In addition, <code class="docutils literal notranslate"><span class="pre">pynssp
 </section>
 <section id="creating-an-nssp-user-profile">
 <h2>Creating an NSSP user profile<a class="headerlink" href="#creating-an-nssp-user-profile" title="Permalink to this heading"></a></h2>
-<p>We start by loading the <code class="docutils literal notranslate"><span class="pre">pynssp</span></code> package</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loading useful R packages...</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<p>We start by loading the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and the <code class="docutils literal notranslate"><span class="pre">pynssp</span></code> packages.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 <p>The next step is to create an NSSP user profile by creating an object of the class <code class="docutils literal notranslate"><span class="pre">Credentials</span></code>.
 Here, we use the <code class="docutils literal notranslate"><span class="pre">create_profile()</span></code> function to create a user profile</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating an ESSENCE user profile</span>
-<span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_profile</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_profile</span><span class="p">()</span>
 
-<span class="c1"># Save profile object to file for future use</span>
-<span class="n">myProfile</span><span class="o">.</span><span class="n">pickle</span><span class="p">()</span>
+<span class="go"># Save profile object to file for future use</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span><span class="o">.</span><span class="n">pickle</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The above code needs to be executed only once. Upon execution, it prompts the user to provide his username and password.</p>
@@ -154,52 +152,48 @@ functions serve as wrappers to their respective methods. The <code class="docuti
 </section>
 <section id="time-series-data-table">
 <h2>Time Series Data Table<a class="headerlink" href="#time-series-data-table" title="Permalink to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL from ESSENCE JSON Time Series Data Table API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/timeSeries?endDate=9Feb2021&amp;medicalGrouping=injury&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=probrepswitch&amp;startDate=11Nov2020&amp;timeResolution=daily&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=TimeSeries&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/timeSeries?endDate=9Feb2021&amp;medicalGrouping=injury&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=probrepswitch&amp;startDate=11Nov2020&amp;timeResolution=daily&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=TimeSeries&quot;</span>
 
-<span class="c1"># Pull time series data</span>
-<span class="n">api_data_ts</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span> <span class="c1"># or api_data_ts = myProfile.get_api_data(url)</span>
+<span class="go"># Pull time series data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_ts</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span> <span class="c1"># or api_data_ts = myProfile.get_api_data(url)</span>
 
-<span class="n">api_data_ts</span><span class="o">.</span><span class="n">columns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_ts</span><span class="o">.</span><span class="n">columns</span>
 
-<span class="c1"># Extracting embedded dataframe</span>
-<span class="n">api_data_ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">api_data_ts</span><span class="p">[</span><span class="s2">&quot;timeSeriesData&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="go"># Extracting embedded dataframe</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">api_data_ts</span><span class="p">[</span><span class="s2">&quot;timeSeriesData&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 
-<span class="c1"># Preview data</span>
-<span class="n">api_data_ts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Preview data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_ts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Alternatively, the example below with the <code class="docutils literal notranslate"><span class="pre">get_essence_data()</span></code> function achieves the same outcome directly extracting the embedded dataframe when needed</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pull time series data</span>
-<span class="n">api_data_ts</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_ts</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1"># Preview data</span>
-<span class="n">api_data_ts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Preview data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_ts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 <section id="time-series-graph-from-essence">
 <h2>Time Series Graph from ESSENCE<a class="headerlink" href="#time-series-graph-from-essence" title="Permalink to this heading"></a></h2>
 <p>The example below shows how to retrieve the Time Series Graph from ESSENCE and insert it in a Jupyter notebook.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL from ESSENCE Time Series Graph from ESSENCE API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/timeSeries/graph?endDate=9Feb2021&amp;medicalGrouping=injury&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=probrepswitch&amp;startDate=11Nov2020&amp;timeResolution=daily&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=TimeSeries&amp;graphTitle=National%20-%20Injury%20Syndrome%20Daily%20Counts&amp;xAxisLabel=Date&amp;yAxisLabel=Count&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/timeSeries/graph?endDate=9Feb2021&amp;medicalGrouping=injury&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=probrepswitch&amp;startDate=11Nov2020&amp;timeResolution=daily&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=TimeSeries&amp;graphTitle=National%20-%20Injury%20Syndrome%20Daily%20Counts&amp;xAxisLabel=Date&amp;yAxisLabel=Count&quot;</span>
 
-<span class="c1"># Data pull from ESSENCE</span>
-<span class="n">api_data_graph</span> <span class="o">=</span> <span class="n">get_api_graph</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="go"># Data pull from ESSENCE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_graph</span> <span class="o">=</span> <span class="n">get_api_graph</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1"># Check the type of api_data_graph</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">api_data_graph</span><span class="p">)</span>
+<span class="go"># Check the type of api_data_graph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">api_data_graph</span><span class="p">)</span>
 
-<span class="c1"># Print image file location</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">api_data_graph</span><span class="p">)</span>
+<span class="go"># Print image file location</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">api_data_graph</span><span class="p">)</span>
 
-<span class="c1"># Insert it into a Jupyter notebook</span>
-<span class="n">api_data_graph</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="go"># Insert it into a Jupyter notebook</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_graph</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>From the example above, the variable <code class="docutils literal notranslate"><span class="pre">api_data_graph</span></code> is an <code class="docutils literal notranslate"><span class="pre">APIGraph</span></code> object. In an interactive mode from the Python console, the <code class="docutils literal notranslate"><span class="pre">.show()</span></code> method can be called on the <code class="docutils literal notranslate"><span class="pre">APIGraph</span></code> object to preview the image it contains.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preview API graph</span>
-<span class="n">api_data_graph</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_graph</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>For an exaustive list of the methods that may be called on an <code class="docutils literal notranslate"><span class="pre">APIGraph</span></code> object, please check the <code class="docutils literal notranslate"><span class="pre">pynssp</span></code> documentation.</p>
@@ -209,28 +203,26 @@ functions serve as wrappers to their respective methods. The <code class="docuti
 <p>The CSV option of the Table Builder Results API pulls in data in the tabular format seen on ESSENCE. The JSON option on the other hand, pulls in the data in a long, pivoted format. In the following subsections, we demonstrate how to pull the Table Builder results data with both options.</p>
 <section id="csv-option">
 <h3>CSV option<a class="headerlink" href="#csv-option" title="Permalink to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL from CSV ESSENCE Table Builder results API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/tableBuilder/csv?endDate=31Dec2020&amp;ccddCategory=cdc</span><span class="si">%20o</span><span class="s2">pioid</span><span class="si">%20o</span><span class="s2">verdose%20v3&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=nodetectordetector&amp;startDate=1Oct2020&amp;ageNCHS=11-14&amp;ageNCHS=15-24&amp;ageNCHS=25-34&amp;ageNCHS=35-44&amp;ageNCHS=45-54&amp;ageNCHS=55-64&amp;ageNCHS=65-74&amp;ageNCHS=75-84&amp;ageNCHS=85-1000&amp;ageNCHS=unknown&amp;timeResolution=monthly&amp;hasBeenE=1&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=TableBuilder&amp;rowFields=timeResolution&amp;rowFields=geographyhospitaldhhsregion&amp;columnField=ageNCHS&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/tableBuilder/csv?endDate=31Dec2020&amp;ccddCategory=cdc</span><span class="si">%20o</span><span class="s2">pioid</span><span class="si">%20o</span><span class="s2">verdose%20v3&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=nodetectordetector&amp;startDate=1Oct2020&amp;ageNCHS=11-14&amp;ageNCHS=15-24&amp;ageNCHS=25-34&amp;ageNCHS=35-44&amp;ageNCHS=45-54&amp;ageNCHS=55-64&amp;ageNCHS=65-74&amp;ageNCHS=75-84&amp;ageNCHS=85-1000&amp;ageNCHS=unknown&amp;timeResolution=monthly&amp;hasBeenE=1&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=TableBuilder&amp;rowFields=timeResolution&amp;rowFields=geographyhospitaldhhsregion&amp;columnField=ageNCHS&quot;</span>
 
-<span class="c1"># Data Pull from ESSENCE</span>
-<span class="n">api_data_tb_csv</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">fromCSV</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="go"># Data Pull from ESSENCE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_tb_csv</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">fromCSV</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1"># Preview data</span>
-<span class="n">api_data_tb_csv</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Preview data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_tb_csv</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 <section id="json-option">
 <h3>JSON option<a class="headerlink" href="#json-option" title="Permalink to this heading"></a></h3>
 <p>While the <code class="docutils literal notranslate"><span class="pre">get_api_data()</span></code> function can equally be used  to pull from ESSENCE API URL retruning JSON objects, the <code class="docutils literal notranslate"><span class="pre">get_essence_data()</span></code> function has the advantage of not requiring extra JSON parsing as described in the second section of this tutorial.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL from JSON ESSENCE Table Builder results API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence2.syndromicsurveillance.org/nssp_essence/api/tableBuilder?endDate=31Dec2020&amp;ccddCategory=cdc</span><span class="si">%20o</span><span class="s2">pioid</span><span class="si">%20o</span><span class="s2">verdose%20v3&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=nodetectordetector&amp;startDate=1Oct2020&amp;ageNCHS=11-14&amp;ageNCHS=15-24&amp;ageNCHS=25-34&amp;ageNCHS=35-44&amp;ageNCHS=45-54&amp;ageNCHS=55-64&amp;ageNCHS=65-74&amp;ageNCHS=75-84&amp;ageNCHS=85-1000&amp;ageNCHS=unknown&amp;timeResolution=monthly&amp;hasBeenE=1&amp;medicalGroupingSystem=essencesyndromes&amp;userId=2362&amp;aqtTarget=TableBuilder&amp;rowFields=timeResolution&amp;rowFields=geographyhospitaldhhsregion&amp;columnField=ageNCHS&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence2.syndromicsurveillance.org/nssp_essence/api/tableBuilder?endDate=31Dec2020&amp;ccddCategory=cdc</span><span class="si">%20o</span><span class="s2">pioid</span><span class="si">%20o</span><span class="s2">verdose%20v3&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=nodetectordetector&amp;startDate=1Oct2020&amp;ageNCHS=11-14&amp;ageNCHS=15-24&amp;ageNCHS=25-34&amp;ageNCHS=35-44&amp;ageNCHS=45-54&amp;ageNCHS=55-64&amp;ageNCHS=65-74&amp;ageNCHS=75-84&amp;ageNCHS=85-1000&amp;ageNCHS=unknown&amp;timeResolution=monthly&amp;hasBeenE=1&amp;medicalGroupingSystem=essencesyndromes&amp;userId=2362&amp;aqtTarget=TableBuilder&amp;rowFields=timeResolution&amp;rowFields=geographyhospitaldhhsregion&amp;columnField=ageNCHS&quot;</span>
 
-<span class="c1"># Data Pull from ESSENCE</span>
-<span class="n">api_data_tb_json</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="go"># Data Pull from ESSENCE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_tb_json</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1"># Preview data</span>
-<span class="n">api_data_tb_json</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Preview data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_tb_json</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -240,41 +232,38 @@ functions serve as wrappers to their respective methods. The <code class="docuti
 <p>Similarly to the Table builder Results API, the Data Details (line level) provides CSV and JSON data outputs.</p>
 <section id="id1">
 <h3>CSV option<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL from CSV ESSENCE Data Details (line level) API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/dataDetails/csv?medicalGrouping=injury&amp;geography=region</span><span class="si">%20i</span><span class="s2">&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=probrepswitch&amp;timeResolution=daily&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=TimeSeries&amp;startDate=31Jan2021&amp;endDate=31Jan2021&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/dataDetails/csv?medicalGrouping=injury&amp;geography=region</span><span class="si">%20i</span><span class="s2">&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=probrepswitch&amp;timeResolution=daily&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=TimeSeries&amp;startDate=31Jan2021&amp;endDate=31Jan2021&quot;</span>
 
-<span class="c1"># Data Pull from ESSENCE</span>
-<span class="n">api_data_dd_csv</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">fromCSV</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="go"># Data Pull from ESSENCE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_dd_csv</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">fromCSV</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1"># Preview data</span>
-<span class="n">api_data_dd_csv</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Preview data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_dd_csv</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 <section id="id2">
 <h3>JSON option<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL from JSON ESSENCE Data Details (line level) API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/dataDetails?endDate=31Jan2021&amp;medicalGrouping=injury&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=probrepswitch&amp;startDate=31Jan2021&amp;timeResolution=daily&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=DataDetails&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/dataDetails?endDate=31Jan2021&amp;medicalGrouping=injury&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=probrepswitch&amp;startDate=31Jan2021&amp;timeResolution=daily&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=DataDetails&quot;</span>
 
-<span class="c1"># Data Pull from ESSENCE</span>
-<span class="n">api_data_dd_json</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="go"># Data Pull from ESSENCE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_dd_json</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1"># Preview data</span>
-<span class="n">api_data_dd_json</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Preview data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_dd_json</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="summary-stats">
 <h2>Summary Stats<a class="headerlink" href="#summary-stats" title="Permalink to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL from JSON ESSENCE Summary Stats API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/summaryData?endDate=31Jan2021&amp;medicalGrouping=injury&amp;geography=region</span><span class="si">%20i</span><span class="s2">&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hosp&amp;detector=probrepswitch&amp;startDate=29Jan2021&amp;timeResolution=daily&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=TimeSeries&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/summaryData?endDate=31Jan2021&amp;medicalGrouping=injury&amp;geography=region</span><span class="si">%20i</span><span class="s2">&amp;percentParam=noPercent&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hosp&amp;detector=probrepswitch&amp;startDate=29Jan2021&amp;timeResolution=daily&amp;medicalGroupingSystem=essencesyndromes&amp;userId=455&amp;aqtTarget=TimeSeries&quot;</span>
 
-<span class="c1"># Data Pull from ESSENCE</span>
-<span class="n">api_data_ss</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="go"># Data Pull from ESSENCE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_ss</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1"># Preview data</span>
-<span class="n">api_data_ss</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Preview data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_ss</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -283,27 +272,25 @@ functions serve as wrappers to their respective methods. The <code class="docuti
 <p>Since the Alert List API provides programmatic access to the Alert List table on the ESSENCE user interface by patient region or by hospital regions, we provide two use cases of data pull in the following subsections:</p>
 <section id="alert-list-detection-table-by-patient-region">
 <h3>Alert List Detection Table by Patient Region<a class="headerlink" href="#alert-list-detection-table-by-patient-region" title="Permalink to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL from JSON ESSENCE Alert List Detection Table API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/alerts/regionSyndromeAlerts?end_date=31Jan2021&amp;start_date=29Jan2021&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/alerts/regionSyndromeAlerts?end_date=31Jan2021&amp;start_date=29Jan2021&quot;</span>
 
-<span class="c1"># Data Pull from ESSENCE</span>
-<span class="n">api_data_alr</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="go"># Data Pull from ESSENCE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_alr</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1"># Preview data</span>
-<span class="n">api_data_alr</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Preview data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_alr</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 <section id="alert-list-detection-table-by-hospital-region">
 <h3>Alert List Detection Table by Hospital Region<a class="headerlink" href="#alert-list-detection-table-by-hospital-region" title="Permalink to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL from JSON ESSENCE Alert List Detection Table API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/alerts/hospitalSyndromeAlerts?end_date=31Jan2021&amp;start_date=29Jan2021&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/alerts/hospitalSyndromeAlerts?end_date=31Jan2021&amp;start_date=29Jan2021&quot;</span>
 
-<span class="c1"># Data Pull from ESSENCE</span>
-<span class="n">api_data_alh</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="go"># Data Pull from ESSENCE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_alh</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1"># Preview data</span>
-<span class="n">api_data_alh</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Preview data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_alh</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -311,14 +298,13 @@ functions serve as wrappers to their respective methods. The <code class="docuti
 <section id="time-series-data-table-with-stratified-historical-alerts-from-essence2">
 <h2>Time series data table with stratified, historical alerts (from ESSENCE2)<a class="headerlink" href="#time-series-data-table-with-stratified-historical-alerts-from-essence2" title="Permalink to this heading"></a></h2>
 <p>This functionality as of February 10, 2023 is available from ESSENCE2. Therefore, if your ESSENCE 2 credentials are different from the one you define for ESSENCE above, you will have to recreate another profile object for ESSENCE 2 and use it to run the code below. In this example, it is assumed that the same user profile has been used for both ESSENCE and ESSENCE 2.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL from JSON ESSENCE Time series data table with stratified, historical alerts API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries?endDate=9Feb2021&amp;ccddCategory=cdc%20pneumonia</span><span class="si">%20c</span><span class="s2">cdd%20v1&amp;ccddCategory=cdc</span><span class="si">%20c</span><span class="s2">oronavirus-dd%20v1&amp;ccddCategory=cli</span><span class="si">%20c</span><span class="s2">c%20with</span><span class="si">%20c</span><span class="s2">li</span><span class="si">%20d</span><span class="s2">d</span><span class="si">%20a</span><span class="s2">nd</span><span class="si">%20c</span><span class="s2">oronavirus</span><span class="si">%20d</span><span class="s2">d%20v2&amp;percentParam=ccddCategory&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=probrepswitch&amp;startDate=11Nov2020&amp;timeResolution=daily&amp;hasBeenE=1&amp;medicalGroupingSystem=essencesyndromes&amp;userId=2362&amp;aqtTarget=TimeSeries&amp;stratVal=ccddCategory&amp;multiStratVal=geography&amp;graphOnly=true&amp;numSeries=3&amp;graphOptions=multipleSmall&amp;seriesPerYear=false&amp;nonZeroComposite=false&amp;removeZeroSeries=true&amp;startMonth=January&amp;stratVal=ccddCategory&amp;multiStratVal=geography&amp;graphOnly=true&amp;numSeries=3&amp;graphOptions=multipleSmall&amp;seriesPerYear=false&amp;startMonth=January&amp;nonZeroComposite=false&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries?endDate=9Feb2021&amp;ccddCategory=cdc%20pneumonia</span><span class="si">%20c</span><span class="s2">cdd%20v1&amp;ccddCategory=cdc</span><span class="si">%20c</span><span class="s2">oronavirus-dd%20v1&amp;ccddCategory=cli</span><span class="si">%20c</span><span class="s2">c%20with</span><span class="si">%20c</span><span class="s2">li</span><span class="si">%20d</span><span class="s2">d</span><span class="si">%20a</span><span class="s2">nd</span><span class="si">%20c</span><span class="s2">oronavirus</span><span class="si">%20d</span><span class="s2">d%20v2&amp;percentParam=ccddCategory&amp;geographySystem=hospitaldhhsregion&amp;datasource=va_hospdreg&amp;detector=probrepswitch&amp;startDate=11Nov2020&amp;timeResolution=daily&amp;hasBeenE=1&amp;medicalGroupingSystem=essencesyndromes&amp;userId=2362&amp;aqtTarget=TimeSeries&amp;stratVal=ccddCategory&amp;multiStratVal=geography&amp;graphOnly=true&amp;numSeries=3&amp;graphOptions=multipleSmall&amp;seriesPerYear=false&amp;nonZeroComposite=false&amp;removeZeroSeries=true&amp;startMonth=January&amp;stratVal=ccddCategory&amp;multiStratVal=geography&amp;graphOnly=true&amp;numSeries=3&amp;graphOptions=multipleSmall&amp;seriesPerYear=false&amp;startMonth=January&amp;nonZeroComposite=false&quot;</span>
 
-<span class="c1"># Data Pull from ESSENCE</span>
-<span class="n">api_data_tssh</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="go"># Data Pull from ESSENCE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_tssh</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1"># Preview data</span>
-<span class="n">api_data_tssh</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Preview data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data_tssh</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -328,7 +314,7 @@ functions serve as wrappers to their respective methods. The <code class="docuti
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installing pynssp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="modules.html" class="btn btn-neutral float-right" title="pynssp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

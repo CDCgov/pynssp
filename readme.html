@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="next" title="Installing pynssp" href="installation.html" />
     <link rel="prev" title="Welcome to pynssp’s documentation!" href="index.html" /> 
 </head>
 
@@ -60,13 +60,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#records-management-standard-notice">Records Management Standard Notice</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Getting started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">pynssp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="history.html">ChangeLogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">About:</span></p>
 <ul>
@@ -92,7 +92,7 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">About pynssp</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/cdcgov/pynssp/blob/master/docs/readme.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/cdcgov/pynssp/blob/master/docs/readme.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -105,7 +105,7 @@
 <a class="reference external image-reference" href="https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml"><img alt="pynssp Pipeline" src="https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml/badge.svg" /></a>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
-<p>A Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice. A collection of classes and methods to advance the practice of Syndromic Surveillance. This python package serves as a Python alternative to the <a class="reference external" href="https://cdcgov.github.io/Rnssp">Rnssp R package</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pynssp</span></code> is a Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice. A collection of classes and methods to advance the practice of Syndromic Surveillance. It serves as a Python alternative to the <a class="reference external" href="https://cdcgov.github.io/Rnssp">Rnssp R package</a>.</p>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
@@ -116,37 +116,37 @@
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">timedelta</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">timedelta</span>
 
 
-<span class="c1">## Creating a user profile (token)</span>
-<span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_token_profile</span><span class="p">()</span>
+<span class="go">## Creating a user profile (token)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_token_profile</span><span class="p">()</span>
 
-<span class="c1">## Creating a user profile (username and password)</span>
-<span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_profile</span><span class="p">()</span>
+<span class="go">## Creating a user profile (username and password)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_profile</span><span class="p">()</span>
 
-<span class="c1">## JSON URL from NSSP-ESSENCE API</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/alerts/regionSyndromeAlerts?end_date=31Jan2021&amp;start_date=29Jan2021&quot;</span>
+<span class="go">## JSON URL from NSSP-ESSENCE API</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence.syndromicsurveillance.org/nssp_essence/api/alerts/regionSyndromeAlerts?end_date=31Jan2021&amp;start_date=29Jan2021&quot;</span>
 
-<span class="c1">## Update Start and End dates in NSSP-ESSENCE API URL</span>
-<span class="n">startDate</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">endDate</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="go">## Update Start and End dates in NSSP-ESSENCE API URL</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">startDate</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">endDate</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="n">change_dates</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">start_date</span> <span class="o">=</span> <span class="n">startDate</span><span class="p">,</span> <span class="n">end_date</span> <span class="o">=</span> <span class="n">endDate</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="n">change_dates</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">start_date</span> <span class="o">=</span> <span class="n">startDate</span><span class="p">,</span> <span class="n">end_date</span> <span class="o">=</span> <span class="n">endDate</span><span class="p">)</span>
 
-<span class="c1">## Pull Time Series Data from NSSP-ESSENCE</span>
-<span class="n">api_data</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="go">## Pull Time Series Data from NSSP-ESSENCE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
 
-<span class="c1">## Inspect data object structure</span>
-<span class="n">api_data</span><span class="o">.</span><span class="n">columns</span>
+<span class="go">## Inspect data object structure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data</span><span class="o">.</span><span class="n">columns</span>
 
-<span class="c1">## Extract table of interest</span>
-<span class="n">api_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">api_data</span><span class="p">[</span><span class="s2">&quot;regionSyndromeAlerts&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">## Extract table of interest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">api_data</span><span class="p">[</span><span class="s2">&quot;regionSyndromeAlerts&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 
-<span class="c1">## Get a glimpse of the pulled dataset</span>
-<span class="n">api_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go">## Get a glimpse of the pulled dataset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -215,7 +215,7 @@ published through the <a class="reference external" href="http://www.cdc.gov">CD
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to pynssp’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installing pynssp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
