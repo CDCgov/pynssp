@@ -1,15 +1,15 @@
-# About pynssp
+# pynssp
 [![pynssp Pipeline](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml)
 
 ## Overview
-A Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice. A collection of classes and methods to advance the practice of Syndromic Surveillance. This python package serves as a Python alternative to the [Rnssp R package](https://cdcgov.github.io/Rnssp).
+A Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice. A collection of classes and methods to advance the practice of Syndromic Surveillance. This python package serves as a Python alternative to the [Rnssp R package](https://github.com/CDCgov/Rnssp/).
 
 ## Installation
 
 You can install the development version of `pynssp` from Github:
 
-```console
-$ pip install git+https://github.com/CDCgov/pynssp.git
+```sh
+pip install git+https://github.com/CDCgov/pynssp.git
 ```
 
 ## Usage
