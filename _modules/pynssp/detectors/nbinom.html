@@ -219,16 +219,14 @@
 <span class="sd">        whether or not a time term was included.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
-<span class="sd">        import pandas as pd</span>
-
-<span class="sd">        import numpy as np</span>
-
-<span class="sd">        df = pd.DataFrame({</span>
-<span class="sd">            &quot;date&quot;: pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;),</span>
-<span class="sd">            &quot;count&quot;: np.random.poisson(lam=25, size=(len(pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;)),))</span>
-<span class="sd">        })</span>
-
-<span class="sd">        df_nbinom = alert_nbinom(df, baseline_end = &quot;2020-03-01&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({</span>
+<span class="sd">        ...    &quot;date&quot;: pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;),</span>
+<span class="sd">        ...    &quot;count&quot;: np.random.poisson(lam=25, size=(len(pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;)),))</span>
+<span class="sd">        ... })</span>
+<span class="sd">        &gt;&gt;&gt; df_nbinom = alert_nbinom(df, baseline_end = &quot;2020-03-01&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; df_nbinom.head()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">grouped_df</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">groupby</span><span class="o">.</span><span class="n">DataFrameGroupBy</span><span class="p">)</span>
 
