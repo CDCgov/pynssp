@@ -79,17 +79,14 @@ def alert_serfling(df, baseline_end, t="date", y="count"):
     :returns: Original pandas dataframe with model estimates, upper prediction interval bounds,
         a binary alarm indicator field, and a binary indicator
     :examples:
-    
-        import pandas as pd
-
-        import numpy as np
-
-        df = pd.DataFrame({
-            "date": pd.date_range(start="2014-01-05", end="2022-02-05", freq="W"),
-            "count": np.random.poisson(lam=25, size=(len(pd.date_range(start="2014-01-05", end="2022-02-05", freq="W")),))
-        })
-
-        df_serfling  = alert_serfling(df, baseline_end = "2020-03-01")
+        >>> import pandas as pd
+        >>> import numpy as np
+        >>> df = pd.DataFrame({
+        ...    "date": pd.date_range(start="2014-01-05", end="2022-02-05", freq="W"),
+        ...    "count": np.random.poisson(lam=25, size=(len(pd.date_range(start="2014-01-05", end="2022-02-05", freq="W")),))
+        ... })
+        >>> df_serfling  = alert_serfling(df, baseline_end = "2020-03-01")
+        >>> df_serfling.head()
     """
     grouped_df = isinstance(df, pd.core.groupby.DataFrameGroupBy)
     

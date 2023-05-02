@@ -32,22 +32,15 @@ def alert_switch(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
             Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algorithm.
     :returns: A dataframe containing the results of the analysis.
     :examples:
-    
-        import pandas as pd
-
-        import numpy as np
-
-        from pynssp.detectors.switch import *
-    
-        df = pd.DataFrame({
-            "date": pd.date_range("2020-01-01", "2020-12-31"),
-            "count": np.random.randint(0, 101, size=366)
-        })
-
-        df_switch = alert_switch(df)
-
-        df_switch.head()
-
+        >>> import pandas as pd
+        >>> import numpy as np
+        >>> from pynssp.detectors.switch import *
+        >>> df = pd.DataFrame({
+        ...    "date": pd.date_range("2020-01-01", "2020-12-31"),
+        ...    "count": np.random.randint(0, 101, size=366)
+        ... })
+        >>> df_switch = alert_switch(df)
+        >>> df_switch.head()
     """
   
     # Check baseline length argument

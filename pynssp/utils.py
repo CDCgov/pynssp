@@ -14,12 +14,9 @@ def change_dates(url, start_date=None, end_date=None):
     :param end_date: str): A new end date to replace the existing end date in the URL. (Default value = None)
     :returns: The modified URL with the new start and end dates.
     :examples:
-    
-        from pynssp.utils import *
-
-        url = "https://example.com/data?startDate=01Jan2022&endDate=31Dec2022"
-
-        change_dates(url, start_date="01Jan2021", end_date="31Dec2021")
+        >>> from pynssp.utils import *
+        >>> url = "https://example.com/data?startDate=01Jan2022&endDate=31Dec2022"
+        >>> change_dates(url, start_date="01Jan2021", end_date="31Dec2021")
     """
     
     # Assert that the input URL is a string.
