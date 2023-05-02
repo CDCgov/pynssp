@@ -158,6 +158,7 @@ def alert_regression(df, t="date", y="count", B=28, g=2):
             Defaults to 2.
     :returns: Original pandas data frame with detection results.
     :examples:
+    
         >>> import pandas as pd
         >>> import numpy as np
         >>> from pynssp.detectors.regression import *

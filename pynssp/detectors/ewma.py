@@ -171,6 +171,7 @@ def alert_ewma(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
         Defaults to 0.9 to match ESSENCE implementation and approximate the C2 algorithm.
     :returns: Original pandas data frame with detection results.
     :examples:
+    
         >>> import pandas as pd
         >>> import numpy as np
         >>> from pynssp.detectors.ewma import *

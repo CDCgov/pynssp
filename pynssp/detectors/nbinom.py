@@ -127,6 +127,7 @@ def alert_nbinom(df, baseline_end, t="date", y="count", include_time=True):
         a binary alarm indicator field, and a binary indicator field of
         whether or not a time term was included.
     :examples:
+    
         >>> import pandas as pd
         >>> import numpy as np
         >>> df = pd.DataFrame({

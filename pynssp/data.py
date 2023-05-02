@@ -6,13 +6,13 @@ def load_simulated_ts():
     """Return a dataframe of simulated time series.
 
     Contains the following fields:
-         #   Column  Non-Null Count  Dtype
+        #   Column  Non-Null Count  Dtype
         ---  ------  --------------  -----
-         0   date    626 non-null    object
-         1   week    626 non-null    int64
-         2   year    626 non-null    int64
-         3   cases   626 non-null    int64
-         4   id      626 non-null    object
+        0   date    626 non-null    object
+        1   week    626 non-null    int64
+        2   year    626 non-null    int64
+        3   cases   626 non-null    int64
+        4   id      626 non-null    object
         dtypes: int64(3), object(2)
         memory usage: 24.6+ KB
     """

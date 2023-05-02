@@ -79,6 +79,7 @@ def alert_serfling(df, baseline_end, t="date", y="count"):
     :returns: Original pandas dataframe with model estimates, upper prediction interval bounds,
         a binary alarm indicator field, and a binary indicator
     :examples:
+    
         >>> import pandas as pd
         >>> import numpy as np
         >>> df = pd.DataFrame({
