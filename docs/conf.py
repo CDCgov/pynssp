@@ -117,10 +117,14 @@ html_context = {
 # theme further.  For a list of options available for each theme, see the
 # documentation.
 #
+html_logo = "_static/logo.png"
 html_theme_options = {
+    "logo": {
+        "alt_text": "pynssp",
+    },
     'analytics_id': 'G-5FTLT9PCW7',  #  Provided by Google in your dashboard
     'analytics_anonymize_ip': False,
-    # 'logo_only': False,
+    'logo_only': False,
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
@@ -131,7 +135,34 @@ html_theme_options = {
     'sticky_navigation': True,
     'navigation_depth': 4,
     'includehidden': True,
-    'titles_only': False
+    'titles_only': False,
+    "favicons": [
+        {
+            "rel": "icon",
+            "sizes": "16x16",
+            "href": "_static/favicon/favicon-16x16.png",
+        },
+        {
+            "rel": "icon",
+            "sizes": "32x32",
+            "href": "_static/favicon/favicon-32x32.png",
+        },
+        {
+            "rel": "apple-touch-icon",
+            "sizes": "180x180",
+            "href": "_static/favicon/apple-touch-icon.png",
+        },
+        {
+            "rel": "android-chrome",
+            "sizes": "192x192",
+            "href": "_static/favicon/android-chrome-192x192.png",
+        },
+        {
+            "rel": "android-chrome",
+            "sizes": "512x512",
+            "href": "_static/favicon/android-chrome-512x512.png",
+        },
+   ]
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

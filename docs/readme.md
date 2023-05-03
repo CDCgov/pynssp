@@ -1,4 +1,4 @@
-# About pynssp
+# About pynssp 
 [![pynssp Pipeline](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml)
 
 ## Overview
