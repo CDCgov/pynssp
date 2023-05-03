@@ -102,6 +102,7 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme' #'alabaster', 'book', ...https://sphinxthemes.com/
+html_favicon = '_static/favicon/favicon.ico'
 
 html_context = {
     "display_github": True,
