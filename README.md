@@ -1,5 +1,8 @@
-# pynssp
+# pynssp <a href='https://cdcgov.github.io/pynssp'><img src='docs/_static/logo.png' align="right" height="139" /></a>
+
+<!-- badges: start -->
 [![pynssp Pipeline](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml)
+<!-- badges: end -->
 
 ## Overview
 A Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice. A collection of classes and methods to advance the practice of Syndromic Surveillance. This python package serves as a Python alternative to the [Rnssp R package](https://github.com/CDCgov/Rnssp/).
