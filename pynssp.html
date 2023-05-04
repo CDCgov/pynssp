@@ -237,12 +237,12 @@
 <dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stopwords</span> <span class="o">=</span> <span class="n">load_nssp_stopwords</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stopwords</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-<span class="gp">... </span><span class="c1">#   Column      Non-Null Count  Dtype</span>
-<span class="gp">... </span><span class="o">---</span>  <span class="o">------</span>      <span class="o">--------------</span>  <span class="o">-----</span>
-<span class="gp">... </span><span class="mi">1</span>   <span class="n">word</span>        <span class="mi">835</span> <span class="n">non</span><span class="o">-</span><span class="n">null</span>    <span class="nb">object</span>
-<span class="gp">... </span><span class="mi">2</span>   <span class="nb">type</span>        <span class="mi">835</span> <span class="n">non</span><span class="o">-</span><span class="n">null</span>    <span class="nb">object</span>
-<span class="gp">... </span><span class="n">dtypes</span><span class="p">:</span> <span class="n">int64</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="nb">object</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span><span class="n">memory</span> <span class="n">usage</span><span class="p">:</span> <span class="mf">13.2</span><span class="o">+</span> <span class="n">KB</span>
+<span class="gp">... </span><span class="c1">## #   Column      Non-Null Count  Dtype</span>
+<span class="gp">... </span><span class="c1">## ---  ------      --------------  -----</span>
+<span class="gp">... </span><span class="c1">## 1   word        835 non-null    object</span>
+<span class="gp">... </span><span class="c1">## 2   type        835 non-null    object</span>
+<span class="gp">... </span><span class="c1">## dtypes: int64(1), object(2)</span>
+<span class="gp">... </span><span class="c1">## memory usage: 13.2+ KB</span>
 </pre></div>
 </div>
 </dd>
@@ -258,15 +258,15 @@
 <dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simulated_ts</span> <span class="o">=</span> <span class="n">load_simulated_ts</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simulated_ts</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-<span class="gp">... </span><span class="c1">#   Column  Non-Null Count  Dtype</span>
-<span class="gp">... </span><span class="o">---</span>  <span class="o">------</span>  <span class="o">--------------</span>  <span class="o">-----</span>
-<span class="gp">... </span><span class="mi">0</span>   <span class="n">date</span>    <span class="mi">626</span> <span class="n">non</span><span class="o">-</span><span class="n">null</span>    <span class="nb">object</span>
-<span class="gp">... </span><span class="mi">1</span>   <span class="n">week</span>    <span class="mi">626</span> <span class="n">non</span><span class="o">-</span><span class="n">null</span>    <span class="n">int64</span>
-<span class="gp">... </span><span class="mi">2</span>   <span class="n">year</span>    <span class="mi">626</span> <span class="n">non</span><span class="o">-</span><span class="n">null</span>    <span class="n">int64</span>
-<span class="gp">... </span><span class="mi">3</span>   <span class="n">cases</span>   <span class="mi">626</span> <span class="n">non</span><span class="o">-</span><span class="n">null</span>    <span class="n">int64</span>
-<span class="gp">... </span><span class="mi">4</span>   <span class="nb">id</span>      <span class="mi">626</span> <span class="n">non</span><span class="o">-</span><span class="n">null</span>    <span class="nb">object</span>
-<span class="gp">... </span><span class="n">dtypes</span><span class="p">:</span> <span class="n">int64</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="nb">object</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span><span class="n">memory</span> <span class="n">usage</span><span class="p">:</span> <span class="mf">24.6</span><span class="o">+</span> <span class="n">KB</span>
+<span class="gp">... </span><span class="c1">## #   Column  Non-Null Count  Dtype</span>
+<span class="gp">... </span><span class="c1">## ---  ------  --------------  -----</span>
+<span class="gp">... </span><span class="c1">## 0   date    626 non-null    object</span>
+<span class="gp">... </span><span class="c1">## 1   week    626 non-null    int64</span>
+<span class="gp">... </span><span class="c1">## 2   year    626 non-null    int64</span>
+<span class="gp">... </span><span class="c1">## 3   cases   626 non-null    int64</span>
+<span class="gp">... </span><span class="c1">## 4   id      626 non-null    object</span>
+<span class="gp">... </span><span class="c1">## dtypes: int64(3), object(2)</span>
+<span class="gp">... </span><span class="c1">## memory usage: 24.6+ KB</span>
 </pre></div>
 </div>
 </dd>
