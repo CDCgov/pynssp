@@ -10,15 +10,15 @@ def load_simulated_ts():
         >>> from pynssp.data import *
         >>> simulated_ts = load_simulated_ts()
         >>> simulated_ts.info()
-        ... #   Column  Non-Null Count  Dtype
-        ... ---  ------  --------------  -----
-        ... 0   date    626 non-null    object
-        ... 1   week    626 non-null    int64
-        ... 2   year    626 non-null    int64
-        ... 3   cases   626 non-null    int64
-        ... 4   id      626 non-null    object
-        ... dtypes: int64(3), object(2)
-        ... memory usage: 24.6+ KB
+        ... ## #   Column  Non-Null Count  Dtype
+        ... ## ---  ------  --------------  -----
+        ... ## 0   date    626 non-null    object
+        ... ## 1   week    626 non-null    int64
+        ... ## 2   year    626 non-null    int64
+        ... ## 3   cases   626 non-null    int64
+        ... ## 4   id      626 non-null    object
+        ... ## dtypes: int64(3), object(2)
+        ... ## memory usage: 24.6+ KB
     """
     
     stream = pkg_resources.resource_stream(__name__, "data/simulated_ts.csv")
@@ -57,12 +57,12 @@ def load_nssp_stopwords():
         >>> from pynssp.data import *
         >>> stopwords = load_nssp_stopwords()
         >>> stopwords.info()
-        ... #   Column      Non-Null Count  Dtype
-        ... ---  ------      --------------  -----
-        ... 1   word        835 non-null    object
-        ... 2   type        835 non-null    object
-        ... dtypes: int64(1), object(2)
-        ... memory usage: 13.2+ KB
+        ... ## #   Column      Non-Null Count  Dtype
+        ... ## ---  ------      --------------  -----
+        ... ## 1   word        835 non-null    object
+        ... ## 2   type        835 non-null    object
+        ... ## dtypes: int64(1), object(2)
+        ... ## memory usage: 13.2+ KB
     """
     
     stream = pkg_resources.resource_stream(__name__, "data/nssp_stopwords.csv")
