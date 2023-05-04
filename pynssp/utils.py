@@ -15,7 +15,7 @@ def change_dates(url, start_date=None, end_date=None):
     :returns: The modified URL with the new start and end dates.
     :examples:
     
-        >>> from pynssp.utils import *
+        >>> from pynssp.utils import change_dates
         >>> url = "https://example.com/data?startDate=01Jan2022&endDate=31Dec2022"
         >>> change_dates(url, start_date="01Jan2021", end_date="31Dec2021")
     """
@@ -68,6 +68,10 @@ def create_profile(username=None, password=None):
     :param username: A string representing the username. If not provided, the user will be prompted to enter it.
     :param password: A string representing the user's password. If not provided, the user will be prompted to enter it securely.
     :return: A new Credentials object with the given username and password.
+    :examples:
+    
+        >>> from pynssp.utils import create_profile
+        >>> myProfile = create_profile()
     """
     if username is None:
         username = input("Please enter your username: ")
@@ -82,6 +86,10 @@ def create_token_profile(token=None, access_token="Bearer"):
     :param token: A string representing the token. If not provided, the user will be prompted to enter it securely.
     :param auth_type: A string representing the authentication type. Defaults to "Bearer".
     :return: A new Token object with the given token and authentication type.
+    :examples:
+    
+        >>> from pynssp.utils import create_token_profile
+        >>> myTokenProfile = create_token_profile()
     """
     if token is None:
         token = getpass(prompt="Enter/Paste a token: ")
@@ -94,6 +102,12 @@ def get_api_response(url, profile=None):
     :param url: A string representing the URL of the API endpoint.
     :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
     :return: The response object returned by the API.
+    :examples:
+    
+        >>> from pynssp.utils import *
+        >>> myProfile = create_profile()
+        >>> url = "http://httpbin.org/json"
+        >>> response = get_api_response(url, profile=myProfile)
     """
     try:
         return profile.get_api_response(url=url)
@@ -109,6 +123,12 @@ def get_api_data(url, fromCSV=False, profile=None, encoding="utf-8", **kwargs):
     :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
     :param kwargs: Additional keyword arguments to be passed to the profile's get_api_data method.
     :return: The data retrieved from the API.
+    :examples:
+    
+        >>> from pynssp.utils import *
+        >>> myProfile = create_profile()
+        >>> url = "http://httpbin.org/json"
+        >>> api_data = get_api_data(url, profile=myProfile)
     """
     try:
         return profile.get_api_data(url=url, fromCSV=fromCSV, encoding=encoding, **kwargs)
@@ -123,6 +143,12 @@ def get_api_graph(url, file_ext=".png", profile=None):
     :param file_ext: A string representing the file extension of the graph. Defaults to ".png".
     :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
     :return: The graph retrieved from the API.
+    :examples:
+    
+        >>> from pynssp.utils import *
+        >>> myProfile = create_profile()
+        >>> url = "http://httpbin.org/image/png"
+        >>> api_graph = get_api_response(url, profile=myProfile)
     """
     try:
         return profile.get_api_graph(url=url, file_ext=file_ext)
@@ -139,6 +165,12 @@ def get_essence_data(url, start_date=None, end_date=None, profile=None, **kwargs
     :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
     :param kwargs: Additional arguments to be passed to the get_api_data function.
     :return: The data retrieved from the NSSP-ESSENCE API.
+    :examples:
+    
+        >>> from pynssp.utils import *
+        >>> myProfile = create_profile()
+        >>> url = "https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries/graph?endDate=25Jun2022&geography=&percentParam=noPercent&datasource=va_hosp&startDate=25Jun2021&medicalGroupingSystem=essencesyndromes&userId=3751&aqtTarget=TimeSeries&ccddCategory=&geographySystem=hospitalregion&detector=probrepswitch&timeResolution=daily"
+        >>> api_data = get_essence_data(url, profile=myProfile)
     """
     if profile is None:
         raise ValueError("Please, provide a profile object of type `Credentials` or `Token`!")
