@@ -6,15 +6,15 @@ def load_simulated_ts():
     """Return a dataframe of simulated time series.
 
     Contains the following fields:
-        #   Column  Non-Null Count  Dtype
-        ---  ------  --------------  -----
-        0   date    626 non-null    object
-        1   week    626 non-null    int64
-        2   year    626 non-null    int64
-        3   cases   626 non-null    int64
-        4   id      626 non-null    object
-        dtypes: int64(3), object(2)
-        memory usage: 24.6+ KB
+    ... #   Column  Non-Null Count  Dtype
+    ... ---  ------  --------------  -----
+    ... 0   date    626 non-null    object
+    ... 1   week    626 non-null    int64
+    ... 2   year    626 non-null    int64
+    ... 3   cases   626 non-null    int64
+    ... 4   id      626 non-null    object
+    ... dtypes: int64(3), object(2)
+    ... memory usage: 24.6+ KB
     :examples:
     
         >>> from pynssp.data import *
@@ -53,14 +53,13 @@ def get_scenario2():
 def load_nssp_stopwords():
     """Return a dataframe of NSSP-curated stopwords.
 
-    :description:
-        Contains the following fields:
-            #   Column      Non-Null Count  Dtype
-            ---  ------      --------------  -----
-            1   word        835 non-null    object
-            2   type        835 non-null    object
-            dtypes: int64(1), object(2)
-            memory usage: 13.2+ KB
+    Contains the following fields:
+    ... #   Column      Non-Null Count  Dtype
+    ... ---  ------      --------------  -----
+    ... 1   word        835 non-null    object
+    ... 2   type        835 non-null    object
+    ... dtypes: int64(1), object(2)
+    ... memory usage: 13.2+ KB
     :examples:
     
         >>> from pynssp.data import *
