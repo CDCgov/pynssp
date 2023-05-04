@@ -108,7 +108,7 @@
 <span class="sd">    :returns: The modified URL with the new start and end dates.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
-<span class="sd">        &gt;&gt;&gt; from pynssp.utils import *</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp.utils import change_dates</span>
 <span class="sd">        &gt;&gt;&gt; url = &quot;https://example.com/data?startDate=01Jan2022&amp;endDate=31Dec2022&quot;</span>
 <span class="sd">        &gt;&gt;&gt; change_dates(url, start_date=&quot;01Jan2021&quot;, end_date=&quot;31Dec2021&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -161,6 +161,10 @@
 <span class="sd">    :param username: A string representing the username. If not provided, the user will be prompted to enter it.</span>
 <span class="sd">    :param password: A string representing the user&#39;s password. If not provided, the user will be prompted to enter it securely.</span>
 <span class="sd">    :return: A new Credentials object with the given username and password.</span>
+<span class="sd">    :examples:</span>
+<span class="sd">    </span>
+<span class="sd">        &gt;&gt;&gt; from pynssp.utils import create_profile</span>
+<span class="sd">        &gt;&gt;&gt; myProfile = create_profile()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">username</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">username</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please enter your username: &quot;</span><span class="p">)</span>
@@ -175,6 +179,10 @@
 <span class="sd">    :param token: A string representing the token. If not provided, the user will be prompted to enter it securely.</span>
 <span class="sd">    :param auth_type: A string representing the authentication type. Defaults to &quot;Bearer&quot;.</span>
 <span class="sd">    :return: A new Token object with the given token and authentication type.</span>
+<span class="sd">    :examples:</span>
+<span class="sd">    </span>
+<span class="sd">        &gt;&gt;&gt; from pynssp.utils import create_token_profile</span>
+<span class="sd">        &gt;&gt;&gt; myTokenProfile = create_token_profile()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">token</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="s2">&quot;Enter/Paste a token: &quot;</span><span class="p">)</span>
@@ -187,6 +195,12 @@
 <span class="sd">    :param url: A string representing the URL of the API endpoint.</span>
 <span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
 <span class="sd">    :return: The response object returned by the API.</span>
+<span class="sd">    :examples:</span>
+<span class="sd">    </span>
+<span class="sd">        &gt;&gt;&gt; from pynssp.utils import *</span>
+<span class="sd">        &gt;&gt;&gt; myProfile = create_profile()</span>
+<span class="sd">        &gt;&gt;&gt; url = &quot;http://httpbin.org/json&quot;</span>
+<span class="sd">        &gt;&gt;&gt; response = get_api_response(url, profile=myProfile)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_response</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
@@ -202,6 +216,12 @@
 <span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
 <span class="sd">    :param kwargs: Additional keyword arguments to be passed to the profile&#39;s get_api_data method.</span>
 <span class="sd">    :return: The data retrieved from the API.</span>
+<span class="sd">    :examples:</span>
+<span class="sd">    </span>
+<span class="sd">        &gt;&gt;&gt; from pynssp.utils import *</span>
+<span class="sd">        &gt;&gt;&gt; myProfile = create_profile()</span>
+<span class="sd">        &gt;&gt;&gt; url = &quot;http://httpbin.org/json&quot;</span>
+<span class="sd">        &gt;&gt;&gt; api_data = get_api_data(url, profile=myProfile)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">fromCSV</span><span class="o">=</span><span class="n">fromCSV</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -216,6 +236,12 @@
 <span class="sd">    :param file_ext: A string representing the file extension of the graph. Defaults to &quot;.png&quot;.</span>
 <span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
 <span class="sd">    :return: The graph retrieved from the API.</span>
+<span class="sd">    :examples:</span>
+<span class="sd">    </span>
+<span class="sd">        &gt;&gt;&gt; from pynssp.utils import *</span>
+<span class="sd">        &gt;&gt;&gt; myProfile = create_profile()</span>
+<span class="sd">        &gt;&gt;&gt; url = &quot;http://httpbin.org/image/png&quot;</span>
+<span class="sd">        &gt;&gt;&gt; api_graph = get_api_response(url, profile=myProfile)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">get_api_graph</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">file_ext</span><span class="o">=</span><span class="n">file_ext</span><span class="p">)</span>
@@ -232,6 +258,12 @@
 <span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
 <span class="sd">    :param kwargs: Additional arguments to be passed to the get_api_data function.</span>
 <span class="sd">    :return: The data retrieved from the NSSP-ESSENCE API.</span>
+<span class="sd">    :examples:</span>
+<span class="sd">    </span>
+<span class="sd">        &gt;&gt;&gt; from pynssp.utils import *</span>
+<span class="sd">        &gt;&gt;&gt; myProfile = create_profile()</span>
+<span class="sd">        &gt;&gt;&gt; url = &quot;https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries/graph?endDate=25Jun2022&amp;geography=&amp;percentParam=noPercent&amp;datasource=va_hosp&amp;startDate=25Jun2021&amp;medicalGroupingSystem=essencesyndromes&amp;userId=3751&amp;aqtTarget=TimeSeries&amp;ccddCategory=&amp;geographySystem=hospitalregion&amp;detector=probrepswitch&amp;timeResolution=daily&quot;</span>
+<span class="sd">        &gt;&gt;&gt; api_data = get_essence_data(url, profile=myProfile)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">profile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please, provide a profile object of type `Credentials` or `Token`!&quot;</span><span class="p">)</span>
