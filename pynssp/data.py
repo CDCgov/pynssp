@@ -15,6 +15,11 @@ def load_simulated_ts():
         4   id      626 non-null    object
         dtypes: int64(3), object(2)
         memory usage: 24.6+ KB
+    :examples:
+    
+        >>> from pynssp.data import *
+        >>> simulated_ts = load_simulated_ts()
+        >>> simulated_ts.info()
     """
     
     stream = pkg_resources.resource_stream(__name__, "data/simulated_ts.csv")
@@ -22,13 +27,25 @@ def load_simulated_ts():
 
 
 def get_scenario1():
-    """Return a subset of the simulated time series data ('scenario #1')."""
+    """Return a subset of the simulated time series data ('scenario #1').
+    :examples:
+    
+        >>> from pynssp.data import *
+        >>> scenario1_ts = get_scenario1()
+        >>> scenario1_ts.info()
+    """
     simulated_ts = load_simulated_ts()
     return load_simulated_ts()[simulated_ts["id"] == "Scenario #1"]
 
 
 def get_scenario2():
-    """Return a subset of the simulated time series data ('scenario #2')."""
+    """Return a subset of the simulated time series data ('scenario #2').
+    :examples:
+    
+        >>> from pynssp.data import *
+        >>> scenario2_ts = get_scenario2()
+        >>> scenario2_ts.info()
+    """
     simulated_ts = load_simulated_ts()
     return load_simulated_ts()[simulated_ts["id"] == "Scenario #2"]
 
@@ -36,13 +53,19 @@ def get_scenario2():
 def load_nssp_stopwords():
     """Return a dataframe of NSSP-curated stopwords.
 
-    Contains the following fields:
-         #   Column      Non-Null Count  Dtype
-        ---  ------      --------------  -----
-         1   word        835 non-null    object
-         2   type        835 non-null    object
-        dtypes: int64(1), object(2)
-        memory usage: 13.2+ KB
+    :description:
+        Contains the following fields:
+            #   Column      Non-Null Count  Dtype
+            ---  ------      --------------  -----
+            1   word        835 non-null    object
+            2   type        835 non-null    object
+            dtypes: int64(1), object(2)
+            memory usage: 13.2+ KB
+    :examples:
+    
+        >>> from pynssp.data import *
+        >>> stopwords = load_nssp_stopwords()
+        >>> stopwords.info()
     """
     
     stream = pkg_resources.resource_stream(__name__, "data/nssp_stopwords.csv")
