@@ -232,53 +232,41 @@
 <dt class="sig sig-object py" id="pynssp.data.load_nssp_stopwords">
 <span class="sig-prename descclassname"><span class="pre">pynssp.data.</span></span><span class="sig-name descname"><span class="pre">load_nssp_stopwords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/data.html#load_nssp_stopwords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.data.load_nssp_stopwords" title="Permalink to this definition"></a></dt>
 <dd><p>Return a dataframe of NSSP-curated stopwords.</p>
-<dl class="field-list">
-<dt class="field-odd">Description<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt>Contains the following fields:</dt><dd><p>#   Column      Non-Null Count  Dtype
-—  ——      ————–  —–
-1   word        835 non-null    object
-2   type        835 non-null    object
-dtypes: int64(1), object(2)
-memory usage: 13.2+ KB</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Examples<span class="colon">:</span></dt>
-<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="o">*</span>
+<p>Contains the following fields:
+… #   Column      Non-Null Count  Dtype
+… —  ——      ————–  —–
+… 1   word        835 non-null    object
+… 2   type        835 non-null    object
+… dtypes: int64(1), object(2)
+… memory usage: 13.2+ KB
+:examples:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stopwords</span> <span class="o">=</span> <span class="n">load_nssp_stopwords</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stopwords</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.data.load_simulated_ts">
 <span class="sig-prename descclassname"><span class="pre">pynssp.data.</span></span><span class="sig-name descname"><span class="pre">load_simulated_ts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/data.html#load_simulated_ts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.data.load_simulated_ts" title="Permalink to this definition"></a></dt>
 <dd><p>Return a dataframe of simulated time series.</p>
-<dl class="simple">
-<dt>Contains the following fields:</dt><dd><p>#   Column  Non-Null Count  Dtype
-—  ——  ————–  —–
-0   date    626 non-null    object
-1   week    626 non-null    int64
-2   year    626 non-null    int64
-3   cases   626 non-null    int64
-4   id      626 non-null    object
-dtypes: int64(3), object(2)
-memory usage: 24.6+ KB</p>
-</dd>
-</dl>
-<dl class="field-list">
-<dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="o">*</span>
+<p>Contains the following fields:
+… #   Column  Non-Null Count  Dtype
+… —  ——  ————–  —–
+… 0   date    626 non-null    object
+… 1   week    626 non-null    int64
+… 2   year    626 non-null    int64
+… 3   cases   626 non-null    int64
+… 4   id      626 non-null    object
+… dtypes: int64(3), object(2)
+… memory usage: 24.6+ KB
+:examples:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simulated_ts</span> <span class="o">=</span> <span class="n">load_simulated_ts</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simulated_ts</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
