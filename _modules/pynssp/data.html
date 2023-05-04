@@ -98,21 +98,20 @@
 <div class="viewcode-block" id="load_simulated_ts"><a class="viewcode-back" href="../../pynssp.html#pynssp.data.load_simulated_ts">[docs]</a><span class="k">def</span> <span class="nf">load_simulated_ts</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dataframe of simulated time series.</span>
 
-<span class="sd">    Contains the following fields:</span>
-<span class="sd">    ... #   Column  Non-Null Count  Dtype</span>
-<span class="sd">    ... ---  ------  --------------  -----</span>
-<span class="sd">    ... 0   date    626 non-null    object</span>
-<span class="sd">    ... 1   week    626 non-null    int64</span>
-<span class="sd">    ... 2   year    626 non-null    int64</span>
-<span class="sd">    ... 3   cases   626 non-null    int64</span>
-<span class="sd">    ... 4   id      626 non-null    object</span>
-<span class="sd">    ... dtypes: int64(3), object(2)</span>
-<span class="sd">    ... memory usage: 24.6+ KB</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
 <span class="sd">        &gt;&gt;&gt; from pynssp.data import *</span>
 <span class="sd">        &gt;&gt;&gt; simulated_ts = load_simulated_ts()</span>
 <span class="sd">        &gt;&gt;&gt; simulated_ts.info()</span>
+<span class="sd">        ... #   Column  Non-Null Count  Dtype</span>
+<span class="sd">        ... ---  ------  --------------  -----</span>
+<span class="sd">        ... 0   date    626 non-null    object</span>
+<span class="sd">        ... 1   week    626 non-null    int64</span>
+<span class="sd">        ... 2   year    626 non-null    int64</span>
+<span class="sd">        ... 3   cases   626 non-null    int64</span>
+<span class="sd">        ... 4   id      626 non-null    object</span>
+<span class="sd">        ... dtypes: int64(3), object(2)</span>
+<span class="sd">        ... memory usage: 24.6+ KB</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">stream</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_stream</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&quot;data/simulated_ts.csv&quot;</span><span class="p">)</span>
@@ -146,18 +145,17 @@
 <div class="viewcode-block" id="load_nssp_stopwords"><a class="viewcode-back" href="../../pynssp.html#pynssp.data.load_nssp_stopwords">[docs]</a><span class="k">def</span> <span class="nf">load_nssp_stopwords</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dataframe of NSSP-curated stopwords.</span>
 
-<span class="sd">    Contains the following fields:</span>
-<span class="sd">    ... #   Column      Non-Null Count  Dtype</span>
-<span class="sd">    ... ---  ------      --------------  -----</span>
-<span class="sd">    ... 1   word        835 non-null    object</span>
-<span class="sd">    ... 2   type        835 non-null    object</span>
-<span class="sd">    ... dtypes: int64(1), object(2)</span>
-<span class="sd">    ... memory usage: 13.2+ KB</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
 <span class="sd">        &gt;&gt;&gt; from pynssp.data import *</span>
 <span class="sd">        &gt;&gt;&gt; stopwords = load_nssp_stopwords()</span>
 <span class="sd">        &gt;&gt;&gt; stopwords.info()</span>
+<span class="sd">        ... #   Column      Non-Null Count  Dtype</span>
+<span class="sd">        ... ---  ------      --------------  -----</span>
+<span class="sd">        ... 1   word        835 non-null    object</span>
+<span class="sd">        ... 2   type        835 non-null    object</span>
+<span class="sd">        ... dtypes: int64(1), object(2)</span>
+<span class="sd">        ... memory usage: 13.2+ KB</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">stream</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_stream</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&quot;data/nssp_stopwords.csv&quot;</span><span class="p">)</span>
