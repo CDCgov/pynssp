@@ -1,8 +1,8 @@
 .. highlight:: shell
 
-============
+=================
 Installing pynssp
-============
+=================
 
 
 .. Stable release
@@ -24,7 +24,7 @@ Installing pynssp
 
 
 Development version
-------------
+-------------------
 
 You may install the development version with `pip`_ by running this command in your terminal.
 
