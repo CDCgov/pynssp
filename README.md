@@ -54,7 +54,7 @@ api_data.head()
 Should you want to contribute to this project, submit a push request to this Github repository and consider submitting a request to be added as a developer to gazondekon@cdc.gov.
 
 ## Getting Help
-If you encounter a clear bug, please consider emailing the author at gazondekon@cdc.gov and/or file an issue with a minimal reproducible example.
+If you encounter a clear bug, please consider emailing the author at gazondekon@cdc.gov and/or [file an issue](https://github.com/CDCgov/pynssp/issues) with a minimal reproducible example.
 
 ## Public Domain Standard Notice
 This repository constitutes a work of the United States Government and is not
