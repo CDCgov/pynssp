@@ -13,9 +13,9 @@ We start this tutorial by loading the `pynssp` package and related dependencies.
 We load additional packages for visualization purposes:
 
 ```python
-import seaborn as sns
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
+>>> import seaborn as sns
+>>> import matplotlib.pyplot as plt
+>>> import matplotlib.dates as mdates
 ```
 
 Next, we create an NSSP user profile by creating an object of the class Credentials.
