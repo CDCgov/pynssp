@@ -104,7 +104,7 @@ Now, let’s visualize the time series with the anomalies
 >>> sns.despine()
 ```
 
-![EWMA Detector](detectors/ewma.png)
+[![EWMA](detectors/ewma.png)](#exponentially-weighted-moving-average-ewma)
 
 ### Adaptive Multiple Regression
 
@@ -160,7 +160,7 @@ Let’s filter `df_regression` and visualize the time series with the anomalies 
 >>> sns.despine()
 ```
 
-![Regression Detector](detectors/regression.png)
+[![Regression Detector](detectors/regression.png)](#adaptive-multiple-regression)
 
 ### Regression/EWMA Switch
 
@@ -219,7 +219,7 @@ Let’s visualize the time series with the anomalies for Region 4:
 >>> sns.despine()
 ```
 
-![Regression/EWMA Switch Detector](detectors/switch.png)
+[![Regression/EWMA Switch Detector](detectors/switch.png)](#regression-ewma-switch)
 
 ### Negative Binomial Regression
 
@@ -285,9 +285,9 @@ Now, applying Negative Binomial detector...
 >>> sns.despine()
 ```
 
-![Negative Binomial Detector](detectors/nbinom.png)
+[![Negative Binomial Detector](detectors/nbinom.png)](#negative-binomial-regression)
 
-### Original Serfling detector
+### Original Serfling Detector
 
 The Original Serfling detector is intended for weekly time series spanning multiple years.
 It fits a linear regression model with a time term and sine and cosine terms to a baseline period that ideally spans 5 or more years.
@@ -345,4 +345,4 @@ Using the same simulated time series from the previous examples, the Negative Bi
 >>> sns.despine()
 ```
 
-![Original Serfling Detector](detectors/serfling.png)
+[![Original Serfling Detector](detectors/serfling.png)](#original-serfling-detector)
