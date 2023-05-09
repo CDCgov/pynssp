@@ -7,7 +7,13 @@ Welcome to pynssp's documentation!
 
    readme
    installation
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Hands-On Tutorials:
+
    usage
+   articles/anomaly_detection
 
 .. toctree::
    :maxdepth: 2
