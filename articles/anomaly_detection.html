@@ -66,7 +66,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#adaptive-multiple-regression">Adaptive Multiple Regression</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#regression-ewma-switch">Regression/EWMA Switch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#negative-binomial-regression">Negative Binomial Regression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#original-serfling-detector">Original Serfling detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#original-serfling-detector">Original Serfling Detector</a></li>
 </ul>
 </li>
 </ul>
@@ -202,7 +202,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference external image-reference" href="detectors/ewma.png"><img alt="EWMA Detector" src="../_images/ewma.png" /></a>
+<a class="reference external image-reference" href="#exponentially-weighted-moving-average-ewma"><img alt="EWMA" src="../_images/ewma.png" /></a>
 </section>
 <section id="adaptive-multiple-regression">
 <h3>Adaptive Multiple Regression<a class="headerlink" href="#adaptive-multiple-regression" title="Permalink to this heading"></a></h3>
@@ -253,7 +253,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference external image-reference" href="detectors/regression.png"><img alt="Regression Detector" src="../_images/regression.png" /></a>
+<a class="reference external image-reference" href="#adaptive-multiple-regression"><img alt="Regression Detector" src="../_images/regression.png" /></a>
 </section>
 <section id="regression-ewma-switch">
 <h3>Regression/EWMA Switch<a class="headerlink" href="#regression-ewma-switch" title="Permalink to this heading"></a></h3>
@@ -306,7 +306,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference external image-reference" href="detectors/switch.png"><img alt="Regression/EWMA Switch Detector" src="../_images/switch.png" /></a>
+<a class="reference external image-reference" href="#regression-ewma-switch"><img alt="Regression/EWMA Switch Detector" src="../_images/switch.png" /></a>
 </section>
 <section id="negative-binomial-regression">
 <h3>Negative Binomial Regression<a class="headerlink" href="#negative-binomial-regression" title="Permalink to this heading"></a></h3>
@@ -367,10 +367,10 @@ The example below applies the Negative Binomial Regression detector to our synth
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference external image-reference" href="detectors/nbinom.png"><img alt="Negative Binomial Detector" src="../_images/nbinom.png" /></a>
+<a class="reference external image-reference" href="#negative-binomial-regression"><img alt="Negative Binomial Detector" src="../_images/nbinom.png" /></a>
 </section>
 <section id="original-serfling-detector">
-<h3>Original Serfling detector<a class="headerlink" href="#original-serfling-detector" title="Permalink to this heading"></a></h3>
+<h3>Original Serfling Detector<a class="headerlink" href="#original-serfling-detector" title="Permalink to this heading"></a></h3>
 <p>The Original Serfling detector is intended for weekly time series spanning multiple years.
 It fits a linear regression model with a time term and sine and cosine terms to a baseline period that ideally spans 5 or more years.
 Inclusion of Fourier terms in the model is intended to account for seasonality common in multi-year weekly time series. This implementation follows the approach of the original Serfling method in which weeks between October of the starting year of a season and May of the ending year of a season are considered to be in the epidemic period. Weeks in the epidemic period are removed from the baseline prior to fitting the regression model.
@@ -424,7 +424,7 @@ Using the same simulated time series from the previous examples, the Negative Bi
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference external image-reference" href="detectors/serfling.png"><img alt="Original Serfling Detector" src="../_images/serfling.png" /></a>
+<a class="reference external image-reference" href="#original-serfling-detector"><img alt="Original Serfling Detector" src="../_images/serfling.png" /></a>
 </section>
 </section>
 </section>
