@@ -12,7 +12,7 @@ Welcome to pynssp's documentation!
    :maxdepth: 2
    :caption: Hands-On Tutorials:
 
-   usage
+   articles/intro
    articles/anomaly_detection
 
 .. toctree::
