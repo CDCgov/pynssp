@@ -297,7 +297,6 @@ The Original Serfling detector can be applied with the `alert_serfling()` functi
 Using the same simulated time series from the previous examples, the Negative Binomial Regression detector can be applied as below:
 
 ```python
-# Apply Original Serfling detector
 >>> df_serfling  = pynssp.alert_serfling(synth_ts1, t='date', y='cases', baseline_end='2021-12-26')
 ```
 
