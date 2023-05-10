@@ -111,7 +111,15 @@ favicons = [
     {"href": "favicon/favicon-32x32.png"},
     {
         "rel": "apple-touch-icon",
-        "href": "apple-touch-icon-180x180.png",
+        "href": "favicon/apple-touch-icon.png",
+    },
+    {
+        "rel": "apple-touch-icon",
+        "href": "favicon/apple-touch-icon-192x192.png",
+    },
+    {
+        "rel": "apple-touch-icon",
+        "href": "favicon/apple-touch-icon-512x512.png",
     },
 ]
 
