@@ -1,5 +1,9 @@
 import re
 import pandas as pd
+import requests
+import tempfile
+import os
+import zipfile
 from .core.credentials import Credentials
 from .core.token import Token
 from datetime import datetime, date
@@ -207,3 +211,183 @@ def get_essence_data(url, start_date=None, end_date=None, profile=None, **kwargs
         return pd.json_normalize(api_data["hospitalSyndromeAlerts"][0])
     else:
         raise ValueError("URL is not of ESSENCE type. Check your URL or use the `get_api_data()` function instead!")
+
+
+def webscrape_icd(icd_version="ICD10", year=None):
+    """ICD Code Web Scraper
+
+    Function to web scrape ICD discharge diagnosis code sets from the CDC FTP server (for ICD-10)
+    or CMS website (for ICD-9). If pulling ICD-10 codes, by default the function will search for 
+    the most recent year's code set publication by NCHS. Users can specify earlier publication 
+    years back to 2019 if needed. The ICD-9 option will only web scrape the most recent, 
+    final ICD-9 code set publication (2014) from the CMS website. 
+    This function will return an error message if the FTP server or CMS website is 
+    unresponsive or if a timeout of 60 seconds is reached. 
+    The result is a dataframe with 3 fields: code, description, and set 
+    (ICD version concatenated with year). 
+    Codes are standardized to upper case with punctuation and extra 
+    leading/tailing white space removed to enable successful joining.
+
+    :param icd_version: The version of ICD codes to retrieve. Default is 'ICD10'.
+    :param year: The year for which to retrieve the ICD codes. 
+        If not provided, the current year will be used. (Default value = None)
+    :returns: A DataFrame containing the ICD codes and descriptions.
+    :examples:
+
+        >>> # Example 1
+        >>> icd9 = webscrape_icd(icd_version = "ICD9")
+        >>> icd9.head()
+        >>> # Example 2
+        >>> icd10_2021 = webscrape_icd(icd_version="ICD10", year=2021)
+        >>> icd10_2021.info()
+        >>> # Example 3
+        >>> icd10_2020 = webscrape_icd(icd_version="ICD10", year=2020)
+        >>> icd10_2020.info()
+    """
+    
+    icd_version = icd_version.upper()
+    
+    if not re.search("ICD10|ICD9", icd_version):
+        raise ValueError("ICD version argument icd_version must be 'ICD9' or 'ICD10'")
+        
+    if icd_version == "ICD9" and year is not None:
+        raise ValueError("Argument year only applies for ICD10")
+        
+    if icd_version == "ICD10" and year is not None:
+        if year <= 2018:
+            raise ValueError("ICD-10 code sets prior to 2019 are not supported")
+            
+        if year > datetime.now().year + 1:
+            raise ValueError("Argument year cannot be greater than the upcoming year.")
+    
+    if icd_version == "ICD10":
+        ftp_url = "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/"
+
+        root_folders = requests.get(ftp_url).text.split("\n")[2]
+
+        current_year = None
+        if year:
+            current_year = year == int(pd.Timestamp.today().strftime("%Y"))
+        else:
+            current_year = True
+
+        if year is None or current_year:
+            year = int(pd.Timestamp.today().strftime("%Y"))
+            path = re.findall("(?<=HREF=\").*?(?=\")", root_folders)
+            years = []
+            for path in path:
+                match = re.search(r"\d{4}", path)
+                if match and (match.group(0) not in years):
+                    years.append(match.group(0))
+                    
+            
+            if str(year) in years:
+                path = f"pub/Health_Statistics/NCHS/Publications/ICD10CM/{year}/"
+            else:
+                raise ValueError(f"No ICD10 found for the year {year}.")
+
+            res = requests.get(f"https://ftp.cdc.gov/{path}")
+            path_files = res.text.split("\n")[2]
+
+            pattern = r'(?<=HREF=")[^"]+\.\w+(?=">)'
+            file_list = re.findall(pattern, path_files)
+
+            pattern2 = "(code_descriptions|code%20descriptions|icd10cm_codes_\\d{4})"
+            file_match = [re.search(pattern2, re.sub("[ -]", "_", f.lower())) is not None for f in file_list]
+
+            if all(not x for x in file_match):
+                raise ValueError(f"The {pd.Timestamp.today().year} code description file is not yet available. Please try a previous year.")
+            else:
+                file = f"https://ftp.cdc.gov/{file_list[file_match.index(True)]}"
+                file_ext = os.path.splitext(file)[1].split()
+
+                file_idx = [i for i, ext in enumerate(file_ext) if ext == ".zip"]
+
+                if len(file_idx) == 0:
+                    raise ValueError("No ZIP file found in directory")
+
+                temp_file = tempfile.NamedTemporaryFile(suffix=file_ext[0], delete=False)
+
+                with temp_file:
+                    # temp_file = tempfile.NamedTemporaryFile(suffix=file_ext[0], dir=temp_dir, delete=False)
+                    temp_dir = os.path.dirname(temp_file.name)
+                    response = requests.get(file, stream=True)
+                    response.raise_for_status()
+                    for chunk in response.iter_content(chunk_size=1024):
+                        temp_file.write(chunk)
+
+                with zipfile.ZipFile(temp_file.name, "r") as zip_ref:
+                    file_list = zip_ref.namelist()
+                    # file_year = pd.Timestamp.today().year
+                    for f in file_list:
+                        if re.match(f"Code Descriptions/icd10cm-codes-{year}.txt", f):
+                            file_name = f
+                            break
+                    else:
+                        raise ValueError(f"No file matching code description file found for {year}")
+
+                    zip_ref.extract(file_name, path=temp_dir)
+                    file_path = os.path.join(temp_dir, file_name)
+
+                    icd_dictionary = pd.read_csv(file_path, sep="\t", header=None, names=["code_combo"]) \
+                        .assign(code_combo=lambda df: df["code_combo"].str.replace("\\s{3,5}", "_", regex=True)) \
+                        .assign(code=lambda df: df["code_combo"].str.extract("^(.{1,5})")) \
+                        .assign(code=lambda df: df["code"].str.replace("_", "", regex=True)) \
+                        .assign(description=lambda df: df["code_combo"].str.extract("^(?:.{1,5})(.*)$")) \
+                        .assign(description=lambda df: df["description"].str.replace("_", "", regex=True)) \
+                        .assign(set=f"ICD-10 {year}")
+                    icd_dictionary = icd_dictionary[["code", "description", "set"]]
+            return icd_dictionary
+        else:
+            year
+            path = f"pub/Health_Statistics/NCHS/Publications/ICD10CM/{year}/"
+            file_path = f"https://ftp.cdc.gov/{path}icd10cm_codes_{year}.txt"
+
+            icd_dictionary = pd.read_csv(file_path, sep='\t', header=None, names=['code_combo']) \
+                .assign(code_combo=lambda df: df["code_combo"].str.replace("\\s{3,5}", "_", regex=True)) \
+                .assign(code=lambda df: df["code_combo"].str.extract("^(.{1,5})")) \
+                .assign(code=lambda df: df["code"].str.replace("_", "", regex=True)) \
+                .assign(description=lambda df: df["code_combo"].str.extract("^(?:.{1,5})(.*)$")) \
+                .assign(description=lambda df: df["description"].str.replace("_", "", regex=True)) \
+                .assign(set=f"ICD-10 {year}")
+            icd_dictionary = icd_dictionary[["code", "description", "set"]]
+
+            return icd_dictionary
+    else:
+        base_url = "https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes"
+        icd_file = "Downloads/ICD-9-CM-v32-master-descriptions.zip"
+        cms_url = f"{base_url}/{icd_file}"
+
+        temp_file = tempfile.NamedTemporaryFile(suffix='.zip', delete=False)
+        temp_dir = os.path.dirname(temp_file.name)
+        
+        with temp_file:
+            temp_dir = os.path.dirname(temp_file.name)
+            try:
+                response = requests.get(cms_url, stream=True)
+                response.raise_for_status()
+                for chunk in response.iter_content(chunk_size=1024):
+                    temp_file.write(chunk)
+            except:
+                raise Exception("Error in webscrape_icd: ICD-9 webscrape failed. CMS website is currently unresponsive.")
+            
+        with zipfile.ZipFile(temp_file.name, "r") as zip_file:
+            file_name = None
+            for info in zip_file.infolist():
+                if info.filename == "CMS32_DESC_LONG_DX.txt":
+                    file_name = info.filename
+                    zip_file.extract(info.filename, path=temp_dir)
+
+        file_path = f"{temp_dir}/{file_name}"
+        file_year = 2014
+
+        icd_dictionary = pd.read_csv(file_path, sep="\t", header=None, names=["code_combo"], encoding = "ISO-8859-1") \
+            .assign(code_combo=lambda df: df["code_combo"].str.replace("\\s{3,5}", "_", regex=True)) \
+            .assign(code=lambda df: df["code_combo"].str.extract("^(.{1,5})")) \
+            .assign(code=lambda df: df["code"].str.replace("_", "", regex=True)) \
+            .assign(description=lambda df: df["code_combo"].str.extract("^(?:.{1,5})(.*)$")) \
+            .assign(description=lambda df: df["description"].str.replace("_", "", regex=True)) \
+            .assign(set=f"ICD-9 {file_year}")
+        icd_dictionary = icd_dictionary[["code", "description", "set"]]
+
+        return icd_dictionary

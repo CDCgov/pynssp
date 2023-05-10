@@ -1,4 +1,4 @@
-# Welcome!
+## Welcome!
 Thank you for contributing to CDC's Open Source projects! If you have any
 questions or doubts, don't be afraid to send them our way. We appreciate all
 contributions, and we are looking forward to fostering an open, transparent, and
