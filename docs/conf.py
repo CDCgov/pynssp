@@ -114,12 +114,12 @@ favicons = [
         "href": "favicon/apple-touch-icon.png",
     },
     {
-        "rel": "apple-touch-icon",
-        "href": "favicon/apple-touch-icon-192x192.png",
+        "rel": "android-chrome",
+        "href": "favicon/android-chrome-192x192.png",
     },
     {
-        "rel": "apple-touch-icon",
-        "href": "favicon/apple-touch-icon-512x512.png",
+        "rel": "android-chrome",
+        "href": "favicon/android-chrome-192x192-512x512.png",
     },
 ]
 
