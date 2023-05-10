@@ -175,6 +175,8 @@ def get_essence_data(url, start_date=None, end_date=None, profile=None, **kwargs
         >>> myProfile = create_profile()
         >>> url = "https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries/graph?endDate=25Jun2022&geography=&percentParam=noPercent&datasource=va_hosp&startDate=25Jun2021&medicalGroupingSystem=essencesyndromes&userId=3751&aqtTarget=TimeSeries&ccddCategory=&geographySystem=hospitalregion&detector=probrepswitch&timeResolution=daily"
         >>> api_data = get_essence_data(url, profile=myProfile)
+        >>> api_data.info()
+        
     """
     if profile is None:
         raise ValueError("Please, provide a profile object of type `Credentials` or `Token`!")
@@ -235,13 +237,13 @@ def webscrape_icd(icd_version="ICD10", year=None):
     :examples:
 
         >>> from pynssp.utils import *
-        >>> # Example 1
+        # Example 1
         >>> icd9 = webscrape_icd(icd_version = "ICD9")
         >>> icd9.head()
-        >>> # Example 2
+        # Example 2
         >>> icd10_2021 = webscrape_icd(icd_version="ICD10", year=2021)
         >>> icd10_2021.info()
-        >>> # Example 3
+        # Example 3
         >>> icd10_2020 = webscrape_icd(icd_version="ICD10", year=2020)
         >>> icd10_2020.info()
     """
