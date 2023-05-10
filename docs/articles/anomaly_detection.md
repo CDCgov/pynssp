@@ -3,14 +3,13 @@
 ## Introduction
 In this tutorial, we describe how to perform anomaly detection and trend classification analysis using time series data from NSSP-ESSENCE. This vignette uses time series data from NSSP-ESSENCE data source for the CLI CC with CLI DD and Coronavirus DD v2 definition, limiting to ED visits (Has been Emergency = “Yes”).
 
-We start this tutorial by loading the `pynssp` package and related dependencies.
+We start this tutorial by loading the `pynssp` package.
 
 ```python
 >>> import pynssp
->>> import pandas as pd
 ```
 
-We load additional packages for visualization purposes:
+Then, we load additional packages for visualization purposes:
 
 ```python
 >>> import seaborn as sns
