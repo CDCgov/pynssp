@@ -46,9 +46,7 @@ Before applying an anomaly detection function, let’s first group the data by H
 >>> df_hhs = api_data.groupby("hospitaldhhsregion_display")
 ```
 
-## Applying Detectors
-
-### Exponentially Weighted Moving Average (EWMA)
+## Exponentially Weighted Moving Average (EWMA)
 
 The Exponentially Weighted Moving Average (EWMA) compares a weighted average of the most recent visit counts to a baseline expectation. For the weighted average to be tested, an exponential weighting gives the most influence to the most recent observations. This algorithm is appropriate for daily counts that do not have the characteristic features modeled in the regression algorithm. It is more applicable for Emergency Department data from certain hospital groups and for time series with small counts (daily average below 10) because of the limited case definition or chosen geographic region. The EWMA detection algorithm can be performed with `alert_ewma()` function (run `help(pynssp.alert_ewma)` in your Python console or `pynssp.alert_ewma?` in Jupyter Notebook or JupyterLab for more).
 
@@ -81,7 +79,9 @@ Now, let’s visualize the time series with the anomalies
 ... )
 
 # Format dates
->>> plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+>>> plt.gca().yaxis.set_major_formatter(
+...     plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x)))
+... )
 >>> plt.gca().xaxis.set_major_locator(mdates.WeekdayLocator())
 >>> plt.gcf().autofmt_xdate()
 
@@ -106,7 +106,7 @@ Now, let’s visualize the time series with the anomalies
 
 [![EWMA](detectors/ewma.png)](#exponentially-weighted-moving-average-ewma)
 
-### Adaptive Multiple Regression
+## Adaptive Multiple Regression
 
 The Adaptive Multiple Regression algorithm fits a linear model to a baseline of counts or percentages, and forecasts a predicted value for test dates following a pre-defined buffer period following the baseline. This model includes terms to account for linear trends and day-of-week effects. This implementation does NOT include holiday terms as in the Regression 1.4 algorithm in ESSENCE. The EWMA detection algorithm can be performed with the `alert_regression()` function (run `help(pynssp.alert_regression)` in your Python console or `pynssp.alert_regression?` in Jupyter Notebook or JupyterLab for more).
 
@@ -137,7 +137,9 @@ Let’s filter `df_regression` and visualize the time series with the anomalies 
 ... )
 
 # Format dates
->>> plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+>>> plt.gca().yaxis.set_major_formatter(
+...     plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x)))
+... )
 >>> plt.gca().xaxis.set_major_locator(mdates.WeekdayLocator())
 >>> plt.gcf().autofmt_xdate()
 
@@ -162,7 +164,7 @@ Let’s filter `df_regression` and visualize the time series with the anomalies 
 
 [![Regression Detector](detectors/regression.png)](#adaptive-multiple-regression)
 
-### Regression/EWMA Switch
+## Regression/EWMA Switch
 
 The NSSP-ESSENCE Regression/EWMA Switch algorithm generalized the Regression and EWMA algorithms by applying the most appropriate algorithm for the data in the baseline. First, adaptive multiple regression is applied where the adjusted R-squared value of the model is examined to see if it meets a threshold of >=0.60
 . If this threshold is not met, then the model is considered to not explain the data well. In this case, the algorithm switches to the EWMA algorithm, which is more appropriate for sparser time series that are common with granular geographic levels.
@@ -196,7 +198,9 @@ Let’s visualize the time series with the anomalies for Region 4:
 ... )
 
 # Format dates
->>> plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+>>> plt.gca().yaxis.set_major_formatter(
+...     plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x)))
+... )
 >>> plt.gca().xaxis.set_major_locator(mdates.WeekdayLocator())
 >>> plt.gcf().autofmt_xdate()
 
@@ -221,7 +225,7 @@ Let’s visualize the time series with the anomalies for Region 4:
 
 [![Regression/EWMA Switch Detector](detectors/switch.png)](#regression-ewma-switch)
 
-### Negative Binomial Regression
+## Negative Binomial Regression
 
 The Negative Binomial Regression algorithm is intended for weekly time series spanning multiple years and fits a negative binomial regression model with a time term and cyclic sine and cosine terms to a baseline period that spans 2 or more years.
 Inclusion of cyclic terms in the model is intended to account for seasonality common in multi-year weekly time series of counts for syndromes and diseases such as influenza, RSV, and norovirus.
@@ -243,7 +247,10 @@ Now, applying Negative Binomial detector...
 ```python
 >>> fig, ax = plt.subplots(figsize=(12, 6))
 
->>> sns.lineplot(data=df_nbinom, x='date', y='cases', color='#1A476F', label='Observed', ax=ax)
+>>> sns.lineplot(
+...     data=df_nbinom, x='date', y='cases', 
+...     color='#1A476F', label='Observed', ax=ax
+... )
 
 >>> sns.lineplot(
 ...     data=df_nbinom, x='date', y='threshold', 
@@ -265,7 +272,9 @@ Now, applying Negative Binomial detector...
 >>> ax.set_xlabel('Date')
 >>> ax.set_ylabel('Count')
 >>> ax.set_ylim(bottom=0)
->>> ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+>>> ax.yaxis.set_major_formatter(
+...     plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x)))
+... )
 
 # Set legend
 >>> ax.legend(
@@ -287,7 +296,7 @@ Now, applying Negative Binomial detector...
 
 [![Negative Binomial Detector](detectors/nbinom.png)](#negative-binomial-regression)
 
-### Original Serfling Detector
+## Original Serfling Detector
 
 The Original Serfling detector is intended for weekly time series spanning multiple years.
 It fits a linear regression model with a time term and sine and cosine terms to a baseline period that ideally spans 5 or more years.
@@ -303,7 +312,10 @@ Using the same simulated time series from the previous examples, the Negative Bi
 ```python
 >>> fig, ax = plt.subplots(figsize=(12, 6))
 
->>> sns.lineplot(data=df_serfling, x='date', y='cases', color='#1A476F', label='Observed', ax=ax)
+>>> sns.lineplot(
+...     data=df_serfling, x='date', y='cases', 
+...     color='#1A476F', label='Observed', ax=ax
+... )
 
 >>> sns.lineplot(
 ...     data=df_serfling, x='date', y='threshold', 
@@ -325,7 +337,9 @@ Using the same simulated time series from the previous examples, the Negative Bi
 >>> ax.set_xlabel('Date')
 >>> ax.set_ylabel('Count')
 >>> ax.set_ylim(bottom=0)
->>> ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+>>> ax.yaxis.set_major_formatter(
+...     plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x)))
+... )
 
 # Set legend
 >>> ax.legend(
