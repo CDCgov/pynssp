@@ -234,6 +234,7 @@ def webscrape_icd(icd_version="ICD10", year=None):
     :returns: A DataFrame containing the ICD codes and descriptions.
     :examples:
 
+        >>> from pynssp.utils import *
         >>> # Example 1
         >>> icd9 = webscrape_icd(icd_version = "ICD9")
         >>> icd9.head()
