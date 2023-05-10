@@ -41,6 +41,7 @@ extensions = [
     'sphinx_copybutton',
     'm2r', 
     'sphinx_rtd_theme',
+    'sphinx_favicon'
 ]
 
 # Automatic exclusion of prompts from the copies
@@ -102,7 +103,46 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme' #'alabaster', 'book', ...https://sphinxthemes.com/
-html_favicon = '_static/favicon/favicon.ico'
+# html_favicon = '_static/favicon/favicon.ico'
+html_static_path = ["_static"]
+
+favicons = [
+    {"href": "favicon/icon.ico"},  # => use `_static/icon.svg`
+    {"href": "favicon-16x16.png"},
+    {"href": "favicon/favicon-32x32.png"},
+    {
+        "rel": "apple-touch-icon",
+        "href": "apple-touch-icon-180x180.png",
+    },
+]
+
+# favicons =  [
+#         {
+#             "rel": "icon",
+#             "sizes": "16x16",
+#             "href": "_static/favicon/favicon-16x16.png",
+#         },
+#         {
+#             "rel": "icon",
+#             "sizes": "32x32",
+#             "href": "_static/favicon/favicon-32x32.png",
+#         },
+#         {
+#             "rel": "apple-touch-icon",
+#             "sizes": "180x180",
+#             "href": "_static/favicon/apple-touch-icon.png",
+#         },
+#         {
+#             "rel": "android-chrome",
+#             "sizes": "192x192",
+#             "href": "_static/favicon/android-chrome-192x192.png",
+#         },
+#         {
+#             "rel": "android-chrome",
+#             "sizes": "512x512",
+#             "href": "_static/favicon/android-chrome-512x512.png",
+#         },
+#    ]
 
 html_context = {
     "display_github": True,
@@ -136,34 +176,7 @@ html_theme_options = {
     'sticky_navigation': True,
     'navigation_depth': 4,
     'includehidden': True,
-    'titles_only': False,
-    "favicons": [
-        {
-            "rel": "icon",
-            "sizes": "16x16",
-            "href": "_static/favicon/favicon-16x16.png",
-        },
-        {
-            "rel": "icon",
-            "sizes": "32x32",
-            "href": "_static/favicon/favicon-32x32.png",
-        },
-        {
-            "rel": "apple-touch-icon",
-            "sizes": "180x180",
-            "href": "_static/favicon/apple-touch-icon.png",
-        },
-        {
-            "rel": "android-chrome",
-            "sizes": "192x192",
-            "href": "_static/favicon/android-chrome-192x192.png",
-        },
-        {
-            "rel": "android-chrome",
-            "sizes": "512x512",
-            "href": "_static/favicon/android-chrome-512x512.png",
-        },
-   ]
+    'titles_only': False
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
