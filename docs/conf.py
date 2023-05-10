@@ -103,7 +103,6 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme' #'alabaster', 'book', ...https://sphinxthemes.com/
-# html_favicon = '_static/favicon/favicon.ico'
 html_static_path = ["_static"]
 
 favicons = [
@@ -115,34 +114,6 @@ favicons = [
         "href": "apple-touch-icon-180x180.png",
     },
 ]
-
-# favicons =  [
-#         {
-#             "rel": "icon",
-#             "sizes": "16x16",
-#             "href": "_static/favicon/favicon-16x16.png",
-#         },
-#         {
-#             "rel": "icon",
-#             "sizes": "32x32",
-#             "href": "_static/favicon/favicon-32x32.png",
-#         },
-#         {
-#             "rel": "apple-touch-icon",
-#             "sizes": "180x180",
-#             "href": "_static/favicon/apple-touch-icon.png",
-#         },
-#         {
-#             "rel": "android-chrome",
-#             "sizes": "192x192",
-#             "href": "_static/favicon/android-chrome-192x192.png",
-#         },
-#         {
-#             "rel": "android-chrome",
-#             "sizes": "512x512",
-#             "href": "_static/favicon/android-chrome-512x512.png",
-#         },
-#    ]
 
 html_context = {
     "display_github": True,
