@@ -119,7 +119,7 @@ favicons = [
     },
     {
         "rel": "android-chrome",
-        "href": "favicon/android-chrome-192x192-512x512.png",
+        "href": "favicon/android-chrome-512x512.png",
     },
 ]
 
