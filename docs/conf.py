@@ -106,8 +106,8 @@ html_theme = 'sphinx_rtd_theme' #'alabaster', 'book', ...https://sphinxthemes.co
 html_static_path = ["_static"]
 
 favicons = [
-    {"href": "favicon/icon.ico"},  # => use `_static/icon.svg`
-    {"href": "favicon-16x16.png"},
+    {"href": "favicon/favicon.ico"},  # => use `_static/icon.svg`
+    {"href": "favicon/favicon-16x16.png"},
     {"href": "favicon/favicon-32x32.png"},
     {
         "rel": "apple-touch-icon",
