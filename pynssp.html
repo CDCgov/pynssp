@@ -86,6 +86,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.get_api_graph"><code class="docutils literal notranslate"><span class="pre">get_api_graph()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.get_api_response"><code class="docutils literal notranslate"><span class="pre">get_api_response()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.get_essence_data"><code class="docutils literal notranslate"><span class="pre">get_essence_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.webscrape_icd"><code class="docutils literal notranslate"><span class="pre">webscrape_icd()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pynssp">Module contents</a></li>
@@ -455,6 +456,50 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_profile</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries/graph?endDate=25Jun2022&amp;geography=&amp;percentParam=noPercent&amp;datasource=va_hosp&amp;startDate=25Jun2021&amp;medicalGroupingSystem=essencesyndromes&amp;userId=3751&amp;aqtTarget=TimeSeries&amp;ccddCategory=&amp;geographySystem=hospitalregion&amp;detector=probrepswitch&amp;timeResolution=daily&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">api_data</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api_data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.utils.webscrape_icd">
+<span class="sig-prename descclassname"><span class="pre">pynssp.utils.</span></span><span class="sig-name descname"><span class="pre">webscrape_icd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icd_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ICD10'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/utils.html#webscrape_icd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.utils.webscrape_icd" title="Permalink to this definition"></a></dt>
+<dd><p>ICD Code Web Scraper</p>
+<p>Function to web scrape ICD discharge diagnosis code sets from the CDC FTP server (for ICD-10)
+or CMS website (for ICD-9). If pulling ICD-10 codes, by default the function will search for
+the most recent year’s code set publication by NCHS. Users can specify earlier publication
+years back to 2019 if needed. The ICD-9 option will only web scrape the most recent,
+final ICD-9 code set publication (2014) from the CMS website.
+This function will return an error message if the FTP server or CMS website is
+unresponsive or if a timeout of 60 seconds is reached.
+The result is a dataframe with 3 fields: code, description, and set
+(ICD version concatenated with year).
+Codes are standardized to upper case with punctuation and extra
+leading/tailing white space removed to enable successful joining.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icd_version</strong> – The version of ICD codes to retrieve. Default is ‘ICD10’.</p></li>
+<li><p><strong>year</strong> – The year for which to retrieve the ICD codes.
+If not provided, the current year will be used. (Default value = None)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame containing the ICD codes and descriptions.</p>
+</dd>
+<dt class="field-odd">Examples<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="go"># Example 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd9</span> <span class="o">=</span> <span class="n">webscrape_icd</span><span class="p">(</span><span class="n">icd_version</span> <span class="o">=</span> <span class="s2">&quot;ICD9&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd9</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go"># Example 2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd10_2021</span> <span class="o">=</span> <span class="n">webscrape_icd</span><span class="p">(</span><span class="n">icd_version</span><span class="o">=</span><span class="s2">&quot;ICD10&quot;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2021</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd10_2021</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="go"># Example 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd10_2020</span> <span class="o">=</span> <span class="n">webscrape_icd</span><span class="p">(</span><span class="n">icd_version</span><span class="o">=</span><span class="s2">&quot;ICD10&quot;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2020</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">icd10_2020</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd>
