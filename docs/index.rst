@@ -23,7 +23,7 @@ Welcome to pynssp's documentation!
    history
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: About:
    
    authors
