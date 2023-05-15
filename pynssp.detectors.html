@@ -216,6 +216,130 @@ Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algo
 </section>
 <section id="module-pynssp.detectors.farrington">
 <span id="pynssp-detectors-farrington-module"></span><h2>pynssp.detectors.farrington module<a class="headerlink" href="#module-pynssp.detectors.farrington" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.detectors.farrington.alert_farrington">
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.farrington.</span></span><span class="sig-name descname"><span class="pre">alert_farrington</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">27</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'original'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/farrington.html#alert_farrington"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.farrington.alert_farrington" title="Permalink to this definition"></a></dt>
+<dd><p>Farrington Temporal Detector</p>
+<p>The Farrington algorithm is intended for weekly time series of counts
+spanning multiple years. Original Farrington Algorithm: Quasi-Poisson
+generalized linear regression models are fit to baseline counts associated
+with reference dates in the B previous years, including w weeks before
+and after each reference date. The algorithm checks for convergence with a
+time term and refits a model with only an intercept term in the scenario
+the model does not converge. The inclusion of high baseline counts associated
+with past outbreaks or public health events is known to result in alerting
+thresholds that are too high and a reduction in sensitivity.
+An empirically derived weighting function is used to calculate weights
+from Anscombe residuals that assign low weight to baseline observations
+with large residuals. A 2/3rds transformation is applied to account for
+skewness common to time series with lower counts, after which expected
+value and variance estimates are used to derive upper and lower bounds for
+the prediction interval. The alert score is defined as the current observation
+minus the forecast value divided by the upper prediction interval bound minus
+the forecast value. If this score exceeds 1, an alert (red value) is raised
+given that the number of counts in the last 4 days is above 5.
+This algorithm requires that the number of years included in the baseline is 3
+or higher. Blue values are returned if an alert does not occur.
+Grey values represent instances where anomaly detection did not apply
+(i.e., observations for which baseline data were unavailable).</p>
+<p>Modified Farrington Algorithm: In 2012, Angela Noufaily developed a modified
+implementation of the original Farrington algorithm that improved performance
+by including more historical data in the baseline.
+The modified algorithm includes all weeks from the beginning of the first
+reference window to the last week proceeding a 27-week guardband period used
+to separate the test week from the baseline.
+A 10-level factor is used to account for seasonality throughout the baseline.
+Additionally, the modified algorithm assumes a negative binomial distribution
+on the weekly time series counts, where thresholds are computed as quantiles
+of the negative binomial distribution with plug-in estimates for mu and phi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – A pandas dataframe</p></li>
+<li><p><strong>t</strong> – A column containing date values (Default value = “date”)</p></li>
+<li><p><strong>y</strong> – A column containing time series counts (Default value = “count”)</p></li>
+<li><p><strong>B</strong> – Number of years to include in baseline (default is 4)</p></li>
+<li><p><strong>g</strong> – Number of guardband weeks to separate the test date
+from the baseline (default is 27)</p></li>
+<li><p><strong>w</strong> – Half the number of weeks included in reference window,
+before and after each reference date (default is 3)</p></li>
+<li><p><strong>p</strong> – Number of seasonal periods for each year in baseline</p></li>
+<li><p><strong>method</strong> – A string of either “original” (default) or “modified”
+to specify the version of the Farrington algorithm (original vs modified).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.detectors.farrington.farrington_modified">
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.farrington.</span></span><span class="sig-name descname"><span class="pre">farrington_modified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">27</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/farrington.html#farrington_modified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.farrington.farrington_modified" title="Permalink to this definition"></a></dt>
+<dd><p>Modified Farrington Algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – A pandas dataframe</p></li>
+<li><p><strong>t</strong> – A column containing date values (Default value = “date”)</p></li>
+<li><p><strong>y</strong> – A column containing time series counts (Default value = “count”)</p></li>
+<li><p><strong>B</strong> – Number of years to include in baseline (default is 4)</p></li>
+<li><p><strong>g</strong> – Number of guardband weeks to separate the test date
+from the baseline (default is 27)</p></li>
+<li><p><strong>w</strong> – Half the number of weeks included in reference window, before and
+after each reference date (default is 3)</p></li>
+<li><p><strong>p</strong> – Number of seasonal periods for each year in baseline</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pandas dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.detectors.farrington.farrington_original">
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.farrington.</span></span><span class="sig-name descname"><span class="pre">farrington_original</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/farrington.html#farrington_original"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.farrington.farrington_original" title="Permalink to this definition"></a></dt>
+<dd><p>Original Farrington Algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – A pandas dataframe</p></li>
+<li><p><strong>t</strong> – A column containing date values (Default value = “date”)</p></li>
+<li><p><strong>y</strong> – A column containing time series counts (Default value = “count”)</p></li>
+<li><p><strong>B</strong> – Number of years to include in baseline (default is 4)</p></li>
+<li><p><strong>w</strong> – Half the number of weeks included in reference window,
+before and after each reference date (default is 3)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pandas dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.detectors.farrington.seasonal_groups">
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.farrington.</span></span><span class="sig-name descname"><span class="pre">seasonal_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">27</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_weeks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/farrington.html#seasonal_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.farrington.seasonal_groups" title="Permalink to this definition"></a></dt>
+<dd><p>Return 10-level seasonal factor series</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>B</strong> – Number of years to include in baseline (default is 4)</p></li>
+<li><p><strong>g</strong> – Number of guardband weeks to separate the test week from the baseline (default is 27)</p></li>
+<li><p><strong>w</strong> – Half the number of weeks included in reference window, before and after each reference date (default is 3)</p></li>
+<li><p><strong>p</strong> – Number of seasonal periods for each year in baseline (default is 10)</p></li>
+<li><p><strong>base_length</strong> – Total number of weeks included in baseline</p></li>
+<li><p><strong>base_weeks</strong> – Indices of baseline weeks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pandas Series</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-pynssp.detectors.nbinom">
 <span id="pynssp-detectors-nbinom-module"></span><h2>pynssp.detectors.nbinom module<a class="headerlink" href="#module-pynssp.detectors.nbinom" title="Permalink to this heading"></a></h2>
