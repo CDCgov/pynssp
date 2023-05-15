@@ -349,7 +349,6 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
 
 
 def alert_farrington(df, t='date', y='count', B=4, g=27, w=3, p=10, method='original'):
-    
     """Farrington Temporal Detector
 
         The Farrington algorithm is intended for weekly time series of counts 

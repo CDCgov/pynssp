@@ -6,7 +6,7 @@ In this tutorial, we describe how to perform anomaly detection and trend classif
 We start this tutorial by loading the `pynssp` package.
 
 ```python
->>> import pynssp
+>>> from pynssp import *
 ```
 
 Then, we load additional packages for visualization purposes:
@@ -20,7 +20,7 @@ Then, we load additional packages for visualization purposes:
 Next, we create an NSSP user profile by creating an object of the class Credentials.
 
 ```python
->>> myProfile = pynssp.create_profile() # Creating an ESSENCE user profile
+>>> myProfile = create_profile() # Creating an ESSENCE user profile
 
 # save profile object to file for future use
 >>> myProfile.pickle()
@@ -33,7 +33,7 @@ With the NSSP `myProfile` object, we authenticate to NSSP-ESSENCE and pull in th
 >>> url = "https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries?endDate=20Nov20&ccddCategory=cli%20cc%20with%20cli%20dd%20and%20coronavirus%20dd%20v2&percentParam=ccddCategory&geographySystem=hospitaldhhsregion&datasource=va_hospdreg&detector=probrepswitch&startDate=22Aug20&timeResolution=daily&hasBeenE=1&medicalGroupingSystem=essencesyndromes&userId=2362&aqtTarget=TimeSeries&stratVal=&multiStratVal=geography&graphOnly=true&numSeries=0&graphOptions=multipleSmall&seriesPerYear=false&nonZeroComposite=false&removeZeroSeries=true&startMonth=January&stratVal=&multiStratVal=geography&graphOnly=true&numSeries=0&graphOptions=multipleSmall&seriesPerYear=false&startMonth=January&nonZeroComposite=false"
 
 # Data Pull from NSSP-ESSENCE
->>> api_data = pynssp.get_essence_data(url, profile = myProfile)
+>>> api_data = get_essence_data(url, profile = myProfile)
 
 # Inspect pulled data frame
 >>> api_data.info()
@@ -47,10 +47,10 @@ Before applying an anomaly detection function, let’s first group the data by H
 
 ## Exponentially Weighted Moving Average (EWMA)
 
-The Exponentially Weighted Moving Average (EWMA) compares a weighted average of the most recent visit counts to a baseline expectation. For the weighted average to be tested, an exponential weighting gives the most influence to the most recent observations. This algorithm is appropriate for daily counts that do not have the characteristic features modeled in the regression algorithm. It is more applicable for Emergency Department data from certain hospital groups and for time series with small counts (daily average below 10) because of the limited case definition or chosen geographic region. The EWMA detection algorithm can be performed with `alert_ewma()` function (run `help(pynssp.alert_ewma)` in your Python console or `pynssp.alert_ewma?` in Jupyter Notebook or JupyterLab for more).
+The Exponentially Weighted Moving Average (EWMA) compares a weighted average of the most recent visit counts to a baseline expectation. For the weighted average to be tested, an exponential weighting gives the most influence to the most recent observations. This algorithm is appropriate for daily counts that do not have the characteristic features modeled in the regression algorithm. It is more applicable for Emergency Department data from certain hospital groups and for time series with small counts (daily average below 10) because of the limited case definition or chosen geographic region. The EWMA detection algorithm can be performed with `alert_ewma()` function (run `help(alert_ewma)` in your Python console or `alert_ewma?` in Jupyter Notebook or JupyterLab for more).
 
 ```python
->>> df_ewma = pynssp.alert_ewma(df_hhs, t = "date", y = "dataCount")
+>>> df_ewma = alert_ewma(df_hhs, t = "date", y = "dataCount")
 ```
 
 Let's subset the dataframe to visualize the time series with the anomalies for Region 4:
@@ -107,10 +107,10 @@ Now, let’s visualize the time series with the anomalies
 
 ## Adaptive Multiple Regression
 
-The Adaptive Multiple Regression algorithm fits a linear model to a baseline of counts or percentages, and forecasts a predicted value for test dates following a pre-defined buffer period following the baseline. This model includes terms to account for linear trends and day-of-week effects. This implementation does NOT include holiday terms as in the Regression 1.4 algorithm in ESSENCE. The EWMA detection algorithm can be performed with the `alert_regression()` function (run `help(pynssp.alert_regression)` in your Python console or `pynssp.alert_regression?` in Jupyter Notebook or JupyterLab for more).
+The Adaptive Multiple Regression algorithm fits a linear model to a baseline of counts or percentages, and forecasts a predicted value for test dates following a pre-defined buffer period following the baseline. This model includes terms to account for linear trends and day-of-week effects. This implementation does NOT include holiday terms as in the Regression 1.4 algorithm in ESSENCE. The EWMA detection algorithm can be performed with the `alert_regression()` function (run `help(alert_regression)` in your Python console or `alert_regression?` in Jupyter Notebook or JupyterLab for more).
 
 ```python
->>> df_regression = pynssp.alert_regression(df_hhs, t = "date", y = "dataCount")
+>>> df_regression = alert_regression(df_hhs, t = "date", y = "dataCount")
 ```
 
 Let’s filter `df_regression` and visualize the time series with the anomalies for Region 4:
@@ -168,10 +168,10 @@ Let’s filter `df_regression` and visualize the time series with the anomalies 
 The NSSP-ESSENCE Regression/EWMA Switch algorithm generalized the Regression and EWMA algorithms by applying the most appropriate algorithm for the data in the baseline. First, adaptive multiple regression is applied where the adjusted R-squared value of the model is examined to see if it meets a threshold of >=0.60
 . If this threshold is not met, then the model is considered to not explain the data well. In this case, the algorithm switches to the EWMA algorithm, which is more appropriate for sparser time series that are common with granular geographic levels.
 
-The Regression/EWMA algorithm can be performed with the `alert_switch()` function (run `help(pynssp.alert_switch)` in your Python console or `pynssp.alert_switch?` in Jupyter Notebook or JupyterLab for more).
+The Regression/EWMA algorithm can be performed with the `alert_switch()` function (run `help(alert_switch)` in your Python console or `alert_switch?` in Jupyter Notebook or JupyterLab for more).
 
 ```python
->>> df_switch = pynssp.alert_switch(df_hhs, t = "date", y = "dataCount")
+>>> df_switch = alert_switch(df_hhs, t = "date", y = "dataCount")
 ```
 
 Let’s visualize the time series with the anomalies for Region 4:
@@ -229,18 +229,18 @@ Let’s visualize the time series with the anomalies for Region 4:
 The Negative Binomial Regression algorithm is intended for weekly time series spanning multiple years and fits a negative binomial regression model with a time term and cyclic sine and cosine terms to a baseline period that spans 2 or more years.
 Inclusion of cyclic terms in the model is intended to account for seasonality common in multi-year weekly time series of counts for syndromes and diseases such as influenza, RSV, and norovirus.
 Each baseline model is used to make weekly forecasts for all weeks following the baseline period. One-sided upper 95% prediction interval bounds are computed for each week in the prediction period. Alarms are signaled for any week during which the observed weekly count exceeds the upper bound of the prediction interval.
-The Negative Binomial Regression detector can be applied with the `alert_nbinom()` function (run `help(pynssp.alert_nbinom)` in your Python console or `pynssp.alert_nbinom?` in Jupyter Notebook or JupyterLab for more).
+The Negative Binomial Regression detector can be applied with the `alert_nbinom()` function (run `help(alert_nbinom)` in your Python console or `alert_nbinom?` in Jupyter Notebook or JupyterLab for more).
 The example below applies the Negative Binomial Regression detector to our synthetic time series for Scenario #1.
 
 ```python
->>> synth_ts1 = pynssp.get_scenario1() # Load synthesized time series data for scenario1
+>>> synth_ts1 = get_scenario1() # Load synthesized time series data for scenario1
 >>> synth_ts1.head()
 ```
 
 Now, applying Negative Binomial detector...
 
 ```python
->>> df_nbinom = pynssp.alert_nbinom(synth_ts1, t='date', y='cases', baseline_end='2021-12-26')
+>>> df_nbinom = alert_nbinom(synth_ts1, t='date', y='cases', baseline_end='2021-12-26')
 ```
 
 ```python
@@ -301,11 +301,11 @@ The Original Serfling detector is intended for weekly time series spanning multi
 It fits a linear regression model with a time term and sine and cosine terms to a baseline period that ideally spans 5 or more years.
 Inclusion of Fourier terms in the model is intended to account for seasonality common in multi-year weekly time series. This implementation follows the approach of the original Serfling method in which weeks between October of the starting year of a season and May of the ending year of a season are considered to be in the epidemic period. Weeks in the epidemic period are removed from the baseline prior to fitting the regression model.
 Each baseline model is used to make weekly forecasts for all weeks following the baseline period. One-sided upper 95% prediction interval bounds are computed for each week in the prediction period. Alarms are signaled for any week during which the observed weekly count exceeds the upper bound of the prediction interval.
-The Original Serfling detector can be applied with the `alert_serfling()` function (run `help(pynssp.alert_serfling)` in your Python console or `pynssp.alert_serfling?` in Jupyter Notebook or JupyterLab for more).
+The Original Serfling detector can be applied with the `alert_serfling()` function (run `help(alert_serfling)` in your Python console or `alert_serfling?` in Jupyter Notebook or JupyterLab for more).
 Using the same simulated time series from the previous examples, the Negative Binomial Regression detector can be applied as below:
 
 ```python
->>> df_serfling  = pynssp.alert_serfling(synth_ts1, t='date', y='cases', baseline_end='2021-12-26')
+>>> df_serfling  = alert_serfling(synth_ts1, t='date', y='cases', baseline_end='2021-12-26')
 ```
 
 ```python
