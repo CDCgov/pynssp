@@ -114,7 +114,6 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
         # mod_formula = mod.model.formula
         if include_time:
             time_coeff = mod.params['base_dates']
-            # time_p_val = mod.pvalues['base_dates']
         else:
             time_coeff = np.nan
             # time_p_val = np.nan
@@ -138,10 +137,8 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
         # mod_weighted.phi = phi_weighted
         # mod_weighted.weights = omega
         if include_time:
-            # time_coeff_weighted = mod_weighted.params['base_dates']
             time_pval_weighted = mod_weighted.pvalues['base_dates']
         else:
-            # time_coeff_weighted = np.nan
             time_pval_weighted = np.nan
         pred_week_time = ((current_date - min_date) / 7).days
         dummy_vars = {'fct_levels_{}'.format(i): int(i == p) for i in range(1, p+1)}
@@ -154,7 +151,7 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
         # > 1: p-value for time term significant at 0.05 level
         time_significant = (pred <= np.nanmax(base_counts) and time_pval_weighted < 0.05)
         # > 2: Prediction less than or equal to maximum observation in baseline
-        pred_ok = pred <= np.max(base_counts)
+        pred_ok = pred <= np.nanmax(base_counts)
         trend = include_time and time_significant and pred_ok
 
         if not trend:
@@ -284,7 +281,6 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
         # mod_formula = mod.model.formula
         if include_time:
             time_coeff = mod.params[1]
-            # time_p_val = mod.pvalues[1]
         else:
             time_coeff = np.nan
             # time_p_val = np.nan
@@ -294,8 +290,6 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
         diag = mod.get_influence().hat_matrix_diag
 
         ambscombe_resid = ((3 / 2) * (np.power(y_observed, 2 / 3) * np.power(y_fit, -1 / 6) - np.sqrt(y_fit))) / (np.sqrt(phi * (1 - diag)))
-
-        # ambscombe_resid = mod.resid_anscombe
         
         scaled = np.where(ambscombe_resid > 1, 1 / (ambscombe_resid**2), 1)
         gamma = len(ambscombe_resid) / np.sum(scaled)
@@ -308,7 +302,6 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
         # mod_weighted.week_time = base_dates
         # mod_weighted.data_count = base_counts
         if include_time:
-        #   time_coeff_weighted = mod_weighted.params['base_dates']
             time_pval_weighted = mod_weighted.pvalues['base_dates']
         pred_week_time = int((current_date - min_date).days / 7)
         # pred = mod_weighted.predict(pd.DataFrame({'base_dates': pred_week_time, 'dispersion': phi_weighted}), 
@@ -370,13 +363,8 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
         
         predicted[i] = pred 
         time_coefficient[i] = time_coeff
-
-        # Temporary result vectors
-        # se_fit = pred[1]
-        # tau = phi_weighted + ((se_fit**2) / predicted[i])
-        # se_pred = np.sqrt((4 / 9) * np.power(predicted[i], 1 / 3) * tau)
-
-        # upper[i] = max(0, (np.power(predicted[i], 2 / 3) + norm.ppf(0.95) * se_pred)**(3 / 2))
+        include_time_term[i] = include_time
+        
         upper[i] = upper_ci
 
         alert_score[i] = np.where(~np.isnan(upper[i]), (y_obs[i] - predicted[i]) / (upper[i] - predicted[i]), np.nan)
@@ -392,8 +380,6 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
             'alert_score': alert_score, 'alert': alert
         })
     ], axis=1)
-
-
 
 
 def alert_farrington(df, t='date', y='count', B=4, g=27, w=3, p=10, method='original'):
@@ -479,17 +465,6 @@ def alert_farrington(df, t='date', y='count', B=4, g=27, w=3, p=10, method='orig
     if df_size < 52 * B + w + 2:
         raise ValueError("Not enough historical data to form baseline.")
 
-    # Check for data that should be grouped
-    if not df.groupby(t).ngroups == df[t].nunique():
-        raise ValueError("Duplicate dates detected. Please group your DataFrame!")
-
-    # Ensure that dates are in standard format
-    # if not is_datetime(df[t]):
-    #     raise ValueError("Date argument 't' is not in a standard unambiguous format. Dates must be in '%Y-%m-%d' format.")
-
-    # Check if time series data is on a time resolution other than weekly
-    if not (df[t].diff().dt.days[1:] == 7).all():
-        raise ValueError("Distance between dates is not 7 days. Counts must be weekly!")
     
     if method not in ["original", "modified"]:
         raise ValueError("Argument 'method' must be 'original' or 'modified'.")
@@ -498,15 +473,8 @@ def alert_farrington(df, t='date', y='count', B=4, g=27, w=3, p=10, method='orig
 
         if method == 'modified':
             alert_tbl = df.apply(lambda x: farrington_modified(x, t, y, B, g, w, p))
-            # alert_tbl = (df.assign(date=lambda x: pd.to_datetime(x[t]))
-            #                 # .groupby(groups, as_index=False)
-            #                 .apply(lambda x: farrington_modified(x, t, y, B, g, w, p))
-            #                 .explode('anomalies')
-            #                 .assign(alert=lambda x: x['alert'].fillna('grey')))
         elif method == 'original':
             alert_tbl = df.apply(lambda x: farrington_original(x, t, y, B, w))
-                            # .explode('anomalies')
-                            # .assign(alert=lambda x: x['alert'].fillna('grey')))
     else:
         if method == 'modified':
             alert_tbl = farrington_modified(df, t=t, y=y, B=B, g=g, w=w, p=p)
