@@ -27,6 +27,7 @@ def ewma_loop(df, t, y, B, g, w1, w2):
     :returns: A pandas data frame with p-values and test statistics
 
     """
+    df = df.reset_index(drop=True).sort_values(by=t)
     # Vector of observations
     y = df[y].tolist()
 
