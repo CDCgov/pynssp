@@ -13,7 +13,7 @@ def serfling_model(df, t, y, baseline_end):
     :param baseline_end: date of the end of the baseline/training period (date or string class)
     :returns: A pandas data frame.
     """
-    df = df.reset_index(drop=True)
+    df = df.reset_index(drop=True).sort_values(by=t)
     input_data = df.copy()
     input_data[t] = pd.to_datetime(input_data[t])
     input_data[y] = pd.to_numeric(input_data[y])
