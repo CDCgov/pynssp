@@ -1,10 +1,10 @@
-from datetime import datetime
+# from datetime import datetime
 import numpy as np
 import pandas as pd
 from statsmodels.api import families, GLM, add_constant
 from statsmodels.genmod.families.links import log
 from scipy.stats import norm, nbinom, poisson
-from pandas.api.types import is_datetime64_any_dtype as is_datetime
+# from pandas.api.types import is_datetime64_any_dtype as is_datetime
 
 
 def seasonal_groups(B=4, g=27, w=3, p=10, base_length=None, base_weeks=None):
@@ -62,9 +62,25 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
         after each reference date (default is 3)
     :param p: Number of seasonal periods for each year in baseline
     :return: A pandas dataframe
+    :examples:
+    
+            >>> from pynssp import *
+            >>> df = get_scenario1()
+            >>> df_farrington_modified  = farrington_modified(df, y='cases', method="modified")
+            >>> df_farrington_modified.tail()
     """
-    df = df.reset_index(drop=True)
-    dates = pd.to_datetime(df[t])
+    df = df.reset_index(drop=True).sort_values(by=t)
+    df[t] = pd.to_datetime(df[t])
+
+    # Check for data that should be grouped
+    if not df.groupby(t).ngroups == df[t].nunique():
+        raise ValueError("Duplicate dates detected. Please group your DataFrame!")
+
+    # Check if time series data is on a time resolution other than weekly
+    if not (df[t].diff().dt.days[1:] == 7).all():
+        raise ValueError("Distance between dates is not 7 days. Counts must be weekly!")
+    
+    dates = df[t]
     y_obs = df[y]
     N = len(df)
 
@@ -103,20 +119,19 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
         mod_data.columns = [str(col).replace(".0","") for col in mod_data]
         mod_formula = "base_counts ~ 1 + base_dates + " + " + ".join([f"fct_levels_{i+1}" for i in range(1, p)])
         mod = GLM.from_formula(mod_formula, mod_data, family=families.Poisson(link=log())).fit()
+        
         if not mod.converged:
             mod_formula = "base_counts ~ 1 + " + " + ".join([f"fct_levels_{i+1}" for i in range(1, p)])
             mod = GLM.from_formula(mod_formula, mod_data, family=families.Poisson(link=log()))
             include_time = False
         else:
             include_time = True
-        if not mod.converged:
-            continue
-        # mod_formula = mod.model.formula
+            
         if include_time:
             time_coeff = mod.params['base_dates']
         else:
             time_coeff = np.nan
-            # time_p_val = np.nan
+
         y_observed = mod._endog
         y_fit = mod.fittedvalues
         phi = np.maximum(mod.pearson_chi2 / mod.df_resid, 1)
@@ -132,14 +147,12 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
             freq_weights=omega
         ).fit()
         phi_weighted = max(mod_weighted.pearson_chi2 / mod_weighted.df_resid, 1)
-        # mod_weighted.week_time = base_dates
-        # mod_weighted.data_count = base_counts
-        # mod_weighted.phi = phi_weighted
-        # mod_weighted.weights = omega
+        
         if include_time:
             time_pval_weighted = mod_weighted.pvalues['base_dates']
         else:
             time_pval_weighted = np.nan
+
         pred_week_time = ((current_date - min_date) / 7).days
         dummy_vars = {'fct_levels_{}'.format(i): int(i == p) for i in range(1, p+1)}
         pred_results = mod_weighted.get_prediction(
@@ -157,9 +170,8 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
         if not trend:
             mod_formula = "base_counts ~ 1 + " + " + ".join([f"fct_levels_{i+1}" for i in range(1, p)])
             mod = GLM.from_formula(mod_formula, mod_data, family=families.Poisson(link=log())).fit()
-            if not mod.converged:
-                continue
-            else:
+            
+            if mod.converged:
                 mod_formula = mod.model.formula
                 y_observed = mod._endog
                 y_fit = mod.fittedvalues
@@ -173,10 +185,7 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
                     mod_formula, mod_data, family=families.Poisson(link=log()), freq_weights=omega
                 ).fit()
                 phi_weighted = max(mod_weighted.pearson_chi2 / mod_weighted.df_resid, 1)
-                # mod_weighted.phi = phi_weighted
-                # mod_weighted.weights = omega
-                # mod_weighted.week_time = base_dates
-                # mod_weighted.data_count = base_counts
+                
                 pred_results = mod_weighted.get_prediction(
                     pd.DataFrame({
                         'base_dates': [pred_week_time], 'population': [1], 
@@ -186,42 +195,28 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
 
                 pred, _, _, upper_ci = pred_results.values.T
 
-                include_time_term[i] = False
-        else:
-            # pred = mod_weighted.predict(
-            #     add_constant(
-            #         pd.DataFrame(
-            #             {'base_dates': pred_week_time, 'population': [1], 
-            #              'dispersion': phi_weighted, 'fct_levels': pd.factorize(p)[0]}
-            #         )
-            #     ), 
-            #     return_se=True, linear=True
-            # )
-            include_time_term[i] = True
+                include_time = False
+        
         predicted[i] = pred
         time_coefficient[i] = time_coeff
-        # include_time_term[i] = True
-        # Temporary result vectors
-        eta = predicted[i]
-        mu_q = np.exp(eta)
-        # dispersion = phi_weighted
-        upper[i] = np.nan if mu_q == np.inf else (nbinom.ppf(0.95, mu_q / (phi_weighted - 1), 1 / phi_weighted) if phi_weighted > 1 else poisson.ppf(0.95, mu_q))
+        include_time_term[i] = include_time
+        
+        upper[i] = upper_ci 
         alert_score[i] = (y_obs[i] - predicted[i]) / (upper[i] - predicted[i]) if not np.isnan(upper[i]) else np.nan
         recent_counts = np.sum(y_obs[(i - 4):i+1]) 
         alert[i] = 'red' if alert_score[i] > 1 and recent_counts > 5 else 'blue'
         upper[i] = upper[i] if recent_counts > 5 else np.nan
         predicted[i] = np.exp(predicted[i])
     
-    return pd.concat([df, pd.DataFrame(
-        {
+    return pd.concat([
+        df, pd.DataFrame({
             'predicted': predicted,
             'time_coefficient': time_coefficient, 
             'include_time_term': include_time_term, 
             'upper': upper, 
             'alert_score': alert_score, 
             'alert': alert
-         }
-       ).assign(alert=lambda x: x['alert'].fillna('grey'))
+        }).assign(alert=lambda x: x['alert'].fillna('grey'))
     ], axis=1)
 
 
@@ -236,9 +231,25 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
     :param w: Half the number of weeks included in reference window,
         before and after each reference date (default is 3)
     :return: A pandas dataframe
+    :examples:
+
+            >>> from pynssp import *
+            >>> df = get_scenario1()
+            >>> df_farrington_original  = farrington_original(df, y='cases')
+            >>> farrington_original.tail()
     """
-    df = df.reset_index(drop=True)
-    dates = pd.to_datetime(df[t])
+    df = df.reset_index(drop=True).sort_values(by=t)
+    df[t] = pd.to_datetime(df[t])
+
+    # Check for data that should be grouped
+    if not df.groupby(t).ngroups == df[t].nunique():
+        raise ValueError("Duplicate dates detected. Please group your DataFrame!")
+
+    # Check if time series data is on a time resolution other than weekly
+    if not (df[t].diff().dt.days[1:] == 7).all():
+        raise ValueError("Distance between dates is not 7 days. Counts must be weekly!")
+    
+    dates = df[t]
     y_obs = df[y]
     N = len(df)
     
@@ -248,7 +259,7 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
     # Initialize result vectors
     predicted = np.repeat(np.nan, N)
     time_coefficient = np.repeat(np.nan, N)
-    include_time_term = [None] * N #np.repeat(np.nan, N)
+    include_time_term = [None] * N 
     upper = np.repeat(np.nan, N)
     alert_score = np.repeat(np.nan, N)
     alert = [None] * N
@@ -257,7 +268,7 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
         current_date = dates[i]
         ref_dates = pd.date_range(current_date, periods=B+1, freq='-1Y')[1:]
         ref_dates = [date.replace(month=current_date.month, day=current_date.day) for date in ref_dates]
-        # current_week = (current_date - datetime(current_date.year,1,1)).days // 7
+        
         wday_gaps = [date.isoweekday() % 7 - current_date.isoweekday() % 7 for date in ref_dates] 
         ref_dates_shifted = np.array([date - pd.to_timedelta(wkd, unit='d') for date, wkd in zip(ref_dates, wday_gaps)])
         floor_ceiling_dates = np.where(ref_dates_shifted > ref_dates, ref_dates_shifted - pd.Timedelta(7, 'd'), ref_dates_shifted + pd.Timedelta(7, 'd'))
@@ -276,14 +287,12 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
         else:
             mod_formula = "base_counts ~ 1 + base_dates"
             include_time = True
-        # if not mod.converged:
-        #     continue
-        # mod_formula = mod.model.formula
+        
         if include_time:
             time_coeff = mod.params[1]
         else:
             time_coeff = np.nan
-            # time_p_val = np.nan
+        
         y_observed = mod.model.endog
         y_fit = mod.fittedvalues
         phi = np.maximum(mod.pearson_chi2 / mod.df_resid, 1)
@@ -296,17 +305,12 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
         omega = np.where(ambscombe_resid > 1, gamma / (ambscombe_resid**2), gamma)
         base_df = pd.DataFrame({"base_counts": base_counts, "base_dates": base_dates, "omega": omega})
         mod_weighted = GLM.from_formula(formula=mod_formula, data=base_df, family=families.Poisson(link=log()), freq_weights=omega).fit()
-        # phi_weighted = max(mod_weighted.scale, 1)
-        # mod_weighted.phi = phi_weighted
-        # mod_weighted.weights = omega
-        # mod_weighted.week_time = base_dates
-        # mod_weighted.data_count = base_counts
+        
         if include_time:
             time_pval_weighted = mod_weighted.pvalues['base_dates']
+
         pred_week_time = int((current_date - min_date).days / 7)
-        # pred = mod_weighted.predict(pd.DataFrame({'base_dates': pred_week_time, 'dispersion': phi_weighted}), 
-        #                     type="response", 
-        #                     se=True)
+        
         pred_results = mod_weighted.get_prediction(
             pd.DataFrame({'base_dates': [pred_week_time]})
         ).summary_frame(alpha=0.05)
@@ -325,10 +329,8 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
                 data=base_df,
                 family=families.Poisson(link=log())
             ).fit()
-    
-            if not mod.converged:
-                continue
-            else:
+            
+            if mod.converged:
                 mod_formula = mod.model.formula
         
                 y_observed = mod._endog
@@ -348,7 +350,7 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
                     freq_weights=omega,
                     data=pd.DataFrame({'base_dates': base_dates, 'base_counts': base_counts, 'weights': omega})
                 ).fit()
-                # mod_weighted_res = mod_weighted.fit(method="bfgs", maxiter=100, disp=0)
+                
                 phi_weighted = max(mod_weighted.pearson_chi2 / mod_weighted.df_resid, 1)
         
                 pred_results = mod_weighted.get_prediction(
@@ -356,10 +358,8 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
                 ).summary_frame(alpha=0.05)
 
                 pred, _, _, upper_ci = pred_results.values.T
-        
-                include_time_term[i] = False
-        else:
-            include_time_term[i] = True
+                
+                include_time = False
         
         predicted[i] = pred 
         time_coefficient[i] = time_coeff
@@ -432,9 +432,29 @@ def alert_farrington(df, t='date', y='count', B=4, g=27, w=3, p=10, method='orig
             to specify the version of the Farrington algorithm (original vs modified).
 
         :return: A dataframe
+        :examples:
+
+            >>> # Example 1
+            >>> from pynssp import *
+            >>> df = get_scenario1()
+            >>> df_farrington_original  = alert_farrington(df, y='cases')
+            >>> df_farrington_original.tail()
+
+            >>> # Example 2
+            >>> from pynssp import *
+            >>> df = get_scenario1()
+            >>> df_farrington_modified  = alert_farrington(df, y='cases', method="modified")
+            >>> df_farrington_modified.tail()
+
+            >>> # Example 3 (grouped data)
+            >>> from pynssp import *
+            >>> df = load_simulated_ts().groupby("id")
+            >>> df_farrington_group  = alert_farrington(df, y='cases')
+            >>> df_farrington_group.tail()
     """
+    
     # Ensure that df is a DataFrame
-    if not isinstance(df, pd.DataFrame):
+    if not (isinstance(df, pd.DataFrame) or isinstance(df, pd.core.groupby.DataFrameGroupBy)):
         raise ValueError("Argument 'df' must be a DataFrame.")
 
     # Check baseline length argument
@@ -464,7 +484,7 @@ def alert_farrington(df, t='date', y='count', B=4, g=27, w=3, p=10, method='orig
     # Check for sufficient baseline data
     if df_size < 52 * B + w + 2:
         raise ValueError("Not enough historical data to form baseline.")
-
+    
     
     if method not in ["original", "modified"]:
         raise ValueError("Argument 'method' must be 'original' or 'modified'.")
@@ -479,6 +499,6 @@ def alert_farrington(df, t='date', y='count', B=4, g=27, w=3, p=10, method='orig
         if method == 'modified':
             alert_tbl = farrington_modified(df, t=t, y=y, B=B, g=g, w=w, p=p)
         elif method == 'original':
-            alert_tbl = farrington_original(df, t=t, y=y, B=B, g=g, w=w, p=p)
+            alert_tbl = farrington_original(df, t=t, y=y, B=B, w=w)
     
     return alert_tbl
