@@ -1,10 +1,7 @@
-# from datetime import datetime
 import numpy as np
 import pandas as pd
 from statsmodels.api import families, GLM, add_constant
 from statsmodels.genmod.families.links import log
-from scipy.stats import norm, nbinom, poisson
-# from pandas.api.types import is_datetime64_any_dtype as is_datetime
 
 
 def seasonal_groups(B=4, g=27, w=3, p=10, base_length=None, base_weeks=None):
@@ -42,9 +39,6 @@ def seasonal_groups(B=4, g=27, w=3, p=10, base_length=None, base_weeks=None):
         for j in range(1, p):
             fct_levels[csum_h[i] + 2 * w + 1 + cum_lengths[j-1]:
                     csum_h[i] + 2 * w + 1 + cum_lengths[j]] = j
-
-    # Trim extra components outside of baseline
-    # fct_levels = pd.Series(fct_levels).astype('category')
 
     return fct_levels.astype(int)
 
@@ -90,7 +84,7 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
     # Initialize result vectors
     predicted = np.repeat(np.nan, N)
     time_coefficient = np.repeat(np.nan, N)
-    include_time_term = [None] * N #np.repeat(np.nan, N)
+    include_time_term = [None] * N 
     upper = np.repeat(np.nan, N)
     alert_score = np.repeat(np.nan, N)
     alert = [None] * N
@@ -119,7 +113,7 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
         mod_data.columns = [str(col).replace(".0","") for col in mod_data]
         mod_formula = "base_counts ~ 1 + base_dates + " + " + ".join([f"fct_levels_{i+1}" for i in range(1, p)])
         mod = GLM.from_formula(mod_formula, mod_data, family=families.Poisson(link=log())).fit()
-        
+
         if not mod.converged:
             mod_formula = "base_counts ~ 1 + " + " + ".join([f"fct_levels_{i+1}" for i in range(1, p)])
             mod = GLM.from_formula(mod_formula, mod_data, family=families.Poisson(link=log()))
