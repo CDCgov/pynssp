@@ -18,7 +18,7 @@ def adaptive_regression(df, t, y, B, g):
     :returns: A pandas data frame with p-values and test statistics
     
     """
-    df = df.reset_index(drop=True)
+    df = df.reset_index(drop=True).sort_values(by=t)
     base_tbl = df
     base_tbl["dow"] = pd.to_datetime(df[t]).dt.strftime("%A").str[:3]
     base_tbl["dummy"] = 1
