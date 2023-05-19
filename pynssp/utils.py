@@ -14,8 +14,10 @@ def change_dates(url, start_date=None, end_date=None):
     """Changes the start and end dates in a given URL to new dates, if provided.
 
     :param url: str): The URL containing the start and end dates to be changed.
-    :param start_date: str): A new start date to replace the existing start date in the URL. (Default value = None)
-    :param end_date: str): A new end date to replace the existing end date in the URL. (Default value = None)
+    :param start_date: str): A new start date to replace the existing 
+        start date in the URL. (Default value = None)
+    :param end_date: str): A new end date to replace the existing end date in the URL. 
+        (Default value = None)
     :returns: The modified URL with the new start and end dates.
     :examples:
     
@@ -50,8 +52,13 @@ def change_dates(url, start_date=None, end_date=None):
             new_start = date_parser(start_date).strftime("%d%b%y").strip()
     
     # Convert new start and end dates to datetime objects for comparison.
-    new_startd = datetime.strptime(new_start, "%d%b%Y") if len(new_start) > 7 else datetime.strptime(new_start, "%d%b%y")
-    new_endd = datetime.strptime(new_end, "%d%b%Y") if len(new_end) > 7 else datetime.strptime(new_end, "%d%b%y")
+    new_startd = datetime.strptime(new_start, "%d%b%Y") \
+        if len(new_start) > 7 \
+        else datetime.strptime(new_start, "%d%b%y")
+    
+    new_endd = datetime.strptime(new_end, "%d%b%Y") \
+        if len(new_end) > 7 \
+        else datetime.strptime(new_end, "%d%b%y")
     
     # Check that the new start date is not after the new end date.
     if new_startd > new_endd:
@@ -69,8 +76,10 @@ def change_dates(url, start_date=None, end_date=None):
 def create_profile(username=None, password=None):
     """Create a new user profile with the given username and password.
 
-    :param username: A string representing the username. If not provided, the user will be prompted to enter it.
-    :param password: A string representing the user's password. If not provided, the user will be prompted to enter it securely.
+    :param username: A string representing the username. If not provided, 
+        the user will be prompted to enter it.
+    :param password: A string representing the user's password. 
+        If not provided, the user will be prompted to enter it securely.
     :return: A new Credentials object with the given username and password.
     :examples:
     
@@ -87,8 +96,10 @@ def create_profile(username=None, password=None):
 def create_token_profile(token=None, access_token="Bearer"):
     """Create a new token profile with the given token and authentication type.
 
-    :param token: A string representing the token. If not provided, the user will be prompted to enter it securely.
-    :param auth_type: A string representing the authentication type. Defaults to "Bearer".
+    :param token: A string representing the token. If not provided, 
+        the user will be prompted to enter it securely.
+    :param auth_type: A string representing the authentication type. 
+        Defaults to "Bearer".
     :return: A new Token object with the given token and authentication type.
     :examples:
     
@@ -104,7 +115,8 @@ def get_api_response(url, profile=None):
     """Retrieve a response from an API using the provided profile.
 
     :param url: A string representing the URL of the API endpoint.
-    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
+    :param profile: An profile object of class `pynssp.core.credentials.Credentials` 
+        or `pynssp.core.token.Token`.
     :return: The response object returned by the API.
     :examples:
     
@@ -123,9 +135,12 @@ def get_api_data(url, fromCSV=False, profile=None, encoding="utf-8", **kwargs):
     """Retrieve data from an API using the provided profile.
 
     :param url: A string representing the URL of the API endpoint.
-    :param fromCSV: A boolean indicating whether the data should be retrieved from a CSV file. Defaults to False.
-    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
-    :param kwargs: Additional keyword arguments to be passed to the profile's get_api_data method.
+    :param fromCSV: A boolean indicating whether the data should be 
+        retrieved from a CSV file. Defaults to False.
+    :param profile: An profile object of class `pynssp.core.credentials.Credentials` 
+        or `pynssp.core.token.Token`.
+    :param kwargs: Additional keyword arguments to be passed to 
+        the profile's get_api_data method.
     :return: The data retrieved from the API.
     :examples:
     
@@ -144,8 +159,10 @@ def get_api_graph(url, file_ext=".png", profile=None):
     """Retrieve a graph from an API using the provided profile.
 
     :param url: A string representing the URL of the API endpoint.
-    :param file_ext: A string representing the file extension of the graph. Defaults to ".png".
-    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
+    :param file_ext: A string representing the file extension of 
+        the graph. Defaults to ".png".
+    :param profile: An profile object of class `pynssp.core.credentials.Credentials` 
+        or `pynssp.core.token.Token`.
     :return: The graph retrieved from the API.
     :examples:
     
@@ -166,7 +183,8 @@ def get_essence_data(url, start_date=None, end_date=None, profile=None, **kwargs
     :param url: A string representing the URL of the NSSP-ESSENCE API endpoint.
     :param start_date: A string representing the start date of the data to retrieve.
     :param end_date: A string representing the end date of the data to retrieve.
-    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.
+    :param profile: An profile object of class `pynssp.core.credentials.Credentials` 
+        or `pynssp.core.token.Token`.
     :param kwargs: Additional arguments to be passed to the get_api_data function.
     :return: The data retrieved from the NSSP-ESSENCE API.
     :examples:
@@ -230,7 +248,7 @@ def webscrape_icd(icd_version="ICD10", year=None):
     Codes are standardized to upper case with punctuation and extra 
     leading/tailing white space removed to enable successful joining.
 
-    :param icd_version: The version of ICD codes to retrieve. Default is 'ICD10'.
+    :param icd_version: The version of ICD codes to retrieve. Default is "ICD10".
     :param year: The year for which to retrieve the ICD codes. 
         If not provided, the current year will be used. (Default value = None)
     :returns: A DataFrame containing the ICD codes and descriptions.
@@ -312,16 +330,16 @@ def webscrape_icd(icd_version="ICD10", year=None):
                 temp_file = tempfile.NamedTemporaryFile(suffix=file_ext[0], delete=False)
 
                 with temp_file:
-                    # temp_file = tempfile.NamedTemporaryFile(suffix=file_ext[0], dir=temp_dir, delete=False)
                     temp_dir = os.path.dirname(temp_file.name)
                     response = requests.get(file, stream=True)
                     response.raise_for_status()
+
                     for chunk in response.iter_content(chunk_size=1024):
                         temp_file.write(chunk)
 
                 with zipfile.ZipFile(temp_file.name, "r") as zip_ref:
                     file_list = zip_ref.namelist()
-                    # file_year = pd.Timestamp.today().year
+                    
                     for f in file_list:
                         if re.match(f"Code Descriptions/icd10cm-codes-{year}.txt", f):
                             file_name = f
@@ -346,7 +364,7 @@ def webscrape_icd(icd_version="ICD10", year=None):
             path = f"pub/Health_Statistics/NCHS/Publications/ICD10CM/{year}/"
             file_path = f"https://ftp.cdc.gov/{path}icd10cm_codes_{year}.txt"
 
-            icd_dictionary = pd.read_csv(file_path, sep='\t', header=None, names=['code_combo']) \
+            icd_dictionary = pd.read_csv(file_path, sep="\t", header=None, names=["code_combo"]) \
                 .assign(code_combo=lambda df: df["code_combo"].str.replace("\\s{3,5}", "_", regex=True)) \
                 .assign(code=lambda df: df["code_combo"].str.extract("^(.{1,5})")) \
                 .assign(code=lambda df: df["code"].str.replace("_", "", regex=True)) \
@@ -361,7 +379,7 @@ def webscrape_icd(icd_version="ICD10", year=None):
         icd_file = "Downloads/ICD-9-CM-v32-master-descriptions.zip"
         cms_url = f"{base_url}/{icd_file}"
 
-        temp_file = tempfile.NamedTemporaryFile(suffix='.zip', delete=False)
+        temp_file = tempfile.NamedTemporaryFile(suffix=".zip", delete=False)
         temp_dir = os.path.dirname(temp_file.name)
         
         with temp_file:
