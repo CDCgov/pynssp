@@ -275,22 +275,22 @@ to specify the version of the Farrington algorithm (original vs modified).</p></
 <dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example 1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">get_scenario1</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_original</span>  <span class="o">=</span> <span class="n">alert_farrington</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;cases&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_original</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_org</span>  <span class="o">=</span> <span class="n">alert_farrington</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;cases&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_org</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example 2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">get_scenario1</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_modified</span>  <span class="o">=</span> <span class="n">alert_farrington</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;cases&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;modified&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_modified</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_mod</span>  <span class="o">=</span> <span class="n">alert_farrington</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;cases&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;modified&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_mod</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example 3 (grouped data)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">load_simulated_ts</span><span class="p">()</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_group</span>  <span class="o">=</span> <span class="n">alert_farrington</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;cases&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_group</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_grp</span>  <span class="o">=</span> <span class="n">alert_farrington</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;cases&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_grp</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd>
@@ -321,8 +321,8 @@ after each reference date (default is 3)</p></li>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">get_scenario1</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_modified</span>  <span class="o">=</span> <span class="n">farrington_modified</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;cases&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;modified&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_modified</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_mod</span>  <span class="o">=</span> <span class="n">farrington_modified</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;cases&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;modified&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_mod</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd>
@@ -350,8 +350,8 @@ before and after each reference date (default is 3)</p></li>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">get_scenario1</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_original</span>  <span class="o">=</span> <span class="n">farrington_original</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;cases&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">farrington_original</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_farrington_org</span>  <span class="o">=</span> <span class="n">farrington_original</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;cases&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">farrington_org</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd>
@@ -366,8 +366,10 @@ before and after each reference date (default is 3)</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>B</strong> – Number of years to include in baseline (default is 4)</p></li>
-<li><p><strong>g</strong> – Number of guardband weeks to separate the test week from the baseline (default is 27)</p></li>
-<li><p><strong>w</strong> – Half the number of weeks included in reference window, before and after each reference date (default is 3)</p></li>
+<li><p><strong>g</strong> – Number of guardband weeks to separate the test week
+from the baseline (default is 27)</p></li>
+<li><p><strong>w</strong> – Half the number of weeks included in reference window,
+before and after each reference date (default is 3)</p></li>
 <li><p><strong>p</strong> – Number of seasonal periods for each year in baseline (default is 10)</p></li>
 <li><p><strong>base_length</strong> – Total number of weeks included in baseline</p></li>
 <li><p><strong>base_weeks</strong> – Indices of baseline weeks</p></li>

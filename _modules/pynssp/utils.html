@@ -110,8 +110,10 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Changes the start and end dates in a given URL to new dates, if provided.</span>
 
 <span class="sd">    :param url: str): The URL containing the start and end dates to be changed.</span>
-<span class="sd">    :param start_date: str): A new start date to replace the existing start date in the URL. (Default value = None)</span>
-<span class="sd">    :param end_date: str): A new end date to replace the existing end date in the URL. (Default value = None)</span>
+<span class="sd">    :param start_date: str): A new start date to replace the existing </span>
+<span class="sd">        start date in the URL. (Default value = None)</span>
+<span class="sd">    :param end_date: str): A new end date to replace the existing end date in the URL. </span>
+<span class="sd">        (Default value = None)</span>
 <span class="sd">    :returns: The modified URL with the new start and end dates.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
@@ -146,8 +148,13 @@
             <span class="n">new_start</span> <span class="o">=</span> <span class="n">date_parser</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     
     <span class="c1"># Convert new start and end dates to datetime objects for comparison.</span>
-    <span class="n">new_startd</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_start</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%Y&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_start</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">7</span> <span class="k">else</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_start</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span>
-    <span class="n">new_endd</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_end</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%Y&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_end</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">7</span> <span class="k">else</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_end</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span>
+    <span class="n">new_startd</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_start</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%Y&quot;</span><span class="p">)</span> \
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_start</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">7</span> \
+        <span class="k">else</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_start</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span>
+    
+    <span class="n">new_endd</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_end</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%Y&quot;</span><span class="p">)</span> \
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_end</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">7</span> \
+        <span class="k">else</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">new_end</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%y&quot;</span><span class="p">)</span>
     
     <span class="c1"># Check that the new start date is not after the new end date.</span>
     <span class="k">if</span> <span class="n">new_startd</span> <span class="o">&gt;</span> <span class="n">new_endd</span><span class="p">:</span>
@@ -165,8 +172,10 @@
 <div class="viewcode-block" id="create_profile"><a class="viewcode-back" href="../../pynssp.html#pynssp.utils.create_profile">[docs]</a><span class="k">def</span> <span class="nf">create_profile</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new user profile with the given username and password.</span>
 
-<span class="sd">    :param username: A string representing the username. If not provided, the user will be prompted to enter it.</span>
-<span class="sd">    :param password: A string representing the user&#39;s password. If not provided, the user will be prompted to enter it securely.</span>
+<span class="sd">    :param username: A string representing the username. If not provided, </span>
+<span class="sd">        the user will be prompted to enter it.</span>
+<span class="sd">    :param password: A string representing the user&#39;s password. </span>
+<span class="sd">        If not provided, the user will be prompted to enter it securely.</span>
 <span class="sd">    :return: A new Credentials object with the given username and password.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
@@ -183,8 +192,10 @@
 <div class="viewcode-block" id="create_token_profile"><a class="viewcode-back" href="../../pynssp.html#pynssp.utils.create_token_profile">[docs]</a><span class="k">def</span> <span class="nf">create_token_profile</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="s2">&quot;Bearer&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new token profile with the given token and authentication type.</span>
 
-<span class="sd">    :param token: A string representing the token. If not provided, the user will be prompted to enter it securely.</span>
-<span class="sd">    :param auth_type: A string representing the authentication type. Defaults to &quot;Bearer&quot;.</span>
+<span class="sd">    :param token: A string representing the token. If not provided, </span>
+<span class="sd">        the user will be prompted to enter it securely.</span>
+<span class="sd">    :param auth_type: A string representing the authentication type. </span>
+<span class="sd">        Defaults to &quot;Bearer&quot;.</span>
 <span class="sd">    :return: A new Token object with the given token and authentication type.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
@@ -200,7 +211,8 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve a response from an API using the provided profile.</span>
 
 <span class="sd">    :param url: A string representing the URL of the API endpoint.</span>
-<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
+<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` </span>
+<span class="sd">        or `pynssp.core.token.Token`.</span>
 <span class="sd">    :return: The response object returned by the API.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
@@ -219,9 +231,12 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve data from an API using the provided profile.</span>
 
 <span class="sd">    :param url: A string representing the URL of the API endpoint.</span>
-<span class="sd">    :param fromCSV: A boolean indicating whether the data should be retrieved from a CSV file. Defaults to False.</span>
-<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
-<span class="sd">    :param kwargs: Additional keyword arguments to be passed to the profile&#39;s get_api_data method.</span>
+<span class="sd">    :param fromCSV: A boolean indicating whether the data should be </span>
+<span class="sd">        retrieved from a CSV file. Defaults to False.</span>
+<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` </span>
+<span class="sd">        or `pynssp.core.token.Token`.</span>
+<span class="sd">    :param kwargs: Additional keyword arguments to be passed to </span>
+<span class="sd">        the profile&#39;s get_api_data method.</span>
 <span class="sd">    :return: The data retrieved from the API.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
@@ -240,8 +255,10 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve a graph from an API using the provided profile.</span>
 
 <span class="sd">    :param url: A string representing the URL of the API endpoint.</span>
-<span class="sd">    :param file_ext: A string representing the file extension of the graph. Defaults to &quot;.png&quot;.</span>
-<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
+<span class="sd">    :param file_ext: A string representing the file extension of </span>
+<span class="sd">        the graph. Defaults to &quot;.png&quot;.</span>
+<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` </span>
+<span class="sd">        or `pynssp.core.token.Token`.</span>
 <span class="sd">    :return: The graph retrieved from the API.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
@@ -262,7 +279,8 @@
 <span class="sd">    :param url: A string representing the URL of the NSSP-ESSENCE API endpoint.</span>
 <span class="sd">    :param start_date: A string representing the start date of the data to retrieve.</span>
 <span class="sd">    :param end_date: A string representing the end date of the data to retrieve.</span>
-<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` or `pynssp.core.token.Token`.</span>
+<span class="sd">    :param profile: An profile object of class `pynssp.core.credentials.Credentials` </span>
+<span class="sd">        or `pynssp.core.token.Token`.</span>
 <span class="sd">    :param kwargs: Additional arguments to be passed to the get_api_data function.</span>
 <span class="sd">    :return: The data retrieved from the NSSP-ESSENCE API.</span>
 <span class="sd">    :examples:</span>
@@ -326,7 +344,7 @@
 <span class="sd">    Codes are standardized to upper case with punctuation and extra </span>
 <span class="sd">    leading/tailing white space removed to enable successful joining.</span>
 
-<span class="sd">    :param icd_version: The version of ICD codes to retrieve. Default is &#39;ICD10&#39;.</span>
+<span class="sd">    :param icd_version: The version of ICD codes to retrieve. Default is &quot;ICD10&quot;.</span>
 <span class="sd">    :param year: The year for which to retrieve the ICD codes. </span>
 <span class="sd">        If not provided, the current year will be used. (Default value = None)</span>
 <span class="sd">    :returns: A DataFrame containing the ICD codes and descriptions.</span>
@@ -408,16 +426,16 @@
                 <span class="n">temp_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="n">file_ext</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
                 <span class="k">with</span> <span class="n">temp_file</span><span class="p">:</span>
-                    <span class="c1"># temp_file = tempfile.NamedTemporaryFile(suffix=file_ext[0], dir=temp_dir, delete=False)</span>
                     <span class="n">temp_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
                     <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                     <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
                     <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
                         <span class="n">temp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
 
                 <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
                     <span class="n">file_list</span> <span class="o">=</span> <span class="n">zip_ref</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
-                    <span class="c1"># file_year = pd.Timestamp.today().year</span>
+                    
                     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Code Descriptions/icd10cm-codes-</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
                             <span class="n">file_name</span> <span class="o">=</span> <span class="n">f</span>
@@ -442,7 +460,7 @@
             <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;pub/Health_Statistics/NCHS/Publications/ICD10CM/</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">/&quot;</span>
             <span class="n">file_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://ftp.cdc.gov/</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">icd10cm_codes_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">.txt&quot;</span>
 
-            <span class="n">icd_dictionary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;code_combo&#39;</span><span class="p">])</span> \
+            <span class="n">icd_dictionary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;code_combo&quot;</span><span class="p">])</span> \
                 <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">code_combo</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;code_combo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">s{3,5}&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> \
                 <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;code_combo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s2">&quot;^(.{1,5})&quot;</span><span class="p">))</span> \
                 <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> \
@@ -457,7 +475,7 @@
         <span class="n">icd_file</span> <span class="o">=</span> <span class="s2">&quot;Downloads/ICD-9-CM-v32-master-descriptions.zip&quot;</span>
         <span class="n">cms_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">icd_file</span><span class="si">}</span><span class="s2">&quot;</span>
 
-        <span class="n">temp_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.zip&#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">temp_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.zip&quot;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">temp_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">temp_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         
         <span class="k">with</span> <span class="n">temp_file</span><span class="p">:</span>

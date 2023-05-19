@@ -303,8 +303,10 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> – str): The URL containing the start and end dates to be changed.</p></li>
-<li><p><strong>start_date</strong> – str): A new start date to replace the existing start date in the URL. (Default value = None)</p></li>
-<li><p><strong>end_date</strong> – str): A new end date to replace the existing end date in the URL. (Default value = None)</p></li>
+<li><p><strong>start_date</strong> – str): A new start date to replace the existing
+start date in the URL. (Default value = None)</p></li>
+<li><p><strong>end_date</strong> – str): A new end date to replace the existing end date in the URL.
+(Default value = None)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -327,8 +329,10 @@
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>username</strong> – A string representing the username. If not provided, the user will be prompted to enter it.</p></li>
-<li><p><strong>password</strong> – A string representing the user’s password. If not provided, the user will be prompted to enter it securely.</p></li>
+<li><p><strong>username</strong> – A string representing the username. If not provided,
+the user will be prompted to enter it.</p></li>
+<li><p><strong>password</strong> – A string representing the user’s password.
+If not provided, the user will be prompted to enter it securely.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -350,8 +354,10 @@
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>token</strong> – A string representing the token. If not provided, the user will be prompted to enter it securely.</p></li>
-<li><p><strong>auth_type</strong> – A string representing the authentication type. Defaults to “Bearer”.</p></li>
+<li><p><strong>token</strong> – A string representing the token. If not provided,
+the user will be prompted to enter it securely.</p></li>
+<li><p><strong>auth_type</strong> – A string representing the authentication type.
+Defaults to “Bearer”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -374,9 +380,12 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> – A string representing the URL of the API endpoint.</p></li>
-<li><p><strong>fromCSV</strong> – A boolean indicating whether the data should be retrieved from a CSV file. Defaults to False.</p></li>
-<li><p><strong>profile</strong> – An profile object of class <cite>pynssp.core.credentials.Credentials</cite> or <cite>pynssp.core.token.Token</cite>.</p></li>
-<li><p><strong>kwargs</strong> – Additional keyword arguments to be passed to the profile’s get_api_data method.</p></li>
+<li><p><strong>fromCSV</strong> – A boolean indicating whether the data should be
+retrieved from a CSV file. Defaults to False.</p></li>
+<li><p><strong>profile</strong> – An profile object of class <cite>pynssp.core.credentials.Credentials</cite>
+or <cite>pynssp.core.token.Token</cite>.</p></li>
+<li><p><strong>kwargs</strong> – Additional keyword arguments to be passed to
+the profile’s get_api_data method.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -401,8 +410,10 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> – A string representing the URL of the API endpoint.</p></li>
-<li><p><strong>file_ext</strong> – A string representing the file extension of the graph. Defaults to “.png”.</p></li>
-<li><p><strong>profile</strong> – An profile object of class <cite>pynssp.core.credentials.Credentials</cite> or <cite>pynssp.core.token.Token</cite>.</p></li>
+<li><p><strong>file_ext</strong> – A string representing the file extension of
+the graph. Defaults to “.png”.</p></li>
+<li><p><strong>profile</strong> – An profile object of class <cite>pynssp.core.credentials.Credentials</cite>
+or <cite>pynssp.core.token.Token</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -427,7 +438,8 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> – A string representing the URL of the API endpoint.</p></li>
-<li><p><strong>profile</strong> – An profile object of class <cite>pynssp.core.credentials.Credentials</cite> or <cite>pynssp.core.token.Token</cite>.</p></li>
+<li><p><strong>profile</strong> – An profile object of class <cite>pynssp.core.credentials.Credentials</cite>
+or <cite>pynssp.core.token.Token</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -454,7 +466,8 @@
 <li><p><strong>url</strong> – A string representing the URL of the NSSP-ESSENCE API endpoint.</p></li>
 <li><p><strong>start_date</strong> – A string representing the start date of the data to retrieve.</p></li>
 <li><p><strong>end_date</strong> – A string representing the end date of the data to retrieve.</p></li>
-<li><p><strong>profile</strong> – An profile object of class <cite>pynssp.core.credentials.Credentials</cite> or <cite>pynssp.core.token.Token</cite>.</p></li>
+<li><p><strong>profile</strong> – An profile object of class <cite>pynssp.core.credentials.Credentials</cite>
+or <cite>pynssp.core.token.Token</cite>.</p></li>
 <li><p><strong>kwargs</strong> – Additional arguments to be passed to the get_api_data function.</p></li>
 </ul>
 </dd>
@@ -491,7 +504,7 @@ leading/tailing white space removed to enable successful joining.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>icd_version</strong> – The version of ICD codes to retrieve. Default is ‘ICD10’.</p></li>
+<li><p><strong>icd_version</strong> – The version of ICD codes to retrieve. Default is “ICD10”.</p></li>
 <li><p><strong>year</strong> – The year for which to retrieve the ICD codes.
 If not provided, the current year will be used. (Default value = None)</p></li>
 </ul>
