@@ -8,8 +8,10 @@ def seasonal_groups(B=4, g=27, w=3, p=10, base_length=None, base_weeks=None):
     """Return 10-level seasonal factor series
 
     :param B: Number of years to include in baseline (default is 4)
-    :param g: Number of guardband weeks to separate the test week from the baseline (default is 27)
-    :param w: Half the number of weeks included in reference window, before and after each reference date (default is 3)
+    :param g: Number of guardband weeks to separate the test week 
+        from the baseline (default is 27)
+    :param w: Half the number of weeks included in reference window, 
+        before and after each reference date (default is 3)
     :param p: Number of seasonal periods for each year in baseline (default is 10)
     :param base_length: Total number of weeks included in baseline
     :param base_weeks: Indices of baseline weeks
@@ -43,7 +45,7 @@ def seasonal_groups(B=4, g=27, w=3, p=10, base_length=None, base_weeks=None):
     return fct_levels.astype(int)
 
 
-def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
+def farrington_modified(df, t="date", y="count", B=4, g=27, w=3, p=10):
     """Modified Farrington Algorithm
 
     :param df: A pandas dataframe
@@ -60,8 +62,8 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
     
             >>> from pynssp import *
             >>> df = get_scenario1()
-            >>> df_farrington_modified  = farrington_modified(df, y='cases', method="modified")
-            >>> df_farrington_modified.tail()
+            >>> df_farrington_mod  = farrington_modified(df, y="cases", method="modified")
+            >>> df_farrington_mod.tail()
     """
     df = df.reset_index(drop=True).sort_values(by=t)
     df[t] = pd.to_datetime(df[t])
@@ -91,38 +93,79 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
 
     for i in range(min_obs, N):
         current_date = dates[i]
-        ref_dates = pd.date_range(current_date, periods=B+1, freq='-1Y')
-        ref_dates = [date.replace(month=current_date.month, day=current_date.day) for date in ref_dates]
-        wday_gaps = [date.isoweekday() % 7 - current_date.isoweekday() % 7 for date in ref_dates] 
-        ref_dates_shifted = np.array([date - pd.to_timedelta(wkd, unit='d') for date, wkd in zip(ref_dates, wday_gaps)])
-        floor_ceiling_dates = np.where(ref_dates_shifted > ref_dates, ref_dates_shifted - pd.Timedelta(7, 'd'), ref_dates_shifted + pd.Timedelta(7, 'd'))
-        center_dates = np.sort(np.where(abs(ref_dates - floor_ceiling_dates) < abs(ref_dates - ref_dates_shifted), floor_ceiling_dates, ref_dates_shifted))
-        base_start = np.sort((center_dates - pd.Timedelta(7*w, 'd'))[:B])
-        base_end = np.concatenate((np.sort(center_dates - pd.to_timedelta(7*B, unit='D'))[1:B], np.array([max(center_dates) - pd.to_timedelta(7*g, unit='D')])))
-        base_dates = pd.date_range(start=min(base_start), end=max(base_end), freq='1W')
+        ref_dates = pd.date_range(current_date, periods=B+1, freq="-1Y")
+        ref_dates = [
+            date.replace(month=current_date.month, day=current_date.day) for date in ref_dates
+        ]
+        wday_gaps = [
+            date.isoweekday() % 7 - current_date.isoweekday() % 7 for date in ref_dates
+        ] 
+        ref_dates_shifted = np.array([
+            date - pd.to_timedelta(wkd, unit="d") for date, wkd in zip(ref_dates, wday_gaps)
+        ])
+        floor_ceiling_dates = np.where(
+            ref_dates_shifted > ref_dates, 
+            ref_dates_shifted - pd.Timedelta(7, "d"), 
+            ref_dates_shifted + pd.Timedelta(7, "d")
+        )
+        center_dates = np.sort(np.where(
+            abs(ref_dates - floor_ceiling_dates) < abs(ref_dates - ref_dates_shifted), 
+            floor_ceiling_dates, ref_dates_shifted
+        ))
+        
+        base_start = np.sort((center_dates - pd.Timedelta(7*w, "d"))[:B])
+        base_end = np.concatenate((
+            np.sort(center_dates - pd.to_timedelta(7*B, unit="D"))[1:B], 
+            np.array([max(center_dates) - pd.to_timedelta(7*g, unit="D")])
+        ))
+        
+        base_dates = pd.date_range(start=min(base_start), end=max(base_end), freq="1W")
         base_length = len(base_dates)
         base_weeks = np.where(dates.isin(center_dates))[0]
         fct_levels = seasonal_groups(B, g, w, p, base_length, base_weeks)
         
         idx = np.where(np.in1d(dates, base_dates))[0]
         min_date = np.min(dates[idx])
-        base_dates = np.asarray((dates[idx] - min(dates[idx])) / np.timedelta64(1, 'W'), dtype=np.float64)
+
+        base_dates = np.asarray(
+            (dates[idx] - min(dates[idx])) / np.timedelta64(1, "W"),
+            dtype=np.float64
+        )
+
         base_counts = y_obs[idx]
-        mod_data = pd.DataFrame({"base_counts": base_counts, "base_dates": base_dates, "fct_levels": fct_levels})
-        mod_data = pd.get_dummies(mod_data, columns=['fct_levels'], drop_first=True)
+        mod_data = pd.DataFrame({
+            "base_counts": base_counts, 
+            "base_dates": base_dates, 
+            "fct_levels": fct_levels
+        })
+        mod_data = pd.get_dummies(mod_data, columns=["fct_levels"], drop_first=True)
         mod_data.columns = [str(col).replace(".0","") for col in mod_data]
-        mod_formula = "base_counts ~ 1 + base_dates + " + " + ".join([f"fct_levels_{i+1}" for i in range(1, p)])
-        mod = GLM.from_formula(mod_formula, mod_data, family=families.Poisson(link=log())).fit()
+
+        mod_formula = "base_counts ~ 1 + base_dates + " + " + "\
+            .join([f"fct_levels_{i+1}" for i in range(1, p)])
+        
+        mod = GLM.from_formula(
+            mod_formula, 
+            mod_data, 
+            family=families.Poisson(link=log())
+        ).fit()
 
         if not mod.converged:
-            mod_formula = "base_counts ~ 1 + " + " + ".join([f"fct_levels_{i+1}" for i in range(1, p)])
-            mod = GLM.from_formula(mod_formula, mod_data, family=families.Poisson(link=log()))
+            mod_formula = "base_counts ~ 1 + " + " + "\
+                .join([f"fct_levels_{i+1}" for i in range(1, p)])
+            
+            mod = GLM.from_formula(
+                mod_formula, 
+                mod_data, 
+                family=families.Poisson(link=log())
+                ).fit()
+            
             include_time = False
         else:
             include_time = True
             
         if include_time:
-            time_coeff = mod.params['base_dates']
+            time_coeff = mod.params["base_dates"]
         else:
             time_coeff = np.nan
 
@@ -130,27 +173,37 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
         y_fit = mod.fittedvalues
         phi = np.maximum(mod.pearson_chi2 / mod.df_resid, 1)
         diag = mod.get_influence().hat_matrix_diag
-        ambscombe_resid = ((3 / 2) * (y_observed**(2 / 3) * (y_fit**(-1 / 6)) - np.sqrt(y_fit))) / (np.sqrt(phi * (1 - diag)))
+
+        ambscombe_resid = ((3 / 2) * (y_observed**(2 / 3) * (y_fit**(-1 / 6)) - 
+                                      np.sqrt(y_fit))) / (np.sqrt(phi * (1 - diag)))
+        
         scaled = np.where(ambscombe_resid > 2.58, 1 / (ambscombe_resid**2), 1)
         gamma = len(ambscombe_resid) / np.sum(scaled)
         omega = np.where(ambscombe_resid > 2.58, gamma / (ambscombe_resid**2), gamma)
+
         mod_weighted = GLM.from_formula(
             formula=mod_formula, 
             data=mod_data, 
             family=families.Poisson(link=log()), 
             freq_weights=omega
         ).fit()
+
         phi_weighted = max(mod_weighted.pearson_chi2 / mod_weighted.df_resid, 1)
         
         if include_time:
-            time_pval_weighted = mod_weighted.pvalues['base_dates']
+            time_pval_weighted = mod_weighted.pvalues["base_dates"]
         else:
             time_pval_weighted = np.nan
 
         pred_week_time = ((current_date - min_date) / 7).days
-        dummy_vars = {'fct_levels_{}'.format(i): int(i == p) for i in range(1, p+1)}
+        dummy_vars = {"fct_levels_{}".format(i): int(i == p) for i in range(1, p+1)}
+
         pred_results = mod_weighted.get_prediction(
-            pd.DataFrame({'base_dates': [pred_week_time], 'dispersion': [phi_weighted], **dummy_vars})
+            pd.DataFrame({
+                "base_dates": [pred_week_time], 
+                "dispersion": [phi_weighted], 
+                **dummy_vars
+            })
         ).summary_frame(alpha=0.05)
 
         pred, _, _, upper_ci = pred_results.values.T
@@ -162,8 +215,14 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
         trend = include_time and time_significant and pred_ok
 
         if not trend:
-            mod_formula = "base_counts ~ 1 + " + " + ".join([f"fct_levels_{i+1}" for i in range(1, p)])
-            mod = GLM.from_formula(mod_formula, mod_data, family=families.Poisson(link=log())).fit()
+            mod_formula = "base_counts ~ 1 + " + " + "\
+                .join([f"fct_levels_{i+1}" for i in range(1, p)])
+            
+            mod = GLM.from_formula(
+                mod_formula, 
+                mod_data, 
+                family=families.Poisson(link=log())
+            ).fit()
             
             if mod.converged:
                 mod_formula = mod.model.formula
@@ -171,19 +230,29 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
                 y_fit = mod.fittedvalues
                 phi = np.maximum(mod.pearson_chi2 / mod.df_resid, 1)
                 diag = mod.get_influence().hat_matrix_diag
-                ambscombe_resid = ((3 / 2) * (y_observed**(2 / 3) * (y_fit**(-1 / 6)) - np.sqrt(y_fit))) / (np.sqrt(phi * (1 - diag)))
+
+                ambscombe_resid = ((3 / 2) * (y_observed**(2 / 3) * (y_fit**(-1 / 6)) - 
+                                              np.sqrt(y_fit))) / (np.sqrt(phi * (1 - diag)))
+                
                 scaled = np.where(ambscombe_resid > 2.58, 1 / (ambscombe_resid**2), 1)
                 gamma = len(ambscombe_resid) / sum(scaled)
                 omega = np.where(ambscombe_resid > 2.58, gamma / (ambscombe_resid**2), gamma)
+
                 mod_weighted = GLM.from_formula(
-                    mod_formula, mod_data, family=families.Poisson(link=log()), freq_weights=omega
+                    mod_formula, 
+                    mod_data, 
+                    family=families.Poisson(link=log()), 
+                    freq_weights=omega
                 ).fit()
+
                 phi_weighted = max(mod_weighted.pearson_chi2 / mod_weighted.df_resid, 1)
                 
                 pred_results = mod_weighted.get_prediction(
                     pd.DataFrame({
-                        'base_dates': [pred_week_time], 'population': [1], 
-                        'dispersion': [phi_weighted], **dummy_vars
+                        "base_dates": [pred_week_time], 
+                        "population": [1], 
+                        "dispersion": [phi_weighted], 
+                        **dummy_vars
                     })
                 ).summary_frame(alpha=0.05)
 
@@ -195,27 +264,35 @@ def farrington_modified(df, t='date', y='count', B=4, g=27, w=3, p=10):
         time_coefficient[i] = time_coeff
         include_time_term[i] = include_time
         
-        upper[i] = upper_ci 
-        alert_score[i] = (y_obs[i] - predicted[i]) / (upper[i] - predicted[i]) if not np.isnan(upper[i]) else np.nan
+        upper[i] = upper_ci
+
+        alert_score[i] = (y_obs[i] - predicted[i]) / (upper[i] - predicted[i]) \
+            if not np.isnan(upper[i]) \
+            else np.nan
+    
         recent_counts = np.sum(y_obs[(i - 4):i+1]) 
-        alert[i] = 'red' if alert_score[i] > 1 and recent_counts > 5 else 'blue'
+
+        alert[i] = "red" \
+            if alert_score[i] > 1 and recent_counts > 5 \
+            else "blue"
+        
         upper[i] = upper[i] if recent_counts > 5 else np.nan
         predicted[i] = np.exp(predicted[i])
     
     return pd.concat([
         df, pd.DataFrame({
-            'predicted': predicted,
-            'time_coefficient': time_coefficient, 
-            'include_time_term': include_time_term, 
-            'upper': upper, 
-            'alert_score': alert_score, 
-            'alert': alert
-        }).assign(alert=lambda x: x['alert'].fillna('grey'))
+            "predicted": predicted,
+            "time_coefficient": time_coefficient, 
+            "include_time_term": include_time_term, 
+            "upper": upper, 
+            "alert_score": alert_score, 
+            "alert": alert
+        }).assign(alert=lambda x: x["alert"].fillna("grey"))
     ], axis=1)
 
 
 
-def farrington_original(df, t='date', y='count', B=4, w=3):
+def farrington_original(df, t="date", y="count", B=4, w=3):
     """Original Farrington Algorithm
 
     :param df: A pandas dataframe
@@ -229,8 +306,8 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
 
             >>> from pynssp import *
             >>> df = get_scenario1()
-            >>> df_farrington_original  = farrington_original(df, y='cases')
-            >>> farrington_original.tail()
+            >>> df_farrington_org  = farrington_original(df, y="cases")
+            >>> farrington_org.tail()
     """
     df = df.reset_index(drop=True).sort_values(by=t)
     df[t] = pd.to_datetime(df[t])
@@ -260,22 +337,43 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
     
     for i in range(min_obs, N):
         current_date = dates[i]
-        ref_dates = pd.date_range(current_date, periods=B+1, freq='-1Y')[1:]
+        ref_dates = pd.date_range(current_date, periods=B+1, freq="-1Y")[1:]
         ref_dates = [date.replace(month=current_date.month, day=current_date.day) for date in ref_dates]
         
-        wday_gaps = [date.isoweekday() % 7 - current_date.isoweekday() % 7 for date in ref_dates] 
-        ref_dates_shifted = np.array([date - pd.to_timedelta(wkd, unit='d') for date, wkd in zip(ref_dates, wday_gaps)])
-        floor_ceiling_dates = np.where(ref_dates_shifted > ref_dates, ref_dates_shifted - pd.Timedelta(7, 'd'), ref_dates_shifted + pd.Timedelta(7, 'd'))
-        center_dates = np.sort(np.where(abs(ref_dates - floor_ceiling_dates) < abs(ref_dates - ref_dates_shifted), floor_ceiling_dates, ref_dates_shifted))
-        base_start = np.sort((center_dates - pd.Timedelta(7*w, 'd'))[:B])
+        wday_gaps = [date.isoweekday() % 7 - current_date.isoweekday() % 7 for date in ref_dates]
+
+        ref_dates_shifted = np.array([
+            date - pd.to_timedelta(wkd, unit="d") for date, wkd in zip(ref_dates, wday_gaps)
+        ])
+        floor_ceiling_dates = np.where(
+            ref_dates_shifted > ref_dates, 
+            ref_dates_shifted - pd.Timedelta(7, "d"), 
+            ref_dates_shifted + pd.Timedelta(7, "d")
+        )
+        center_dates = np.sort(np.where(
+            abs(ref_dates - floor_ceiling_dates) < abs(ref_dates - ref_dates_shifted), 
+            floor_ceiling_dates, ref_dates_shifted
+        ))
+        base_start = np.sort((center_dates - pd.Timedelta(7*w, "d"))[:B])
         idx_start = np.where(dates.isin(base_start))[0]
         idx = np.add(np.repeat(idx_start, 7), np.tile(np.arange(7), len(idx_start)))
         min_date = dates.iloc[idx].min()
         base_dates = ((dates.iloc[idx] - min_date).dt.days / 7).astype(int).values
         base_counts = y_obs.iloc[idx].values
-        mod = GLM(base_counts, add_constant(base_dates), family=families.Poisson(link=log())).fit()
+
+        mod = GLM(
+            base_counts, 
+            add_constant(base_dates), 
+            family=families.Poisson(link=log())
+        ).fit()
+
         if not mod.converged:
-            mod = GLM(base_counts, np.ones_like(base_dates), family=families.Poisson(link=log())).fit()
+            mod = GLM(
+                base_counts, 
+                np.ones_like(base_dates), 
+                family=families.Poisson(link=log())
+            ).fit()
+            
             include_time = False
             mod_formula = "base_counts ~ 1"
         else:
@@ -292,22 +390,35 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
         phi = np.maximum(mod.pearson_chi2 / mod.df_resid, 1)
         diag = mod.get_influence().hat_matrix_diag
 
-        ambscombe_resid = ((3 / 2) * (np.power(y_observed, 2 / 3) * np.power(y_fit, -1 / 6) - np.sqrt(y_fit))) / (np.sqrt(phi * (1 - diag)))
+        ambscombe_resid = ((3 / 2) * (np.power(y_observed, 2 / 3) * np.power(y_fit, -1 / 6) - 
+                                      np.sqrt(y_fit))) / (np.sqrt(phi * (1 - diag)))
         
         scaled = np.where(ambscombe_resid > 1, 1 / (ambscombe_resid**2), 1)
         gamma = len(ambscombe_resid) / np.sum(scaled)
         omega = np.where(ambscombe_resid > 1, gamma / (ambscombe_resid**2), gamma)
-        base_df = pd.DataFrame({"base_counts": base_counts, "base_dates": base_dates, "omega": omega})
-        mod_weighted = GLM.from_formula(formula=mod_formula, data=base_df, family=families.Poisson(link=log()), freq_weights=omega).fit()
+
+        base_df = pd.DataFrame({
+            "base_counts": base_counts, 
+            "base_dates": base_dates, 
+            "omega": omega
+        })
+        
+        mod_weighted = GLM.from_formula(
+            formula=mod_formula, 
+            data=base_df, 
+            family=families.Poisson(link=log()), 
+            freq_weights=omega
+        ).fit()
         
         if include_time:
-            time_pval_weighted = mod_weighted.pvalues['base_dates']
+            time_pval_weighted = mod_weighted.pvalues["base_dates"]
 
         pred_week_time = int((current_date - min_date).days / 7)
         
         pred_results = mod_weighted.get_prediction(
-            pd.DataFrame({'base_dates': [pred_week_time]})
+            pd.DataFrame({"base_dates": [pred_week_time]})
         ).summary_frame(alpha=0.05)
+
         pred, _, _, upper_ci = pred_results.values.T
         time_significant = (pred <= np.nanmax(base_counts) and time_pval_weighted < 0.05)
         # Check 2 conditions
@@ -342,13 +453,21 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
                 mod_weighted = GLM.from_formula(
                     mod_formula, family=families.Poisson(link=log()), 
                     freq_weights=omega,
-                    data=pd.DataFrame({'base_dates': base_dates, 'base_counts': base_counts, 'weights': omega})
+                    data=pd.DataFrame({
+                        "base_dates": base_dates, 
+                        "base_counts": base_counts, 
+                        "weights": omega
+                    })
                 ).fit()
                 
                 phi_weighted = max(mod_weighted.pearson_chi2 / mod_weighted.df_resid, 1)
         
                 pred_results = mod_weighted.get_prediction(
-                    pd.DataFrame({'base_dates': [pred_week_time], 'population': [1], 'dispersion': [phi_weighted]})
+                    pd.DataFrame({
+                        "base_dates": [pred_week_time], 
+                        "population": [1], 
+                        "dispersion": [phi_weighted]
+                    })
                 ).summary_frame(alpha=0.05)
 
                 pred, _, _, upper_ci = pred_results.values.T
@@ -361,22 +480,29 @@ def farrington_original(df, t='date', y='count', B=4, w=3):
         
         upper[i] = upper_ci
 
-        alert_score[i] = np.where(~np.isnan(upper[i]), (y_obs[i] - predicted[i]) / (upper[i] - predicted[i]), np.nan)
+        alert_score[i] = np.where(~np.isnan(upper[i]), (y_obs[i] - predicted[i]) / 
+                                  (upper[i] - predicted[i]), np.nan)
 
         recent_counts = np.sum(y_obs[(i - 4):i+1])
-        alert[i] = np.where(alert_score[i] > 1 and recent_counts > 5, "red", "blue").item()
+
+        alert[i] = "red" \
+            if alert_score[i] > 1 and recent_counts > 5 \
+            else "blue"
   
     return pd.concat([
         df, 
         pd.DataFrame({
-            'predicted': predicted, 'time_coefficient': time_coefficient, 
-            'include_time_term': include_time_term, 'upper': upper, 
-            'alert_score': alert_score, 'alert': alert
+            "predicted": predicted, 
+            "time_coefficient": time_coefficient, 
+            "include_time_term": include_time_term, 
+            "upper": upper, 
+            "alert_score": alert_score, 
+            "alert": alert
         })
     ], axis=1)
 
 
-def alert_farrington(df, t='date', y='count', B=4, g=27, w=3, p=10, method='original'):
+def alert_farrington(df, t="date", y="count", B=4, g=27, w=3, p=10, method="original"):
     """Farrington Temporal Detector
 
         The Farrington algorithm is intended for weekly time series of counts 
@@ -431,20 +557,20 @@ def alert_farrington(df, t='date', y='count', B=4, g=27, w=3, p=10, method='orig
             >>> # Example 1
             >>> from pynssp import *
             >>> df = get_scenario1()
-            >>> df_farrington_original  = alert_farrington(df, y='cases')
-            >>> df_farrington_original.tail()
+            >>> df_farrington_org  = alert_farrington(df, y="cases")
+            >>> df_farrington_org.tail()
 
             >>> # Example 2
             >>> from pynssp import *
             >>> df = get_scenario1()
-            >>> df_farrington_modified  = alert_farrington(df, y='cases', method="modified")
-            >>> df_farrington_modified.tail()
+            >>> df_farrington_mod  = alert_farrington(df, y="cases", method="modified")
+            >>> df_farrington_mod.tail()
 
             >>> # Example 3 (grouped data)
             >>> from pynssp import *
             >>> df = load_simulated_ts().groupby("id")
-            >>> df_farrington_group  = alert_farrington(df, y='cases')
-            >>> df_farrington_group.tail()
+            >>> df_farrington_grp  = alert_farrington(df, y="cases")
+            >>> df_farrington_grp.tail()
     """
     
     # Ensure that df is a DataFrame
@@ -485,14 +611,14 @@ def alert_farrington(df, t='date', y='count', B=4, g=27, w=3, p=10, method='orig
 
     if grouped_df:
 
-        if method == 'modified':
+        if method == "modified":
             alert_tbl = df.apply(lambda x: farrington_modified(x, t, y, B, g, w, p))
-        elif method == 'original':
+        elif method == "original":
             alert_tbl = df.apply(lambda x: farrington_original(x, t, y, B, w))
     else:
-        if method == 'modified':
+        if method == "modified":
             alert_tbl = farrington_modified(df, t=t, y=y, B=B, g=g, w=w, p=p)
-        elif method == 'original':
+        elif method == "original":
             alert_tbl = farrington_original(df, t=t, y=y, B=B, w=w)
     
     return alert_tbl
