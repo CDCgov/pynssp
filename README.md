@@ -21,9 +21,9 @@ pip install git+https://github.com/CDCgov/pynssp.git
 
 ## Usage
 ```python
-import pandas as pd
-from pynssp.utils import *
+from pynssp import *
 from datetime import date, timedelta
+import pandas as pd
 
 
 ## Creating a user profile (token)
