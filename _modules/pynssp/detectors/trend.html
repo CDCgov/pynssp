@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynssp.detectors.trend &mdash; pynssp 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pynssp
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">About pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installing pynssp</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Hands-On Tutorials:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../articles/intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../articles/anomaly_detection.html">Anomaly Detection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../disclaimer.html">Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../codeofconduct.html">Creating a Culture of Innovation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pynssp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynssp.detectors.trend</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynssp.detectors.trend</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+
+<div class="viewcode-block" id="get_trends"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.trend.get_trends">[docs]</a><span class="k">def</span> <span class="nf">get_trends</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">data_count</span><span class="p">,</span> <span class="n">all_count</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Trend Classification Helper</span>
+
+<span class="sd">    Fits rolling binomial models to a daily time series</span>
+<span class="sd">    of percentages or proportions in order to classify the overall</span>
+<span class="sd">    trend during the baseline period as significantly increasing,</span>
+<span class="sd">    significantly decreasing, or stable.</span>
+
+<span class="sd">    :param df: A pandas data frame</span>
+<span class="sd">    :param t: Name of the column of type Date containing the dates</span>
+<span class="sd">    :param data_count: Name of the column with counts for positive encounters</span>
+<span class="sd">    :param all_count: Name of the column with total counts of encounters</span>
+<span class="sd">    :param B: Baseline parameter. The baseline length is the number of days to </span>
+<span class="sd">        which each binomial model is fit</span>
+<span class="sd">    :return: A pandas data frame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+    <span class="n">statistic</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">p_value</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">date</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">days</span> <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">]])</span>
+    <span class="n">data_count</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">data_count</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">all_count</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">all_count</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">B</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">data_count_rol</span> <span class="o">=</span> <span class="n">data_count</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">all_count_rol</span> <span class="o">=</span> <span class="n">all_count</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_count_rol</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">statistic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+            <span class="n">p_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">data_count_rol</span><span class="p">,</span> <span class="n">all_count_rol</span> <span class="o">-</span> <span class="n">data_count_rol</span><span class="p">]),</span> 
+                    <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> 
+                    <span class="n">family</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">Binomial</span><span class="p">()</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+                <span class="n">statistic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">p_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">statistic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                <span class="n">p_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;statistic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">statistic</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_value</span>
+    
+    <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;statistic&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;statistic&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span>
+    <span class="p">]</span>
+    
+    <span class="n">trends</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Significant Increase&quot;</span><span class="p">,</span> <span class="s2">&quot;Significant Decrease&quot;</span><span class="p">,</span> <span class="s2">&quot;Insufficient Data&quot;</span><span class="p">]</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;trend_classification&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">trends</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Stable&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="classify_trend"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.trend.classify_trend">[docs]</a><span class="k">def</span> <span class="nf">classify_trend</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">data_count</span><span class="o">=</span><span class="s1">&#39;dataCount&#39;</span><span class="p">,</span> <span class="n">all_count</span><span class="o">=</span><span class="s1">&#39;allCount&#39;</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Trend Classification for Proportions/Percentages</span>
+
+<span class="sd">    The algorithm fits rolling binomial models to a daily time series</span>
+<span class="sd">    of percentages or proportions in order to classify the overall</span>
+<span class="sd">    trend during the baseline period as significantly increasing,</span>
+<span class="sd">    significantly decreasing, or stable.</span>
+
+<span class="sd">    :param df: A pandas data frame</span>
+<span class="sd">    :param t: Name of the column of type Date containing the dates </span>
+<span class="sd">        (Default value = &quot;date&quot;)</span>
+<span class="sd">    :param data_count: Name of the column with counts for positive encounters </span>
+<span class="sd">        (Default value = &quot;dataCount&quot;)</span>
+<span class="sd">    :param all_count: Name of the column with total counts of encounters </span>
+<span class="sd">        (Default value = &quot;allCount&quot;)</span>
+<span class="sd">    :param B: Baseline parameter. The baseline length is the number of days to </span>
+<span class="sd">        which each binomial model is fit (Default value = 12)</span>
+<span class="sd">    :return: A pandas data frame</span>
+<span class="sd">    :examples:</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import *</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({</span>
+<span class="sd">        ...     &quot;date&quot;: pd.date_range(&quot;2020-01-01&quot;, &quot;2020-12-31&quot;),</span>
+<span class="sd">        ...     &quot;dataCount&quot;: np.random.randint(0, 101, size=366),</span>
+<span class="sd">        ...     &quot;allCount&quot;: np.random.randint(101, 500, size=366)</span>
+<span class="sd">        ... })</span>
+<span class="sd">        &gt;&gt;&gt; df_trend = classify_trend(df)</span>
+<span class="sd">        &gt;&gt;&gt; df_trend.head()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Check for grouping variables</span>
+    <span class="n">grouped_df</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">groupby</span><span class="o">.</span><span class="n">DataFrameGroupBy</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">grouped_df</span><span class="p">:</span>
+        <span class="n">trends_tbl</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_trends</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">data_count</span><span class="o">=</span><span class="n">data_count</span><span class="p">,</span> <span class="n">all_count</span><span class="o">=</span><span class="n">all_count</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">trends_tbl</span> <span class="o">=</span> <span class="n">get_trends</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">data_count</span><span class="o">=</span><span class="n">data_count</span><span class="p">,</span> <span class="n">all_count</span><span class="o">=</span><span class="n">all_count</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">trends_tbl</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5FTLT9PCW7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5FTLT9PCW7', {
+          'anonymize_ip': false,
+      });
+    </script>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+      <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Read the Docs</span>
+        v: latest
+        <span class="fa fa-caret-down"></span>
+      </span>
+      <div class="rst-other-versions">
+        <dl>
+          <dt>Versions</dt>
+            <dd><a href="#">latest</a></dd>
+            <dd><a href="#">0.1.0</a></dd>
+            <!-- <dd><a href="#">1.1</a></dd> -->
+        </dl>
+        <dl>
+          <dt>Downloads</dt>
+          <dd><a href="https://raw.githubusercontent.com/cdcgov/pynssp/master/docs/pynssp.pdf">PDF</a></dd>
+          <!-- <dd><a href="#">ePub</a></dd> -->
+          <!-- <dd><a href="#">HTML</a></dd> -->
+        </dl>
+        <dl>
+          <dt>On this Documentation</dt>
+            <dd>
+              <a href="https://github.com/CDCgov/pynssp/tree/master/docs">doc source</a>
+            </dd>
+            <dd>
+              <a href="https://github.com/CDCgov/pynssp/tree/gh-pages">build source</a>
+            </dd>
+        </dl>
+        <!-- <dl>
+          <dt>Debug</dt>
+          <dd><a href="#" data-toggle="rst-debug-badge">Swap badge position</a></dd>
+        </dl> -->
+      </div>
+    </div>
+
+</body>
+</html>

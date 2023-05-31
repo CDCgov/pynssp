@@ -654,6 +654,71 @@ Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algo
 </section>
 <section id="module-pynssp.detectors.trend">
 <span id="pynssp-detectors-trend-module"></span><h2>pynssp.detectors.trend module<a class="headerlink" href="#module-pynssp.detectors.trend" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.detectors.trend.classify_trend">
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.trend.</span></span><span class="sig-name descname"><span class="pre">classify_trend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dataCount'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'allCount'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/trend.html#classify_trend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.trend.classify_trend" title="Permalink to this definition"></a></dt>
+<dd><p>Trend Classification for Proportions/Percentages</p>
+<p>The algorithm fits rolling binomial models to a daily time series
+of percentages or proportions in order to classify the overall
+trend during the baseline period as significantly increasing,
+significantly decreasing, or stable.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – A pandas data frame</p></li>
+<li><p><strong>t</strong> – Name of the column of type Date containing the dates
+(Default value = “date”)</p></li>
+<li><p><strong>data_count</strong> – Name of the column with counts for positive encounters
+(Default value = “dataCount”)</p></li>
+<li><p><strong>all_count</strong> – Name of the column with total counts of encounters
+(Default value = “allCount”)</p></li>
+<li><p><strong>B</strong> – Baseline parameter. The baseline length is the number of days to
+which each binomial model is fit (Default value = 12)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pandas data frame</p>
+</dd>
+<dt class="field-odd">Examples<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-12-31&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s2">&quot;dataCount&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s2">&quot;allCount&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_trend</span> <span class="o">=</span> <span class="n">classify_trend</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_trend</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynssp.detectors.trend.get_trends">
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.trend.</span></span><span class="sig-name descname"><span class="pre">get_trends</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/trend.html#get_trends"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.trend.get_trends" title="Permalink to this definition"></a></dt>
+<dd><p>Trend Classification Helper</p>
+<p>Fits rolling binomial models to a daily time series
+of percentages or proportions in order to classify the overall
+trend during the baseline period as significantly increasing,
+significantly decreasing, or stable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – A pandas data frame</p></li>
+<li><p><strong>t</strong> – Name of the column of type Date containing the dates</p></li>
+<li><p><strong>data_count</strong> – Name of the column with counts for positive encounters</p></li>
+<li><p><strong>all_count</strong> – Name of the column with total counts of encounters</p></li>
+<li><p><strong>B</strong> – Baseline parameter. The baseline length is the number of days to
+which each binomial model is fit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pandas data frame</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-pynssp.detectors">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pynssp.detectors" title="Permalink to this heading"></a></h2>
