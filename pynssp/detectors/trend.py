@@ -19,7 +19,7 @@ def get_trends(df, t, data_count, all_count, B):
         which each binomial model is fit
     :return: A pandas data frame
     """
-    
+
     df = df.reset_index(drop=True).sort_values(by=t)
     df[t] = pd.to_datetime(df[t])
     statistic = []
@@ -86,6 +86,15 @@ def classify_trend(df, t='date', data_count='dataCount', all_count='allCount', B
     :param B: Baseline parameter. The baseline length is the number of days to 
         which each binomial model is fit (Default value = 12)
     :return: A pandas data frame
+    :examples:
+        >>> from pynssp import *
+        >>> df = pd.DataFrame({
+        ...     "date": pd.date_range("2020-01-01", "2020-12-31"),
+        ...     "dataCount": np.random.randint(0, 101, size=366),
+        ...     "allCount": np.random.randint(0, 101, size=366)
+        ... })
+        >>> df_trend = classify_trend(df)
+        >>> df_trend.head()
     """
 
     # Check for grouping variables
