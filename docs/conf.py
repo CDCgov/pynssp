@@ -104,6 +104,7 @@ todo_include_todos = False
 #
 html_theme = 'sphinx_rtd_theme' #'alabaster', 'book', ...https://sphinxthemes.com/
 html_static_path = ["_static"]
+sphinx_gallery_thumbnail_path = '_static/logo.png'
 
 favicons = [
     {"href": "favicon/favicon.ico"},  # => use `_static/icon.svg`
