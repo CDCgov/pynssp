@@ -302,7 +302,7 @@ It fits a linear regression model with a time term and sine and cosine terms to 
 Inclusion of Fourier terms in the model is intended to account for seasonality common in multi-year weekly time series. This implementation follows the approach of the original Serfling method in which weeks between October of the starting year of a season and May of the ending year of a season are considered to be in the epidemic period. Weeks in the epidemic period are removed from the baseline prior to fitting the regression model.
 Each baseline model is used to make weekly forecasts for all weeks following the baseline period. One-sided upper 95% prediction interval bounds are computed for each week in the prediction period. Alarms are signaled for any week during which the observed weekly count exceeds the upper bound of the prediction interval.
 The Original Serfling detector can be applied with the `alert_serfling()` function (run `help(alert_serfling)` in your Python console or `alert_serfling?` in Jupyter Notebook or JupyterLab for more).
-Using the same simulated time series from the previous examples, the Negative Binomial Regression detector can be applied as below:
+Using the same simulated time series from the previous examples, the Original Serfling detector can be applied as below:
 
 ```python
 >>> df_serfling  = alert_serfling(synth_ts1, t='date', y='cases', baseline_end='2021-12-26')
