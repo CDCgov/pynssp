@@ -169,7 +169,7 @@ def get_api_graph(url, file_ext=".png", profile=None):
         >>> from pynssp.utils import *
         >>> myProfile = create_profile()
         >>> url = "http://httpbin.org/image/png"
-        >>> api_graph = get_api_response(url, profile=myProfile)
+        >>> api_graph = get_api_graph(url, profile=myProfile)
     """
     try:
         return profile.get_api_graph(url=url, file_ext=file_ext)
