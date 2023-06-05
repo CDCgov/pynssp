@@ -22,7 +22,11 @@ def adaptive_regression(df, t, y, B, g):
     base_tbl = df
     base_tbl["dow"] = pd.to_datetime(df[t]).dt.strftime("%A").str[:3]
     base_tbl["dummy"] = 1
-    df = pd.concat([df, base_tbl.pivot(index=None, columns="dow", values="dummy").fillna(0)], axis=1)
+    df = pd.concat([
+        df, base_tbl.pivot_table(index=t, columns="dow", values="dummy").\
+            fillna(0).\
+            reset_index(drop=True)
+        ], axis=1)
     
     dates = pd.to_datetime(base_tbl[t]).tolist()
     y_obs = base_tbl[y].tolist()
