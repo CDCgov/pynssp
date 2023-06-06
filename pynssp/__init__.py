@@ -11,7 +11,6 @@ from .core.container import *
 from .core.token import *
 from .data import *
 from .detectors.ewma import *
-from .detectors.farrington import *
 from .detectors.regression import *
 from .detectors.switch import *
 from .detectors.nbinom import *

@@ -1,4 +1,3 @@
-import pytest
 from pynssp import get_api_response, Credentials, Token
 import requests
 
