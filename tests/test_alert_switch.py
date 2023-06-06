@@ -38,4 +38,7 @@ def test_alert_switch(df, df2):
         alert_switch(df, B=15)
 
     with pytest.raises(Exception):
+        alert_switch(df, B=785)
+
+    with pytest.raises(Exception):
         alert_switch(df, g=-1)

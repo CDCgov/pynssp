@@ -35,4 +35,7 @@ def test_alert_ewma(df, df2):
         alert_ewma(df, B=6)
 
     with pytest.raises(Exception):
+        alert_ewma(df, B=785)
+
+    with pytest.raises(Exception):
         alert_ewma(df, g=-1)
