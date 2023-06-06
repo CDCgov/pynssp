@@ -1,3 +1,4 @@
+import pytest
 from pynssp import get_api_response, Credentials, Token
 import requests
 
@@ -15,3 +16,6 @@ def test_get_api_response():
 
     assert isinstance(response, requests.models.Response)
     assert isinstance(response2, requests.models.Response)
+
+    with pytest.raises(Exception):
+        get_api_response(url, profile=[])

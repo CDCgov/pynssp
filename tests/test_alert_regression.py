@@ -38,7 +38,7 @@ def test_alert_regression(df, df2):
         alert_regression(df, B=15)
 
     with pytest.raises(Exception):
-        alert_regression(df, B=785)
+        alert_regression(df, B=784)
 
     with pytest.raises(Exception):
         alert_regression(df, g=-1)

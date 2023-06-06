@@ -1,3 +1,4 @@
+import pytest
 from pynssp import get_api_data, Credentials, Token
 import pandas as pd
 
@@ -21,3 +22,6 @@ def test_get_api_data():
     assert isinstance(data2, pd.DataFrame)
     assert isinstance(data3, pd.DataFrame)
     assert isinstance(data4, pd.DataFrame)
+
+    with pytest.raises(Exception):
+        get_api_data(url, profile=[])

@@ -14,6 +14,15 @@ def myTokenProfile():
 def test_create_profile(myProfile):
     assert isinstance(myProfile, Credentials)
 
+    with pytest.raises(Exception):
+        create_profile()
+
+    with pytest.raises(Exception):
+        create_profile(" ", None)
+
 
 def test_create_token_profile(myTokenProfile):
     assert isinstance(myTokenProfile, Token)
+
+    with pytest.raises(Exception):
+        create_token_profile()

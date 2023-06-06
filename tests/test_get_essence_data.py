@@ -11,3 +11,9 @@ def test_get_essence_data():
 
     with pytest.raises(Exception):
         get_essence_data(url, profile=handle)
+
+    with pytest.raises(Exception):
+        get_essence_data(url, profile=[])
+
+    with pytest.raises(Exception):
+        get_essence_data(url, profile=None)
