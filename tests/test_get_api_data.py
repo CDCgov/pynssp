@@ -24,4 +24,4 @@ def test_get_api_data():
     assert isinstance(data4, pd.DataFrame)
 
     with pytest.raises(Exception):
-        get_api_data(url, profile=[])
+        get_api_data(url, profile=None)
