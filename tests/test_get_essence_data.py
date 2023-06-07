@@ -2,7 +2,12 @@ import pytest
 from pynssp import get_essence_data, Credentials
 
 
-def test_get_essence_data():
+@pytest.fixture
+def handle():
+    return Credentials(" ", " ")
+
+
+def test_get_essence_data(handle):
     url = "http://httpbin.org/json"
 
     with pytest.raises(Exception):
