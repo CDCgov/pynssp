@@ -117,7 +117,8 @@
 <span class="sd">    :returns: The modified URL with the new start and end dates.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
-<span class="sd">        &gt;&gt;&gt; from pynssp.utils import change_dates</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import change_dates</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; url = &quot;https://example.com/data?startDate=01Jan2022&amp;endDate=31Dec2022&quot;</span>
 <span class="sd">        &gt;&gt;&gt; change_dates(url, start_date=&quot;01Jan2021&quot;, end_date=&quot;31Dec2021&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -179,7 +180,8 @@
 <span class="sd">    :return: A new Credentials object with the given username and password.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
-<span class="sd">        &gt;&gt;&gt; from pynssp.utils import create_profile</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import create_profile</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; myProfile = create_profile()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">username</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -199,7 +201,8 @@
 <span class="sd">    :return: A new Token object with the given token and authentication type.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
-<span class="sd">        &gt;&gt;&gt; from pynssp.utils import create_token_profile</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import create_token_profile</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; myTokenProfile = create_token_profile()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -216,7 +219,8 @@
 <span class="sd">    :return: The response object returned by the API.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
-<span class="sd">        &gt;&gt;&gt; from pynssp.utils import *</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import *</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; myProfile = create_profile()</span>
 <span class="sd">        &gt;&gt;&gt; url = &quot;http://httpbin.org/json&quot;</span>
 <span class="sd">        &gt;&gt;&gt; response = get_api_response(url, profile=myProfile)</span>
@@ -240,7 +244,8 @@
 <span class="sd">    :return: The data retrieved from the API.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
-<span class="sd">        &gt;&gt;&gt; from pynssp.utils import *</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import *</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; myProfile = create_profile()</span>
 <span class="sd">        &gt;&gt;&gt; url = &quot;http://httpbin.org/json&quot;</span>
 <span class="sd">        &gt;&gt;&gt; api_data = get_api_data(url, profile=myProfile)</span>
@@ -262,7 +267,8 @@
 <span class="sd">    :return: The graph retrieved from the API.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
-<span class="sd">        &gt;&gt;&gt; from pynssp.utils import *</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import *</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; myProfile = create_profile()</span>
 <span class="sd">        &gt;&gt;&gt; url = &quot;http://httpbin.org/image/png&quot;</span>
 <span class="sd">        &gt;&gt;&gt; api_graph = get_api_graph(url, profile=myProfile)</span>
@@ -285,7 +291,8 @@
 <span class="sd">    :return: The data retrieved from the NSSP-ESSENCE API.</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
-<span class="sd">        &gt;&gt;&gt; from pynssp.utils import *</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import *</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; myProfile = create_profile()</span>
 <span class="sd">        &gt;&gt;&gt; url = &quot;https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries/graph?endDate=25Jun2022&amp;geography=&amp;percentParam=noPercent&amp;datasource=va_hosp&amp;startDate=25Jun2021&amp;medicalGroupingSystem=essencesyndromes&amp;userId=3751&amp;aqtTarget=TimeSeries&amp;ccddCategory=&amp;geographySystem=hospitalregion&amp;detector=probrepswitch&amp;timeResolution=daily&quot;</span>
 <span class="sd">        &gt;&gt;&gt; api_data = get_essence_data(url, profile=myProfile)</span>
@@ -350,14 +357,21 @@
 <span class="sd">    :returns: A DataFrame containing the ICD codes and descriptions.</span>
 <span class="sd">    :examples:</span>
 
-<span class="sd">        &gt;&gt;&gt; from pynssp.utils import *</span>
-<span class="sd">        # Example 1</span>
+<span class="sd">        &gt;&gt;&gt; # Example 1</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import webscrape_icd</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; icd9 = webscrape_icd(icd_version = &quot;ICD9&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; icd9.head()</span>
-<span class="sd">        # Example 2</span>
+
+<span class="sd">        &gt;&gt;&gt; # Example 2</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import webscrape_icd</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; icd10_2021 = webscrape_icd(icd_version=&quot;ICD10&quot;, year=2021)</span>
 <span class="sd">        &gt;&gt;&gt; icd10_2021.info()</span>
-<span class="sd">        # Example 3</span>
+
+<span class="sd">        &gt;&gt;&gt; # Example 3</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import webscrape_icd</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; icd10_2020 = webscrape_icd(icd_version=&quot;ICD10&quot;, year=2020)</span>
 <span class="sd">        &gt;&gt;&gt; icd10_2020.info()</span>
 <span class="sd">    &quot;&quot;&quot;</span>

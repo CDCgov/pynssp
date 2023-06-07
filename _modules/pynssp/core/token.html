@@ -109,14 +109,21 @@
 
 <span class="sd">    A Token object has a token string and a key.</span>
 <span class="sd">    A Token object can get API data via an API URL.</span>
+
+<span class="sd">    :param token: a token string</span>
+<span class="sd">    :param access_token: type of HTTP authentication. </span>
+<span class="sd">        Should be &quot;Bearer&quot; or &quot;Basic&quot;. (Default value = &quot;Bearer&quot;)</span>
+<span class="sd">    :ivar access_token: HTTP authentication type.</span>
+
+<span class="sd">    :examples:</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import Token</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; myTokenProfile = Token(&quot;abc123&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="s2">&quot;Bearer&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes a new Token object.</span>
-<span class="sd">        </span>
-<span class="sd">        :param token: a token string</span>
-<span class="sd">        :param access_token: type of HTTP authentication. Should be `Bearer` or `Basic`. (Default value = &quot;Bearer&quot;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__k</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">Fernet</span><span class="o">.</span><span class="n">generate_key</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="n">NSSPContainer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__k</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">encode</span><span class="p">()))</span>
@@ -128,7 +135,6 @@
 
 <span class="sd">        :param url: a string of API URL</span>
 <span class="sd">        :returns: an object of class response</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span>
@@ -175,7 +181,6 @@
 
 <span class="sd">        :param file_ext: a non-empty character vector giving the file extension. (Default value = &quot;.pkl&quot;)</span>
 <span class="sd">        :param file:  (Default value = None)</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">pickle</span> <span class="kn">import</span> <span class="n">dump</span>
         <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;tokenProfile&quot;</span> <span class="o">+</span> <span class="n">file_ext</span>

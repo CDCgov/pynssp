@@ -183,12 +183,16 @@
 <span class="sd">        which each binomial model is fit (Default value = 12)</span>
 <span class="sd">    :return: A pandas data frame</span>
 <span class="sd">    :examples:</span>
-<span class="sd">        &gt;&gt;&gt; from pynssp import *</span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import classify_trend</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({</span>
 <span class="sd">        ...     &quot;date&quot;: pd.date_range(&quot;2020-01-01&quot;, &quot;2020-12-31&quot;),</span>
 <span class="sd">        ...     &quot;dataCount&quot;: np.random.randint(0, 101, size=366),</span>
 <span class="sd">        ...     &quot;allCount&quot;: np.random.randint(101, 500, size=366)</span>
 <span class="sd">        ... })</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; df_trend = classify_trend(df)</span>
 <span class="sd">        &gt;&gt;&gt; df_trend.head()</span>
 <span class="sd">    &quot;&quot;&quot;</span>

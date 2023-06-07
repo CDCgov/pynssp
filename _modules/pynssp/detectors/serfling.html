@@ -176,12 +176,15 @@
 <span class="sd">        a binary alarm indicator field, and a binary indicator</span>
 <span class="sd">    :examples:</span>
 <span class="sd">    </span>
+<span class="sd">        &gt;&gt;&gt; from pynssp import alert_serfling</span>
 <span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
 <span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({</span>
 <span class="sd">        ...    &quot;date&quot;: pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;),</span>
 <span class="sd">        ...    &quot;count&quot;: np.random.poisson(lam=25, size=(len(pd.date_range(start=&quot;2014-01-05&quot;, end=&quot;2022-02-05&quot;, freq=&quot;W&quot;)),))</span>
 <span class="sd">        ... })</span>
+<span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; df_serfling  = alert_serfling(df, baseline_end = &quot;2020-03-01&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; df_serfling.head()</span>
 <span class="sd">    &quot;&quot;&quot;</span>

@@ -81,7 +81,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#pynssp.data.load_simulated_ts"><code class="docutils literal notranslate"><span class="pre">load_simulated_ts()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pynssp.pynssp">pynssp.pynssp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pynssp.utils">pynssp.utils module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.change_dates"><code class="docutils literal notranslate"><span class="pre">change_dates()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pynssp.utils.create_profile"><code class="docutils literal notranslate"><span class="pre">create_profile()</span></code></a></li>
@@ -220,25 +219,33 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.data.get_scenario1">
 <span class="sig-prename descclassname"><span class="pre">pynssp.data.</span></span><span class="sig-name descname"><span class="pre">get_scenario1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/data.html#get_scenario1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.data.get_scenario1" title="Permalink to this definition"></a></dt>
-<dd><p>Return a subset of the simulated time series data (‘scenario #1’).
-:examples:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="o">*</span>
+<dd><p>Return a subset of the simulated time series data (‘scenario #1’).</p>
+<dl class="field-list">
+<dt class="field-odd">Examples<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">get_scenario1</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scenario1_ts</span> <span class="o">=</span> <span class="n">get_scenario1</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scenario1_ts</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.data.get_scenario2">
 <span class="sig-prename descclassname"><span class="pre">pynssp.data.</span></span><span class="sig-name descname"><span class="pre">get_scenario2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/data.html#get_scenario2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.data.get_scenario2" title="Permalink to this definition"></a></dt>
-<dd><p>Return a subset of the simulated time series data (‘scenario #2’).
-:examples:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="o">*</span>
+<dd><p>Return a subset of the simulated time series data (‘scenario #2’).</p>
+<dl class="field-list">
+<dt class="field-odd">Examples<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">get_scenario2</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scenario2_ts</span> <span class="o">=</span> <span class="n">get_scenario2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">scenario2_ts</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -247,15 +254,16 @@
 <dd><p>Return a dataframe of NSSP-curated stopwords.</p>
 <dl class="field-list">
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="o">*</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">load_nssp_stopwords</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stopwords</span> <span class="o">=</span> <span class="n">load_nssp_stopwords</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stopwords</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-<span class="gp">... </span><span class="c1">## #   Column      Non-Null Count  Dtype</span>
-<span class="gp">... </span><span class="c1">## ---  ------      --------------  -----</span>
-<span class="gp">... </span><span class="c1">## 1   word        835 non-null    object</span>
-<span class="gp">... </span><span class="c1">## 2   type        835 non-null    object</span>
-<span class="gp">... </span><span class="c1">## dtypes: int64(1), object(2)</span>
-<span class="gp">... </span><span class="c1">## memory usage: 13.2+ KB</span>
+<span class="go">## #   Column      Non-Null Count  Dtype</span>
+<span class="go">## ---  ------      --------------  -----</span>
+<span class="go">## 1   word        835 non-null    object</span>
+<span class="go">## 2   type        835 non-null    object</span>
+<span class="go">## dtypes: int64(1), object(2)</span>
+<span class="go">## memory usage: 13.2+ KB</span>
 </pre></div>
 </div>
 </dd>
@@ -268,28 +276,25 @@
 <dd><p>Return a dataframe of simulated time series.</p>
 <dl class="field-list">
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="o">*</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.data</span> <span class="kn">import</span> <span class="n">load_simulated_ts</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simulated_ts</span> <span class="o">=</span> <span class="n">load_simulated_ts</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simulated_ts</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-<span class="gp">... </span><span class="c1">## #   Column  Non-Null Count  Dtype</span>
-<span class="gp">... </span><span class="c1">## ---  ------  --------------  -----</span>
-<span class="gp">... </span><span class="c1">## 0   date    626 non-null    object</span>
-<span class="gp">... </span><span class="c1">## 1   week    626 non-null    int64</span>
-<span class="gp">... </span><span class="c1">## 2   year    626 non-null    int64</span>
-<span class="gp">... </span><span class="c1">## 3   cases   626 non-null    int64</span>
-<span class="gp">... </span><span class="c1">## 4   id      626 non-null    object</span>
-<span class="gp">... </span><span class="c1">## dtypes: int64(3), object(2)</span>
-<span class="gp">... </span><span class="c1">## memory usage: 24.6+ KB</span>
+<span class="go">## #   Column  Non-Null Count  Dtype</span>
+<span class="go">## ---  ------  --------------  -----</span>
+<span class="go">## 0   date    626 non-null    object</span>
+<span class="go">## 1   week    626 non-null    int64</span>
+<span class="go">## 2   year    626 non-null    int64</span>
+<span class="go">## 3   cases   626 non-null    int64</span>
+<span class="go">## 4   id      626 non-null    object</span>
+<span class="go">## dtypes: int64(3), object(2)</span>
+<span class="go">## memory usage: 24.6+ KB</span>
 </pre></div>
 </div>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-pynssp.pynssp">
-<span id="pynssp-pynssp-module"></span><h2>pynssp.pynssp module<a class="headerlink" href="#module-pynssp.pynssp" title="Permalink to this heading"></a></h2>
-<p>Main module.</p>
 </section>
 <section id="module-pynssp.utils">
 <span id="pynssp-utils-module"></span><h2>pynssp.utils module<a class="headerlink" href="#module-pynssp.utils" title="Permalink to this heading"></a></h2>
@@ -311,7 +316,8 @@ start date in the URL. (Default value = None)</p></li>
 <dd class="field-even"><p>The modified URL with the new start and end dates.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="n">change_dates</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">change_dates</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://example.com/data?startDate=01Jan2022&amp;endDate=31Dec2022&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">change_dates</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;01Jan2021&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;31Dec2021&quot;</span><span class="p">)</span>
 </pre></div>
@@ -337,7 +343,8 @@ If not provided, the user will be prompted to enter it securely.</p></li>
 <dd class="field-even"><p>A new Credentials object with the given username and password.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="n">create_profile</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">create_profile</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_profile</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -362,7 +369,8 @@ Defaults to “Bearer”.</p></li>
 <dd class="field-even"><p>A new Token object with the given token and authentication type.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="n">create_token_profile</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">create_token_profile</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">myTokenProfile</span> <span class="o">=</span> <span class="n">create_token_profile</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -390,7 +398,8 @@ the profile’s get_api_data method.</p></li>
 <dd class="field-even"><p>The data retrieved from the API.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_profile</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://httpbin.org/json&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">api_data</span> <span class="o">=</span> <span class="n">get_api_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
@@ -418,7 +427,8 @@ or <cite>pynssp.core.token.Token</cite>.</p></li>
 <dd class="field-even"><p>The graph retrieved from the API.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_profile</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://httpbin.org/image/png&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">api_graph</span> <span class="o">=</span> <span class="n">get_api_graph</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
@@ -444,7 +454,8 @@ or <cite>pynssp.core.token.Token</cite>.</p></li>
 <dd class="field-even"><p>The response object returned by the API.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_profile</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://httpbin.org/json&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">get_api_response</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
@@ -473,7 +484,8 @@ or <cite>pynssp.core.token.Token</cite>.</p></li>
 <dd class="field-even"><p>The data retrieved from the NSSP-ESSENCE API.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="o">*</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">create_profile</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries/graph?endDate=25Jun2022&amp;geography=&amp;percentParam=noPercent&amp;datasource=va_hosp&amp;startDate=25Jun2021&amp;medicalGroupingSystem=essencesyndromes&amp;userId=3751&amp;aqtTarget=TimeSeries&amp;ccddCategory=&amp;geographySystem=hospitalregion&amp;detector=probrepswitch&amp;timeResolution=daily&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">api_data</span> <span class="o">=</span> <span class="n">get_essence_data</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="n">myProfile</span><span class="p">)</span>
@@ -511,14 +523,23 @@ If not provided, the current year will be used. (Default value = None)</p></li>
 <dd class="field-even"><p>A DataFrame containing the ICD codes and descriptions.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp.utils</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="go"># Example 1</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">webscrape_icd</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">icd9</span> <span class="o">=</span> <span class="n">webscrape_icd</span><span class="p">(</span><span class="n">icd_version</span> <span class="o">=</span> <span class="s2">&quot;ICD9&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">icd9</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go"># Example 2</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example 2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">webscrape_icd</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">icd10_2021</span> <span class="o">=</span> <span class="n">webscrape_icd</span><span class="p">(</span><span class="n">icd_version</span><span class="o">=</span><span class="s2">&quot;ICD10&quot;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2021</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">icd10_2021</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-<span class="go"># Example 3</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">webscrape_icd</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">icd10_2020</span> <span class="o">=</span> <span class="n">webscrape_icd</span><span class="p">(</span><span class="n">icd_version</span><span class="o">=</span><span class="s2">&quot;ICD10&quot;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2020</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">icd10_2020</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>

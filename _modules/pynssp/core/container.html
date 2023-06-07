@@ -99,24 +99,33 @@
 
 <span class="sd">    An object of class NSSPContainer stores a value or an object</span>
 <span class="sd">    The NSSPContainer class encapsulates a value or an object</span>
+
+<span class="sd">    :param value: value to store</span>
+<span class="sd">    :ivar value: Stored value</span>
+<span class="sd">    :examples:</span>
+
+<span class="sd">      &gt;&gt;&gt; from pynssp import NSSPContainer</span>
+<span class="sd">      &gt;&gt;&gt; </span>
+<span class="sd">      &gt;&gt;&gt; cont = NSSPContainer(&quot;abcdef&quot;)</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initializes an NSSPContainer class</span>
-
-<span class="sd">    :param value: value to store</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span></div>
 
 
 <div class="viewcode-block" id="APIGraph"><a class="viewcode-back" href="../../../pynssp.core.html#pynssp.core.container.APIGraph">[docs]</a><span class="k">class</span> <span class="nc">APIGraph</span><span class="p">:</span>
-<span class="w">  </span><span class="sd">&quot;&quot;&quot;A class to store an API graph&quot;&quot;&quot;</span>
-
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initializes an APIGraph class</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;A class to store an API graph</span>
 
 <span class="sd">    :param path: a string representing the location of a graph</span>
 <span class="sd">    :param response: an object of class response</span>
+<span class="sd">    :ivar path: the location of a graph file</span>
+<span class="sd">    :ivar response: a response object</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initializes an APIGraph class</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">response</span>
