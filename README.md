@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![pynssp Pipeline](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml)
+[![pynssp documentation](https://github.com/CDCgov/pynssp/actions/workflows/gh-pages.yaml/badge.svg)](https://github.com/CDCgov/pynssp/actions/workflows/gh-pages.yaml)
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://github.com/CDCgov/pynssp)
