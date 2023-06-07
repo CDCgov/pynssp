@@ -163,12 +163,15 @@ def alert_regression(df, t="date", y="count", B=28, g=2):
     :returns: Original pandas data frame with detection results.
     :examples:
     
+        >>> from pynssp import alert_regression
         >>> import pandas as pd
         >>> import numpy as np
+        >>> 
         >>> df = pd.DataFrame({
         ...    "date": pd.date_range("2020-01-01", "2020-12-31"),
         ...    "count": np.random.randint(0, 101, size=366)
         ... })
+        >>> 
         >>> df_regression = alert_regression(df)
         >>> df_regression.head()
 

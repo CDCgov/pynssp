@@ -128,12 +128,15 @@ def alert_nbinom(df, baseline_end, t="date", y="count", include_time=True):
         whether or not a time term was included.
     :examples:
     
+        >>> from pnssp import alert_nbinom
         >>> import pandas as pd
         >>> import numpy as np
+        >>> 
         >>> df = pd.DataFrame({
         ...    "date": pd.date_range(start="2014-01-05", end="2022-02-05", freq="W"),
         ...    "count": np.random.poisson(lam=25, size=(len(pd.date_range(start="2014-01-05", end="2022-02-05", freq="W")),))
         ... })
+        >>> 
         >>> df_nbinom = alert_nbinom(df, baseline_end = "2020-03-01")
         >>> df_nbinom.head()
     """

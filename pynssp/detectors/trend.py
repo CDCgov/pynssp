@@ -87,12 +87,16 @@ def classify_trend(df, t='date', data_count='dataCount', all_count='allCount', B
         which each binomial model is fit (Default value = 12)
     :return: A pandas data frame
     :examples:
-        >>> from pynssp import *
+        >>> from pynssp import classify_trend
+        >>> import pandas as pd
+        >>> import numpy as np
+        >>> 
         >>> df = pd.DataFrame({
         ...     "date": pd.date_range("2020-01-01", "2020-12-31"),
         ...     "dataCount": np.random.randint(0, 101, size=366),
         ...     "allCount": np.random.randint(101, 500, size=366)
         ... })
+        >>> 
         >>> df_trend = classify_trend(df)
         >>> df_trend.head()
     """

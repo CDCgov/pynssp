@@ -173,12 +173,15 @@ def alert_ewma(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
     :returns: Original pandas data frame with detection results.
     :examples:
     
+        >>> from pynssp import alert_ewma
         >>> import pandas as pd
         >>> import numpy as np
+        >>> 
         >>> df = pd.DataFrame({
         ...     "date": pd.date_range("2020-01-01", "2020-12-31"),
         ...     "count": np.random.randint(0, 101, size=366)
         ... })
+        >>> 
         >>> df_ewma = alert_ewma(df)
         >>> df_ewma.head()
     """
