@@ -11,7 +11,7 @@ def url():
 
 @pytest.fixture
 def url2():
-    return "http://httpbin.org/json"
+    return "http://httpbin.org/robots.txt"
 
 
 def test_get_api_data_credentials(url, url2):
