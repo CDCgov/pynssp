@@ -21,7 +21,8 @@ def change_dates(url, start_date=None, end_date=None):
     :returns: The modified URL with the new start and end dates.
     :examples:
     
-        >>> from pynssp.utils import change_dates
+        >>> from pynssp import change_dates
+        >>> 
         >>> url = "https://example.com/data?startDate=01Jan2022&endDate=31Dec2022"
         >>> change_dates(url, start_date="01Jan2021", end_date="31Dec2021")
     """
@@ -83,7 +84,8 @@ def create_profile(username=None, password=None):
     :return: A new Credentials object with the given username and password.
     :examples:
     
-        >>> from pynssp.utils import create_profile
+        >>> from pynssp import create_profile
+        >>> 
         >>> myProfile = create_profile()
     """
     if username is None:
@@ -103,7 +105,8 @@ def create_token_profile(token=None, access_token="Bearer"):
     :return: A new Token object with the given token and authentication type.
     :examples:
     
-        >>> from pynssp.utils import create_token_profile
+        >>> from pynssp import create_token_profile
+        >>> 
         >>> myTokenProfile = create_token_profile()
     """
     if token is None:
@@ -120,7 +123,8 @@ def get_api_response(url, profile=None):
     :return: The response object returned by the API.
     :examples:
     
-        >>> from pynssp.utils import *
+        >>> from pynssp import *
+        >>> 
         >>> myProfile = create_profile()
         >>> url = "http://httpbin.org/json"
         >>> response = get_api_response(url, profile=myProfile)
@@ -144,7 +148,8 @@ def get_api_data(url, fromCSV=False, profile=None, encoding="utf-8", **kwargs):
     :return: The data retrieved from the API.
     :examples:
     
-        >>> from pynssp.utils import *
+        >>> from pynssp import *
+        >>> 
         >>> myProfile = create_profile()
         >>> url = "http://httpbin.org/json"
         >>> api_data = get_api_data(url, profile=myProfile)
@@ -166,7 +171,8 @@ def get_api_graph(url, file_ext=".png", profile=None):
     :return: The graph retrieved from the API.
     :examples:
     
-        >>> from pynssp.utils import *
+        >>> from pynssp import *
+        >>> 
         >>> myProfile = create_profile()
         >>> url = "http://httpbin.org/image/png"
         >>> api_graph = get_api_graph(url, profile=myProfile)
@@ -189,7 +195,8 @@ def get_essence_data(url, start_date=None, end_date=None, profile=None, **kwargs
     :return: The data retrieved from the NSSP-ESSENCE API.
     :examples:
     
-        >>> from pynssp.utils import *
+        >>> from pynssp import *
+        >>> 
         >>> myProfile = create_profile()
         >>> url = "https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries/graph?endDate=25Jun2022&geography=&percentParam=noPercent&datasource=va_hosp&startDate=25Jun2021&medicalGroupingSystem=essencesyndromes&userId=3751&aqtTarget=TimeSeries&ccddCategory=&geographySystem=hospitalregion&detector=probrepswitch&timeResolution=daily"
         >>> api_data = get_essence_data(url, profile=myProfile)
@@ -254,14 +261,21 @@ def webscrape_icd(icd_version="ICD10", year=None):
     :returns: A DataFrame containing the ICD codes and descriptions.
     :examples:
 
-        >>> from pynssp.utils import *
-        # Example 1
+        >>> # Example 1
+        >>> from pynssp import webscrape_icd
+        >>> 
         >>> icd9 = webscrape_icd(icd_version = "ICD9")
         >>> icd9.head()
-        # Example 2
+
+        >>> # Example 2
+        >>> from pynssp import webscrape_icd
+        >>> 
         >>> icd10_2021 = webscrape_icd(icd_version="ICD10", year=2021)
         >>> icd10_2021.info()
-        # Example 3
+
+        >>> # Example 3
+        >>> from pynssp import webscrape_icd
+        >>> 
         >>> icd10_2020 = webscrape_icd(icd_version="ICD10", year=2020)
         >>> icd10_2020.info()
     """
