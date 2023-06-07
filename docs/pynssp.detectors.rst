@@ -12,14 +12,6 @@ pynssp.detectors.ewma module
    :undoc-members:
    :show-inheritance:
 
-pynssp.detectors.farrington module
-----------------------------------
-
-.. automodule:: pynssp.detectors.farrington
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 pynssp.detectors.nbinom module
 ------------------------------
 
