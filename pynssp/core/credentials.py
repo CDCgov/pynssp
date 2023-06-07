@@ -13,14 +13,19 @@ class Credentials:
 
     A Credentials object has a username, a password and a key.
     A Credentials object gets API data via an API URL.
+
+    :param username: a string for username (Default username = None)
+    :param password: a string for password (Default password = None)
+
+    :examples:
+        >>> from pynssp import Credentials
+        >>> 
+        >>> myProfile = Credentials("user", "pass")
     """
 
 
     def __init__(self, username=None, password=None):
         """Initializes a new Credentials object.
-
-        :param username: a string for username (Default username = None)
-        :param password: a string for password (Default password = None)
         """
         self.__k = Fernet(Fernet.generate_key())
         self.__username = NSSPContainer(self.__k.encrypt(username.encode())) \

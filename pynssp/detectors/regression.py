@@ -165,7 +165,6 @@ def alert_regression(df, t="date", y="count", B=28, g=2):
     
         >>> import pandas as pd
         >>> import numpy as np
-        >>> from pynssp.detectors.regression import *
         >>> df = pd.DataFrame({
         ...    "date": pd.date_range("2020-01-01", "2020-12-31"),
         ...    "count": np.random.randint(0, 101, size=366)

@@ -21,14 +21,6 @@ pynssp.data module
    :undoc-members:
    :show-inheritance:
 
-pynssp.pynssp module
---------------------
-
-.. automodule:: pynssp.pynssp
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 pynssp.utils module
 -------------------
 

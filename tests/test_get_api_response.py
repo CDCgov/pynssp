@@ -8,9 +8,6 @@ def test_get_api_response():
     handle = Credentials(" ", " ")
     handle2 = Token("abc1234567890")
 
-    assert isinstance(handle, Credentials)
-    assert isinstance(handle2, Token)
-
     response = get_api_response(url, profile=handle)
     response2 = get_api_response(url, profile=handle2)
 

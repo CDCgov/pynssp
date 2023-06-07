@@ -3,24 +3,33 @@ class NSSPContainer:
 
     An object of class NSSPContainer stores a value or an object
     The NSSPContainer class encapsulates a value or an object
+
+    :param value: value to store
+    :ivar value: Stored value
+    :examples:
+
+      >>> from pynssp import NSSPContainer
+      >>> 
+      >>> cont = NSSPContainer("abcdef")
   """
 
   def __init__(self, value):
     """Initializes an NSSPContainer class
-
-    :param value: value to store
     """
     self.value = value
 
 
 class APIGraph:
-  """A class to store an API graph"""
-
-  def __init__(self, path, response):
-    """Initializes an APIGraph class
+  """A class to store an API graph
 
     :param path: a string representing the location of a graph
     :param response: an object of class response
+    :ivar path: the location of a graph file
+    :ivar response: a response object
+  """
+
+  def __init__(self, path, response):
+    """Initializes an APIGraph class
     """
     self.path = path
     self.response = response

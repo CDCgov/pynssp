@@ -13,14 +13,21 @@ class Token:
 
     A Token object has a token string and a key.
     A Token object can get API data via an API URL.
+
+    :param token: a token string
+    :param access_token: type of HTTP authentication. 
+        Should be "Bearer" or "Basic". (Default value = "Bearer")
+    :ivar access_token: HTTP authentication type.
+
+    :examples:
+        >>> from pynssp import Token
+        >>> 
+        >>> myTokenProfile = Token("abc123")
     """
 
 
     def __init__(self, token, access_token="Bearer"):
         """Initializes a new Token object.
-        
-        :param token: a token string
-        :param access_token: type of HTTP authentication. Should be `Bearer` or `Basic`. (Default value = "Bearer")
         """
         self.__k = Fernet(Fernet.generate_key())
         self.__token = NSSPContainer(self.__k.encrypt(token.encode()))
@@ -32,7 +39,6 @@ class Token:
 
         :param url: a string of API URL
         :returns: an object of class response
-
         """
         headers = {
             "Authorization": "{} {}".
@@ -79,7 +85,6 @@ class Token:
 
         :param file_ext: a non-empty character vector giving the file extension. (Default value = ".pkl")
         :param file:  (Default value = None)
-
         """
         from pickle import dump
         file_name = "tokenProfile" + file_ext
