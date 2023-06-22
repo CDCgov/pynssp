@@ -6,6 +6,6 @@ authors:
     orcid: "https://orcid.org/0000-0001-9155-4153"
 title: "pynssp: A Python package for the National Syndromic Surveillance Program (NSSP)"
 version: 0.1.0
-date-released: TBD
+date-released: 2023-06-22
 license: "Apache License (>= 2)"
 repository-code: "https://github.com/CDCgov/Rnssp"
