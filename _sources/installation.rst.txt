@@ -5,19 +5,19 @@ Installing pynssp
 =================
 
 
-.. Stable release
-.. --------------
+Stable release
+--------------
 
-.. To install pynssp, run this command in your terminal:
+To install pynssp, run this command in your terminal:
 
-.. .. code-block:: console
+.. code-block:: console
 
-..     $ pip install pynssp
+    $ pip install pynssp
 
-.. This is the preferred method to install pynssp, as it will always install the most recent stable release.
+This is the preferred method to install pynssp, as it will always install the most recent stable release.
 
-.. If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-.. you through the process.
+If you don't have `pip`_ installed, this `Python installation guide`_ can guide
+you through the process.
 
 .. _pip: https://pip.pypa.io
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/

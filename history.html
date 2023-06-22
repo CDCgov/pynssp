@@ -68,7 +68,18 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="modules.html">pynssp</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">0.1.0 (2023-??-??)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">0.1.0 (2023-06-22)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#features">Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#credentials-management">Credentials Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rest-api-data-pulls">REST API data pulls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#anomaly-detection-and-trend-classification">Anomaly Detection and Trend Classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#added-data">Added Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utility-functions">Utility Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#classes">Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -107,10 +118,65 @@
   <section id="release-notes">
 <h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this heading"></a></h1>
 <section id="id1">
-<h2>0.1.0 (2023-??-??)<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<h2>0.1.0 (2023-06-22)<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>First release on PyPI (upcoming - not yet released on PyPI).</p></li>
+<li><p>First release on PyPI.</p></li>
 </ul>
+<section id="features">
+<h3>Features<a class="headerlink" href="#features" title="Permalink to this heading"></a></h3>
+<section id="credentials-management">
+<h4>Credentials Management<a class="headerlink" href="#credentials-management" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">create_profile()</span></code> initializes a <code class="docutils literal notranslate"><span class="pre">Credentials</span></code> object from a username and password.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">create_token_profile()</span></code> initializes a <code class="docutils literal notranslate"><span class="pre">Token</span></code> object from a REST API token.</p></li>
+</ul>
+</section>
+<section id="rest-api-data-pulls">
+<h4>REST API data pulls<a class="headerlink" href="#rest-api-data-pulls" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get_api_response()</span></code> retrieves a response from an API service using a provided profile of type <code class="docutils literal notranslate"><span class="pre">Credentials</span></code> or <code class="docutils literal notranslate"><span class="pre">Token</span></code>. Used as a wrapper to the <code class="docutils literal notranslate"><span class="pre">.get_api_response()</span></code> method of a provided profile of type <code class="docutils literal notranslate"><span class="pre">Credentials</span></code> or <code class="docutils literal notranslate"><span class="pre">Token</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_api_data()</span></code> retrieves data (in JSON or CSV) from an API service using a provided profile of type <code class="docutils literal notranslate"><span class="pre">Credentials</span></code> or <code class="docutils literal notranslate"><span class="pre">Token</span></code>. Used as a wrapper to the <code class="docutils literal notranslate"><span class="pre">.get_api_data()</span></code> method of a provided profile of type <code class="docutils literal notranslate"><span class="pre">Credentials</span></code> or <code class="docutils literal notranslate"><span class="pre">Token</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_api_graph()</span></code> retrieves a graph from an API service using a provided profile of type <code class="docutils literal notranslate"><span class="pre">Credentials</span></code> or <code class="docutils literal notranslate"><span class="pre">Token</span></code>. Used as a wrapper to the <code class="docutils literal notranslate"><span class="pre">.get_api_graph()</span></code> method of a provided profile of type <code class="docutils literal notranslate"><span class="pre">Credentials</span></code> or <code class="docutils literal notranslate"><span class="pre">Token</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_essence_data()</span></code> retrieves data from the NSSP-ESSENCE API service using a provided profile of type <code class="docutils literal notranslate"><span class="pre">Credentials</span></code> or <code class="docutils literal notranslate"><span class="pre">Token</span></code>.</p></li>
+</ul>
+</section>
+<section id="anomaly-detection-and-trend-classification">
+<h4>Anomaly Detection and Trend Classification<a class="headerlink" href="#anomaly-detection-and-trend-classification" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">alert_ewma()</span></code> implements the EWMA time series anomaly detection algorithm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert_regression()</span></code> implements the Multiple Adaptive Regression time series anomaly detection algorithm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert_switch()</span></code> implements the Regression/EWMA Switch time series anomaly detection algorithm</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert_nbinom()</span></code> implements the Negative Binomial Regression time series anomaly detection algorithm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alert_serfling()</span></code> implements the original and modified Serfling method for time series anomaly detection.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">classify_trend()</span></code> fits rolling binomial models to a daily time series of percentages or proportions to classify the overall trend.</p></li>
+</ul>
+</section>
+<section id="added-data">
+<h4>Added Data<a class="headerlink" href="#added-data" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">load_simulated_ts()</span></code> loads a dataframe of simulated time series.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">load_nssp_stopwords()</span></code> loads a dataframe of NSSP-curated stopwords.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_scenario1()</span></code> loads a a subset of the simulated time series data (“scenario #1”).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_scenario2()</span></code> loads a a subset of the simulated time series data (“scenario #2”).</p></li>
+</ul>
+</section>
+<section id="utility-functions">
+<h4>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">change_dates()</span></code> modifies the start and end dates in a given URL to new dates, if provided.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">webscrape_icd()</span></code> scrapes ICD Codes from the Web.</p></li>
+</ul>
+</section>
+<section id="classes">
+<h4>Classes<a class="headerlink" href="#classes" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Credentials</span></code> is an abstract representation of a profile object given a username and password strings.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Token</span></code> is an abstract representation of a profile object given a token string.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">APIGraph</span></code> is an abstract representation of a graph object returns from an API service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NSSPContainer</span></code> encapsulates a value or an object to store.</p></li>
+</ul>
+</section>
+</section>
 </section>
 </section>
 

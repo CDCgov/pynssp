@@ -58,7 +58,11 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">About pynssp</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stable-release">Stable release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#development-version">Development version</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contributing-to-this-project">Contributing to this project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a></li>
@@ -117,17 +121,28 @@
 <h1>About pynssp<a class="headerlink" href="#about-pynssp" title="Permalink to this heading"></a></h1>
 <a class="reference external image-reference" href="https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml"><img alt="pynssp Pipeline" src="https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/CDCgov/pynssp"><img alt="Project Status: Active" src="https://www.repostatus.org/badges/latest/active.svg" /></a>
-<a class="reference external image-reference" href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img alt="Lifecycle: experimental" src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" /></a>
+<a class="reference external image-reference" href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img alt="Lifecycle: experimental" src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" /></a>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">pynssp</span></code> is a Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice. A collection of classes and methods to advance the practice of Syndromic Surveillance. It serves as a Python alternative to the <a class="reference external" href="https://cdcgov.github.io/Rnssp">Rnssp R package</a>.</p>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<section id="stable-release">
+<h3>Stable release<a class="headerlink" href="#stable-release" title="Permalink to this heading"></a></h3>
+<p>To install <code class="docutils literal notranslate"><span class="pre">pynssp</span></code>, run this command in your terminal:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>pynssp
+</pre></div>
+</div>
+<p>This is the preferred method to install <code class="docutils literal notranslate"><span class="pre">pynssp</span></code>, as it will always install the most recent stable release.</p>
+</section>
+<section id="development-version">
+<h3>Development version<a class="headerlink" href="#development-version" title="Permalink to this heading"></a></h3>
 <p>You can install the development version of <code class="docutils literal notranslate"><span class="pre">pynssp</span></code> from Github:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/CDCgov/pynssp.git
 </pre></div>
 </div>
+</section>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
