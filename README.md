@@ -6,13 +6,25 @@
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://github.com/CDCgov/pynssp)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 ## Overview
 A Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice. A collection of classes and methods to advance the practice of Syndromic Surveillance. This python package serves as a Python alternative to the [Rnssp R package](https://github.com/CDCgov/Rnssp/).
 
 ## Installation
+
+### Stable release
+
+To install `pynssp`, run this command in your terminal:
+
+```sh
+pip install pynssp
+```
+
+This is the preferred method to install `pynssp`, as it will always install the most recent stable release.
+
+### Development version
 
 You can install the development version of `pynssp` from Github:
 
