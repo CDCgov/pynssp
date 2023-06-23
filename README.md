@@ -3,10 +3,10 @@
 <!-- badges: start -->
 [![pynssp Pipeline](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml)
 [![pynssp documentation](https://github.com/CDCgov/pynssp/actions/workflows/gh-pages.yaml/badge.svg)](https://github.com/CDCgov/pynssp/actions/workflows/gh-pages.yaml)
-[![Project Status: Active - The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://github.com/CDCgov/pynssp)
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://github.com/CDCgov/pynssp)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/pynssp?label=PyPI%20Downloads&color=brightgreen)](https://pypi.org/project/pynssp)
+[![PyPI](https://img.shields.io/pypi/v/pynssp?color=brightgreen)](https://pypi.org/project/pynssp)
 <!-- badges: end -->
 
 ## Overview
