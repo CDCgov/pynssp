@@ -66,7 +66,7 @@ def change_dates(url, start_date=None, end_date=None):
         raise ValueError(f"Start Date '{new_start}' is posterior to End Date '{new_end}'.")
     
     # Replace the old start and end dates with the new start and end dates in the URL string.
-    new_url = url.replace(old_end, new_end).replace(old_start, new_start)
+    new_url = url.replace(epref+old_end, epref+new_end).replace(spref+old_start, spref+new_start)
     
     # Remove any whitespace characters from the modified URL string.
     new_url = re.sub(r"\s+", "", new_url)
