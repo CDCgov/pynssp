@@ -1,5 +1,10 @@
 # Release Notes
 
+## 0.1.1 (2023-06-22)
+
+#### Bug fixes
+* The `change_dates()` function has been upgraded to fix flip-flopping start and end date values.
+
 ## 0.1.0 (2023-06-22)
 * First release on PyPI.
 
