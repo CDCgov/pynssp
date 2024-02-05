@@ -1,4 +1,4 @@
-# pynssp <a href='https://cdcgov.github.io/pynssp'><img src='https://github.com/CDCgov/pynssp/blob/master/docs/_static/logo.png' align="right" height="139" /></a>
+# pynssp <a href='https://cdcgov.github.io/pynssp'><img src='https://github.com/CDCgov/pynssp/blob/dev/docs/_static/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 [![pynssp Pipeline](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml)
