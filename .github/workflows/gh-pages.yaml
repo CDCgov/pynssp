@@ -6,9 +6,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
 
 # https://gist.github.com/c-bata/ed5e7b7f8015502ee5092a3e77937c99
 jobs:
