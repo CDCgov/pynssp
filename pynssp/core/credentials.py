@@ -31,6 +31,11 @@ class Credentials(Auth):
         self.filename = filename
 
     def get_api_response(self, url):
+        """Get API response
+
+        :param url: a string of API URL
+        :returns: an object of class response
+        """
         auth = (self.__k.decrypt(self.__username.value).decode(),
                 self.__k.decrypt(self.__password.value).decode()) \
             if self.__password is not None else None

@@ -31,6 +31,11 @@ class Token(Auth):
         self.filename = filename
 
     def get_api_response(self, url):
+        """Get API response
+
+        :param url: a string of API URL
+        :returns: an object of class response
+        """
         headers = {
             "Authorization": "{} {}".
             format(self.access_token, self.__k.decrypt(self.__token.value).decode())
