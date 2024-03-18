@@ -12,7 +12,7 @@ class Auth:
     def __init__(self):
         """Initializes a new Auth object.
         """
-        self.filename = None
+        pass
 
     def get_api_response(self, url):
         pass
