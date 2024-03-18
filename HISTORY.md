@@ -2,8 +2,17 @@
 
 ## 0.1.1 (2023-06-22)
 
-#### Bug fixes
+### Bug fixes
 * The `change_dates()` function has been upgraded to fix flip-flopping start and end date values.
+
+### Features
+
+#### Credentials Management
+* The abstract class `Auth` has been added.
+* Both the `Credentials` and `Token` classes inherit the `Auth` class.
+
+#### Classes
+* The `Auth` class delineates methods Shared by the `Token` and `Credentials` Classes
 
 ## 0.1.0 (2023-06-22)
 * First release on PyPI.
