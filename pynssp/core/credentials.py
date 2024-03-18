@@ -20,7 +20,7 @@ class Credentials(Auth):
         >>> myProfile = Credentials("user", "pass")
     """
 
-    def __init__(self, username=None, password=None, filename="myProfile"):
+    def __init__(self, username=None, password=None):
         """Initializes a new Credentials object.
         """
         self.__k = Fernet(Fernet.generate_key())
@@ -28,7 +28,7 @@ class Credentials(Auth):
             if username is not None else None
         self.__password = NSSPContainer(self.__k.encrypt(password.encode())) \
             if password is not None else None
-        self.filename = filename
+        self.filename = "myProfile"
 
     def get_api_response(self, url):
         """Get API response

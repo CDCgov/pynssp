@@ -3,18 +3,17 @@ from io import StringIO
 from pandas import json_normalize, read_csv
 from tempfile import NamedTemporaryFile
 from pynssp.core.container import APIGraph
-from pynssp.core.constants import HTTP_STATUSES
-from abc import ABC, abstractmethod
 
 
-class Auth(ABC):
+class Auth:
+    """An Abstract Auth Class Delineating Methods and Variables Shared by the Token and Credentials Classes
+    """
 
-    def __init__(self, filename):
+    def __init__(self):
         """Initializes a new Auth object.
         """
-        self.filename = filename
+        self.filename = None
 
-    @abstractmethod
     def get_api_response(self, url):
         pass
 

@@ -22,13 +22,13 @@ class Token(Auth):
         >>> myTokenProfile = Token("abc123")
     """
 
-    def __init__(self, token, access_token="Bearer", filename="tokenProfile"):
+    def __init__(self, token, access_token="Bearer"):
         """Initializes a new Token object.
         """
         self.__k = Fernet(Fernet.generate_key())
         self.__token = NSSPContainer(self.__k.encrypt(token.encode()))
         self.access_token = access_token
-        self.filename = filename
+        self.filename = "tokenProfile"
 
     def get_api_response(self, url):
         """Get API response
