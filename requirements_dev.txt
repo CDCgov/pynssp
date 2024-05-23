@@ -4,6 +4,7 @@ m2r
 flake8
 pytest
 Sphinx
+nbconvert==6.5.4
 tox>=4.0.0a9
 twine>=3.8.0
 watchdog==2.2.1
@@ -17,3 +18,5 @@ matplotlib
 statsmodels
 scipy
 sphinx_rtd_theme
+sphinx-copybutton
+sphinx-favicon
