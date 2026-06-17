@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.1.2 (2026-06-17)
+
+Fixed install issue related to package data.  Updated package info to document Python support up to 3.14.
+
 ## 0.1.1 (2023-06-22)
 
 ### Bug fixes
