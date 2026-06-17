@@ -32,6 +32,10 @@ You can install the development version of `pynssp` from Github:
 pip install git+https://github.com/CDCgov/pynssp.git
 ```
 
+### Python version note
+
+`pynssp` is intended to work with Python 3.7 and newer, including current Python 3.14 environments. If you see an import error such as `ModuleNotFoundError: No module named 'pkg_resources'`, upgrading to the latest package version (or installing from the repository after the recent fixes) should resolve it.
+
 ## Usage
 ```python
 from pynssp import *

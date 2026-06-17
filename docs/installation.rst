@@ -19,6 +19,11 @@ This is the preferred method to install pynssp, as it will always install the mo
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
 
+`pynssp` is intended to work with Python 3.7 and newer, including current
+Python 3.14 environments. If you encounter an import error such as
+``ModuleNotFoundError: No module named 'pkg_resources'``, installing the latest
+release or updating from the repository should resolve it.
+
 .. _pip: https://pip.pypa.io
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
