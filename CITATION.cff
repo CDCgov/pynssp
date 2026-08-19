@@ -8,4 +8,4 @@ title: "pynssp: A Python package for the National Syndromic Surveillance Program
 version: 0.1.1
 date-released: TBD
 license: "Apache License (>= 2)"
-repository-code: "https://github.com/CDCgov/Rnssp"
+repository-code: "https://github.com/CDCgov/pynssp"
