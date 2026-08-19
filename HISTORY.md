@@ -1,18 +1,29 @@
 # Release Notes
 
-## 0.1.1 (2023-06-22)
+## 0.1.1 (2026-08-19)
 
 ### Bug fixes
+* The install issue related to package data has been fixed.
+* The package info to document Python support up to 3.14 has been updated
 * The `change_dates()` function has been upgraded to fix flip-flopping start and end date values.
+* The EWMA detector has been updated to closely match the `Rnssp`'s implementation. In addition, the `alert_ewma()` function has been updated with a patch to prevent errors when detector is applied to a zero series.
 
-### Features
+### New Features
+
+#### Anomaly Detection
+* The Farrington Temporal Detector algorithm `alert_farrington()` has been added for weekly time series of counts spanning multiple years.
 
 #### Credentials Management
-* The abstract class `Auth` has been added.
+* A new abstract class `Auth` has been added.
 * Both the `Credentials` and `Token` classes inherit the `Auth` class.
+* A new `Apikey` class has been added for API services token use. The `Apikey` class inherits the `Auth` class, and has the same methods as the `Credentials` and `Token` classes.
 
 #### Classes
 * The `Auth` class delineates methods Shared by the `Token` and `Credentials` Classes
+
+#### Utility Functions
+* A new `create_apikey_profile()` function has been added as a wrapper to the `Apikey` class.
+
 
 ## 0.1.0 (2023-06-22)
 * First release on PyPI.
