@@ -5,7 +5,7 @@ from scipy import stats
 
 def ewma_loop(df, t, y, B, g, w1, w2):
     """Loop for EWMA
-    
+
     Loop for EWMA and adjustment of outlying smoothed values
 
     :param df: A pandas data frame
@@ -29,12 +29,21 @@ def ewma_loop(df, t, y, B, g, w1, w2):
     """
     df = df.reset_index(drop=True).sort_values(by=t)
     # Vector of observations
-    y = df[y].tolist()
+    y_initial = df[y].to_numpy(dtype=float)
+
+    # Scaling for percentage time series with values < 1
+    positive_y = y_initial[y_initial > 0]
+    if np.max(y_initial) < 1 and positive_y.size >= 1:
+        y_values = y_initial / np.median(positive_y)
+    elif np.sum(y_initial) == 0:
+        y_values = y_initial
+    else:
+        y_values = y_initial
 
     N = len(df)
 
     # Populate algorithm parameters
-    min_baseline = 11
+    min_baseline = 7
     max_baseline = B
 
     # Initialize result vectors
@@ -52,21 +61,21 @@ def ewma_loop(df, t, y, B, g, w1, w2):
     expected = np.repeat(np.nan, N)
 
     # Initialize EWMA values
-    z1[0] = z2[0] = y[0]
+    z1[0] = z2[0] = y_values[0]
 
     for i_0 in range(1, min_baseline + g):
-        z1[i_0] = w1 * y[i_0] + (1 - w1) * z1[i_0 - 1]
-        z2[i_0] = w2 * y[i_0] + (1 - w2) * z2[i_0 - 1]
+        z1[i_0] = w1 * y_values[i_0] + (1 - w1) * z1[i_0 - 1]
+        z2[i_0] = w2 * y_values[i_0] + (1 - w2) * z2[i_0 - 1]
 
     # Initialize baseline indices
-    ndx_baseline = np.arange(0, min_baseline-1)
+    ndx_baseline = np.arange(1, min_baseline)
 
     # EWMA loop
     for i in range(min_baseline + g, N):
 
         # Pad baseline until full baseline is obtained
         if ndx_baseline[-1] < max_baseline:
-            ndx_baseline = np.insert(ndx_baseline, 0, -1)
+            ndx_baseline = np.insert(ndx_baseline, 0, 0)
 
         # Advance baseline for current iteration
         ndx_baseline += 1
@@ -75,7 +84,7 @@ def ewma_loop(df, t, y, B, g, w1, w2):
         n_df = len(ndx_baseline) - 1
 
         # Baseline and current data
-        y_baseline = pd.Series(y)[ndx_baseline]
+        y_baseline = y_values[ndx_baseline - 1]
 
         expected[i] = np.mean(y_baseline)
         sigma = np.std(y_baseline, ddof=1)
@@ -90,10 +99,10 @@ def ewma_loop(df, t, y, B, g, w1, w2):
         )
 
         ucl_alert = np.round(stats.t.ppf(1 - 0.01, df=n_df), 5)
-        ucl_warning = np.round(stats.t.ppf(1 - 0.025, df=n_df), 5)
+        ucl_warning = np.round(stats.t.ppf(1 - 0.05, df=n_df), 5)
 
-        min_sigma1 = (w1 / ucl_warning) * (1 + 0.5 * (1 - w1)**2)
-        min_sigma2 = (w2 / ucl_warning) * (1 + 0.5 * (1 - w2)**2)
+        min_sigma1 = (w1 / ucl_warning) * (0.01 + 0.05 * (1 - w1) ** 2)
+        min_sigma2 = (w2 / ucl_warning) * (0.01 + 0.05 * (1 - w2) ** 2)
 
         constant1 = (0.1289 - (0.2414 - 0.1826 * (1 - w1)**4) * \
                     np.log(10 * 0.05)) * (w1 / ucl_warning)
@@ -104,8 +113,8 @@ def ewma_loop(df, t, y, B, g, w1, w2):
         sigma2[i] = max(min_sigma2, sigma * sigma_correction2 + constant2)
 
         # EWMA values
-        z1[i] = w1 * y[i] + (1 - w1) * z1[i - 1]
-        z2[i] = w2 * y[i] + (1 - w2) * z2[i - 1]
+        z1[i] = w1 * y_values[i] + (1 - w1) * z1[i - 1]
+        z2[i] = w2 * y_values[i] + (1 - w2) * z2[i - 1]
 
         # Calculate test statistics
         test_stat1[i] = (z1[i] - expected[i]) / sigma1[i]
@@ -130,7 +139,7 @@ def ewma_loop(df, t, y, B, g, w1, w2):
             p_val[i] = pval2[i]
             test_stat[i] = test_stat2[i]
             z[i] = z2[i]
-    
+
     df["baseline_expected"] = expected
     df["test_statistic"] = test_stat
     df["p_value"] = p_val
@@ -140,7 +149,7 @@ def ewma_loop(df, t, y, B, g, w1, w2):
 
 def alert_ewma(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
     """Exponentially Weighted Moving Average (EWMA)
-    
+
     The EWMA compares a weighted average of the most recent visit counts
     to a baseline expectation. For the weighted average to be tested, an exponential
     weighting gives the most influence to the most recent observations.
@@ -172,70 +181,69 @@ def alert_ewma(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
         Defaults to 0.9 to match ESSENCE implementation and approximate the C2 algorithm.
     :returns: Original pandas data frame with detection results.
     :examples:
-    
+
         >>> from pynssp import alert_ewma
         >>> import pandas as pd
         >>> import numpy as np
-        >>> 
+        >>>
         >>> df = pd.DataFrame({
         ...     "date": pd.date_range("2020-01-01", "2020-12-31"),
         ...     "count": np.random.randint(0, 101, size=366)
         ... })
-        >>> 
+        >>>
         >>> df_ewma = alert_ewma(df)
         >>> df_ewma.head()
     """
-    
+
     # Check baseline length argument
     if B < 7:
         raise ValueError("Error in alert_ewma: baseline length argument `B` must be greater than or equal to 7")
-        
+
     # Check guardband length argument
     if g < 0:
         raise ValueError("Error in alert_ewma: guardband length argument `g` cannot be negative")
-    
+
     # Check for sufficient baseline data
     grouped_df = isinstance(df, pd.core.groupby.DataFrameGroupBy)
 
     if not grouped_df:
-        df_size = df.size
+        df_size = len(df)
     else:
-        df_size = df.size()[0]
-    
+        df_size = len(df.obj)
+
     if df_size < B + g + 1:
         raise ValueError("Error in alert_ewma: not enough historical data")
-        
+
     # Check for grouping variables
     if grouped_df:
-        
+        group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
+
         alert_tbl = df\
-            .apply(lambda x: ewma_loop(x, t, y, B, g, w1, w2))
-        
+            .apply(lambda x: ewma_loop(x.assign(**{t: pd.to_datetime(x[t])}), t, y, B, g, w1, w2))
+
         alert_tbl = alert_tbl.reset_index(drop=True)
+        alert_tbl = alert_tbl[group_cols + [col for col in alert_tbl.columns if col not in group_cols]]
 
         alert_tbl["alert"] = np.select(
             [
                 alert_tbl["p_value"] < 0.01,
                 (alert_tbl["p_value"] >= 0.01) & (alert_tbl["p_value"] < 0.05),
                 alert_tbl["p_value"] >= 0.05
-            ], 
-            ["red", "yellow", "blue"], 
+            ],
+            ["red", "yellow", "blue"],
             default="grey"
         )
-        
+
     else:
         base_tbl = df.copy()
-        
-        if not isinstance(base_tbl[t], pd.DatetimeIndex):
-            base_tbl[t] = pd.to_datetime(base_tbl[t])
-        
+        base_tbl[t] = pd.to_datetime(base_tbl[t])
         unique_dates = base_tbl[t].unique()
-        
+
         if len(unique_dates) != df.shape[0]:
             raise ValueError("Error in alert_ewma: Number of unique dates does not equal the number of rows. Should your dataframe be grouped?")
-            
+
         alert_tbl = ewma_loop(base_tbl, t=t, y=y, B=B, g=g, w1=w1, w2=w2)
-        
+
         alert_tbl = alert_tbl.reset_index(drop=True)
 
         alert_tbl["alert"] = np.select(
@@ -243,9 +251,9 @@ def alert_ewma(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
                 alert_tbl["p_value"] < 0.01,
                 (alert_tbl["p_value"] >= 0.01) & (alert_tbl["p_value"] < 0.05),
                 alert_tbl["p_value"] >= 0.05
-            ], 
-            ["red", "yellow", "blue"], 
+            ],
+            ["red", "yellow", "blue"],
             default="grey"
         )
-    
+
     return alert_tbl
