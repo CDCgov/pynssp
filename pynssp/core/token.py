@@ -1,6 +1,6 @@
 from requests import get
 from cryptography.fernet import Fernet
-from pynssp.core.container import NSSPContainer, APIGraph
+from pynssp.core.container import NSSPContainer
 from pynssp.core.constants import HTTP_STATUSES
 from pynssp.core.auth import Auth
 
@@ -44,3 +44,5 @@ class Token(Auth):
         print("{}: {}".format(response.status_code, HTTP_STATUSES[str(response.status_code)]))
         if response.status_code == 200:
             return response
+        else:
+            raise ValueError(f"Failed to fetch API response: {response.status_code} - {HTTP_STATUSES[str(response.status_code)]}")

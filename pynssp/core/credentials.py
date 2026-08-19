@@ -43,3 +43,6 @@ class Credentials(Auth):
         print("{}: {}".format(response.status_code, HTTP_STATUSES[str(response.status_code)]))
         if response.status_code == 200:
             return response
+        else:
+            raise ValueError(f"Failed to fetch API response: {response.status_code} - {HTTP_STATUSES[str(response.status_code)]}")
+
