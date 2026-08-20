@@ -30,7 +30,6 @@ class Apikey(Auth):
 
         :param url: A string API URL.
         :returns: an object of class response
-        :raises ValueError: If the API key is missing or URL is invalid.
         """
         if self.api_key is None:
             raise ValueError("Please, set your API key!")
