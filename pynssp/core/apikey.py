@@ -5,10 +5,18 @@ from pynssp.core.constants import HTTP_STATUSES
 from pynssp.core.auth import Auth
 
 class Apikey(Auth):
-    """A class representing API-key authentication.
+    """An Apikey Class Representing an API-key authentication object
 
-    The class stores an API key and key-header name, and exposes methods for
-    fetching API responses and content through the inherited ``Auth`` helpers.
+    An Apikey object has an API key and a key name.
+    An Apikey object can get API data via an API URL.
+
+    :param api_key: A string representing the API key.
+    :param key_name: A string representing the header key name for API-key authentication (default is "API-KEY").
+
+    :examples:
+        >>> from pynssp import Apikey
+        >>>
+        >>> myApiProfile = Apikey("my_api_key")
     """
 
     def __init__(self, api_key=None, key_name="API-KEY"):
@@ -30,6 +38,7 @@ class Apikey(Auth):
 
         :param url: A string API URL.
         :returns: an object of class response
+
         """
         if self.api_key is None:
             raise ValueError("Please, set your API key!")
