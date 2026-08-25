@@ -16,10 +16,11 @@
 #### Credentials Management
 * A new abstract class `Auth` has been added.
 * Both the `Credentials` and `Token` classes inherit the `Auth` class.
-* A new `Apikey` class has been added for API services token use. The `Apikey` class inherits the `Auth` class, and has the same methods as the `Credentials` and `Token` classes.
+* A new `Apikey` class has been added for API services token use.
 
 #### Classes
-* The `Auth` class delineates methods Shared by the `Token` and `Credentials` Classes
+* The `Auth` class delineates methods Shared by the `Token`, `Credentials`, and `Apikey` Classes.
+The new `Apikey` class inherits the `Auth` class, and has the same methods as the `Credentials` and `Token` classes.
 
 #### Utility Functions
 * A new `create_apikey_profile()` function has been added as a wrapper to the `Apikey` class.
