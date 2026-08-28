@@ -10,8 +10,8 @@ class Apikey(Auth):
     An Apikey object has an API key and a key name.
     An Apikey object can get API data via an API URL.
 
-    :param api_key: A string representing the API key.
-    :param key_name: A string representing the header key name for API-key authentication (default is "API-KEY").
+    :param api_key: A string representing an API key.
+    :param key_name: A string representing a header key name for API-key authentication (default is "API-KEY").
 
     :examples:
         >>> from pynssp import Apikey
