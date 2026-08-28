@@ -15,4 +15,5 @@ from .detectors.regression import *
 from .detectors.switch import *
 from .detectors.nbinom import *
 from .detectors.serfling import *
+from .detectors.farrington import *
 from .detectors.trend import *
