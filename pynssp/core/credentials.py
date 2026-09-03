@@ -23,7 +23,6 @@ class Credentials(Auth):
     def __init__(self, username=None, password=None):
         """Initializes a new Credentials object.
         """
-        self.__k = Fernet(Fernet.generate_key())
         self.__username = NSSPContainer(self.__k.encrypt(username.encode())) \
             if username is not None else None
         self.__password = NSSPContainer(self.__k.encrypt(password.encode())) \
