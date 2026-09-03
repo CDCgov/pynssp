@@ -1,5 +1,6 @@
 from json import loads
 from io import StringIO
+from cryptography.fernet import Fernet
 from pandas import json_normalize, read_csv
 from tempfile import NamedTemporaryFile
 from pynssp.core.container import APIGraph
@@ -12,7 +13,7 @@ class Auth:
     def __init__(self):
         """Initializes a new Auth object.
         """
-        pass
+        self.__k = Fernet(Fernet.generate_key())
 
     def get_api_response(self, url):
         pass
