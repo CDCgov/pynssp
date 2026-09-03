@@ -1,5 +1,4 @@
 from requests import get
-from cryptography.fernet import Fernet
 from pynssp.core.container import NSSPContainer
 from pynssp.core.constants import HTTP_STATUSES
 from pynssp.core.auth import Auth
@@ -25,11 +24,13 @@ class Apikey(Auth):
         :param api_key: API key string.
         :param key_name: Header key name used for API-key authentication.
         """
+        # super().__init__()
 
         if key_name is None or not isinstance(key_name, str) or key_name.strip() == "":
             raise ValueError("Argument `key_name` must be a non-empty string")
         self.api_key = NSSPContainer(self.__k.encrypt(api_key.encode()))
         self.key_name = key_name
+        self.filename = "apikeyProfile"
 
     def get_api_response(self, url):
         """Get API response using API-key header authentication.
