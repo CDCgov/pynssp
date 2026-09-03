@@ -1,5 +1,8 @@
 import pytest
-from pynssp import create_profile, create_token_profile, Credentials, Token
+from pynssp import (
+    create_profile, create_token_profile, create_apikey_profile,
+    Credentials, Token, Apikey
+)
 
 
 @pytest.fixture
@@ -9,6 +12,10 @@ def myProfile():
 @pytest.fixture
 def myTokenProfile():
     return create_token_profile("", "")
+
+@pytest.fixture
+def myApikeyProfile():
+    return create_apikey_profile("", "")
 
 
 def test_create_profile(myProfile):
@@ -26,3 +33,10 @@ def test_create_token_profile(myTokenProfile):
 
     with pytest.raises(Exception):
         create_token_profile()
+
+
+def test_create_apikey_profile(myApikeyProfile):
+    assert isinstance(myApikeyProfile, Apikey)
+
+    with pytest.raises(Exception):
+        create_apikey_profile()
