@@ -25,7 +25,6 @@ class Token(Auth):
     def __init__(self, token, access_token="Bearer"):
         """Initializes a new Token object.
         """
-        self.__k = Fernet(Fernet.generate_key())
         self.__token = NSSPContainer(self.__k.encrypt(token.encode()))
         self.access_token = access_token
         self.filename = "tokenProfile"
