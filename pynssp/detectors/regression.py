@@ -43,7 +43,10 @@ def adaptive_regression(df, t, y, B, g):
     ucl_warning = np.round(stats.t.ppf(1 - 0.05, df=df_range), 5)
 
     # Bound standard error of regression
-    min_sigma = 1.01 / ucl_warning
+    # NOTE: 0.01 (not 1.01) matches Rnssp's adaptive_regression(); the R package
+    # corrected this constant in ae5ba22. Using 1.01 inflates the sigma floor
+    # ~100x, shrinking test statistics and hiding genuine alerts on smooth series.
+    min_sigma = 0.01 / ucl_warning
 
     # Initialize result vectors
     test_stat = np.repeat(np.nan, N)
@@ -105,9 +108,12 @@ def adaptive_regression(df, t, y, B, g):
         r_sqrd_adj[i] = r2_adj if not np.isnan(r2_adj) else 0
 
         # Calculate bounded standard error of regression with derived formula for efficiency
+        # NOTE: min_sigma[n_df - 1]: Rnssp indexes its 1-based vector as
+        # min_sigma[n_df] (quantile at df == n_df); the 0-based equivalent here
+        # is n_df - 1. Using min_sigma[n_df] picked the quantile for df == n_df + 1.
         sigma[i] = max(
             np.sqrt(mse) * np.sqrt(((B_length + 7) * (B_length - 4)) / (B_length * (B_length - 7))),
-            min_sigma[n_df],
+            min_sigma[n_df - 1],
         )
 
         # Day of week for test date

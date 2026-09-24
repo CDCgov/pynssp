@@ -4,7 +4,7 @@
 
 The goal of the `pynssp` package is to facilitate the access to the Electronic Surveillance System for the Early Notification 
 of Community-based Epidemics (ESSENCE) via a secure and simplified interface. 
-In addition, `pynssp` provides methods and functions that streamline the data pull by abstracting the complexity of the R codes from the users.
+In addition, `pynssp` provides methods and functions that streamline the data pull by abstracting the complexity of the Python scripts from the users.
 
 In this vignette, we explained how to create an NSSP user profile, and provide various examples to how to use it to pull data from ESSENCE using the following ESSENCE APIs:
 
