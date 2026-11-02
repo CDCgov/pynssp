@@ -42,7 +42,7 @@ def test_get_api_data_token(url, url2):
 
 def test_get_api_data_apikey(url, url2):
 
-    handle = Apikey(" ", " ")
+    handle = Apikey("abcd1234", "API-KEY")
     data = get_api_data(url, profile=handle)
     data2 = get_api_data(url2, profile=handle, fromCSV=True)
 

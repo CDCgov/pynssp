@@ -39,7 +39,7 @@ def test_get_api_graph_token(url):
 def test_get_api_graph_apikey(url):
     url = "http://httpbin.org/image/png"
 
-    handle = Apikey(" ", " ")
+    handle = Apikey("abcd1234", "API-KEY")
 
     graph = handle.get_api_graph(url)
 

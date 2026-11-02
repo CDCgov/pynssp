@@ -15,7 +15,7 @@ def tokenProfile():
 
 @pytest.fixture
 def apikeyProfile():
-    return Apikey(" ", " ")
+    return Apikey("abcd1234", "API-KEY")
 
 
 def test_profile_class(profile, tokenProfile, apikeyProfile):
@@ -51,7 +51,7 @@ def test_get_api_response():
 
     handle = Credentials(" ", " ")
     handle2 = Token("abc1234567890")
-    handle3 = Apikey(" ", " ")
+    handle3 = Apikey("abcd1234", "API-KEY")
 
     response = get_api_response(url, profile=handle)
     response2 = get_api_response(url, profile=handle2)
