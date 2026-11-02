@@ -12,7 +12,7 @@ with open('HISTORY.md') as history_file:
 
 requirements = [
     "requests", "pandas", "cryptography", "pillow", "scikit-image", "matplotlib", "statsmodels",
-    "scipy", "datetime"
+    "scipy", "datetime", "warnings"
     ]
 
 test_requirements = ['pytest>=3', ]
@@ -20,7 +20,7 @@ test_requirements = ['pytest>=3', ]
 setup(
     author="Gbedegnon Roseric Azondekon",
     author_email='gazondekon@cdc.gov, roseric_2000@yahoo.fr',
-    python_requires='>=3.7',
+    python_requires='>=3.6',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
