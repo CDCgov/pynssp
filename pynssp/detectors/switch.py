@@ -32,46 +32,46 @@ def alert_switch(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
             Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algorithm.
     :returns: A dataframe containing the results of the analysis.
     :examples:
-    
+
         >>> from pynssp import alert_switch
         >>> import pandas as pd
         >>> import numpy as np
-        >>> 
+        >>>
         >>> df = pd.DataFrame({
         ...    "date": pd.date_range("2020-01-01", "2020-12-31"),
         ...    "count": np.random.randint(0, 101, size=366)
         ... })
-        >>> 
+        >>>
         >>> df_switch = alert_switch(df)
         >>> df_switch.head()
     """
-  
+
     # Check baseline length argument
     if B < 7:
       raise ValueError("Error in alert_switch: baseline length argument B must be greater than or equal to 7")
-    
+
     if B % 7 != 0:
       raise ValueError("Error in alert_switch: baseline length argument B must be a multiple of 7")
-    
+
     # Check guardband length argument
     if g < 0:
       raise ValueError("Error in alert_switch: guardband length argument g cannot be negative")
-    
+
     # Check for sufficient baseline data
     grouped_df = isinstance(df, pd.core.groupby.DataFrameGroupBy)
 
     if not grouped_df:
-        df_size = df.size
+        df_size = len(df)
     else:
-        df_size = df.size()[0]
+        df_size = len(df.obj)
 
     # Check for sufficient baseline data
     if df_size < B + g + 1:
       raise ValueError("Error in alert_switch: not enough historical data")
-    
+
     # Check for grouping variables
     base_tbl = df
-    s_cols = ["dow", "dummy", "sigma"] if grouped_df else ["dow", "dummy", "sigma", "index"]
+    s_cols = ["dow", "dummy", "sigma"] if grouped_df else ["dow", "dummy", "sigma"]
 
     alert_tbl_reg = alert_regression(base_tbl, t, y, B, g)\
         .drop(columns=s_cols)\
@@ -83,7 +83,7 @@ def alert_switch(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
     alert_tbl_ewma["detector"] = "EWMA"
 
     stats_cols = [
-       "baseline_expected", "test_statistic", "p_value", 
+       "baseline_expected", "test_statistic", "p_value",
        "adjusted_r_squared", "alert", "detector"
     ]
 
@@ -99,16 +99,17 @@ def alert_switch(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
     )
 
     if grouped_df:
-       groups = list(df.grouper.names)
+       grouper_obj = getattr(df, "grouper", None) or getattr(df, "_grouper", None)
+       groups = list(grouper_obj.names)
        combined_out = pd.concat([
          alert_tbl_reg.query("(adjusted_r_squared >= 0.60)", engine="python"),
          replace_dates
         ]).drop(columns="adjusted_r_squared")\
           .sort_values(by=groups + [t])
-       
+
        combined_out["detector"] = np.where(
-         combined_out["test_statistic"].isna(), 
-         np.nan, 
+         combined_out["test_statistic"].isna(),
+         np.nan,
          combined_out["detector"]
         )
     else:
@@ -118,10 +119,10 @@ def alert_switch(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
           replace_dates
         ]).drop(columns="adjusted_r_squared")\
           .sort_values(by=t)
-       
+
        combined_out["detector"] = np.where(
-          combined_out["test_statistic"].isna(), 
-          np.nan, 
+          combined_out["test_statistic"].isna(),
+          np.nan,
           combined_out["detector"]
         )
 
