@@ -16,7 +16,7 @@ def adaptive_regression(df, t, y, B, g):
     :param g: Guardband parameter. The guardband length is the number of days
             separating the baseline from the current date in consideration for alerting.
     :returns: A pandas data frame with p-values and test statistics
-    
+
     """
     df = df.reset_index(drop=True).sort_values(by=t)
     base_tbl = df
@@ -27,7 +27,7 @@ def adaptive_regression(df, t, y, B, g):
             fillna(0).\
             reset_index(drop=True)
         ], axis=1)
-    
+
     dates = pd.to_datetime(base_tbl[t]).tolist()
     y_obs = base_tbl[y].tolist()
 
@@ -168,50 +168,52 @@ def alert_regression(df, t="date", y="count", B=28, g=2):
             Defaults to 2.
     :returns: Original pandas data frame with detection results.
     :examples:
-    
+
         >>> from pynssp import alert_regression
         >>> import pandas as pd
         >>> import numpy as np
-        >>> 
+        >>>
         >>> df = pd.DataFrame({
         ...    "date": pd.date_range("2020-01-01", "2020-12-31"),
         ...    "count": np.random.randint(0, 101, size=366)
         ... })
-        >>> 
+        >>>
         >>> df_regression = alert_regression(df)
         >>> df_regression.head()
 
     """
-    
+
     # Check baseline length argument
     if B < 7:
         raise ValueError(f"Error in alert_regression: baseline length argument B={B} must be greater than or equal to 7")
-    
+
     if B % 7 != 0:
         raise ValueError(f"Error in alert_regression: baseline length argument B={B} must be a multiple of 7")
-    
+
     # Check guardband length argument
     if g < 0:
         raise ValueError(f"Error in alert_regression: guardband length argument g={g} cannot be negative")
-    
+
     # Check for sufficient baseline data
     grouped_df = isinstance(df, pd.core.groupby.DataFrameGroupBy)
 
     if not grouped_df:
-        df_size = df.size
+        df_size = len(df)
     else:
-        df_size = df.size()[0]
+        df_size = len(df.obj)
 
     # Check for sufficient baseline data
     if df_size < B + g + 1:
         raise ValueError("Error in alert_regression: not enough historical data")
-        
+
     if grouped_df:
+        group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
 
         df_result = df\
             .apply(lambda data: adaptive_regression(data, t=t, y=y, B=B, g=g))
-        
-        df_result = df_result.reset_index(drop=True)
+
+        df_result = df_result.reset_index(level=-1, drop=True).reset_index(drop=False)
+        df_result = df_result[group_cols + [col for col in df_result.columns if col not in group_cols]]
 
         df_result["alert"] = np.select([(df_result["p_value"] < 0.01),
                                         (df_result["p_value"] >= 0.01) & (df_result["p_value"] < 0.05),
@@ -224,11 +226,11 @@ def alert_regression(df, t="date", y="count", B=28, g=2):
             raise ValueError("Error in alert_regression: Number of unique dates does not equal the number of rows. Should your dataframe be grouped?")
 
         df_result = adaptive_regression(df, t=t, y=y, B=B, g=g)
-        df_result = df_result.reset_index()
+        df_result = df_result.reset_index(drop=True)
         df_result["alert"] = np.select([(df_result["p_value"] < 0.01),
                                         (df_result["p_value"] >= 0.01) & (df_result["p_value"] < 0.05),
                                         (df_result["p_value"] >= 0.05)],
                                         ["red", "yellow", "blue"], default="grey")
         df_result = df_result.drop(columns=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
-        
+
     return df_result
