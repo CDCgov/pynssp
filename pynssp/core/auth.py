@@ -13,7 +13,7 @@ class Auth:
     def __init__(self):
         """Initializes a new Auth object.
         """
-        self.__k = Fernet(Fernet.generate_key())
+        self._k = Fernet(Fernet.generate_key())
 
     def get_api_response(self, url):
         pass

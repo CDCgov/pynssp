@@ -24,11 +24,11 @@ class Apikey(Auth):
         :param api_key: API key string.
         :param key_name: Header key name used for API-key authentication.
         """
-        # super().__init__()
+        super().__init__()
 
         if key_name is None or not isinstance(key_name, str) or key_name.strip() == "":
             raise ValueError("Argument `key_name` must be a non-empty string")
-        self.api_key = NSSPContainer(self.__k.encrypt(api_key.encode()))
+        self.api_key = NSSPContainer(self._k.encrypt(api_key.encode()))
         self.key_name = key_name
         self.filename = "apikeyProfile"
 
@@ -45,7 +45,7 @@ class Apikey(Auth):
         if not isinstance(url, str) or url.strip() == "":
             raise ValueError("Argument `url` must be a non-empty string")
 
-        headers = {self.key_name: self.__k.decrypt(self.api_key.value).decode()}
+        headers = {self.key_name: self._k.decrypt(self.api_key.value).decode()}
 
         response = get(url, headers=headers)
         print("{}: {}".format(response.status_code, HTTP_STATUSES[str(response.status_code)]))

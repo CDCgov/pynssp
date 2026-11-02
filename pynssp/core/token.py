@@ -25,7 +25,8 @@ class Token(Auth):
     def __init__(self, token, access_token="Bearer"):
         """Initializes a new Token object.
         """
-        self.__token = NSSPContainer(self.__k.encrypt(token.encode()))
+        super().__init__()
+        self.__token = NSSPContainer(self._k.encrypt(token.encode()))
         self.access_token = access_token
         self.filename = "tokenProfile"
 
@@ -37,7 +38,7 @@ class Token(Auth):
         """
         headers = {
             "Authorization": "{} {}".
-            format(self.access_token, self.__k.decrypt(self.__token.value).decode())
+            format(self.access_token, self._k.decrypt(self.__token.value).decode())
         }
         response = get(url, headers=headers)
         print("{}: {}".format(response.status_code, HTTP_STATUSES[str(response.status_code)]))

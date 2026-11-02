@@ -23,9 +23,10 @@ class Credentials(Auth):
     def __init__(self, username=None, password=None):
         """Initializes a new Credentials object.
         """
-        self.__username = NSSPContainer(self.__k.encrypt(username.encode())) \
+        super().__init__()
+        self.__username = NSSPContainer(self._k.encrypt(username.encode())) \
             if username is not None else None
-        self.__password = NSSPContainer(self.__k.encrypt(password.encode())) \
+        self.__password = NSSPContainer(self._k.encrypt(password.encode())) \
             if password is not None else None
         self.filename = "myProfile"
 
@@ -35,8 +36,8 @@ class Credentials(Auth):
         :param url: a string of API URL
         :returns: an object of class response
         """
-        auth = (self.__k.decrypt(self.__username.value).decode(),
-                self.__k.decrypt(self.__password.value).decode()) \
+        auth = (self._k.decrypt(self.__username.value).decode(),
+                self._k.decrypt(self.__password.value).decode()) \
             if self.__password is not None else None
         response = get(url, auth=auth) if auth is not None else get(url)
         print("{}: {}".format(response.status_code, HTTP_STATUSES[str(response.status_code)]))
