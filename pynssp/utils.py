@@ -290,131 +290,133 @@ def webscrape_icd(icd_version="ICD10", year=None):
         >>> # Example 2
         >>> from pynssp import webscrape_icd
         >>>
-        >>> icd10_2021 = webscrape_icd(icd_version="ICD10", year=2021)
-        >>> icd10_2021.info()
+        >>> icd10_2025 = webscrape_icd(icd_version="ICD10", year=2025)
+        >>> icd10_2025.info()
 
         >>> # Example 3
         >>> from pynssp import webscrape_icd
         >>>
-        >>> icd10_2020 = webscrape_icd(icd_version="ICD10", year=2020)
-        >>> icd10_2020.info()
+        >>> icd10_2026 = webscrape_icd(icd_version="ICD10", year=2026)
+        >>> icd10_2026.info()
     """
 
     icd_version = icd_version.upper()
+    current_year = datetime.now().year
 
     if not re.search("ICD10|ICD9", icd_version):
         raise ValueError("ICD version argument icd_version must be 'ICD9' or 'ICD10'")
 
     if icd_version == "ICD9" and year is not None:
-        raise ValueError("Argument year only applies for ICD10")
+        raise ValueError("Argument year only applies for ICD-10")
 
     if icd_version == "ICD10" and year is not None:
-        if year <= 2018:
-            raise ValueError("ICD-10 code sets prior to 2019 are not supported")
+        if year < current_year - 6:
+            raise ValueError("ICD-10 code sets published more than 5 years ago are not supported")
 
-        if year > datetime.now().year + 1:
-            raise ValueError("Argument year cannot be greater than the upcoming year.")
+    if icd_version == "ICD10" and year is not None:
+        if year > current_year:
+            raise ValueError("Argument year cannot be greater than the current year.")
 
     if icd_version == "ICD10":
-        ftp_url = "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/"
+        base_url = "https://www.cms.gov/files/zip/"
+        icd_file = "-code-descriptions-tabular-order.zip"
 
-        root_folders = requests.get(ftp_url).text.split("\n")[2]
-
-        current_year = None
-        if year:
-            current_year = year == int(pd.Timestamp.today().strftime("%Y"))
+        current_year_requested = None
+        if year is not None:
+            current_year_requested = year == current_year
         else:
-            current_year = True
+            current_year_requested = True
 
-        if year is None or current_year:
-            year = int(pd.Timestamp.today().strftime("%Y"))
-            path = re.findall("(?<=HREF=\").*?(?=\")", root_folders)
-            years = []
-            for path in path:
-                match = re.search(r"\d{4}", path)
-                if match and (match.group(0) not in years):
-                    years.append(match.group(0))
+        if year is None or current_year_requested:
+            fy_year = current_year + 1
+            cms_url = f"{base_url}{fy_year}{icd_file}"
 
+            temp_file = tempfile.NamedTemporaryFile(suffix=".zip", delete=False)
 
-            if str(year) in years:
-                path = f"pub/Health_Statistics/NCHS/Publications/ICD10CM/{year}/"
-            else:
-                raise ValueError(f"No ICD10 found for the year {year}.")
-
-            res = requests.get(f"https://ftp.cdc.gov/{path}")
-            path_files = res.text.split("\n")[2]
-
-            pattern = r'(?<=HREF=")[^"]+\.\w+(?=">)'
-            file_list = re.findall(pattern, path_files)
-
-            pattern2 = "(code_descriptions|code%20descriptions|icd10cm_codes_\\d{4})"
-            file_match = [re.search(pattern2, re.sub("[ -]", "_", f.lower())) is not None for f in file_list]
-
-            if all(not x for x in file_match):
-                raise ValueError(f"The {pd.Timestamp.today().year} code description file is not yet available. Please try a previous year.")
-            else:
-                file = f"https://ftp.cdc.gov/{file_list[file_match.index(True)]}"
-                file_ext = os.path.splitext(file)[1].split()
-
-                file_idx = [i for i, ext in enumerate(file_ext) if ext == ".zip"]
-
-                if len(file_idx) == 0:
-                    raise ValueError("No ZIP file found in directory")
-
-                temp_file = tempfile.NamedTemporaryFile(suffix=file_ext[0], delete=False)
-
-                with temp_file:
-                    temp_dir = os.path.dirname(temp_file.name)
-                    response = requests.get(file, stream=True)
+            with temp_file:
+                temp_dir = os.path.dirname(temp_file.name)
+                try:
+                    response = requests.get(cms_url, stream=True)
                     response.raise_for_status()
-
                     for chunk in response.iter_content(chunk_size=1024):
                         temp_file.write(chunk)
+                except requests.exceptions.RequestException:
+                    raise ValueError(
+                        f"Error in webscrape_icd: ICD-10 webscrape failed. Either the {fy_year} code description file is not yet available or the CMS website is currently unresponsive. Please try a previous year or try again."
+                    )
 
-                with zipfile.ZipFile(temp_file.name, "r") as zip_ref:
-                    file_list = zip_ref.namelist()
+            with zipfile.ZipFile(temp_file.name, "r") as zip_file:
+                file_name = None
+                for name in zip_file.namelist():
+                    if re.search(r"icd10cm_codes_\d{4}\.txt", os.path.basename(name).lower()):
+                        file_name = name
+                        break
 
-                    for f in file_list:
-                        if re.match(f"Code Descriptions/icd10cm-codes-{year}.txt", f):
-                            file_name = f
-                            break
-                    else:
-                        raise ValueError(f"No file matching code description file found for {year}")
+                if file_name is None:
+                    raise ValueError(f"No file matching code description file found for FY {fy_year}")
 
-                    zip_ref.extract(file_name, path=temp_dir)
-                    file_path = os.path.join(temp_dir, file_name)
+                zip_file.extract(file_name, path=temp_dir)
 
-                    icd_dictionary = pd.read_csv(file_path, sep="\t", header=None, names=["code_combo"]) \
-                        .assign(code_combo=lambda df: df["code_combo"].str.replace("\\s{3,5}", "_", regex=True)) \
-                        .assign(code=lambda df: df["code_combo"].str.extract("^(.{1,5})")) \
-                        .assign(code=lambda df: df["code"].str.replace("_", "", regex=True)) \
-                        .assign(description=lambda df: df["code_combo"].str.extract("^(?:.{1,5})(.*)$")) \
-                        .assign(description=lambda df: df["description"].str.replace("_", "", regex=True)) \
-                        .assign(set=f"ICD-10 {year}")
-                    icd_dictionary = icd_dictionary[["code", "description", "set"]]
-            return icd_dictionary
-        else:
-            year
-            path = f"pub/Health_Statistics/NCHS/Publications/ICD10CM/{year}/"
-            file_path = f"https://ftp.cdc.gov/{path}icd10cm_codes_{year}.txt"
+            file_path = os.path.join(temp_dir, file_name)
 
             icd_dictionary = pd.read_csv(file_path, sep="\t", header=None, names=["code_combo"]) \
-                .assign(code_combo=lambda df: df["code_combo"].str.replace("\\s{3,5}", "_", regex=True)) \
-                .assign(code=lambda df: df["code_combo"].str.extract("^(.{1,5})")) \
-                .assign(code=lambda df: df["code"].str.replace("_", "", regex=True)) \
-                .assign(description=lambda df: df["code_combo"].str.extract("^(?:.{1,5})(.*)$")) \
-                .assign(description=lambda df: df["description"].str.replace("_", "", regex=True)) \
-                .assign(set=f"ICD-10 {year}")
-            icd_dictionary = icd_dictionary[["code", "description", "set"]]
+                .assign(code_combo=lambda df: df["code_combo"].str.replace(r"\s+", " ", regex=True).str.strip()) \
+                .assign(code_combo=lambda df: df["code_combo"].str.replace(" ", "_", n=1, regex=False)) \
+                .assign(code=lambda df: df["code_combo"].str.split("_", n=1).str[0].str.strip()) \
+                .assign(description=lambda df: df["code_combo"].str.split("_", n=1).str[1].fillna("").str.strip()) \
+                .assign(published_year=fy_year - 1) \
+                .assign(fy_update_year=fy_year) \
+                .assign(version="ICD-10")
 
+            icd_dictionary = icd_dictionary[["version", "code", "description", "published_year", "fy_update_year"]]
+            return icd_dictionary
+        else:
+            fy_year = year + 1
+            cms_url = f"{base_url}{fy_year}{icd_file}"
+
+            temp_file = tempfile.NamedTemporaryFile(suffix=".zip", delete=False)
+
+            with temp_file:
+                temp_dir = os.path.dirname(temp_file.name)
+                try:
+                    response = requests.get(cms_url, stream=True)
+                    response.raise_for_status()
+                    for chunk in response.iter_content(chunk_size=1024):
+                        temp_file.write(chunk)
+                except requests.exceptions.RequestException:
+                    raise ValueError(
+                        f"Error in webscrape_icd: ICD-10 webscrape failed. Either the {fy_year} code description file is not available or the CMS website is currently unresponsive. Please try a different year or try again."
+                    )
+
+            with zipfile.ZipFile(temp_file.name, "r") as zip_file:
+                file_name = None
+                for name in zip_file.namelist():
+                    if re.search(r"icd10cm_codes_\d{4}\.txt", os.path.basename(name).lower()):
+                        file_name = name
+                        break
+
+                if file_name is None:
+                    raise ValueError(f"No file matching code description file found for FY {fy_year}")
+
+                zip_file.extract(file_name, path=temp_dir)
+
+            file_path = os.path.join(temp_dir, file_name)
+
+            icd_dictionary = pd.read_csv(file_path, sep="\t", header=None, names=["code_combo"]) \
+                .assign(code_combo=lambda df: df["code_combo"].str.replace(r"\s+", " ", regex=True).str.strip()) \
+                .assign(code_combo=lambda df: df["code_combo"].str.replace(" ", "_", n=1, regex=False)) \
+                .assign(code=lambda df: df["code_combo"].str.split("_", n=1).str[0].str.strip()) \
+                .assign(description=lambda df: df["code_combo"].str.split("_", n=1).str[1].fillna("").str.strip()) \
+                .assign(published_year=fy_year - 1) \
+                .assign(fy_update_year=fy_year) \
+                .assign(version="ICD-10")
+
+            icd_dictionary = icd_dictionary[["version", "code", "description", "published_year", "fy_update_year"]]
             return icd_dictionary
     else:
-        base_url = "https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes"
-        icd_file = "Downloads/ICD-9-CM-v32-master-descriptions.zip"
-        cms_url = f"{base_url}/{icd_file}"
+        cms_url = "https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/Downloads/ICD-9-CM-v32-master-descriptions.zip"
 
         temp_file = tempfile.NamedTemporaryFile(suffix=".zip", delete=False)
-        temp_dir = os.path.dirname(temp_file.name)
 
         with temp_file:
             temp_dir = os.path.dirname(temp_file.name)
@@ -423,8 +425,8 @@ def webscrape_icd(icd_version="ICD10", year=None):
                 response.raise_for_status()
                 for chunk in response.iter_content(chunk_size=1024):
                     temp_file.write(chunk)
-            except:
-                raise Exception("Error in webscrape_icd: ICD-9 webscrape failed. CMS website is currently unresponsive.")
+            except requests.exceptions.RequestException:
+                raise ValueError("Error in webscrape_icd: ICD-9 webscrape failed. CMS website is currently unresponsive.")
 
         with zipfile.ZipFile(temp_file.name, "r") as zip_file:
             file_name = None
@@ -432,17 +434,23 @@ def webscrape_icd(icd_version="ICD10", year=None):
                 if info.filename == "CMS32_DESC_LONG_DX.txt":
                     file_name = info.filename
                     zip_file.extract(info.filename, path=temp_dir)
+                    break
 
-        file_path = f"{temp_dir}/{file_name}"
+        if file_name is None:
+            raise ValueError("No file matching ICD-9 description file found")
+
+        file_path = os.path.join(temp_dir, file_name)
         file_year = 2014
 
-        icd_dictionary = pd.read_csv(file_path, sep="\t", header=None, names=["code_combo"], encoding = "ISO-8859-1") \
-            .assign(code_combo=lambda df: df["code_combo"].str.replace("\\s{3,5}", "_", regex=True)) \
-            .assign(code=lambda df: df["code_combo"].str.extract("^(.{1,5})")) \
-            .assign(code=lambda df: df["code"].str.replace("_", "", regex=True)) \
-            .assign(description=lambda df: df["code_combo"].str.extract("^(?:.{1,5})(.*)$")) \
-            .assign(description=lambda df: df["description"].str.replace("_", "", regex=True)) \
-            .assign(set=f"ICD-9 {file_year}")
-        icd_dictionary = icd_dictionary[["code", "description", "set"]]
+        icd_dictionary = pd.read_csv(file_path, sep="\t", header=None, names=["code_combo"], encoding="ISO-8859-1") \
+            .assign(code_combo=lambda df: df["code_combo"].str.replace(r"\s+", " ", regex=True).str.strip()) \
+            .assign(code_combo=lambda df: df["code_combo"].str.replace(" ", "_", n=1, regex=False)) \
+            .assign(code=lambda df: df["code_combo"].str.split("_", n=1).str[0].str.strip()) \
+            .assign(description=lambda df: df["code_combo"].str.split("_", n=1).str[1].fillna("").str.strip()) \
+            .assign(published_year=file_year) \
+            .assign(fy_update_year="Legacy ICD-9 codes") \
+            .assign(version="ICD-9")
+
+        icd_dictionary = icd_dictionary[["version", "code", "description", "published_year", "fy_update_year"]]
 
         return icd_dictionary
