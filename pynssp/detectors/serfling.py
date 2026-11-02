@@ -23,10 +23,10 @@ def serfling_model(df, t, y, baseline_end):
     baseline_dates = baseline[t]
     baseline_n_wks = len(baseline_dates.unique())
     baseline_n_yrs = baseline_n_wks / 52
-    
+
     if baseline_n_yrs < 2:
         raise ValueError("Baseline length must be greater than or equal to 2 years.")
-    
+
     if len(pd.date_range(start=min(baseline_dates), end=max(baseline_dates), freq="W")) != baseline_n_wks:
         raise ValueError("Not all weeks in intended baseline date range were found.")
 
@@ -71,7 +71,7 @@ def alert_serfling(df, baseline_end, t="date", y="count"):
     season and May of the ending year of a season are considered to be in the
     epidemic period. Weeks in the epidemic period are removed from the baseline
     prior to fitting the regression model.
-    
+
     :param df: A pandas data frame containing time series data
     :param t: Name of the column of type Date containing the dates (Default value = "date")
     :param y: Name of the column of type Numeric containing counts or percentages (Default value = "count")
@@ -79,22 +79,27 @@ def alert_serfling(df, baseline_end, t="date", y="count"):
     :returns: Original pandas dataframe with model estimates, upper prediction interval bounds,
         a binary alarm indicator field, and a binary indicator
     :examples:
-    
+
         >>> from pynssp import alert_serfling
         >>> import pandas as pd
         >>> import numpy as np
-        >>> 
+        >>>
         >>> df = pd.DataFrame({
         ...    "date": pd.date_range(start="2014-01-05", end="2022-02-05", freq="W"),
         ...    "count": np.random.poisson(lam=25, size=(len(pd.date_range(start="2014-01-05", end="2022-02-05", freq="W")),))
         ... })
-        >>> 
+        >>>
         >>> df_serfling  = alert_serfling(df, baseline_end = "2020-03-01")
         >>> df_serfling.head()
     """
     grouped_df = isinstance(df, pd.core.groupby.DataFrameGroupBy)
-    
+
     if grouped_df:
-        return df.apply(lambda x: serfling_model(x, t, y, baseline_end)).reset_index(drop=True)
+        group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
+        alert_df = df\
+            .apply(lambda x: serfling_model(x, t, y, baseline_end))\
+            .reset_index(level=-1, drop=True)\
+            .reset_index(drop=False)
+        return alert_df[group_cols + [col for col in alert_df.columns if col not in group_cols]]
     else:
         return serfling_model(df, t, y, baseline_end).reset_index(drop=True)
