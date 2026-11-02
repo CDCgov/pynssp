@@ -30,7 +30,7 @@ def _weekday_sunday_zero(dates):
 	:returns: Weekday indices aligned to R's ``%w`` convention.
 	"""
 	idx = pd.DatetimeIndex(dates)
-	return ((idx.dayofweek + 1) % 7).to_numpy(dtype=int)
+	return ((idx.day_of_week + 1) % 7).to_numpy(dtype=int)
 
 
 def _fit_glm_poisson(y, X, weights=None):
@@ -334,7 +334,7 @@ def farrington_original(df, t="date", y="count", B=4, w=3):
 			dtype="datetime64[ns]",
 		)
 
-		wday_gaps = _weekday_sunday_zero(ref_dates) - int((current_date.dayofweek + 1) % 7)
+		wday_gaps = _weekday_sunday_zero(ref_dates) - int((current_date.day_of_week + 1) % 7)
 		ref_dates_shifted = ref_dates - wday_gaps.astype("timedelta64[D]")
 
 		floor_ceiling_dates = np.where(
@@ -501,7 +501,7 @@ def farrington_modified(df, t="date", y="count", B=4, g=27, w=3, p=10):
 			dtype="datetime64[ns]",
 		)
 
-		wday_gaps = _weekday_sunday_zero(ref_dates) - int((current_date.dayofweek + 1) % 7)
+		wday_gaps = _weekday_sunday_zero(ref_dates) - int((current_date.day_of_week + 1) % 7)
 		ref_dates_shifted = ref_dates - wday_gaps.astype("timedelta64[D]")
 
 		floor_ceiling_dates = np.where(
@@ -676,6 +676,33 @@ def farrington_modified(df, t="date", y="count", B=4, g=27, w=3, p=10):
 	)
 
 
+def farrington_model(df, t="date", y="count", B=4, g=27, w=3, p=10, method="original"):
+	"""Run one Farrington analysis on a single ungrouped dataframe.
+
+	:param df: Input dataframe containing weekly observations.
+	:param t: Name of the date column.
+	:param y: Name of the count column.
+	:param B: Number of years to include in baseline.
+	:param g: Guardband weeks separating baseline and test week.
+	:param w: Half the number of weeks in each reference window.
+	:param p: Number of seasonal periods in the baseline.
+	:param method: Farrington method to run, ``"original"`` or ``"modified"``.
+	:returns: Input dataframe with Farrington detection outputs.
+	"""
+	input_data = df.copy().reset_index(drop=True)
+	input_data[t] = _to_date_series(input_data[t]).to_numpy()
+
+	if method == "modified":
+		anomalies = farrington_modified(input_data, t=t, y=y, B=B, g=g, w=w, p=p)
+	else:
+		anomalies = farrington_original(input_data, t=t, y=y, B=B, w=w)
+
+	alert_df = pd.concat([input_data.reset_index(drop=True), anomalies.reset_index(drop=True)], axis=1)
+	alert_df["alert"] = alert_df["alert"].where(alert_df["alert"].notna(), "grey")
+
+	return alert_df
+
+
 def alert_farrington(df, t="date", y="count", B=4, g=27, w=3, p=10, method="original"):
 	"""Run Farrington temporal detection on weekly count time series.
 
@@ -747,29 +774,18 @@ def alert_farrington(df, t="date", y="count", B=4, g=27, w=3, p=10, method="orig
 		if len(h_dates) == 0 or np.any(h_dates != 7):
 			raise ValueError("Distance between dates is not 7 days. Counts must be weekly!")
 
-	def _run_single(frame):
-		local = frame.copy().reset_index(drop=True)
-		local[t] = _to_date_series(local[t])
-
-		if method == "modified":
-			anomalies = farrington_modified(local, t=t, y=y, B=B, g=g, w=w, p=p)
-		elif method == "original":
-			anomalies = farrington_original(local, t=t, y=y, B=B, w=w)
-		else:
-			raise ValueError("Argument `method` must be `original` or `modified`.")
-
-		out = pd.concat([local.reset_index(drop=True), anomalies.reset_index(drop=True)], axis=1)
-		out["alert"] = out["alert"].where(out["alert"].notna(), "grey")
-		return out
+	if method not in ["original", "modified"]:
+		raise ValueError("Argument `method` must be `original` or `modified`.")
 
 	if grouped_df:
 		group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
-		pieces = [_run_single(group) for _, group in df]
-		alert_tbl = pd.concat(pieces, ignore_index=True)
-		ordered = [col for col in group_cols if col in alert_tbl.columns]
-		ordered += [col for col in alert_tbl.columns if col not in ordered]
-		alert_tbl = alert_tbl.loc[:, ordered]
+		alert_tbl = df\
+			.apply(lambda x: farrington_model(x, t=t, y=y, B=B, g=g, w=w, p=p, method=method))\
+			.reset_index(level=-1, drop=True)\
+			.reset_index(drop=False)
+
+		alert_tbl = alert_tbl[group_cols + [col for col in alert_tbl.columns if col not in group_cols]]
 	else:
-		alert_tbl = _run_single(base_df)
+		alert_tbl = farrington_model(base_df, t=t, y=y, B=B, g=g, w=w, p=p, method=method)
 
 	return alert_tbl
