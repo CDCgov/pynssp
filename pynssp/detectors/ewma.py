@@ -221,7 +221,7 @@ def alert_ewma(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
         alert_tbl = df\
             .apply(lambda x: ewma_loop(x.assign(**{t: pd.to_datetime(x[t])}), t, y, B, g, w1, w2))
 
-        alert_tbl = alert_tbl.reset_index(drop=True)
+        alert_tbl = alert_tbl.reset_index(level=-1, drop=True).reset_index(drop=False)
         alert_tbl = alert_tbl[group_cols + [col for col in alert_tbl.columns if col not in group_cols]]
 
         alert_tbl["alert"] = np.select(
