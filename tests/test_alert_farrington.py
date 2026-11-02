@@ -32,18 +32,18 @@ def df3():
 def test_alert_farrington(df, df2, df3):
 
     df_farr_original = alert_farrington(df)
-    df_farr_original = alert_farrington(df2.groupby('regions'))
+    df2_farr_original = alert_farrington(df2.groupby('regions'))
 
-    df2_farr_modified = alert_farrington(df, method='modified')
+    df_farr_modified = alert_farrington(df, method='modified')
     df2_farr_modified = alert_farrington(df2.groupby('regions'), method='modified')
 
     assert isinstance(df_farr_original, pd.DataFrame)
-    assert isinstance(df_farr_original, pd.DataFrame)
-    assert isinstance(df2_farr_modified, pd.DataFrame)
+    assert isinstance(df2_farr_original, pd.DataFrame)
+    assert isinstance(df_farr_modified, pd.DataFrame)
     assert isinstance(df2_farr_modified, pd.DataFrame)
     assert len(df_farr_original.columns) == len(df.columns) + 6
-    assert len(df_farr_original.columns) == len(df2.columns) + 6
-    assert len(df2_farr_modified.columns) == len(df.columns) + 6
+    assert len(df2_farr_original.columns) == len(df2.columns) + 6
+    assert len(df_farr_modified.columns) == len(df.columns) + 6
     assert len(df2_farr_modified.columns) == len(df2.columns) + 6
 
     with pytest.raises(Exception):
