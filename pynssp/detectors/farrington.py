@@ -48,7 +48,7 @@ def _fit_glm_poisson(y, X, weights=None):
 				y,
 				X,
 				family=sm.families.Poisson(),
-				freq_weights=weights,
+				var_weights=weights,
 			)
 			result = model.fit()
 		return result
@@ -107,12 +107,13 @@ def _quasi_p_value(result, param_name, phi):
 	return float(2 * norm.sf(np.abs(t_value)))
 
 
-def _predict_glm(result, row_dict, prediction_type="response"):
+def _predict_glm(result, row_dict, prediction_type="response", dispersion=1.0):
 	"""Predict from a fitted GLM on link or response scale.
 
 	:param result: Fitted GLM result.
 	:param row_dict: Mapping of predictor name to value.
 	:param prediction_type: ``"response"`` or ``"link"``.
+	:param dispersion: Quasi-Poisson dispersion multiplier for prediction SE.
 	:returns: Predicted value and standard error for the chosen scale.
 	"""
 	param_names = list(result.params.index)
@@ -127,12 +128,17 @@ def _predict_glm(result, row_dict, prediction_type="response"):
 		var_eta = np.nan
 
 	se_eta = math.sqrt(var_eta) if np.isfinite(var_eta) else np.nan
+	dispersion_factor = math.sqrt(dispersion) if np.isfinite(dispersion) and dispersion > 0 else np.nan
 
 	if prediction_type == "link":
-		return eta, se_eta
+		se_link = se_eta * dispersion_factor if np.isfinite(se_eta) and np.isfinite(dispersion_factor) else np.nan
+		return eta, se_link
 
 	mu = float(math.exp(eta))
-	se_response = abs(mu) * se_eta if np.isfinite(se_eta) else np.nan
+	if np.isfinite(se_eta) and np.isfinite(dispersion_factor):
+		se_response = abs(mu) * se_eta * dispersion_factor
+	else:
+		se_response = np.nan
 	return mu, se_response
 
 
@@ -407,11 +413,16 @@ def farrington_original(df, t="date", y="count", B=4, w=3):
 		if "base_dates" in X_current.columns:
 			pred_row["base_dates"] = pred_week_time
 
-		pred_fit, pred_se = _predict_glm(mod_weighted, pred_row, prediction_type="response")
+		pred_fit, pred_se = _predict_glm(
+			mod_weighted,
+			pred_row,
+			prediction_type="response",
+			dispersion=phi_weighted,
+		)
 
 		time_significant = time_pval_weighted < 0.05
 		pred_ok = pred_fit <= np.nanmax(base_counts)
-		trend = include_time and pred_ok
+		trend = include_time and time_significant and pred_ok
 
 		if not trend:
 			mod = _fit_glm_poisson(base_counts, X_no_time)
@@ -431,6 +442,7 @@ def farrington_original(df, t="date", y="count", B=4, w=3):
 				mod_weighted,
 				{"intercept": 1.0},
 				prediction_type="response",
+				dispersion=phi_weighted,
 			)
 
 			include_time_term[i] = False
@@ -596,11 +608,12 @@ def farrington_modified(df, t="date", y="count", B=4, g=27, w=3, p=10):
 			mod_weighted,
 			pred_row_current,
 			prediction_type="response",
+			dispersion=phi_weighted,
 		)
 
 		time_significant = time_pval_weighted < 0.05
 		pred_ok = pred_response <= np.nanmax(base_counts)
-		trend = include_time and pred_ok
+		trend = include_time and time_significant and pred_ok
 
 		if not trend:
 			mod = _fit_glm_poisson(base_counts, X_no_time)
@@ -779,10 +792,12 @@ def alert_farrington(df, t="date", y="count", B=4, g=27, w=3, p=10, method="orig
 
 	if grouped_df:
 		group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
-		alert_tbl = df\
-			.apply(lambda x: farrington_model(x, t=t, y=y, B=B, g=g, w=w, p=p, method=method))\
-			.reset_index(level=-1, drop=True)\
-			.reset_index(drop=False)
+		group_results = [
+			farrington_model(group, t=t, y=y, B=B, g=g, w=w, p=p, method=method)
+			for _, group in df
+		]
+
+		alert_tbl = pd.concat(group_results, ignore_index=True)
 
 		alert_tbl = alert_tbl[group_cols + [col for col in alert_tbl.columns if col not in group_cols]]
 	else:

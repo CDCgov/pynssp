@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 import numpy as np
-from pynssp import alert_farrington
+from pynssp import alert_farrington, get_scenario1, load_simulated_ts
 
 
 @pytest.fixture
@@ -57,3 +57,25 @@ def test_alert_farrington(df, df2, df3):
 
     with pytest.raises(Exception):
             alert_farrington(df3, method='modified')
+
+
+def test_alert_farrington_scenario1_subset_parity():
+    simulated_data = load_simulated_ts()
+    scenario1_r_style = simulated_data[simulated_data["id"] == "Scenario #1"].reset_index(drop=True)
+    synth_ts1 = get_scenario1().reset_index(drop=True)
+
+    scenario1_original = alert_farrington(scenario1_r_style, t="date", y="cases")
+    synth_ts1_original = alert_farrington(synth_ts1, t="date", y="cases")
+    pd.testing.assert_frame_equal(
+        scenario1_original.reset_index(drop=True),
+        synth_ts1_original.reset_index(drop=True),
+        check_dtype=False,
+    )
+
+    scenario1_modified = alert_farrington(scenario1_r_style, t="date", y="cases", method="modified")
+    synth_ts1_modified = alert_farrington(synth_ts1, t="date", y="cases", method="modified")
+    pd.testing.assert_frame_equal(
+        scenario1_modified.reset_index(drop=True),
+        synth_ts1_modified.reset_index(drop=True),
+        check_dtype=False,
+    )
