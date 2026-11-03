@@ -2,7 +2,6 @@
 [![pynssp Pipeline](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/cdcent/pynssp/actions/workflows/check-standard.yaml)
 [![pynssp documentation](https://github.com/CDCgov/pynssp/actions/workflows/gh-pages.yaml/badge.svg)](https://github.com/CDCgov/pynssp/actions/workflows/gh-pages.yaml)
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://github.com/CDCgov/pynssp)
-<img src='https://raw.githubusercontent.com/CDCgov/pynssp/dev/docs/_static/logo.png' align="right" width="125" height="145" />
 
 
 ## Overview
