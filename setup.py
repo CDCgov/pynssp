@@ -12,7 +12,7 @@ with open('HISTORY.md') as history_file:
 
 requirements = [
     "requests", "pandas", "cryptography", "pillow", "scikit-image", "matplotlib", "statsmodels",
-    "scipy", "datetime", "warnings"
+    "scipy"
     ]
 
 test_requirements = ['pytest>=3', ]
@@ -27,14 +27,12 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: 3.13',
         'Programming Language :: Python :: 3.14',
+        'Programming Language :: Python :: 3.15',
     ],
     description="A Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice. A collection of classes and methods to advance the practice of Syndromic Surveillance.",
     install_requires=requirements,
