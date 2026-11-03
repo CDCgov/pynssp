@@ -1,5 +1,10 @@
 Welcome to pynssp's documentation!
-======================================
+==================================
+
+.. image:: _static/logo.png
+   :align: right
+   :width: 125px
+   :class: index-logo-right
 
 .. toctree::
    :maxdepth: 2
@@ -14,6 +19,7 @@ Welcome to pynssp's documentation!
 
    articles/intro
    articles/anomaly_detection
+   articles/text_mining
 
 .. toctree::
    :maxdepth: 2
@@ -25,7 +31,7 @@ Welcome to pynssp's documentation!
 .. toctree::
    :maxdepth: 1
    :caption: About:
-   
+
    authors
    contributing
    disclaimer

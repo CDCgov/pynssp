@@ -1,4 +1,5 @@
-import pkg_resources
+from importlib import resources
+
 import pandas as pd
 
 
@@ -22,8 +23,9 @@ def load_simulated_ts():
         ## memory usage: 24.6+ KB
     """
     
-    stream = pkg_resources.resource_stream(__name__, "data/simulated_ts.csv")
-    return pd.read_csv(stream)
+    data_path = resources.files("pynssp").joinpath("data", "simulated_ts.csv")
+    with data_path.open("rb") as stream:
+        return pd.read_csv(stream)
 
 
 def get_scenario1():
@@ -71,5 +73,6 @@ def load_nssp_stopwords():
         ## memory usage: 13.2+ KB
     """
     
-    stream = pkg_resources.resource_stream(__name__, "data/nssp_stopwords.csv")
-    return pd.read_csv(stream)
+    data_path = resources.files("pynssp").joinpath("data", "nssp_stopwords.csv")
+    with data_path.open("rb") as stream:
+        return pd.read_csv(stream)

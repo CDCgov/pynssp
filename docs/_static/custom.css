@@ -1,0 +1,99 @@
+:root {
+  --pst-color-primary: #7c3aed;
+  --pst-color-secondary: #06b6d4;
+  --pst-color-accent: #f43f5e;
+  --pst-color-link: #6d28d9;
+  --pst-color-link-hover: #be185d;
+  --pst-color-inline-code: #5b21b6;
+  --pst-color-table-row-hover-bg: #f5f3ff;
+}
+
+[data-theme="dark"] {
+  --pst-color-primary: #a78bfa;
+  --pst-color-secondary: #22d3ee;
+  --pst-color-accent: #fb7185;
+  --pst-color-link: #c4b5fd;
+  --pst-color-link-hover: #f9a8d4;
+  --pst-color-inline-code: #ddd6fe;
+}
+
+body > header.container-fluid.bg-primary {
+  background: #f8fafc !important;
+  border-bottom: 1px solid #ddd6fe;
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+}
+
+body > header.container-fluid.bg-primary .navbar-brand,
+body > header.container-fluid.bg-primary .nav-link,
+body > header.container-fluid.bg-primary .navbar-dark .navbar-brand,
+body > header.container-fluid.bg-primary .navbar-dark .nav-link {
+  color: #2e1f5e !important;
+}
+
+body > footer.container-fluid.bg-primary {
+  background: #2e1f5e !important;
+}
+
+body > footer.container-fluid.bg-primary .text-light,
+body > footer.container-fluid.bg-primary .nav-link {
+  color: #f8f7ff !important;
+}
+
+.navbar .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: visible;
+  color: #2e1f5e !important;
+}
+
+.navbar .logo:hover,
+.navbar .logo:focus,
+.navbar .logo:active {
+  color: #2e1f5e !important;
+}
+
+.navbar .logo .logo-img {
+  height: 2.2rem;
+  width: auto !important;
+  transform-origin: left top;
+  transition: transform 220ms ease, filter 220ms ease;
+  position: relative;
+  z-index: 1;
+}
+
+.navbar .logo .logo-img.logo-img-zoomed {
+  transform: translateY(0.2rem) scale(3);
+  filter: drop-shadow(0 0.4rem 0.6rem rgba(30, 27, 75, 0.35));
+  z-index: 40;
+}
+
+.rst-versions > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.rst-versions > summary::-webkit-details-marker {
+  display: none;
+}
+
+.rst-versions[open] .rst-other-versions {
+  display: block;
+}
+
+.rst-versions {
+  background: #2e1f5e;
+  border-top-color: #1f143f;
+}
+
+.rst-versions .rst-current-version {
+  background-color: #43308b;
+}
+
+img.index-logo-right {
+  float: right !important;
+  margin: 0 0 1rem 1rem;
+}

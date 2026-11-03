@@ -9,12 +9,14 @@ class NSSPContainer:
     :examples:
 
       >>> from pynssp import NSSPContainer
-      >>> 
+      >>>
       >>> cont = NSSPContainer("abcdef")
   """
 
   def __init__(self, value):
     """Initializes an NSSPContainer class
+
+    :param value: value to store
     """
     self.value = value
 

@@ -27,7 +27,7 @@ def test_alert_regression(df, df2):
     df2_regression = alert_regression(df2.groupby('regions'))
 
     assert isinstance(df_regression, pd.DataFrame)
-    assert len(df_regression.columns) == len(df.columns) + 9
+    assert len(df_regression.columns) == len(df.columns) + 8
     assert isinstance(df2_regression, pd.DataFrame)
     assert len(df2_regression.columns) == len(df2.columns) + 8
 

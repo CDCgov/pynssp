@@ -16,7 +16,7 @@ def adaptive_regression(df, t, y, B, g):
     :param g: Guardband parameter. The guardband length is the number of days
             separating the baseline from the current date in consideration for alerting.
     :returns: A pandas data frame with p-values and test statistics
-    
+
     """
     df = df.reset_index(drop=True).sort_values(by=t)
     base_tbl = df
@@ -27,7 +27,7 @@ def adaptive_regression(df, t, y, B, g):
             fillna(0).\
             reset_index(drop=True)
         ], axis=1)
-    
+
     dates = pd.to_datetime(base_tbl[t]).tolist()
     y_obs = base_tbl[y].tolist()
 
@@ -43,7 +43,10 @@ def adaptive_regression(df, t, y, B, g):
     ucl_warning = np.round(stats.t.ppf(1 - 0.05, df=df_range), 5)
 
     # Bound standard error of regression
-    min_sigma = 1.01 / ucl_warning
+    # NOTE: 0.01 (not 1.01) matches Rnssp's adaptive_regression(); the R package
+    # corrected this constant in ae5ba22. Using 1.01 inflates the sigma floor
+    # ~100x, shrinking test statistics and hiding genuine alerts on smooth series.
+    min_sigma = 0.01 / ucl_warning
 
     # Initialize result vectors
     test_stat = np.repeat(np.nan, N)
@@ -105,9 +108,12 @@ def adaptive_regression(df, t, y, B, g):
         r_sqrd_adj[i] = r2_adj if not np.isnan(r2_adj) else 0
 
         # Calculate bounded standard error of regression with derived formula for efficiency
+        # NOTE: min_sigma[n_df - 1]: Rnssp indexes its 1-based vector as
+        # min_sigma[n_df] (quantile at df == n_df); the 0-based equivalent here
+        # is n_df - 1. Using min_sigma[n_df] picked the quantile for df == n_df + 1.
         sigma[i] = max(
             np.sqrt(mse) * np.sqrt(((B_length + 7) * (B_length - 4)) / (B_length * (B_length - 7))),
-            min_sigma[n_df],
+            min_sigma[n_df - 1],
         )
 
         # Day of week for test date
@@ -162,50 +168,52 @@ def alert_regression(df, t="date", y="count", B=28, g=2):
             Defaults to 2.
     :returns: Original pandas data frame with detection results.
     :examples:
-    
+
         >>> from pynssp import alert_regression
         >>> import pandas as pd
         >>> import numpy as np
-        >>> 
+        >>>
         >>> df = pd.DataFrame({
         ...    "date": pd.date_range("2020-01-01", "2020-12-31"),
         ...    "count": np.random.randint(0, 101, size=366)
         ... })
-        >>> 
+        >>>
         >>> df_regression = alert_regression(df)
         >>> df_regression.head()
 
     """
-    
+
     # Check baseline length argument
     if B < 7:
         raise ValueError(f"Error in alert_regression: baseline length argument B={B} must be greater than or equal to 7")
-    
+
     if B % 7 != 0:
         raise ValueError(f"Error in alert_regression: baseline length argument B={B} must be a multiple of 7")
-    
+
     # Check guardband length argument
     if g < 0:
         raise ValueError(f"Error in alert_regression: guardband length argument g={g} cannot be negative")
-    
+
     # Check for sufficient baseline data
     grouped_df = isinstance(df, pd.core.groupby.DataFrameGroupBy)
 
     if not grouped_df:
-        df_size = df.size
+        df_size = len(df)
     else:
-        df_size = df.size()[0]
+        df_size = len(df.obj)
 
     # Check for sufficient baseline data
     if df_size < B + g + 1:
         raise ValueError("Error in alert_regression: not enough historical data")
-        
+
     if grouped_df:
+        group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
 
         df_result = df\
             .apply(lambda data: adaptive_regression(data, t=t, y=y, B=B, g=g))
-        
-        df_result = df_result.reset_index(drop=True)
+
+        df_result = df_result.reset_index(level=-1, drop=True).reset_index(drop=False)
+        df_result = df_result[group_cols + [col for col in df_result.columns if col not in group_cols]]
 
         df_result["alert"] = np.select([(df_result["p_value"] < 0.01),
                                         (df_result["p_value"] >= 0.01) & (df_result["p_value"] < 0.05),
@@ -218,11 +226,11 @@ def alert_regression(df, t="date", y="count", B=28, g=2):
             raise ValueError("Error in alert_regression: Number of unique dates does not equal the number of rows. Should your dataframe be grouped?")
 
         df_result = adaptive_regression(df, t=t, y=y, B=B, g=g)
-        df_result = df_result.reset_index()
+        df_result = df_result.reset_index(drop=True)
         df_result["alert"] = np.select([(df_result["p_value"] < 0.01),
                                         (df_result["p_value"] >= 0.01) & (df_result["p_value"] < 0.05),
                                         (df_result["p_value"] >= 0.05)],
                                         ["red", "yellow", "blue"], default="grey")
         df_result = df_result.drop(columns=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
-        
+
     return df_result

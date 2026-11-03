@@ -1,7 +1,9 @@
-# Anomaly Detection
+# Anomaly Detection and Trend Classification
 
 ## Introduction
-In this tutorial, we describe how to perform anomaly detection and trend classification analysis using time series data from NSSP-ESSENCE. This tutorial uses time series data from NSSP-ESSENCE data source for the CLI CC with CLI DD and Coronavirus DD v2 definition, limiting to ED visits (Has been Emergency = “Yes”).
+In this tutorial, we describe how to perform anomaly detection and trend classification analysis using time series data from NSSP-ESSENCE.
+
+This tutorial uses data from the NSSP-ESSENCE source for the CLI CC with CLI DD and Coronavirus DD v2 definition, limited to ED visits (Has been Emergency = “Yes”).
 
 We start this tutorial by loading the `pynssp` package.
 
@@ -12,22 +14,24 @@ We start this tutorial by loading the `pynssp` package.
 Then, we load additional packages for visualization purposes:
 
 ```python
+>>> import pandas as pd
 >>> import seaborn as sns
 >>> import matplotlib.pyplot as plt
 >>> import matplotlib.dates as mdates
+>>> from matplotlib.patches import Patch
 ```
 
-Next, we create an NSSP user profile by creating an object of the class Credentials.
+Next, we create an NSSP user profile by creating an object of the `Credentials` class.
 
 ```python
 >>> myProfile = create_profile() # Creating an ESSENCE user profile
 
-# save profile object to file for future use
+# Save profile object to file for future use
 >>> myProfile.pickle()
 ```
 
 ## Data Pull from NSSP-ESSENCE
-With the NSSP `myProfile` object, we authenticate to NSSP-ESSENCE and pull in the data using the Time series data table API.
+With the `myProfile` object, we authenticate to NSSP-ESSENCE and pull data using the Time Series data table API.
 
 ```python
 >>> url = "https://essence2.syndromicsurveillance.org/nssp_essence/api/timeSeries?endDate=20Nov20&ccddCategory=cli%20cc%20with%20cli%20dd%20and%20coronavirus%20dd%20v2&percentParam=ccddCategory&geographySystem=hospitaldhhsregion&datasource=va_hospdreg&detector=probrepswitch&startDate=22Aug20&timeResolution=daily&hasBeenE=1&medicalGroupingSystem=essencesyndromes&userId=2362&aqtTarget=TimeSeries&stratVal=&multiStratVal=geography&graphOnly=true&numSeries=0&graphOptions=multipleSmall&seriesPerYear=false&nonZeroComposite=false&removeZeroSeries=true&startMonth=January&stratVal=&multiStratVal=geography&graphOnly=true&numSeries=0&graphOptions=multipleSmall&seriesPerYear=false&startMonth=January&nonZeroComposite=false"
@@ -45,15 +49,20 @@ Before applying an anomaly detection function, let’s first group the data by H
 >>> df_hhs = api_data.groupby("hospitaldhhsregion_display")
 ```
 
+(exponentially-weighted-moving-average-ewma)=
 ## Exponentially Weighted Moving Average (EWMA)
 
-The Exponentially Weighted Moving Average (EWMA) compares a weighted average of the most recent visit counts to a baseline expectation. For the weighted average to be tested, an exponential weighting gives the most influence to the most recent observations. This algorithm is appropriate for daily counts that do not have the characteristic features modeled in the regression algorithm. It is more applicable for Emergency Department data from certain hospital groups and for time series with small counts (daily average below 10) because of the limited case definition or chosen geographic region. The EWMA detection algorithm can be performed with `alert_ewma()` function (run `help(alert_ewma)` in your Python console or `alert_ewma?` in Jupyter Notebook or JupyterLab for more).
+The Exponentially Weighted Moving Average (EWMA) compares a weighted average of the most recent visit counts to a baseline expectation. For the weighted average to be tested, an exponential weighting gives the most influence to the most recent observations.
+
+This algorithm is appropriate for daily counts that do not have the characteristic features modeled in the regression algorithm. It is more applicable for Emergency Department data from certain hospital groups and for time series with small counts (daily average below 10) because of the limited case definition or chosen geographic region.
+
+The EWMA detection algorithm can be performed with `alert_ewma()` function (run `help(alert_ewma)` in your Python console or `alert_ewma?` in Jupyter Notebook or JupyterLab for more).
 
 ```python
 >>> df_ewma = alert_ewma(df_hhs, t = "date", y = "dataCount")
 ```
 
-Let's subset the dataframe to visualize the time series with the anomalies for Region 4:
+Let’s subset the dataframe to visualize the time series with the anomalies for Region 4:
 
 ```python
 >>> df_ewma_region = df_ewma[df_ewma["hospitaldhhsregion_display"] == "Region 4"]
@@ -73,7 +82,7 @@ Now, let’s visualize the time series with the anomalies
 >>> sns.lineplot(data=df_ewma_region, x='date', y='dataCount', color='blue', linewidth=1)
 
 >>> sns.scatterplot(
-...     data=df_ewma_region, x='date', y='dataCount', hue='alert', 
+...     data=df_ewma_region, x='date', y='dataCount', hue='alert',
 ...     palette=['black', 'blue', 'darkorange', 'red'], alpha=1
 ... )
 
@@ -90,7 +99,7 @@ Now, let’s visualize the time series with the anomalies
 
 # Customize legend
 >>> legend = plt.legend(
-...     title='Detection', loc='lower center', bbox_to_anchor=(0.5, -0.5), 
+...     title='Detection', loc='lower center', bbox_to_anchor=(0.5, -0.5),
 ...     ncol=5, frameon=True, framealpha=0.5, edgecolor='black', borderpad=0.75
 ... )
 
@@ -105,9 +114,14 @@ Now, let’s visualize the time series with the anomalies
 
 [![EWMA](detectors/ewma.png)](#exponentially-weighted-moving-average-ewma)
 
+(adaptive-multiple-regression)=
 ## Adaptive Multiple Regression
 
-The Adaptive Multiple Regression algorithm fits a linear model to a baseline of counts or percentages, and forecasts a predicted value for test dates following a pre-defined buffer period following the baseline. This model includes terms to account for linear trends and day-of-week effects. This implementation does NOT include holiday terms as in the Regression 1.4 algorithm in ESSENCE. The EWMA detection algorithm can be performed with the `alert_regression()` function (run `help(alert_regression)` in your Python console or `alert_regression?` in Jupyter Notebook or JupyterLab for more).
+The Adaptive Multiple Regression algorithm fits a linear model to a baseline of counts or percentages and forecasts a predicted value for test dates following a predefined buffer period.
+
+This model includes terms to account for linear trends and day-of-week effects. This implementation does NOT include holiday terms as in the Regression 1.4 algorithm in ESSENCE.
+
+The Adaptive Multiple Regression detector can be performed with the `alert_regression()` function (run `help(alert_regression)` in your Python console or `alert_regression?` in Jupyter Notebook or JupyterLab for more).
 
 ```python
 >>> df_regression = alert_regression(df_hhs, t = "date", y = "dataCount")
@@ -131,7 +145,7 @@ Let’s filter `df_regression` and visualize the time series with the anomalies 
 >>> sns.lineplot(data=df_regression_region, x='date', y='dataCount', color='blue', linewidth=1)
 
 >>> sns.scatterplot(
-...     data=df_regression_region, x='date', y='dataCount', hue='alert', 
+...     data=df_regression_region, x='date', y='dataCount', hue='alert',
 ...     palette=['black', 'blue', 'darkorange', 'red'], alpha=1
 ... )
 
@@ -148,7 +162,7 @@ Let’s filter `df_regression` and visualize the time series with the anomalies 
 
 # Customize legend
 >>> legend = plt.legend(
-...     title='Detection', loc='lower center', bbox_to_anchor=(0.5, -0.5), 
+...     title='Detection', loc='lower center', bbox_to_anchor=(0.5, -0.5),
 ...     ncol=5, frameon=True, framealpha=0.5, edgecolor='black', borderpad=0.75
 ... )
 
@@ -163,10 +177,12 @@ Let’s filter `df_regression` and visualize the time series with the anomalies 
 
 [![Regression Detector](detectors/regression.png)](#adaptive-multiple-regression)
 
+(regression-ewma-switch)=
 ## Regression/EWMA Switch
 
-The NSSP-ESSENCE Regression/EWMA Switch algorithm generalized the Regression and EWMA algorithms by applying the most appropriate algorithm for the data in the baseline. First, adaptive multiple regression is applied where the adjusted R-squared value of the model is examined to see if it meets a threshold of >=0.60
-. If this threshold is not met, then the model is considered to not explain the data well. In this case, the algorithm switches to the EWMA algorithm, which is more appropriate for sparser time series that are common with granular geographic levels.
+The NSSP-ESSENCE Regression/EWMA Switch algorithm generalizes the Regression and EWMA algorithms by applying the most appropriate algorithm for baseline data.
+
+First, adaptive multiple regression is applied and the adjusted R-squared value of the model is examined to see if it meets a threshold of >= 0.60. If this threshold is not met, then the model is considered to not explain the data well. In this case, the algorithm switches to the EWMA algorithm, which is more appropriate for sparser time series that are common with granular geographic levels.
 
 The Regression/EWMA algorithm can be performed with the `alert_switch()` function (run `help(alert_switch)` in your Python console or `alert_switch?` in Jupyter Notebook or JupyterLab for more).
 
@@ -192,7 +208,7 @@ Let’s visualize the time series with the anomalies for Region 4:
 >>> sns.lineplot(data=df_switch_region, x='date', y='dataCount', color='blue', linewidth=1)
 
 >>> sns.scatterplot(
-...     data=df_switch_region, x='date', y='dataCount', hue='alert', 
+...     data=df_switch_region, x='date', y='dataCount', hue='alert',
 ...     palette=['black', 'blue', 'darkorange', 'red'], alpha=1
 ... )
 
@@ -209,7 +225,7 @@ Let’s visualize the time series with the anomalies for Region 4:
 
 # Customize legend
 >>> legend = plt.legend(
-...     title='Detection', loc='lower center', bbox_to_anchor=(0.5, -0.5), 
+...     title='Detection', loc='lower center', bbox_to_anchor=(0.5, -0.5),
 ...     ncol=5, frameon=True, framealpha=0.5, edgecolor='black', borderpad=0.75
 ... )
 
@@ -224,48 +240,57 @@ Let’s visualize the time series with the anomalies for Region 4:
 
 [![Regression/EWMA Switch Detector](detectors/switch.png)](#regression-ewma-switch)
 
-## Negative Binomial Regression
+(modified-farrington-detector)=
+## Farrington Temporal Detector
 
-The Negative Binomial Regression algorithm is intended for weekly time series spanning multiple years and fits a negative binomial regression model with a time term and cyclic sine and cosine terms to a baseline period that spans 2 or more years.
-Inclusion of cyclic terms in the model is intended to account for seasonality common in multi-year weekly time series of counts for syndromes and diseases such as influenza, RSV, and norovirus.
-Each baseline model is used to make weekly forecasts for all weeks following the baseline period. One-sided upper 95% prediction interval bounds are computed for each week in the prediction period. Alarms are signaled for any week during which the observed weekly count exceeds the upper bound of the prediction interval.
-The Negative Binomial Regression detector can be applied with the `alert_nbinom()` function (run `help(alert_nbinom)` in your Python console or `alert_nbinom?` in Jupyter Notebook or JupyterLab for more).
-The example below applies the Negative Binomial Regression detector to our synthetic time series for Scenario #1.
+The Farrington algorithm is intended for weekly time series of counts spanning multiple years.
+
+The Original Farrington Algorithm uses quasi-Poisson generalized linear regression models that are fit to baseline counts associated with reference dates in a defined number of previous years, including a defined number of weeks before and after each reference date.
+
+The Modified implementation of the original Farrington algorithm improves performance by including more historical data in the baseline.
+
+Both the Original and the Modified Farrington algorithms can be performed with the `alert_farrington()` function. By default, `alert_farrington()` implements the original Farrington. Add `method = "modified"` to the function to apply the modified Farrington algorithm to your data (run `help(alert_farrington)` in the Python console or `alert_farrington?` in Jupyter Notebook or JupyterLab for more).
+
+The example below applies the Farrington detectors to a synthetic time series prepackaged in `pynssp`. The following example uses the Scenario #1 time series with moderate counts, 4 injected outbreaks over weeks 1-261, and 1 injected outbreak during weeks 262-313. The methods outlined in ["An Improved Algorithm for Outbreak Detection in Multiple Surveillance Systems"](https://onlinelibrary.wiley.com/doi/10.1002/sim.5595) (Angela Noufaily et al. [2012]) were used to generate these synthetic time series and inject outbreak cases.
+
+The Original Farrington temporal detector can be applied as below:
 
 ```python
->>> synth_ts1 = get_scenario1() # Load synthesized time series data for scenario1
+>>> synth_ts1 = get_scenario1() # Load synthesized time series data for Scenario #1
 >>> synth_ts1.head()
 ```
 
-Now, applying Negative Binomial detector...
+Now, applying the Original Farrington detector:
 
 ```python
->>> df_nbinom = alert_nbinom(synth_ts1, t='date', y='cases', baseline_end='2021-12-26')
+>>> df_farr_original = alert_farrington(synth_ts1, t = "date", y = "cases")
 ```
+
+Similarly, the Modified Farrington temporal detector can be applied as below:
+
+```python
+>>> df_farr_modified = alert_farrington(
+...     synth_ts1,
+...     t = "date",
+...     y = "cases",
+...     method = "modified"
+... )
+```
+
+Let’s visualize the time series with the detected anomalies:
 
 ```python
 >>> fig, ax = plt.subplots(figsize=(12, 6))
 
 >>> sns.lineplot(
-...     data=df_nbinom, x='date', y='cases', 
+...     data=df_farr_modified, x='date', y='cases',
 ...     color='#1A476F', label='Observed', ax=ax
 ... )
 
->>> sns.lineplot(
-...     data=df_nbinom, x='date', y='threshold', 
-...     color='#A50026', linewidth=0.5, label='Threshold', ax=ax
-... )
-
 >>> sns.scatterplot(
-...     data=df_nbinom.loc[df_nbinom['alarm']], 
+...     data=df_farr_modified[df_farr_modified['alert'] == 'red'],
 ...     x='date', y='cases', color='#A50026', ax=ax
 ... )
-
-# Add vertical line
->>> ax.axvline(x=pd.to_datetime('2021-12-26'), color='black', linewidth=0.2)
-
-# Add text annotation
->>> ax.text(pd.to_datetime('2019-12-01'), 60, 'Baseline Data', ha='left', va='center')
 
 # Set axis labels and limits
 >>> ax.set_xlabel('Date')
@@ -277,7 +302,7 @@ Now, applying Negative Binomial detector...
 
 # Set legend
 >>> ax.legend(
-...     title="Series", loc='lower center', bbox_to_anchor=(0.5, -0.3), 
+...     title="Series", loc='lower center', bbox_to_anchor=(0.5, -0.3),
 ...     ncol=2, framealpha=1, edgecolor='black'
 ... )
 
@@ -293,36 +318,45 @@ Now, applying Negative Binomial detector...
 >>> sns.despine()
 ```
 
-[![Negative Binomial Detector](detectors/nbinom.png)](#negative-binomial-regression)
+[![Farrington Temporal Detector](detectors/farrington.png)](#modified-farrington-detector)
 
-## Original Serfling Detector
+(negative-binomial-detector)=
+## Negative Binomial Regression
 
-The Original Serfling detector is intended for weekly time series spanning multiple years.
-It fits a linear regression model with a time term and sine and cosine terms to a baseline period that ideally spans 5 or more years.
-Inclusion of Fourier terms in the model is intended to account for seasonality common in multi-year weekly time series. This implementation follows the approach of the original Serfling method in which weeks between October of the starting year of a season and May of the ending year of a season are considered to be in the epidemic period. Weeks in the epidemic period are removed from the baseline prior to fitting the regression model.
-Each baseline model is used to make weekly forecasts for all weeks following the baseline period. One-sided upper 95% prediction interval bounds are computed for each week in the prediction period. Alarms are signaled for any week during which the observed weekly count exceeds the upper bound of the prediction interval.
-The Original Serfling detector can be applied with the `alert_serfling()` function (run `help(alert_serfling)` in your Python console or `alert_serfling?` in Jupyter Notebook or JupyterLab for more).
-Using the same simulated time series from the previous examples, the Original Serfling detector can be applied as below:
+The Negative Binomial Regression algorithm is intended for weekly time series spanning multiple years and fits a negative binomial regression model with a time term and cyclic sine and cosine terms to a baseline period that spans 2 or more years.
+
+Inclusion of cyclic terms in the model is intended to account for seasonality common in multi-year weekly time series of counts for syndromes and diseases such as influenza, RSV, and norovirus. Each baseline model is used to make weekly forecasts for all weeks following the baseline period. One-sided upper 95% prediction interval bounds are computed for each week in the prediction period. Alarms are signaled for any week during which the observed weekly count exceeds the upper bound of the prediction interval.
+
+The Negative Binomial Regression detector can be applied with the `alert_nbinom()` function (run `help(alert_nbinom)` in your Python console or `alert_nbinom?` in Jupyter Notebook or JupyterLab for more).
+
+The example below applies the Negative Binomial Regression detector to our synthetic time series for Scenario #1.
 
 ```python
->>> df_serfling  = alert_serfling(synth_ts1, t='date', y='cases', baseline_end='2021-12-26')
+>>> synth_ts1 = get_scenario1() # Load synthesized time series data for Scenario #1
+>>> synth_ts1.head()
+```
+
+Applying the Negative Binomial detector...
+
+```python
+>>> df_nbinom = alert_nbinom(synth_ts1, t='date', y='cases', baseline_end='2021-12-26')
 ```
 
 ```python
 >>> fig, ax = plt.subplots(figsize=(12, 6))
 
 >>> sns.lineplot(
-...     data=df_serfling, x='date', y='cases', 
+...     data=df_nbinom, x='date', y='cases',
 ...     color='#1A476F', label='Observed', ax=ax
 ... )
 
 >>> sns.lineplot(
-...     data=df_serfling, x='date', y='threshold', 
+...     data=df_nbinom, x='date', y='threshold',
 ...     color='#A50026', linewidth=0.5, label='Threshold', ax=ax
 ... )
 
 >>> sns.scatterplot(
-...     data=df_serfling.loc[df_serfling['alarm']], 
+...     data=df_nbinom.loc[df_nbinom['alarm']],
 ...     x='date', y='cases', color='#A50026', ax=ax
 ... )
 
@@ -342,7 +376,75 @@ Using the same simulated time series from the previous examples, the Original Se
 
 # Set legend
 >>> ax.legend(
-...     title="Series", loc='lower center', bbox_to_anchor=(0.5, -0.3), 
+...     title="Series", loc='lower center', bbox_to_anchor=(0.5, -0.3),
+...     ncol=2, framealpha=1, edgecolor='black'
+... )
+
+# Set date axis
+>>> ax.xaxis.set_major_locator(mdates.YearLocator())
+>>> ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+
+# Set tick parameters
+>>> ax.tick_params(axis='both', length=2.5, width=0.5)
+
+# Set theme
+>>> sns.set_style('white')
+>>> sns.despine()
+```
+
+[![Negative Binomial Detector](detectors/nbinom.png)](#negative-binomial-detector)
+
+(original-serfling-detector)=
+## Original Serfling Detector
+
+The Original Serfling detector is intended for weekly time series spanning multiple years. It fits a linear regression model with a time term and sine and cosine terms to a baseline period that ideally spans 5 or more years.
+
+Inclusion of Fourier terms in the model is intended to account for seasonality common in multi-year weekly time series. This implementation follows the approach of the original Serfling method in which weeks between October of the starting year of a season and May of the ending year of a season are considered to be in the epidemic period. Weeks in the epidemic period are removed from the baseline prior to fitting the regression model.
+Each baseline model is used to make weekly forecasts for all weeks following the baseline period. One-sided upper 95% prediction interval bounds are computed for each week in the prediction period. Alarms are signaled for any week during which the observed weekly count exceeds the upper bound of the prediction interval.
+
+The Original Serfling detector can be applied with the `alert_serfling()` function (run `help(alert_serfling)` in your Python console or `alert_serfling?` in Jupyter Notebook or JupyterLab for more).
+
+Using the same simulated time series from the previous examples, the Original Serfling detector can be applied as below:
+
+```python
+>>> df_serfling  = alert_serfling(synth_ts1, t='date', y='cases', baseline_end='2021-12-26')
+```
+
+```python
+>>> fig, ax = plt.subplots(figsize=(12, 6))
+
+>>> sns.lineplot(
+...     data=df_serfling, x='date', y='cases',
+...     color='#1A476F', label='Observed', ax=ax
+... )
+
+>>> sns.lineplot(
+...     data=df_serfling, x='date', y='threshold',
+...     color='#A50026', linewidth=0.5, label='Threshold', ax=ax
+... )
+
+>>> sns.scatterplot(
+...     data=df_serfling.loc[df_serfling['alarm']],
+...     x='date', y='cases', color='#A50026', ax=ax
+... )
+
+# Add vertical line
+>>> ax.axvline(x=pd.to_datetime('2021-12-26'), color='black', linewidth=0.2)
+
+# Add text annotation
+>>> ax.text(pd.to_datetime('2019-12-01'), 60, 'Baseline Data', ha='left', va='center')
+
+# Set axis labels and limits
+>>> ax.set_xlabel('Date')
+>>> ax.set_ylabel('Count')
+>>> ax.set_ylim(bottom=0)
+>>> ax.yaxis.set_major_formatter(
+...     plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x)))
+... )
+
+# Set legend
+>>> ax.legend(
+...     title="Series", loc='lower center', bbox_to_anchor=(0.5, -0.3),
 ...     ncol=2, framealpha=1, edgecolor='black'
 ... )
 
@@ -359,3 +461,137 @@ Using the same simulated time series from the previous examples, the Original Se
 ```
 
 [![Original Serfling Detector](detectors/serfling.png)](#original-serfling-detector)
+
+(trend-classification)=
+## Trend Classification
+
+The trend classification fits rolling binomial models to a daily time series of proportions in order to classify local trend during the baseline period as significantly increasing, significantly decreasing, or stable.
+
+The algorithm can be performed via the `classify_trend()` function (run `help(classify_trend)` or `classify_trend?` in Jupyter Notebook or JupyterLab for more).
+
+The test statistic and p-value are extracted from each individual model and are used in the following classification scheme:
+
+- p-value < 0.01 and sign(test_statistic) > 0 ~ "Significant Increase"
+- p-value < 0.01 and sign(test_statistic) < 0 ~ "Significant Decrease"
+- p-value >= 0.01 ~ "Stable"
+
+If there are fewer than 10 encounters/counts in the baseline period, a model is not fit and a value of `NaN` is returned for the test statistic and p-value.
+
+```python
+# Detecting trends
+>>> data_trend = classify_trend(df_hhs, data_count = "dataCount", all_count = "allCount")
+```
+
+Let’s visualize HHS Region 4 trends with the color bar at the bottom representing the trend classification of each day over time:
+
+```python
+# Filter the dataset
+>>> df_trend_region = (
+...     data_trend.loc[data_trend["hospitaldhhsregion_display"] == "Region 4"]
+...     .assign(proportion=lambda d: d["dataCount"] / d["allCount"])
+... )
+
+# Convert and sort dates
+>>> df_trend_region["date"] = pd.to_datetime(df_trend_region["date"])
+>>> df_trend_region = df_trend_region.sort_values("date")
+```
+
+```python
+# Trend tile colors (matching the R `scale_xfill_manual`)
+>>> trend_colors = {
+...     "Significant Increase": "#D7191C",
+...     "Significant Decrease": "#2C7BB6",
+...     "Stable": "#FFFFBF",
+...     "Insufficient Data": "#DDDDDD",
+... }
+
+# Optional palette you defined in R (kept for parity)
+>>> pal = ["#FF0000", "#1D8AFF", "#FFF70E", "grey90"]
+
+>>> sns.set_style("white")
+
+# Two stacked axes: main line + thin trend strip
+>>> fig = plt.figure(figsize=(10, 6), dpi=150)
+>>> gs = fig.add_gridspec(nrows=2, ncols=1, height_ratios=[20, 1], hspace=0.03)
+
+>>> ax = fig.add_subplot(gs[0, 0])
+>>> ax_strip = fig.add_subplot(gs[1, 0], sharex=ax)
+
+# Main trend line
+>>> ax.plot(df_trend_region["date"], df_trend_region["proportion"], color="#1A476F", linewidth=1.4)
+
+# Y axis as percent-like labels (0%, 2%, 4%, 6%)
+>>> ax.set_ylabel("Percent", fontsize=14)
+>>> ax.set_ylim(0, max(0.063, df_trend_region["proportion"].max() * 1.2))
+>>> ax.yaxis.set_major_locator(plt.MultipleLocator(0.02))
+>>> ax.yaxis.set_major_formatter(lambda v, p: f"{int(round(v * 100))}%")
+
+# Classic-like theme
+>>> for spine in ["top", "right"]:
+...     ax.spines[spine].set_visible(False)
+
+>>> ax.spines["left"].set_linewidth(1.2)
+>>> ax.spines["bottom"].set_linewidth(1.2)
+>>> ax.tick_params(axis="both", width=1.2, length=8, labelsize=11)
+
+# Build week-width tiles
+>>> dates = df_trend_region["date"].to_list()
+>>> if len(dates) > 1:
+...     width = (df_trend_region["date"].diff().dropna().median())
+... else:
+...     width = pd.Timedelta(days=7)
+
+>>> for _, r in df_trend_region.iterrows():
+...     color = trend_colors.get(r["trend_classification"], "#DDDDDD")
+...     left = r["date"] - width / 2
+...     right = r["date"] + width / 2
+...     ax_strip.axvspan(left, right, color=color, ec=color)
+
+>>> ax_strip.set_ylim(0, 1)
+>>> ax_strip.set_yticks([0.5])
+>>> ax_strip.set_yticklabels(["Trend"], fontsize=13)
+>>> ax_strip.tick_params(axis="y", length=0)
+
+>>> for spine in ["top", "right"]:
+...     ax_strip.spines[spine].set_visible(False)
+
+>>> ax_strip.spines["left"].set_linewidth(1.2)
+>>> ax_strip.spines["bottom"].set_linewidth(1.2)
+
+# X axis formatting
+>>> ax_strip.xaxis.set_major_locator(mdates.WeekdayLocator(interval=1))
+>>> ax_strip.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+>>> plt.setp(ax_strip.get_xticklabels(), rotation=90, ha="center", fontsize=11)
+>>> ax_strip.set_xlabel("Date", fontsize=14)
+
+# Hide top panel x labels (show only on strip)
+>>> plt.setp(ax.get_xticklabels(), visible=False)
+
+# Legend (bottom)
+>>> legend_order = [
+...     "Significant Increase",
+...     "Significant Decrease",
+...     "Stable",
+...     "Insufficient Data",
+... ]
+>>> handles = [Patch(facecolor=trend_colors[k], edgecolor=trend_colors[k], label=k) for k in legend_order]
+>>> leg = fig.legend(
+...     handles=handles,
+...     loc="lower center",
+...     ncol=4,
+...     bbox_to_anchor=(0.5, -0.03),
+...     frameon=True,
+...     fancybox=False,
+...     edgecolor="black",
+...     fontsize=12,
+...     handlelength=1.6,
+...     handleheight=2.0,
+...     borderpad=0.6,
+... )
+>>> leg.get_frame().set_linewidth(0.6)
+
+>>> plt.subplots_adjust(bottom=0.26)
+>>> plt.show()
+```
+
+[![Trend Classification](detectors/trend.png)](#trend-classification)

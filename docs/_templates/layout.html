@@ -2,24 +2,19 @@
 
 {%- block footer %}
   {%- if not READTHEDOCS %}
-    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="{{ _('Versions') }}">
-      <span class="rst-current-version" data-toggle="rst-current-version">
+    <details class="rst-versions" role="note" aria-label="{{ _('Versions') }}">
+      <summary class="rst-current-version">
         <span class="fa fa-book"> Read the Docs</span>
-        v: latest
+        v: {{ current_doc_version }} latest
         <span class="fa fa-caret-down"></span>
-      </span>
+      </summary>
       <div class="rst-other-versions">
         <dl>
           <dt>{{ _('Versions') }}</dt>
-          {%- if test_versions %}
-            {%- for version in test_versions %}
-            <dd><a href="#">{{ version }}</a></dd>
-            {%- endfor %}
-          {%- else %}
-            <dd><a href="https://github.com/CDCgov/pynssp/releases/latest">latest</a></dd>
-            <dd><a href="https://github.com/CDCgov/pynssp/releases/tag/v0.1.0">0.1.0</a></dd>
-            <!-- <dd><a href="#">1.1</a></dd> -->
-          {%- endif %}
+          <dd><a href="https://github.com/CDCgov/pynssp/releases/latest">latest ({{ latest_release_version }})</a></dd>
+          {%- for version in released_versions %}
+            <dd><a href="https://pypi.org/project/pynssp/{{ version }}/">{{ version }}</a></dd>
+          {%- endfor %}
         </dl>
         <dl>
           <dt>{{ _('Downloads') }}</dt>
@@ -41,6 +36,6 @@
           <dd><a href="#" data-toggle="rst-debug-badge">Swap badge position</a></dd>
         </dl> -->
       </div>
-    </div>
+    </details>
   {%- endif %}
 {%- endblock %}

@@ -10,9 +10,9 @@ with open('README.md') as readme_file:
 with open('HISTORY.md') as history_file:
     history = history_file.read()
 
-requirements = [ 
-    "pandas", "cryptography", "pillow", "scikit-image", "matplotlib", "statsmodels",
-    "scipy", "datetime" 
+requirements = [
+    "requests", "pandas", "cryptography", "pillow", "scikit-image", "matplotlib", "statsmodels",
+    "scipy", "datetime", "warnings"
     ]
 
 test_requirements = ['pytest>=3', ]
@@ -20,7 +20,7 @@ test_requirements = ['pytest>=3', ]
 setup(
     author="Gbedegnon Roseric Azondekon",
     author_email='gazondekon@cdc.gov, roseric_2000@yahoo.fr',
-    python_requires='>=3.7',
+    python_requires='>=3.6',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
@@ -32,6 +32,9 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
+        'Programming Language :: Python :: 3.14',
     ],
     description="A Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice. A collection of classes and methods to advance the practice of Syndromic Surveillance.",
     install_requires=requirements,
@@ -45,7 +48,7 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/cdcgov/pynssp',
-    version='0.1.0',
+    version='0.2.0',
     zip_safe=False,
     package_data={'': ['data/*.csv']},
 )
