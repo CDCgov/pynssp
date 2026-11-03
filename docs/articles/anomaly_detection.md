@@ -49,6 +49,7 @@ Before applying an anomaly detection function, let’s first group the data by H
 >>> df_hhs = api_data.groupby("hospitaldhhsregion_display")
 ```
 
+(exponentially-weighted-moving-average-ewma)=
 ## Exponentially Weighted Moving Average (EWMA)
 
 The Exponentially Weighted Moving Average (EWMA) compares a weighted average of the most recent visit counts to a baseline expectation. For the weighted average to be tested, an exponential weighting gives the most influence to the most recent observations.
@@ -113,6 +114,7 @@ Now, let’s visualize the time series with the anomalies
 
 [![EWMA](detectors/ewma.png)](#exponentially-weighted-moving-average-ewma)
 
+(adaptive-multiple-regression)=
 ## Adaptive Multiple Regression
 
 The Adaptive Multiple Regression algorithm fits a linear model to a baseline of counts or percentages and forecasts a predicted value for test dates following a predefined buffer period.
@@ -175,6 +177,7 @@ Let’s filter `df_regression` and visualize the time series with the anomalies 
 
 [![Regression Detector](detectors/regression.png)](#adaptive-multiple-regression)
 
+(regression-ewma-switch)=
 ## Regression/EWMA Switch
 
 The NSSP-ESSENCE Regression/EWMA Switch algorithm generalizes the Regression and EWMA algorithms by applying the most appropriate algorithm for baseline data.
@@ -237,6 +240,7 @@ Let’s visualize the time series with the anomalies for Region 4:
 
 [![Regression/EWMA Switch Detector](detectors/switch.png)](#regression-ewma-switch)
 
+(modified-farrington-detector)=
 ## Farrington Temporal Detector
 
 The Farrington algorithm is intended for weekly time series of counts spanning multiple years.
@@ -316,6 +320,7 @@ Let’s visualize the time series with the detected anomalies:
 
 [![Farrington Temporal Detector](detectors/farrington.png)](#modified-farrington-detector)
 
+(negative-binomial-detector)=
 ## Negative Binomial Regression
 
 The Negative Binomial Regression algorithm is intended for weekly time series spanning multiple years and fits a negative binomial regression model with a time term and cyclic sine and cosine terms to a baseline period that spans 2 or more years.
@@ -389,6 +394,7 @@ Applying the Negative Binomial detector...
 
 [![Negative Binomial Detector](detectors/nbinom.png)](#negative-binomial-detector)
 
+(original-serfling-detector)=
 ## Original Serfling Detector
 
 The Original Serfling detector is intended for weekly time series spanning multiple years. It fits a linear regression model with a time term and sine and cosine terms to a baseline period that ideally spans 5 or more years.
@@ -456,6 +462,7 @@ Using the same simulated time series from the previous examples, the Original Se
 
 [![Original Serfling Detector](detectors/serfling.png)](#original-serfling-detector)
 
+(trend-classification)=
 ## Trend Classification
 
 The trend classification fits rolling binomial models to a daily time series of proportions in order to classify local trend during the baseline period as significantly increasing, significantly decreasing, or stable.
