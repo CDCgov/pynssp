@@ -155,7 +155,8 @@ def alert_nbinom(df, baseline_end, t="date", y="count", include_time=True):
     if grouped_df:
         group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
         alert_df = df\
-            .apply(lambda data: nb_model(data, t=t, y=y, baseline_end=baseline_end, include_time=include_time))\
+            .apply(lambda data: nb_model(data, t=t, y=y, baseline_end=baseline_end, include_time=include_time),
+                   include_groups=False)\
             .reset_index(level=-1, drop=True)\
             .reset_index(drop=False)
 

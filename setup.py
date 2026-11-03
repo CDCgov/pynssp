@@ -11,7 +11,7 @@ with open('HISTORY.md') as history_file:
     history = history_file.read()
 
 requirements = [
-    "requests", "pandas", "cryptography", "pillow", "scikit-image", "matplotlib", "statsmodels",
+    "requests", "pandas>=2.2", "cryptography", "pillow", "scikit-image", "matplotlib", "statsmodels",
     "scipy"
     ]
 

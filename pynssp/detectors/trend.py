@@ -124,7 +124,8 @@ def classify_trend(df, t='date', data_count='dataCount', all_count='allCount', B
         group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
 
         trends_tbl = df\
-            .apply(lambda x: get_trends(x, t, data_count=data_count, all_count=all_count, B=B))\
+            .apply(lambda x: get_trends(x, t, data_count=data_count, all_count=all_count, B=B),
+                   include_groups=False)\
             .reset_index(level=-1, drop=True)\
             .reset_index(drop=False)
         return trends_tbl[group_cols + [col for col in trends_tbl.columns if col not in group_cols]]

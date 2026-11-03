@@ -97,7 +97,7 @@ def alert_serfling(df, baseline_end, t="date", y="count"):
     if grouped_df:
         group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
         alert_df = df\
-            .apply(lambda x: serfling_model(x, t, y, baseline_end))\
+            .apply(lambda x: serfling_model(x, t, y, baseline_end), include_groups=False)\
             .reset_index(level=-1, drop=True)\
             .reset_index(drop=False)
         return alert_df[group_cols + [col for col in alert_df.columns if col not in group_cols]]

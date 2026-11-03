@@ -219,7 +219,7 @@ def alert_ewma(df, t="date", y="count", B=28, g=2, w1=0.4, w2=0.9):
         group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
 
         alert_tbl = df\
-            .apply(lambda x: ewma_loop(x.assign(**{t: pd.to_datetime(x[t])}), t, y, B, g, w1, w2))
+            .apply(lambda x: ewma_loop(x.assign(**{t: pd.to_datetime(x[t])}), t, y, B, g, w1, w2), include_groups=False)
 
         alert_tbl = alert_tbl.reset_index(level=-1, drop=True).reset_index(drop=False)
         alert_tbl = alert_tbl[group_cols + [col for col in alert_tbl.columns if col not in group_cols]]

@@ -210,7 +210,7 @@ def alert_regression(df, t="date", y="count", B=28, g=2):
         group_cols = [df.keys] if isinstance(df.keys, str) else list(df.keys)
 
         df_result = df\
-            .apply(lambda data: adaptive_regression(data, t=t, y=y, B=B, g=g))
+            .apply(lambda data: adaptive_regression(data, t=t, y=y, B=B, g=g), include_groups=False)
 
         df_result = df_result.reset_index(level=-1, drop=True).reset_index(drop=False)
         df_result = df_result[group_cols + [col for col in df_result.columns if col not in group_cols]]
