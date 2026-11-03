@@ -7,6 +7,8 @@
 * The package info to document Python support up to 3.14 has been updated
 * The `change_dates()` function has been upgraded to fix flip-flopping start and end date values.
 * The EWMA detector has been updated to closely match the `Rnssp`'s implementation. In addition, the `alert_ewma()` function has been updated with a patch to prevent errors when detector is applied to a zero series.
+* The Regression detector has been updated to closely match the `Rnssp`'s implementation.
+* The Switch detector has been updated to closely match the `Rnssp`'s implementation.
 
 ### New Features
 
@@ -24,6 +26,12 @@ The new `Apikey` class inherits the `Auth` class, and has the same methods as th
 
 #### Utility Functions
 * A new `create_apikey_profile()` function has been added as a wrapper to the `Apikey` class.
+
+### Other
+* A section on the Farrington Temporal detector has been added to the Anomaly Detection vignette
+* A trend classification section has been added to the Anomaly Detection vignette
+* A new vignette entitled "Text Mining Example" has been added to the package documentation
+* The online documentation has a new theme
 
 
 ## 0.1.0 (2023-06-22)
