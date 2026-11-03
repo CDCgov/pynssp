@@ -67,11 +67,11 @@ def _fetch_released_versions(package_name, current_version):
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
     'sphinx.ext.intersphinx',
-    'sphinx.ext.autodoc', 
+    'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.viewcode', 
+    'sphinx.ext.viewcode',
     'sphinx.ext.mathjax',
-    'sphinx.ext.napoleon', 
+    'sphinx.ext.napoleon',
     'sphinx_copybutton',
     'sphinx_wagtail_theme',
     'myst_parser',
@@ -103,7 +103,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'pynssp'
-copyright = "2023, Gbedegnon Roseric Azondekon"
+copyright = "2026, Gbedegnon Roseric Azondekon"
 author = "Gbedegnon Roseric Azondekon"
 
 github_user = "cdcgov"
