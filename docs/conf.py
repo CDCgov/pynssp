@@ -39,7 +39,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.napoleon', 
     'sphinx_copybutton',
-    'm2r', 
+    'myst_parser',
     'sphinx_rtd_theme',
     'sphinx_favicon'
 ]
@@ -54,7 +54,15 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = ['.rst', '.md']
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
+
+myst_enable_extensions = [
+    "dollarmath",
+    "amsmath",
+]
 
 # The master toctree document.
 master_doc = 'index'
@@ -231,6 +239,4 @@ texinfo_documents = [
      'A Python package for the National Syndromic Surveillance Program (NSSP) and its Community of Practice.',
      'A collection of classes and methods to advance the practice of Syndromic Surveillance.'),
 ]
-
-
 
