@@ -1,52 +1,62 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="no-js" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pynssp.detectors.trend &mdash; pynssp 0.1.0 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../../index.html" class="icon icon-home">
-            pynssp
-              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
-              <div class="version">
-                0.1.0
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pynssp.detectors.trend &mdash; pynssp 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/dist/theme.css?v=9cdaa676" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=dd081c42" />
+            <link rel="index" title="Index" href="../../../genindex.html" />
+            <link rel="search" title="Search" href="../../../search.html" />
+            <link rel="top" title="pynssp 0.2.0 documentation" href="#" />
+            <link rel="up" title="Module code" href="../../index.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="../../../_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="../../../index.html"
+                        
+                        class="logo navbar-brand"
+                    >
+                        <img src="../../../_static/logo.png" width="45" height="59"
+                            class="logo-img"
+                        />
+                        pynssp
+                    </a>
+                
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="../../../search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../readme.html">About pynssp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installing pynssp</a></li>
@@ -54,11 +64,19 @@
 <p class="caption" role="heading"><span class="caption-text">Hands-On Tutorials:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../articles/intro.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../articles/anomaly_detection.html">Anomaly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../articles/anomaly_detection.html">Anomaly Detection and Trend Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../articles/text_mining.html">Text Mining Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pynssp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../pynssp.html">pynssp package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../pynssp.core.html">pynssp.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../pynssp.detectors.html">pynssp.detectors package</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../history.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">About:</span></p>
@@ -69,38 +87,66 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../codeofconduct.html">Creating a Culture of Innovation</a></li>
 </ul>
 
-        </div>
-      </div>
     </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">pynssp</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">pynssp.detectors.trend</li>
-      <li class="wy-breadcrumbs-aside">
-      </li>
-  </ul>
-  <hr/>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <h1>Source code for pynssp.detectors.trend</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="../../../index.html">Docs</a></li>
+            <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+        <li class="breadcrumb-item active" aria-current="page">pynssp.detectors.trend</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <div class="d-flex flex-wrap gap-2">
+                            <noscript>
+                                <p>JavaScript is required to toggle light/dark mode..</p>
+                            </noscript>
+                            <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                                <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                                <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                            </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/wagtail/sphinx_wagtail_theme/blob/main/docs/_modules/pynssp/detectors/trend" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+                            
+                        </div>
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <h1>Source code for pynssp.detectors.trend</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.tools.sm_exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">PerfectSeparationWarning</span><span class="p">,</span> <span class="n">SingularMatrixWarning</span>
 
 
-<div class="viewcode-block" id="get_trends"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.trend.get_trends">[docs]</a><span class="k">def</span> <span class="nf">get_trends</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">data_count</span><span class="p">,</span> <span class="n">all_count</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Trend Classification Helper</span>
+<div class="viewcode-block" id="get_trends">
+<a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.trend.get_trends">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_trends</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">data_count</span><span class="p">,</span> <span class="n">all_count</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Trend Classification Helper</span>
 
 <span class="sd">    Fits rolling binomial models to a daily time series</span>
 <span class="sd">    of percentages or proportions in order to classify the overall</span>
@@ -111,61 +157,78 @@
 <span class="sd">    :param t: Name of the column of type Date containing the dates</span>
 <span class="sd">    :param data_count: Name of the column with counts for positive encounters</span>
 <span class="sd">    :param all_count: Name of the column with total counts of encounters</span>
-<span class="sd">    :param B: Baseline parameter. The baseline length is the number of days to </span>
+<span class="sd">    :param B: Baseline parameter. The baseline length is the number of days to</span>
 <span class="sd">        which each binomial model is fit</span>
 <span class="sd">    :return: A pandas data frame</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
     <span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
     <span class="n">statistic</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">p_value</span> <span class="o">=</span> <span class="p">[]</span>
-    
+
     <span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">date</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">days</span> <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">]])</span>
     <span class="n">data_count</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">data_count</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
     <span class="n">all_count</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">all_count</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-    
+
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
         <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">B</span>
         <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">date_window</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span>
         <span class="n">data_count_rol</span> <span class="o">=</span> <span class="n">data_count</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span>
         <span class="n">all_count_rol</span> <span class="o">=</span> <span class="n">all_count</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">fail_count_rol</span> <span class="o">=</span> <span class="n">all_count_rol</span> <span class="o">-</span> <span class="n">data_count_rol</span>
 
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_count_rol</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">date_window</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span>
+            <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">date_window</span><span class="p">)</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">2</span>
+            <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_count_rol</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">10</span>
+            <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">all_count_rol</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">data_count_rol</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">fail_count_rol</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_count_rol</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">fail_count_rol</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="p">):</span>
             <span class="n">statistic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
             <span class="n">p_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">data_count_rol</span><span class="p">,</span> <span class="n">all_count_rol</span> <span class="o">-</span> <span class="n">data_count_rol</span><span class="p">]),</span> 
-                    <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> 
-                    <span class="n">family</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">Binomial</span><span class="p">()</span>
-                <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+                <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"error"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">SingularMatrixWarning</span><span class="p">)</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"error"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">PerfectSeparationWarning</span><span class="p">)</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"error"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
+                    <span class="n">mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">data_count_rol</span><span class="p">,</span> <span class="n">fail_count_rol</span><span class="p">]),</span>
+                        <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">date_window</span><span class="p">),</span>
+                        <span class="n">family</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">Binomial</span><span class="p">()</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
                 <span class="n">statistic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
                 <span class="n">p_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-            <span class="k">except</span><span class="p">:</span>
+            <span class="k">except</span> <span class="p">(</span><span class="n">SingularMatrixWarning</span><span class="p">,</span> <span class="n">PerfectSeparationWarning</span><span class="p">,</span> <span class="ne">RuntimeWarning</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
                 <span class="n">statistic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
                 <span class="n">p_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-    
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;statistic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">statistic</span>
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_value</span>
-    
+
+    <span class="n">df</span><span class="p">[</span><span class="s2">"statistic"</span><span class="p">]</span> <span class="o">=</span> <span class="n">statistic</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"p_value"</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_value</span>
+
     <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;statistic&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span>
-        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;statistic&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">),</span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'p_value'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'statistic'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'p_value'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'statistic'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">'p_value'</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span>
     <span class="p">]</span>
-    
-    <span class="n">trends</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Significant Increase&quot;</span><span class="p">,</span> <span class="s2">&quot;Significant Decrease&quot;</span><span class="p">,</span> <span class="s2">&quot;Insufficient Data&quot;</span><span class="p">]</span>
-    
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;trend_classification&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">trends</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Stable&quot;</span><span class="p">)</span>
-    
+
+    <span class="n">trends</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Significant Increase"</span><span class="p">,</span> <span class="s2">"Significant Decrease"</span><span class="p">,</span> <span class="s2">"Insufficient Data"</span><span class="p">]</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="s2">"trend_classification"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">trends</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"Stable"</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">df</span></div>
 
 
-<div class="viewcode-block" id="classify_trend"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.trend.classify_trend">[docs]</a><span class="k">def</span> <span class="nf">classify_trend</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">data_count</span><span class="o">=</span><span class="s1">&#39;dataCount&#39;</span><span class="p">,</span> <span class="n">all_count</span><span class="o">=</span><span class="s1">&#39;allCount&#39;</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Trend Classification for Proportions/Percentages</span>
+
+<div class="viewcode-block" id="classify_trend">
+<a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.trend.classify_trend">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">classify_trend</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s1">'date'</span><span class="p">,</span> <span class="n">data_count</span><span class="o">=</span><span class="s1">'dataCount'</span><span class="p">,</span> <span class="n">all_count</span><span class="o">=</span><span class="s1">'allCount'</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Trend Classification for Proportions/Percentages</span>
 
 <span class="sd">    The algorithm fits rolling binomial models to a daily time series</span>
 <span class="sd">    of percentages or proportions in order to classify the overall</span>
@@ -173,89 +236,137 @@
 <span class="sd">    significantly decreasing, or stable.</span>
 
 <span class="sd">    :param df: A pandas data frame</span>
-<span class="sd">    :param t: Name of the column of type Date containing the dates </span>
-<span class="sd">        (Default value = &quot;date&quot;)</span>
-<span class="sd">    :param data_count: Name of the column with counts for positive encounters </span>
-<span class="sd">        (Default value = &quot;dataCount&quot;)</span>
-<span class="sd">    :param all_count: Name of the column with total counts of encounters </span>
-<span class="sd">        (Default value = &quot;allCount&quot;)</span>
-<span class="sd">    :param B: Baseline parameter. The baseline length is the number of days to </span>
+<span class="sd">    :param t: Name of the column of type Date containing the dates</span>
+<span class="sd">        (Default value = "date")</span>
+<span class="sd">    :param data_count: Name of the column with counts for positive encounters</span>
+<span class="sd">        (Default value = "dataCount")</span>
+<span class="sd">    :param all_count: Name of the column with total counts of encounters</span>
+<span class="sd">        (Default value = "allCount")</span>
+<span class="sd">    :param B: Baseline parameter. The baseline length is the number of days to</span>
 <span class="sd">        which each binomial model is fit (Default value = 12)</span>
 <span class="sd">    :return: A pandas data frame</span>
 <span class="sd">    :examples:</span>
 <span class="sd">        &gt;&gt;&gt; from pynssp import classify_trend</span>
 <span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
 <span class="sd">        &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({</span>
-<span class="sd">        ...     &quot;date&quot;: pd.date_range(&quot;2020-01-01&quot;, &quot;2020-12-31&quot;),</span>
-<span class="sd">        ...     &quot;dataCount&quot;: np.random.randint(0, 101, size=366),</span>
-<span class="sd">        ...     &quot;allCount&quot;: np.random.randint(101, 500, size=366)</span>
+<span class="sd">        ...     "date": pd.date_range("2020-01-01", "2020-12-31"),</span>
+<span class="sd">        ...     "dataCount": np.random.randint(0, 101, size=366),</span>
+<span class="sd">        ...     "allCount": np.random.randint(101, 500, size=366)</span>
 <span class="sd">        ... })</span>
-<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; df_trend = classify_trend(df)</span>
 <span class="sd">        &gt;&gt;&gt; df_trend.head()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># Check for grouping variables</span>
     <span class="n">grouped_df</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">groupby</span><span class="o">.</span><span class="n">DataFrameGroupBy</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">grouped_df</span><span class="p">:</span>
-        <span class="n">trends_tbl</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_trends</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">data_count</span><span class="o">=</span><span class="n">data_count</span><span class="p">,</span> <span class="n">all_count</span><span class="o">=</span><span class="n">all_count</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">))</span>
+        <span class="n">group_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">)</span>
+
+        <span class="n">trends_tbl</span> <span class="o">=</span> <span class="n">df</span>\
+            <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_trends</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">data_count</span><span class="o">=</span><span class="n">data_count</span><span class="p">,</span> <span class="n">all_count</span><span class="o">=</span><span class="n">all_count</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">))</span>\
+            <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">trends_tbl</span><span class="p">[</span><span class="n">group_cols</span> <span class="o">+</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">trends_tbl</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">group_cols</span><span class="p">]]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">trends_tbl</span> <span class="o">=</span> <span class="n">get_trends</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">data_count</span><span class="o">=</span><span class="n">data_count</span><span class="p">,</span> <span class="n">all_count</span><span class="o">=</span><span class="n">all_count</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
-    
+
     <span class="k">return</span> <span class="n">trends_tbl</span></div>
+
 </pre></div>
-
-           </div>
-          </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+</main>
+                        
+                    </div>
+                    
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5FTLT9PCW7"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-5FTLT9PCW7', {
-          'anonymize_ip': false,
-      });
-    </script>
-    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
-      <span class="rst-current-version" data-toggle="rst-current-version">
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+                <nav aria-label="Footer">
+                    <ul class="nav justify-content-center mb-2">
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/features/">Features</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/about-wagtail/"> About Wagtail</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/services/"> Services</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/blog/"> Blog</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/packages/"> Packages</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/developers/"> Developers</a></li>
+                        
+                    </ul>
+                </nav>
+            
+            <div class="text-center">
+                    &copy; Copyright 2026, Gbedegnon Roseric Azondekon
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>
+                    Created using
+                    <a class="text-white" href="https://github.com/wagtail/sphinx_wagtail_theme" rel="nofollow" target="_blank">
+                        Sphinx Wagtail Theme 6.6.0
+                    </a>
+                    and
+                    <a class="text-white" href="https://www.sphinx-doc.org/" rel="nofollow" target="_blank">
+                        Sphinx 9.0.4
+                    </a>
+                </small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="../../../_static/documentation_options.js?v=938c9ccc"></script>
+        <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=6dbb43f8"></script>
+        <script src="../../../_static/version-dropdown.js?v=0bbf9fd9"></script>
+        <script src="../../../_static/logo-hover.js?v=f38a3864"></script>
+        <script type="text/javascript" src="../../../_static/dist/theme.js"></script>
+        <script type="text/javascript" src="../../../_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="../../../_static/searchtools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("../../../searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    
+    <details class="rst-versions" role="note" aria-label="Versions">
+      <summary class="rst-current-version">
         <span class="fa fa-book"> Read the Docs</span>
-        v: latest
+        v: 0.2.0 latest
         <span class="fa fa-caret-down"></span>
-      </span>
+      </summary>
       <div class="rst-other-versions">
         <dl>
           <dt>Versions</dt>
-            <dd><a href="https://github.com/CDCgov/pynssp/releases/latest">latest</a></dd>
-            <dd><a href="https://github.com/CDCgov/pynssp/releases/tag/v0.1.0">0.1.0</a></dd>
-            <!-- <dd><a href="#">1.1</a></dd> -->
+          <dd><a href="https://github.com/CDCgov/pynssp/releases/latest">latest (0.2.0)</a></dd>
+            <dd><a href="https://pypi.org/project/pynssp/0.2.0/">0.2.0</a></dd>
+            <dd><a href="https://pypi.org/project/pynssp/0.1.0/">0.1.0</a></dd>
         </dl>
         <dl>
           <dt>Downloads</dt>
@@ -277,7 +388,5 @@
           <dd><a href="#" data-toggle="rst-debug-badge">Swap badge position</a></dd>
         </dl> -->
       </div>
-    </div>
-
-</body>
+    </details></body>
 </html>

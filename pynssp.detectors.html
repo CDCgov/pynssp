@@ -1,60 +1,71 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="no-js" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="_static/favicon/favicon.ico" rel="icon" type="image/x-icon">
     <link href="_static/favicon/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
     <link rel="apple-touch-icon" href="_static/favicon/apple-touch-icon.png" sizes="180x180" type="image/png">
     <link rel="android-chrome" href="_static/favicon/android-chrome-192x192.png" sizes="192x192" type="image/png">
     <link rel="android-chrome" href="_static/favicon/android-chrome-512x512.png" sizes="512x512" type="image/png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pynssp.detectors package &mdash; pynssp 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Release Notes" href="history.html" />
-    <link rel="prev" title="pynssp.core package" href="pynssp.core.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            pynssp
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
-              <div class="version">
-                0.1.0
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pynssp.detectors package &mdash; pynssp 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=9cdaa676" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=dd081c42" />
+            <link rel="index" title="Index" href="genindex.html" />
+            <link rel="search" title="Search" href="search.html" />
+            <link rel="top" title="pynssp 0.2.0 documentation" href="#" />
+            <link rel="up" title="pynssp package" href="pynssp.html" />
+            <link rel="next" title="Release Notes" href="history.html" />
+            <link rel="prev" title="pynssp.core package" href="pynssp.core.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="index.html"
+                        
+                        class="logo navbar-brand"
+                    >
+                        <img src="_static/logo.png" width="45" height="59"
+                            class="logo-img"
+                        />
+                        pynssp
+                    </a>
+                
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="readme.html">About pynssp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing pynssp</a></li>
@@ -62,21 +73,15 @@
 <p class="caption" role="heading"><span class="caption-text">Hands-On Tutorials:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="articles/intro.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="articles/anomaly_detection.html">Anomaly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/anomaly_detection.html">Anomaly Detection and Trend Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/text_mining.html">Text Mining Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pynssp</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="pynssp.html">pynssp package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="pynssp.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="pynssp.core.html">pynssp.core package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">pynssp.detectors package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="pynssp.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pynssp.html#module-pynssp.data">pynssp.data module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pynssp.html#module-pynssp.utils">pynssp.utils module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pynssp.html#module-pynssp">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.core.html">pynssp.core package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pynssp.detectors package</a></li>
 </ul>
 </li>
 </ul>
@@ -91,42 +96,69 @@
 <li class="toctree-l1"><a class="reference internal" href="codeofconduct.html">Creating a Culture of Innovation</a></li>
 </ul>
 
-        </div>
-      </div>
     </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">pynssp</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">pynssp</a></li>
-          <li class="breadcrumb-item"><a href="pynssp.html">pynssp package</a></li>
-      <li class="breadcrumb-item active">pynssp.detectors package</li>
-      <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/cdcgov/pynssp/blob/master/docs/pynssp.detectors.rst" class="fa fa-github"> Edit on GitHub</a>
-      </li>
-  </ul>
-  <hr/>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="pynssp-detectors-package">
-<h1>pynssp.detectors package<a class="headerlink" href="#pynssp-detectors-package" title="Permalink to this heading"></a></h1>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
+            <li class="breadcrumb-item"><a href="modules.html">pynssp</a></li>
+            <li class="breadcrumb-item"><a href="pynssp.html">pynssp package</a></li>
+        <li class="breadcrumb-item active" aria-current="page">pynssp.detectors package</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <div class="d-flex flex-wrap gap-2">
+                            <noscript>
+                                <p>JavaScript is required to toggle light/dark mode..</p>
+                            </noscript>
+                            <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                                <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                                <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                            </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/wagtail/sphinx_wagtail_theme/blob/main/docs/pynssp.detectors.rst" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/pynssp.detectors.rst.txt" rel="nofollow">
+        <span class="btn-icon"><span class="fas fa-code"></span></span>
+        <span class="btn-text">View source</span>
+    </a>
+                            
+                        </div>
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <section id="pynssp-detectors-package">
+<h1>pynssp.detectors package<a class="headerlink" href="#pynssp-detectors-package" title="Link to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
 <section id="module-pynssp.detectors.ewma">
-<span id="pynssp-detectors-ewma-module"></span><h2>pynssp.detectors.ewma module<a class="headerlink" href="#module-pynssp.detectors.ewma" title="Permalink to this heading"></a></h2>
+<span id="pynssp-detectors-ewma-module"></span><h2>pynssp.detectors.ewma module<a class="headerlink" href="#module-pynssp.detectors.ewma" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.ewma.alert_ewma">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.ewma.</span></span><span class="sig-name descname"><span class="pre">alert_ewma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/ewma.html#alert_ewma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.ewma.alert_ewma" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.ewma.</span></span><span class="sig-name descname"><span class="pre">alert_ewma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/ewma.html#alert_ewma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.ewma.alert_ewma" title="Link to this definition">¶</a></dt>
 <dd><p>Exponentially Weighted Moving Average (EWMA)</p>
 <p>The EWMA compares a weighted average of the most recent visit counts
 to a baseline expectation. For the weighted average to be tested, an exponential
@@ -165,13 +197,13 @@ Defaults to 0.9 to match ESSENCE implementation and approximate the C2 algorithm
 <dd class="field-even"><p>Original pandas data frame with detection results.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">alert_ewma</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynssp</span><span class="w"> </span><span class="kn">import</span> <span class="n">alert_ewma</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-<span class="gp">... </span>    <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-12-31&quot;</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="s2">"date"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">"2020-01-01"</span><span class="p">,</span> <span class="s2">"2020-12-31"</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s2">"count"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">)</span>
 <span class="gp">... </span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df_ewma</span> <span class="o">=</span> <span class="n">alert_ewma</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
@@ -184,7 +216,7 @@ Defaults to 0.9 to match ESSENCE implementation and approximate the C2 algorithm
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.ewma.ewma_loop">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.ewma.</span></span><span class="sig-name descname"><span class="pre">ewma_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/ewma.html#ewma_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.ewma.ewma_loop" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.ewma.</span></span><span class="sig-name descname"><span class="pre">ewma_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/ewma.html#ewma_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.ewma.ewma_loop" title="Link to this definition">¶</a></dt>
 <dd><p>Loop for EWMA</p>
 <p>Loop for EWMA and adjustment of outlying smoothed values</p>
 <dl class="field-list simple">
@@ -216,10 +248,10 @@ Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algo
 
 </section>
 <section id="module-pynssp.detectors.nbinom">
-<span id="pynssp-detectors-nbinom-module"></span><h2>pynssp.detectors.nbinom module<a class="headerlink" href="#module-pynssp.detectors.nbinom" title="Permalink to this heading"></a></h2>
+<span id="pynssp-detectors-nbinom-module"></span><h2>pynssp.detectors.nbinom module<a class="headerlink" href="#module-pynssp.detectors.nbinom" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.nbinom.alert_nbinom">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.nbinom.</span></span><span class="sig-name descname"><span class="pre">alert_nbinom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/nbinom.html#alert_nbinom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.nbinom.alert_nbinom" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.nbinom.</span></span><span class="sig-name descname"><span class="pre">alert_nbinom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/nbinom.html#alert_nbinom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.nbinom.alert_nbinom" title="Link to this definition">¶</a></dt>
 <dd><p>Negative binomial detection algorithm for weekly counts</p>
 <p>The negative binomial regression algorithm fits a negative binomial regression
 model with a time term and order 1 Fourier terms to a baseline period that
@@ -248,16 +280,16 @@ a binary alarm indicator field, and a binary indicator field of
 whether or not a time term was included.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pnssp</span> <span class="kn">import</span> <span class="n">alert_nbinom</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pnssp</span><span class="w"> </span><span class="kn">import</span> <span class="n">alert_nbinom</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-<span class="gp">... </span>   <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2014-01-05&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2022-02-05&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">),</span>
-<span class="gp">... </span>   <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2014-01-05&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2022-02-05&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">)),))</span>
+<span class="gp">... </span>   <span class="s2">"date"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">"2014-01-05"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">"2022-02-05"</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"W"</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">"count"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">"2014-01-05"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">"2022-02-05"</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"W"</span><span class="p">)),))</span>
 <span class="gp">... </span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_nbinom</span> <span class="o">=</span> <span class="n">alert_nbinom</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">baseline_end</span> <span class="o">=</span> <span class="s2">&quot;2020-03-01&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_nbinom</span> <span class="o">=</span> <span class="n">alert_nbinom</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">baseline_end</span> <span class="o">=</span> <span class="s2">"2020-03-01"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df_nbinom</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -267,7 +299,7 @@ whether or not a time term was included.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.nbinom.nb_model">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.nbinom.</span></span><span class="sig-name descname"><span class="pre">nb_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/nbinom.html#nb_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.nbinom.nb_model" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.nbinom.</span></span><span class="sig-name descname"><span class="pre">nb_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/nbinom.html#nb_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.nbinom.nb_model" title="Link to this definition">¶</a></dt>
 <dd><p>Negative binomial regression model for weekly counts</p>
 <p>Negative binomial model helper function for monitoring weekly
 count time series with seasonality</p>
@@ -289,10 +321,10 @@ count time series with seasonality</p>
 
 </section>
 <section id="module-pynssp.detectors.regression">
-<span id="pynssp-detectors-regression-module"></span><h2>pynssp.detectors.regression module<a class="headerlink" href="#module-pynssp.detectors.regression" title="Permalink to this heading"></a></h2>
+<span id="pynssp-detectors-regression-module"></span><h2>pynssp.detectors.regression module<a class="headerlink" href="#module-pynssp.detectors.regression" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.regression.adaptive_regression">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.regression.</span></span><span class="sig-name descname"><span class="pre">adaptive_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/regression.html#adaptive_regression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.regression.adaptive_regression" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.regression.</span></span><span class="sig-name descname"><span class="pre">adaptive_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/regression.html#adaptive_regression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.regression.adaptive_regression" title="Link to this definition">¶</a></dt>
 <dd><p>Adaptive Regression</p>
 <p>Adaptive Regression helper function for Adaptive Multiple Regression</p>
 <dl class="field-list simple">
@@ -315,7 +347,7 @@ separating the baseline from the current date in consideration for alerting.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.regression.alert_regression">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.regression.</span></span><span class="sig-name descname"><span class="pre">alert_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/regression.html#alert_regression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.regression.alert_regression" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.regression.</span></span><span class="sig-name descname"><span class="pre">alert_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/regression.html#alert_regression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.regression.alert_regression" title="Link to this definition">¶</a></dt>
 <dd><p>Adaptive Multiple Regression</p>
 <p>The adaptive multiple regression algorithm fits a linear model to a baseline
 of counts or percentages of length B, and forecasts a predicted value g + 1
@@ -348,13 +380,13 @@ Defaults to 2.</p></li>
 <dd class="field-even"><p>Original pandas data frame with detection results.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">alert_regression</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynssp</span><span class="w"> </span><span class="kn">import</span> <span class="n">alert_regression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-<span class="gp">... </span>   <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-12-31&quot;</span><span class="p">),</span>
-<span class="gp">... </span>   <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="s2">"date"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">"2020-01-01"</span><span class="p">,</span> <span class="s2">"2020-12-31"</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">"count"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">)</span>
 <span class="gp">... </span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df_regression</span> <span class="o">=</span> <span class="n">alert_regression</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
@@ -367,10 +399,10 @@ Defaults to 2.</p></li>
 
 </section>
 <section id="module-pynssp.detectors.serfling">
-<span id="pynssp-detectors-serfling-module"></span><h2>pynssp.detectors.serfling module<a class="headerlink" href="#module-pynssp.detectors.serfling" title="Permalink to this heading"></a></h2>
+<span id="pynssp-detectors-serfling-module"></span><h2>pynssp.detectors.serfling module<a class="headerlink" href="#module-pynssp.detectors.serfling" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.serfling.alert_serfling">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.serfling.</span></span><span class="sig-name descname"><span class="pre">alert_serfling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/serfling.html#alert_serfling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.serfling.alert_serfling" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.serfling.</span></span><span class="sig-name descname"><span class="pre">alert_serfling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/serfling.html#alert_serfling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.serfling.alert_serfling" title="Link to this definition">¶</a></dt>
 <dd><p>Original Serfling method for weekly time series</p>
 <p>The original Serfling algorithm fits a linear regression model with
 a time term and order 1 Fourier terms to a baseline period that ideally spans
@@ -401,16 +433,16 @@ prior to fitting the regression model.</p>
 a binary alarm indicator field, and a binary indicator</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">alert_serfling</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynssp</span><span class="w"> </span><span class="kn">import</span> <span class="n">alert_serfling</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-<span class="gp">... </span>   <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2014-01-05&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2022-02-05&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">),</span>
-<span class="gp">... </span>   <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2014-01-05&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2022-02-05&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">)),))</span>
+<span class="gp">... </span>   <span class="s2">"date"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">"2014-01-05"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">"2022-02-05"</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"W"</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">"count"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">"2014-01-05"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">"2022-02-05"</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"W"</span><span class="p">)),))</span>
 <span class="gp">... </span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_serfling</span>  <span class="o">=</span> <span class="n">alert_serfling</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">baseline_end</span> <span class="o">=</span> <span class="s2">&quot;2020-03-01&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_serfling</span>  <span class="o">=</span> <span class="n">alert_serfling</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">baseline_end</span> <span class="o">=</span> <span class="s2">"2020-03-01"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df_serfling</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -420,7 +452,7 @@ a binary alarm indicator field, and a binary indicator</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.serfling.serfling_model">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.serfling.</span></span><span class="sig-name descname"><span class="pre">serfling_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/serfling.html#serfling_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.serfling.serfling_model" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.serfling.</span></span><span class="sig-name descname"><span class="pre">serfling_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/serfling.html#serfling_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.serfling.serfling_model" title="Link to this definition">¶</a></dt>
 <dd><p>Original Serfling method for weekly time series</p>
 <p>Serfling model helper function for monitoring weekly time series with seasonality</p>
 <dl class="field-list simple">
@@ -440,10 +472,10 @@ a binary alarm indicator field, and a binary indicator</p>
 
 </section>
 <section id="module-pynssp.detectors.switch">
-<span id="pynssp-detectors-switch-module"></span><h2>pynssp.detectors.switch module<a class="headerlink" href="#module-pynssp.detectors.switch" title="Permalink to this heading"></a></h2>
+<span id="pynssp-detectors-switch-module"></span><h2>pynssp.detectors.switch module<a class="headerlink" href="#module-pynssp.detectors.switch" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.switch.alert_switch">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.switch.</span></span><span class="sig-name descname"><span class="pre">alert_switch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/switch.html#alert_switch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.switch.alert_switch" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.switch.</span></span><span class="sig-name descname"><span class="pre">alert_switch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'count'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/switch.html#alert_switch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.switch.alert_switch" title="Link to this definition">¶</a></dt>
 <dd><p>Regression/EWMA Switch</p>
 <p>The NSSP-ESSENCE Regression/EWMA Switch algorithm generalized the Regression and
 EWMA algorithms by applying the most appropriate algorithm for the data in the
@@ -477,13 +509,13 @@ Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algo
 <dd class="field-even"><p>A dataframe containing the results of the analysis.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">alert_switch</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynssp</span><span class="w"> </span><span class="kn">import</span> <span class="n">alert_switch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-<span class="gp">... </span>   <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-12-31&quot;</span><span class="p">),</span>
-<span class="gp">... </span>   <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="s2">"date"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">"2020-01-01"</span><span class="p">,</span> <span class="s2">"2020-12-31"</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">"count"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">)</span>
 <span class="gp">... </span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df_switch</span> <span class="o">=</span> <span class="n">alert_switch</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
@@ -496,10 +528,10 @@ Defaults to 0.9 to match NSSP-ESSENCE implementation and approximate the C2 algo
 
 </section>
 <section id="module-pynssp.detectors.trend">
-<span id="pynssp-detectors-trend-module"></span><h2>pynssp.detectors.trend module<a class="headerlink" href="#module-pynssp.detectors.trend" title="Permalink to this heading"></a></h2>
+<span id="pynssp-detectors-trend-module"></span><h2>pynssp.detectors.trend module<a class="headerlink" href="#module-pynssp.detectors.trend" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.trend.classify_trend">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.trend.</span></span><span class="sig-name descname"><span class="pre">classify_trend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dataCount'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'allCount'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/trend.html#classify_trend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.trend.classify_trend" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.trend.</span></span><span class="sig-name descname"><span class="pre">classify_trend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dataCount'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'allCount'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/trend.html#classify_trend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.trend.classify_trend" title="Link to this definition">¶</a></dt>
 <dd><p>Trend Classification for Proportions/Percentages</p>
 <p>The algorithm fits rolling binomial models to a daily time series
 of percentages or proportions in order to classify the overall
@@ -523,14 +555,14 @@ which each binomial model is fit (Default value = 12)</p></li>
 <dd class="field-even"><p>A pandas data frame</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">classify_trend</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynssp</span><span class="w"> </span><span class="kn">import</span> <span class="n">classify_trend</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-<span class="gp">... </span>    <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-12-31&quot;</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="s2">&quot;dataCount&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="s2">&quot;allCount&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="s2">"date"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">"2020-01-01"</span><span class="p">,</span> <span class="s2">"2020-12-31"</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s2">"dataCount"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s2">"allCount"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">366</span><span class="p">)</span>
 <span class="gp">... </span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df_trend</span> <span class="o">=</span> <span class="n">classify_trend</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
@@ -543,7 +575,7 @@ which each binomial model is fit (Default value = 12)</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynssp.detectors.trend.get_trends">
-<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.trend.</span></span><span class="sig-name descname"><span class="pre">get_trends</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/trend.html#get_trends"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.trend.get_trends" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynssp.detectors.trend.</span></span><span class="sig-name descname"><span class="pre">get_trends</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/detectors/trend.html#get_trends"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.detectors.trend.get_trends" title="Link to this definition">¶</a></dt>
 <dd><p>Trend Classification Helper</p>
 <p>Fits rolling binomial models to a daily time series
 of percentages or proportions in order to classify the overall
@@ -568,62 +600,150 @@ which each binomial model is fit</p></li>
 
 </section>
 <section id="module-pynssp.detectors">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pynssp.detectors" title="Permalink to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pynssp.detectors" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
+</main>
+                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    <a class="float-left" href="pynssp.core.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>pynssp.core package
+    </a>
+    <a class="float-right" href="history.html" title="Next">
+        Release Notes <span aria-hidden="true">&nbsp;→</span>
+    </a>
+</nav>
+                    </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">pynssp.detectors package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-pynssp.detectors.ewma">pynssp.detectors.ewma module</a><ul>
+<li><a class="reference internal" href="#pynssp.detectors.ewma.alert_ewma"><code class="docutils literal notranslate"><span class="pre">alert_ewma()</span></code></a></li>
+<li><a class="reference internal" href="#pynssp.detectors.ewma.ewma_loop"><code class="docutils literal notranslate"><span class="pre">ewma_loop()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pynssp.detectors.nbinom">pynssp.detectors.nbinom module</a><ul>
+<li><a class="reference internal" href="#pynssp.detectors.nbinom.alert_nbinom"><code class="docutils literal notranslate"><span class="pre">alert_nbinom()</span></code></a></li>
+<li><a class="reference internal" href="#pynssp.detectors.nbinom.nb_model"><code class="docutils literal notranslate"><span class="pre">nb_model()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pynssp.detectors.regression">pynssp.detectors.regression module</a><ul>
+<li><a class="reference internal" href="#pynssp.detectors.regression.adaptive_regression"><code class="docutils literal notranslate"><span class="pre">adaptive_regression()</span></code></a></li>
+<li><a class="reference internal" href="#pynssp.detectors.regression.alert_regression"><code class="docutils literal notranslate"><span class="pre">alert_regression()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pynssp.detectors.serfling">pynssp.detectors.serfling module</a><ul>
+<li><a class="reference internal" href="#pynssp.detectors.serfling.alert_serfling"><code class="docutils literal notranslate"><span class="pre">alert_serfling()</span></code></a></li>
+<li><a class="reference internal" href="#pynssp.detectors.serfling.serfling_model"><code class="docutils literal notranslate"><span class="pre">serfling_model()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pynssp.detectors.switch">pynssp.detectors.switch module</a><ul>
+<li><a class="reference internal" href="#pynssp.detectors.switch.alert_switch"><code class="docutils literal notranslate"><span class="pre">alert_switch()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pynssp.detectors.trend">pynssp.detectors.trend module</a><ul>
+<li><a class="reference internal" href="#pynssp.detectors.trend.classify_trend"><code class="docutils literal notranslate"><span class="pre">classify_trend()</span></code></a></li>
+<li><a class="reference internal" href="#pynssp.detectors.trend.get_trends"><code class="docutils literal notranslate"><span class="pre">get_trends()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pynssp.detectors">Module contents</a></li>
+</ul>
+</li>
+</ul>
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pynssp.core.html" class="btn btn-neutral float-left" title="pynssp.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="history.html" class="btn btn-neutral float-right" title="Release Notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5FTLT9PCW7"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-5FTLT9PCW7', {
-          'anonymize_ip': false,
-      });
-    </script>
-    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
-      <span class="rst-current-version" data-toggle="rst-current-version">
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+                <nav aria-label="Footer">
+                    <ul class="nav justify-content-center mb-2">
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/features/">Features</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/about-wagtail/"> About Wagtail</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/services/"> Services</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/blog/"> Blog</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/packages/"> Packages</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/developers/"> Developers</a></li>
+                        
+                    </ul>
+                </nav>
+            
+            <div class="text-center">
+                    &copy; Copyright 2026, Gbedegnon Roseric Azondekon
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>
+                    Created using
+                    <a class="text-white" href="https://github.com/wagtail/sphinx_wagtail_theme" rel="nofollow" target="_blank">
+                        Sphinx Wagtail Theme 6.6.0
+                    </a>
+                    and
+                    <a class="text-white" href="https://www.sphinx-doc.org/" rel="nofollow" target="_blank">
+                        Sphinx 9.0.4
+                    </a>
+                </small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="_static/documentation_options.js?v=938c9ccc"></script>
+        <script src="_static/doctools.js?v=fd6eb6e6"></script>
+        <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=6dbb43f8"></script>
+        <script src="_static/version-dropdown.js?v=0bbf9fd9"></script>
+        <script src="_static/logo-hover.js?v=f38a3864"></script>
+        <script type="text/javascript" src="_static/dist/theme.js"></script>
+        <script type="text/javascript" src="_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="_static/searchtools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    
+    <details class="rst-versions" role="note" aria-label="Versions">
+      <summary class="rst-current-version">
         <span class="fa fa-book"> Read the Docs</span>
-        v: latest
+        v: 0.2.0 latest
         <span class="fa fa-caret-down"></span>
-      </span>
+      </summary>
       <div class="rst-other-versions">
         <dl>
           <dt>Versions</dt>
-            <dd><a href="https://github.com/CDCgov/pynssp/releases/latest">latest</a></dd>
-            <dd><a href="https://github.com/CDCgov/pynssp/releases/tag/v0.1.0">0.1.0</a></dd>
-            <!-- <dd><a href="#">1.1</a></dd> -->
+          <dd><a href="https://github.com/CDCgov/pynssp/releases/latest">latest (0.2.0)</a></dd>
+            <dd><a href="https://pypi.org/project/pynssp/0.2.0/">0.2.0</a></dd>
+            <dd><a href="https://pypi.org/project/pynssp/0.1.0/">0.1.0</a></dd>
         </dl>
         <dl>
           <dt>Downloads</dt>
@@ -645,7 +765,5 @@ which each binomial model is fit</p></li>
           <dd><a href="#" data-toggle="rst-debug-badge">Swap badge position</a></dd>
         </dl> -->
       </div>
-    </div>
-
-</body>
+    </details></body>
 </html>

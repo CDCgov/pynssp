@@ -1,60 +1,71 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="no-js" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="_static/favicon/favicon.ico" rel="icon" type="image/x-icon">
     <link href="_static/favicon/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
     <link rel="apple-touch-icon" href="_static/favicon/apple-touch-icon.png" sizes="180x180" type="image/png">
     <link rel="android-chrome" href="_static/favicon/android-chrome-192x192.png" sizes="192x192" type="image/png">
     <link rel="android-chrome" href="_static/favicon/android-chrome-512x512.png" sizes="512x512" type="image/png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pynssp.core package &mdash; pynssp 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pynssp.detectors package" href="pynssp.detectors.html" />
-    <link rel="prev" title="pynssp package" href="pynssp.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            pynssp
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
-              <div class="version">
-                0.1.0
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pynssp.core package &mdash; pynssp 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=9cdaa676" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=dd081c42" />
+            <link rel="index" title="Index" href="genindex.html" />
+            <link rel="search" title="Search" href="search.html" />
+            <link rel="top" title="pynssp 0.2.0 documentation" href="#" />
+            <link rel="up" title="pynssp package" href="pynssp.html" />
+            <link rel="next" title="pynssp.detectors package" href="pynssp.detectors.html" />
+            <link rel="prev" title="pynssp package" href="pynssp.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="index.html"
+                        
+                        class="logo navbar-brand"
+                    >
+                        <img src="_static/logo.png" width="45" height="59"
+                            class="logo-img"
+                        />
+                        pynssp
+                    </a>
+                
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="readme.html">About pynssp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing pynssp</a></li>
@@ -62,21 +73,15 @@
 <p class="caption" role="heading"><span class="caption-text">Hands-On Tutorials:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="articles/intro.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="articles/anomaly_detection.html">Anomaly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/anomaly_detection.html">Anomaly Detection and Trend Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles/text_mining.html">Text Mining Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pynssp</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="pynssp.html">pynssp package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="pynssp.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">pynssp.core package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pynssp.detectors.html">pynssp.detectors package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="pynssp.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pynssp.html#module-pynssp.data">pynssp.data module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pynssp.html#module-pynssp.utils">pynssp.utils module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pynssp.html#module-pynssp">Module contents</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pynssp.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynssp.detectors.html">pynssp.detectors package</a></li>
 </ul>
 </li>
 </ul>
@@ -91,45 +96,72 @@
 <li class="toctree-l1"><a class="reference internal" href="codeofconduct.html">Creating a Culture of Innovation</a></li>
 </ul>
 
-        </div>
-      </div>
     </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">pynssp</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">pynssp</a></li>
-          <li class="breadcrumb-item"><a href="pynssp.html">pynssp package</a></li>
-      <li class="breadcrumb-item active">pynssp.core package</li>
-      <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/cdcgov/pynssp/blob/master/docs/pynssp.core.rst" class="fa fa-github"> Edit on GitHub</a>
-      </li>
-  </ul>
-  <hr/>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="pynssp-core-package">
-<h1>pynssp.core package<a class="headerlink" href="#pynssp-core-package" title="Permalink to this heading"></a></h1>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
+            <li class="breadcrumb-item"><a href="modules.html">pynssp</a></li>
+            <li class="breadcrumb-item"><a href="pynssp.html">pynssp package</a></li>
+        <li class="breadcrumb-item active" aria-current="page">pynssp.core package</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <div class="d-flex flex-wrap gap-2">
+                            <noscript>
+                                <p>JavaScript is required to toggle light/dark mode..</p>
+                            </noscript>
+                            <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                                <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                                <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                            </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/wagtail/sphinx_wagtail_theme/blob/main/docs/pynssp.core.rst" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/pynssp.core.rst.txt" rel="nofollow">
+        <span class="btn-icon"><span class="fas fa-code"></span></span>
+        <span class="btn-text">View source</span>
+    </a>
+                            
+                        </div>
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <section id="pynssp-core-package">
+<h1>pynssp.core package<a class="headerlink" href="#pynssp-core-package" title="Link to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
 <section id="module-pynssp.core.constants">
-<span id="pynssp-core-constants-module"></span><h2>pynssp.core.constants module<a class="headerlink" href="#module-pynssp.core.constants" title="Permalink to this heading"></a></h2>
+<span id="pynssp-core-constants-module"></span><h2>pynssp.core.constants module<a class="headerlink" href="#module-pynssp.core.constants" title="Link to this heading">¶</a></h2>
 </section>
 <section id="module-pynssp.core.container">
-<span id="pynssp-core-container-module"></span><h2>pynssp.core.container module<a class="headerlink" href="#module-pynssp.core.container" title="Permalink to this heading"></a></h2>
+<span id="pynssp-core-container-module"></span><h2>pynssp.core.container module<a class="headerlink" href="#module-pynssp.core.container" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pynssp.core.container.APIGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynssp.core.container.</span></span><span class="sig-name descname"><span class="pre">APIGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/container.html#APIGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.container.APIGraph" title="Permalink to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pynssp.core.container.</span></span><span class="sig-name descname"><span class="pre">APIGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/container.html#APIGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.container.APIGraph" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class to store an API graph</p>
 <dl class="field-list simple">
@@ -148,13 +180,13 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pynssp.core.container.APIGraph.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/container.html#APIGraph.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.container.APIGraph.plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/container.html#APIGraph.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.container.APIGraph.plot" title="Link to this definition">¶</a></dt>
 <dd><p>A method to plot an APIGraph object</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pynssp.core.container.APIGraph.show">
-<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/container.html#APIGraph.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.container.APIGraph.show" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/container.html#APIGraph.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.container.APIGraph.show" title="Link to this definition">¶</a></dt>
 <dd><p>A method to display an APIGraph object</p>
 </dd></dl>
 
@@ -162,7 +194,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pynssp.core.container.NSSPContainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynssp.core.container.</span></span><span class="sig-name descname"><span class="pre">NSSPContainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/container.html#NSSPContainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.container.NSSPContainer" title="Permalink to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pynssp.core.container.</span></span><span class="sig-name descname"><span class="pre">NSSPContainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/container.html#NSSPContainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.container.NSSPContainer" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A NSSPContainer Class to store a value or an object</p>
 <p>An object of class NSSPContainer stores a value or an object
@@ -175,9 +207,9 @@ The NSSPContainer class encapsulates a value or an object</p>
 <dd class="field-even"><p><strong>value</strong> – Stored value</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">NSSPContainer</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynssp</span><span class="w"> </span><span class="kn">import</span> <span class="n">NSSPContainer</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cont</span> <span class="o">=</span> <span class="n">NSSPContainer</span><span class="p">(</span><span class="s2">&quot;abcdef&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cont</span> <span class="o">=</span> <span class="n">NSSPContainer</span><span class="p">(</span><span class="s2">"abcdef"</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -186,11 +218,11 @@ The NSSPContainer class encapsulates a value or an object</p>
 
 </section>
 <section id="module-pynssp.core.credentials">
-<span id="pynssp-core-credentials-module"></span><h2>pynssp.core.credentials module<a class="headerlink" href="#module-pynssp.core.credentials" title="Permalink to this heading"></a></h2>
+<span id="pynssp-core-credentials-module"></span><h2>pynssp.core.credentials module<a class="headerlink" href="#module-pynssp.core.credentials" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pynssp.core.credentials.Credentials">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynssp.core.credentials.</span></span><span class="sig-name descname"><span class="pre">Credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/credentials.html#Credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.credentials.Credentials" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pynssp.core.credentials.</span></span><span class="sig-name descname"><span class="pre">Credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/credentials.html#Credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.credentials.Credentials" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Auth</span></code></p>
 <p>A Token Class Representing a Credentials object</p>
 <p>A Credentials object has a username, a password and a key.
 A Credentials object gets API data via an API URL.</p>
@@ -202,53 +234,16 @@ A Credentials object gets API data via an API URL.</p>
 </ul>
 </dd>
 <dt class="field-even">Examples<span class="colon">:</span></dt>
-<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">Credentials</span>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynssp</span><span class="w"> </span><span class="kn">import</span> <span class="n">Credentials</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">Credentials</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;pass&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myProfile</span> <span class="o">=</span> <span class="n">Credentials</span><span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"pass"</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="pynssp.core.credentials.Credentials.get_api_data">
-<span class="sig-name descname"><span class="pre">get_api_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromCSV</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/credentials.html#Credentials.get_api_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.credentials.Credentials.get_api_data" title="Permalink to this definition"></a></dt>
-<dd><p>Get API data</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> – a string of API URL</p></li>
-<li><p><strong>fromCSV</strong> – a logical, defines whether data are received in .csv format or .json format (Default value = False)</p></li>
-<li><p><strong>encoding</strong> – an encoding standard (Default value = “utf-8”)</p></li>
-<li><p><strong>**kwargs</strong> – <p>Additional keyword arguments to pass to <cite>pandas.read_csv()</cite> if <cite>fromCSV</cite> is True.</p>
-</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A pandas dataframe</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pynssp.core.credentials.Credentials.get_api_graph">
-<span class="sig-name descname"><span class="pre">get_api_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.png'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/credentials.html#Credentials.get_api_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.credentials.Credentials.get_api_graph" title="Permalink to this definition"></a></dt>
-<dd><p>Get API graph</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> – a string of API URL</p></li>
-<li><p><strong>file_ext</strong> – a non-empty character vector giving the file extension. (Default value = “.png”)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>an object of type APIGraph</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="pynssp.core.credentials.Credentials.get_api_response">
-<span class="sig-name descname"><span class="pre">get_api_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/credentials.html#Credentials.get_api_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.credentials.Credentials.get_api_response" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_api_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/credentials.html#Credentials.get_api_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.credentials.Credentials.get_api_response" title="Link to this definition">¶</a></dt>
 <dd><p>Get API response</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -260,29 +255,15 @@ A Credentials object gets API data via an API URL.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pynssp.core.credentials.Credentials.pickle">
-<span class="sig-name descname"><span class="pre">pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.pkl'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/credentials.html#Credentials.pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.credentials.Credentials.pickle" title="Permalink to this definition"></a></dt>
-<dd><p>Save an object of class Credentials to file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file_ext</strong> – a non-empty character vector giving the file extension. (Default value = “.pkl”)</p></li>
-<li><p><strong>file</strong> – (Default value = None)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 </section>
 <section id="module-pynssp.core.token">
-<span id="pynssp-core-token-module"></span><h2>pynssp.core.token module<a class="headerlink" href="#module-pynssp.core.token" title="Permalink to this heading"></a></h2>
+<span id="pynssp-core-token-module"></span><h2>pynssp.core.token module<a class="headerlink" href="#module-pynssp.core.token" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pynssp.core.token.Token">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynssp.core.token.</span></span><span class="sig-name descname"><span class="pre">Token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Bearer'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/token.html#Token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.token.Token" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pynssp.core.token.</span></span><span class="sig-name descname"><span class="pre">Token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Bearer'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/token.html#Token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.token.Token" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Auth</span></code></p>
 <p>A Token Class Representing a Token object</p>
 <p>A Token object has a token string and a key.
 A Token object can get API data via an API URL.</p>
@@ -298,53 +279,16 @@ Should be “Bearer” or “Basic”. (Default value = “Bearer”)</p></li>
 <dd class="field-even"><p><strong>access_token</strong> – HTTP authentication type.</p>
 </dd>
 <dt class="field-odd">Examples<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pynssp</span> <span class="kn">import</span> <span class="n">Token</span>
+<dd class="field-odd"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynssp</span><span class="w"> </span><span class="kn">import</span> <span class="n">Token</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">myTokenProfile</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="s2">&quot;abc123&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myTokenProfile</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="s2">"abc123"</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="pynssp.core.token.Token.get_api_data">
-<span class="sig-name descname"><span class="pre">get_api_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromCSV</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/token.html#Token.get_api_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.token.Token.get_api_data" title="Permalink to this definition"></a></dt>
-<dd><p>Get API data</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> – a string of API URL</p></li>
-<li><p><strong>fromCSV</strong> – a logical, defines whether data are received in .csv format or .json format (Default value = False)</p></li>
-<li><p><strong>encoding</strong> – an encoding standard (Default value = “utf-8”)</p></li>
-<li><p><strong>**kwargs</strong> – <p>Additional keyword arguments to pass to <cite>pandas.read_csv()</cite> if <cite>fromCSV</cite> is True.</p>
-</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A pandas dataframe</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pynssp.core.token.Token.get_api_graph">
-<span class="sig-name descname"><span class="pre">get_api_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.png'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/token.html#Token.get_api_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.token.Token.get_api_graph" title="Permalink to this definition"></a></dt>
-<dd><p>Get API graph</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> – a string of API URL</p></li>
-<li><p><strong>file_ext</strong> – a non-empty character vector giving the file extension. (Default value = “.png”)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>an object of type APIGraph</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="pynssp.core.token.Token.get_api_response">
-<span class="sig-name descname"><span class="pre">get_api_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/token.html#Token.get_api_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.token.Token.get_api_response" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_api_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/token.html#Token.get_api_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.token.Token.get_api_response" title="Link to this definition">¶</a></dt>
 <dd><p>Get API response</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -356,80 +300,149 @@ Should be “Bearer” or “Basic”. (Default value = “Bearer”)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pynssp.core.token.Token.pickle">
-<span class="sig-name descname"><span class="pre">pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.pkl'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynssp/core/token.html#Token.pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynssp.core.token.Token.pickle" title="Permalink to this definition"></a></dt>
-<dd><p>Save an object of class Credentials to file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file_ext</strong> – a non-empty character vector giving the file extension. (Default value = “.pkl”)</p></li>
-<li><p><strong>file</strong> – (Default value = None)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 </section>
 <section id="module-pynssp.core">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pynssp.core" title="Permalink to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pynssp.core" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
+</main>
+                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    <a class="float-left" href="pynssp.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>pynssp package
+    </a>
+    <a class="float-right" href="pynssp.detectors.html" title="Next">
+        pynssp.detectors package <span aria-hidden="true">&nbsp;→</span>
+    </a>
+</nav>
+                    </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">pynssp.core package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-pynssp.core.constants">pynssp.core.constants module</a></li>
+<li><a class="reference internal" href="#module-pynssp.core.container">pynssp.core.container module</a><ul>
+<li><a class="reference internal" href="#pynssp.core.container.APIGraph"><code class="docutils literal notranslate"><span class="pre">APIGraph</span></code></a><ul>
+<li><a class="reference internal" href="#pynssp.core.container.APIGraph.plot"><code class="docutils literal notranslate"><span class="pre">APIGraph.plot()</span></code></a></li>
+<li><a class="reference internal" href="#pynssp.core.container.APIGraph.show"><code class="docutils literal notranslate"><span class="pre">APIGraph.show()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pynssp.core.container.NSSPContainer"><code class="docutils literal notranslate"><span class="pre">NSSPContainer</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pynssp.core.credentials">pynssp.core.credentials module</a><ul>
+<li><a class="reference internal" href="#pynssp.core.credentials.Credentials"><code class="docutils literal notranslate"><span class="pre">Credentials</span></code></a><ul>
+<li><a class="reference internal" href="#pynssp.core.credentials.Credentials.get_api_response"><code class="docutils literal notranslate"><span class="pre">Credentials.get_api_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pynssp.core.token">pynssp.core.token module</a><ul>
+<li><a class="reference internal" href="#pynssp.core.token.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a><ul>
+<li><a class="reference internal" href="#pynssp.core.token.Token.get_api_response"><code class="docutils literal notranslate"><span class="pre">Token.get_api_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pynssp.core">Module contents</a></li>
+</ul>
+</li>
+</ul>
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pynssp.html" class="btn btn-neutral float-left" title="pynssp package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pynssp.detectors.html" class="btn btn-neutral float-right" title="pynssp.detectors package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5FTLT9PCW7"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-5FTLT9PCW7', {
-          'anonymize_ip': false,
-      });
-    </script>
-    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
-      <span class="rst-current-version" data-toggle="rst-current-version">
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+                <nav aria-label="Footer">
+                    <ul class="nav justify-content-center mb-2">
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/features/">Features</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/about-wagtail/"> About Wagtail</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/services/"> Services</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/blog/"> Blog</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/packages/"> Packages</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/developers/"> Developers</a></li>
+                        
+                    </ul>
+                </nav>
+            
+            <div class="text-center">
+                    &copy; Copyright 2026, Gbedegnon Roseric Azondekon
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>
+                    Created using
+                    <a class="text-white" href="https://github.com/wagtail/sphinx_wagtail_theme" rel="nofollow" target="_blank">
+                        Sphinx Wagtail Theme 6.6.0
+                    </a>
+                    and
+                    <a class="text-white" href="https://www.sphinx-doc.org/" rel="nofollow" target="_blank">
+                        Sphinx 9.0.4
+                    </a>
+                </small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="_static/documentation_options.js?v=938c9ccc"></script>
+        <script src="_static/doctools.js?v=fd6eb6e6"></script>
+        <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=6dbb43f8"></script>
+        <script src="_static/version-dropdown.js?v=0bbf9fd9"></script>
+        <script src="_static/logo-hover.js?v=f38a3864"></script>
+        <script type="text/javascript" src="_static/dist/theme.js"></script>
+        <script type="text/javascript" src="_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="_static/searchtools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    
+    <details class="rst-versions" role="note" aria-label="Versions">
+      <summary class="rst-current-version">
         <span class="fa fa-book"> Read the Docs</span>
-        v: latest
+        v: 0.2.0 latest
         <span class="fa fa-caret-down"></span>
-      </span>
+      </summary>
       <div class="rst-other-versions">
         <dl>
           <dt>Versions</dt>
-            <dd><a href="https://github.com/CDCgov/pynssp/releases/latest">latest</a></dd>
-            <dd><a href="https://github.com/CDCgov/pynssp/releases/tag/v0.1.0">0.1.0</a></dd>
-            <!-- <dd><a href="#">1.1</a></dd> -->
+          <dd><a href="https://github.com/CDCgov/pynssp/releases/latest">latest (0.2.0)</a></dd>
+            <dd><a href="https://pypi.org/project/pynssp/0.2.0/">0.2.0</a></dd>
+            <dd><a href="https://pypi.org/project/pynssp/0.1.0/">0.1.0</a></dd>
         </dl>
         <dl>
           <dt>Downloads</dt>
@@ -451,7 +464,5 @@ Should be “Bearer” or “Basic”. (Default value = “Bearer”)</p></li>
           <dd><a href="#" data-toggle="rst-debug-badge">Swap badge position</a></dd>
         </dl> -->
       </div>
-    </div>
-
-</body>
+    </details></body>
 </html>

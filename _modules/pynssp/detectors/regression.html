@@ -1,52 +1,62 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="no-js" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pynssp.detectors.regression &mdash; pynssp 0.1.0 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../../index.html" class="icon icon-home">
-            pynssp
-              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
-              <div class="version">
-                0.1.0
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pynssp.detectors.regression &mdash; pynssp 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/dist/theme.css?v=9cdaa676" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=dd081c42" />
+            <link rel="index" title="Index" href="../../../genindex.html" />
+            <link rel="search" title="Search" href="../../../search.html" />
+            <link rel="top" title="pynssp 0.2.0 documentation" href="#" />
+            <link rel="up" title="Module code" href="../../index.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="../../../_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="../../../index.html"
+                        
+                        class="logo navbar-brand"
+                    >
+                        <img src="../../../_static/logo.png" width="45" height="59"
+                            class="logo-img"
+                        />
+                        pynssp
+                    </a>
+                
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="../../../search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">Overview:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../readme.html">About pynssp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installing pynssp</a></li>
@@ -54,11 +64,19 @@
 <p class="caption" role="heading"><span class="caption-text">Hands-On Tutorials:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../articles/intro.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../articles/anomaly_detection.html">Anomaly Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../articles/anomaly_detection.html">Anomaly Detection and Trend Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../articles/text_mining.html">Text Mining Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pynssp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pynssp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../pynssp.html">pynssp package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../pynssp.core.html">pynssp.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../pynssp.detectors.html">pynssp.detectors package</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../history.html">Release Notes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">About:</span></p>
@@ -69,38 +87,64 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../codeofconduct.html">Creating a Culture of Innovation</a></li>
 </ul>
 
-        </div>
-      </div>
     </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">pynssp</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">pynssp.detectors.regression</li>
-      <li class="wy-breadcrumbs-aside">
-      </li>
-  </ul>
-  <hr/>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <h1>Source code for pynssp.detectors.regression</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="../../../index.html">Docs</a></li>
+            <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+        <li class="breadcrumb-item active" aria-current="page">pynssp.detectors.regression</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <div class="d-flex flex-wrap gap-2">
+                            <noscript>
+                                <p>JavaScript is required to toggle light/dark mode..</p>
+                            </noscript>
+                            <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                                <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                                <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                            </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/wagtail/sphinx_wagtail_theme/blob/main/docs/_modules/pynssp/detectors/regression" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+                            
+                        </div>
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <h1>Source code for pynssp.detectors.regression</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
 
-<div class="viewcode-block" id="adaptive_regression"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.regression.adaptive_regression">[docs]</a><span class="k">def</span> <span class="nf">adaptive_regression</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adaptive Regression</span>
+<div class="viewcode-block" id="adaptive_regression">
+<a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.regression.adaptive_regression">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">adaptive_regression</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Adaptive Regression</span>
 
 <span class="sd">    Adaptive Regression helper function for Adaptive Multiple Regression</span>
 
@@ -112,18 +156,18 @@
 <span class="sd">    :param g: Guardband parameter. The guardband length is the number of days</span>
 <span class="sd">            separating the baseline from the current date in consideration for alerting.</span>
 <span class="sd">    :returns: A pandas data frame with p-values and test statistics</span>
-<span class="sd">    </span>
-<span class="sd">    &quot;&quot;&quot;</span>
+
+<span class="sd">    """</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
     <span class="n">base_tbl</span> <span class="o">=</span> <span class="n">df</span>
-    <span class="n">base_tbl</span><span class="p">[</span><span class="s2">&quot;dow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">base_tbl</span><span class="p">[</span><span class="s2">&quot;dummy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">base_tbl</span><span class="p">[</span><span class="s2">"dow"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%A"</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">base_tbl</span><span class="p">[</span><span class="s2">"dummy"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
-        <span class="n">df</span><span class="p">,</span> <span class="n">base_tbl</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;dow&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;dummy&quot;</span><span class="p">)</span><span class="o">.</span>\
+        <span class="n">df</span><span class="p">,</span> <span class="n">base_tbl</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"dow"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"dummy"</span><span class="p">)</span><span class="o">.</span>\
             <span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span>\
             <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    
+
     <span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">base_tbl</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     <span class="n">y_obs</span> <span class="o">=</span> <span class="n">base_tbl</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
@@ -139,7 +183,10 @@
     <span class="n">ucl_warning</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df_range</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
 
     <span class="c1"># Bound standard error of regression</span>
-    <span class="n">min_sigma</span> <span class="o">=</span> <span class="mf">1.01</span> <span class="o">/</span> <span class="n">ucl_warning</span>
+    <span class="c1"># NOTE: 0.01 (not 1.01) matches Rnssp's adaptive_regression(); the R package</span>
+    <span class="c1"># corrected this constant in ae5ba22. Using 1.01 inflates the sigma floor</span>
+    <span class="c1"># ~100x, shrinking test statistics and hiding genuine alerts on smooth series.</span>
+    <span class="n">min_sigma</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="o">/</span> <span class="n">ucl_warning</span>
 
     <span class="c1"># Initialize result vectors</span>
     <span class="n">test_stat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
@@ -184,7 +231,7 @@
         <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="n">ndx_time</span><span class="p">,</span>
-                <span class="n">baseline_data</span><span class="p">[[</span><span class="s2">&quot;Mon&quot;</span><span class="p">,</span> <span class="s2">&quot;Tue&quot;</span><span class="p">,</span> <span class="s2">&quot;Wed&quot;</span><span class="p">,</span> <span class="s2">&quot;Thu&quot;</span><span class="p">,</span> <span class="s2">&quot;Fri&quot;</span><span class="p">,</span> <span class="s2">&quot;Sat&quot;</span><span class="p">]]</span>
+                <span class="n">baseline_data</span><span class="p">[[</span><span class="s2">"Mon"</span><span class="p">,</span> <span class="s2">"Tue"</span><span class="p">,</span> <span class="s2">"Wed"</span><span class="p">,</span> <span class="s2">"Thu"</span><span class="p">,</span> <span class="s2">"Fri"</span><span class="p">,</span> <span class="s2">"Sat"</span><span class="p">]]</span>
             <span class="p">]</span>
         <span class="p">)</span>
 
@@ -201,13 +248,16 @@
         <span class="n">r_sqrd_adj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">r2_adj</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">r2_adj</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
 
         <span class="c1"># Calculate bounded standard error of regression with derived formula for efficiency</span>
+        <span class="c1"># NOTE: min_sigma[n_df - 1]: Rnssp indexes its 1-based vector as</span>
+        <span class="c1"># min_sigma[n_df] (quantile at df == n_df); the 0-based equivalent here</span>
+        <span class="c1"># is n_df - 1. Using min_sigma[n_df] picked the quantile for df == n_df + 1.</span>
         <span class="n">sigma</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">B_length</span> <span class="o">+</span> <span class="mi">7</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">B_length</span> <span class="o">-</span> <span class="mi">4</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">B_length</span> <span class="o">*</span> <span class="p">(</span><span class="n">B_length</span> <span class="o">-</span> <span class="mi">7</span><span class="p">))),</span>
-            <span class="n">min_sigma</span><span class="p">[</span><span class="n">n_df</span><span class="p">],</span>
+            <span class="n">min_sigma</span><span class="p">[</span><span class="n">n_df</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
         <span class="p">)</span>
 
         <span class="c1"># Day of week for test date</span>
-        <span class="n">dow_test</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%u</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="n">dow_test</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"</span><span class="si">%u</span><span class="s2">"</span><span class="p">))</span>
 
         <span class="c1"># Calculate forecast on test date</span>
         <span class="k">if</span> <span class="n">dow_test</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
@@ -230,8 +280,11 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="alert_regression"><a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.regression.alert_regression">[docs]</a><span class="k">def</span> <span class="nf">alert_regression</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adaptive Multiple Regression</span>
+
+<div class="viewcode-block" id="alert_regression">
+<a class="viewcode-back" href="../../../pynssp.detectors.html#pynssp.detectors.regression.alert_regression">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">alert_regression</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">"date"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"count"</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Adaptive Multiple Regression</span>
 
 <span class="sd">    The adaptive multiple regression algorithm fits a linear model to a baseline</span>
 <span class="sd">    of counts or percentages of length B, and forecasts a predicted value g + 1</span>
@@ -240,7 +293,7 @@
 <span class="sd">    The model includes terms to account for linear trends and day-of-week effects.</span>
 <span class="sd">    Note that this implementation does NOT account for federal holidays as in the</span>
 <span class="sd">    Regression 1.2 algorithm in ESSENCE. An alert (red value) is signaled if</span>
-<span class="sd">    the statistical test (student&quot;s t-test) applied to the test statistic yields</span>
+<span class="sd">    the statistical test (student"s t-test) applied to the test statistic yields</span>
 <span class="sd">    a p-value less than 0.01. If the p-value is greater than or equal to 0.01</span>
 <span class="sd">    and strictly less than 0.05, a warning (yellow value) is signaled.</span>
 <span class="sd">    Blue values are returned if an alert or warning does not occur.</span>
@@ -249,129 +302,173 @@
 
 <span class="sd">    :param df: A pandas data frame containing time series data</span>
 <span class="sd">    :param t: The name of the column in df that contains the dates or times of</span>
-<span class="sd">            observations. Defaults to &quot;date&quot;.</span>
+<span class="sd">            observations. Defaults to "date".</span>
 <span class="sd">    :param y: The name of the column in df that contains the values of the</span>
-<span class="sd">            time series. Defaults to &quot;count&quot;.</span>
+<span class="sd">            time series. Defaults to "count".</span>
 <span class="sd">    :param B: The length of the baseline period (in days). Must be a multiple</span>
 <span class="sd">            of 7 and at least 7. Defaults to 28.</span>
 <span class="sd">    :param g: The length of the guard band (in days). Must be non-negative.</span>
 <span class="sd">            Defaults to 2.</span>
 <span class="sd">    :returns: Original pandas data frame with detection results.</span>
 <span class="sd">    :examples:</span>
-<span class="sd">    </span>
+
 <span class="sd">        &gt;&gt;&gt; from pynssp import alert_regression</span>
 <span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
 <span class="sd">        &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({</span>
-<span class="sd">        ...    &quot;date&quot;: pd.date_range(&quot;2020-01-01&quot;, &quot;2020-12-31&quot;),</span>
-<span class="sd">        ...    &quot;count&quot;: np.random.randint(0, 101, size=366)</span>
+<span class="sd">        ...    "date": pd.date_range("2020-01-01", "2020-12-31"),</span>
+<span class="sd">        ...    "count": np.random.randint(0, 101, size=366)</span>
 <span class="sd">        ... })</span>
-<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; df_regression = alert_regression(df)</span>
 <span class="sd">        &gt;&gt;&gt; df_regression.head()</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    
+<span class="sd">    """</span>
+
     <span class="c1"># Check baseline length argument</span>
     <span class="k">if</span> <span class="n">B</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in alert_regression: baseline length argument B=</span><span class="si">{</span><span class="n">B</span><span class="si">}</span><span class="s2"> must be greater than or equal to 7&quot;</span><span class="p">)</span>
-    
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error in alert_regression: baseline length argument B=</span><span class="si">{</span><span class="n">B</span><span class="si">}</span><span class="s2"> must be greater than or equal to 7"</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">B</span> <span class="o">%</span> <span class="mi">7</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in alert_regression: baseline length argument B=</span><span class="si">{</span><span class="n">B</span><span class="si">}</span><span class="s2"> must be a multiple of 7&quot;</span><span class="p">)</span>
-    
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error in alert_regression: baseline length argument B=</span><span class="si">{</span><span class="n">B</span><span class="si">}</span><span class="s2"> must be a multiple of 7"</span><span class="p">)</span>
+
     <span class="c1"># Check guardband length argument</span>
     <span class="k">if</span> <span class="n">g</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in alert_regression: guardband length argument g=</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s2"> cannot be negative&quot;</span><span class="p">)</span>
-    
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error in alert_regression: guardband length argument g=</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s2"> cannot be negative"</span><span class="p">)</span>
+
     <span class="c1"># Check for sufficient baseline data</span>
     <span class="n">grouped_df</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">groupby</span><span class="o">.</span><span class="n">DataFrameGroupBy</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">grouped_df</span><span class="p">:</span>
-        <span class="n">df_size</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">df_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">df_size</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">df_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
 
     <span class="c1"># Check for sufficient baseline data</span>
     <span class="k">if</span> <span class="n">df_size</span> <span class="o">&lt;</span> <span class="n">B</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_regression: not enough historical data&quot;</span><span class="p">)</span>
-        
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Error in alert_regression: not enough historical data"</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">grouped_df</span><span class="p">:</span>
+        <span class="n">group_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">)</span>
 
         <span class="n">df_result</span> <span class="o">=</span> <span class="n">df</span>\
             <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">data</span><span class="p">:</span> <span class="n">adaptive_regression</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">))</span>
-        
-        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;alert&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">([(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">),</span>
-                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">),</span>
-                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.05</span><span class="p">)],</span>
-                                        <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
-        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Mon&quot;</span><span class="p">,</span> <span class="s2">&quot;Tue&quot;</span><span class="p">,</span> <span class="s2">&quot;Wed&quot;</span><span class="p">,</span> <span class="s2">&quot;Thu&quot;</span><span class="p">,</span> <span class="s2">&quot;Fri&quot;</span><span class="p">,</span> <span class="s2">&quot;Sat&quot;</span><span class="p">,</span> <span class="s2">&quot;Sun&quot;</span><span class="p">])</span>
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="p">[</span><span class="n">group_cols</span> <span class="o">+</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_result</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">group_cols</span><span class="p">]]</span>
+
+        <span class="n">df_result</span><span class="p">[</span><span class="s2">"alert"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">([(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">"p_value"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">"p_value"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">"p_value"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">"p_value"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.05</span><span class="p">)],</span>
+                                        <span class="p">[</span><span class="s2">"red"</span><span class="p">,</span> <span class="s2">"yellow"</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">"grey"</span><span class="p">)</span>
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Mon"</span><span class="p">,</span> <span class="s2">"Tue"</span><span class="p">,</span> <span class="s2">"Wed"</span><span class="p">,</span> <span class="s2">"Thu"</span><span class="p">,</span> <span class="s2">"Fri"</span><span class="p">,</span> <span class="s2">"Sat"</span><span class="p">,</span> <span class="s2">"Sun"</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">unique_dates</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_dates</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error in alert_regression: Number of unique dates does not equal the number of rows. Should your dataframe be grouped?&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Error in alert_regression: Number of unique dates does not equal the number of rows. Should your dataframe be grouped?"</span><span class="p">)</span>
 
         <span class="n">df_result</span> <span class="o">=</span> <span class="n">adaptive_regression</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">)</span>
-        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-        <span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;alert&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">([(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">),</span>
-                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">),</span>
-                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.05</span><span class="p">)],</span>
-                                        <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
-        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Mon&quot;</span><span class="p">,</span> <span class="s2">&quot;Tue&quot;</span><span class="p">,</span> <span class="s2">&quot;Wed&quot;</span><span class="p">,</span> <span class="s2">&quot;Thu&quot;</span><span class="p">,</span> <span class="s2">&quot;Fri&quot;</span><span class="p">,</span> <span class="s2">&quot;Sat&quot;</span><span class="p">,</span> <span class="s2">&quot;Sun&quot;</span><span class="p">])</span>
-        
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">df_result</span><span class="p">[</span><span class="s2">"alert"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">([(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">"p_value"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">"p_value"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">"p_value"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">),</span>
+                                        <span class="p">(</span><span class="n">df_result</span><span class="p">[</span><span class="s2">"p_value"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.05</span><span class="p">)],</span>
+                                        <span class="p">[</span><span class="s2">"red"</span><span class="p">,</span> <span class="s2">"yellow"</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">"grey"</span><span class="p">)</span>
+        <span class="n">df_result</span> <span class="o">=</span> <span class="n">df_result</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Mon"</span><span class="p">,</span> <span class="s2">"Tue"</span><span class="p">,</span> <span class="s2">"Wed"</span><span class="p">,</span> <span class="s2">"Thu"</span><span class="p">,</span> <span class="s2">"Fri"</span><span class="p">,</span> <span class="s2">"Sat"</span><span class="p">,</span> <span class="s2">"Sun"</span><span class="p">])</span>
+
     <span class="k">return</span> <span class="n">df_result</span></div>
+
 </pre></div>
-
-           </div>
-          </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2023, Gbedegnon Roseric Azondekon.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+</main>
+                        
+                    </div>
+                    
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5FTLT9PCW7"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-5FTLT9PCW7', {
-          'anonymize_ip': false,
-      });
-    </script>
-    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
-      <span class="rst-current-version" data-toggle="rst-current-version">
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+                <nav aria-label="Footer">
+                    <ul class="nav justify-content-center mb-2">
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/features/">Features</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/about-wagtail/"> About Wagtail</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/services/"> Services</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/blog/"> Blog</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/packages/"> Packages</a></li>
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="https://wagtail.org/developers/"> Developers</a></li>
+                        
+                    </ul>
+                </nav>
+            
+            <div class="text-center">
+                    &copy; Copyright 2026, Gbedegnon Roseric Azondekon
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>
+                    Created using
+                    <a class="text-white" href="https://github.com/wagtail/sphinx_wagtail_theme" rel="nofollow" target="_blank">
+                        Sphinx Wagtail Theme 6.6.0
+                    </a>
+                    and
+                    <a class="text-white" href="https://www.sphinx-doc.org/" rel="nofollow" target="_blank">
+                        Sphinx 9.0.4
+                    </a>
+                </small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="../../../_static/documentation_options.js?v=938c9ccc"></script>
+        <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=6dbb43f8"></script>
+        <script src="../../../_static/version-dropdown.js?v=0bbf9fd9"></script>
+        <script src="../../../_static/logo-hover.js?v=f38a3864"></script>
+        <script type="text/javascript" src="../../../_static/dist/theme.js"></script>
+        <script type="text/javascript" src="../../../_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="../../../_static/searchtools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("../../../searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    
+    <details class="rst-versions" role="note" aria-label="Versions">
+      <summary class="rst-current-version">
         <span class="fa fa-book"> Read the Docs</span>
-        v: latest
+        v: 0.2.0 latest
         <span class="fa fa-caret-down"></span>
-      </span>
+      </summary>
       <div class="rst-other-versions">
         <dl>
           <dt>Versions</dt>
-            <dd><a href="https://github.com/CDCgov/pynssp/releases/latest">latest</a></dd>
-            <dd><a href="https://github.com/CDCgov/pynssp/releases/tag/v0.1.0">0.1.0</a></dd>
-            <!-- <dd><a href="#">1.1</a></dd> -->
+          <dd><a href="https://github.com/CDCgov/pynssp/releases/latest">latest (0.2.0)</a></dd>
+            <dd><a href="https://pypi.org/project/pynssp/0.2.0/">0.2.0</a></dd>
+            <dd><a href="https://pypi.org/project/pynssp/0.1.0/">0.1.0</a></dd>
         </dl>
         <dl>
           <dt>Downloads</dt>
@@ -393,7 +490,5 @@
           <dd><a href="#" data-toggle="rst-debug-badge">Swap badge position</a></dd>
         </dl> -->
       </div>
-    </div>
-
-</body>
+    </details></body>
 </html>
