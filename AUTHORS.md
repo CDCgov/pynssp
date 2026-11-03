@@ -3,8 +3,11 @@
 
 ## Development Lead
 
-* [Gbedegnon Roseric Azondekon](https://rosericazondekon.github.io/) 
+* [Gbedegnon Roseric Azondekon](https://rosericazondekon.github.io/)
 
 ## Contributors
 
-None yet. Why not be the first?
+- [Andrew Manigault](https://www.andrewmanigault.com/)
+- [Alan Viars](https://github.com/aviars)
+- [Huy Nguyen Dao](https://github.com/huyndao)
+- [Rakesh Pai](https://github.com/developer-rpai)
