@@ -148,6 +148,7 @@ We load NSSP stopwords from the `pynssp` package to exclude a curated list of st
 >>> # cc_unigrams.head(), cc_bigrams.head(), cc_trigrams.head()
 ```
 
+(ngram-frequency)=
 ## n-gram Frequencies
 
 We summarize the top 10 chief complaint unigram and bigram frequencies and visualize the results in horizontal bar charts.
@@ -242,6 +243,7 @@ We summarize the top 10 chief complaint unigram and bigram frequencies and visua
 
 [![Co-occurrence Network Graph](text_mining/cooccurenceGraph.png)](#ngram-frequency)
 
+(pearson-pairwise-correlation-network-graph)=
 ## Pearson Pairwise Correlation Chief Complaint Network Graph
 
 While co-occurrence measures how frequently two terms appear together in the same chief complaint, the Phi coefficient measures how strongly two terms are associated. The Phi coefficient between two words, $w_1$ and $w_2$, is defined as:
