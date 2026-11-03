@@ -1,6 +1,6 @@
 # Release Notes
 
-## 0.1.1 (2026-08-19)
+## 0.2.0 (2026-11-03)
 
 ### Bug fixes
 * The install issue related to package data has been fixed.
