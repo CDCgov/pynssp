@@ -193,6 +193,7 @@ html_theme_options = {
     "project_name": "pynssp",
     "logo": "logo.png",
     "logo_alt": "",
+    "footer_links": "",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
