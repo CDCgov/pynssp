@@ -28,10 +28,10 @@ The new `Apikey` class inherits the `Auth` class, and has the same methods as th
 * A new `create_apikey_profile()` function has been added as a wrapper to the `Apikey` class.
 
 ### Other
-* A section on the Farrington Temporal detector has been added to the Anomaly Detection vignette
-* A trend classification section has been added to the Anomaly Detection vignette
-* A new vignette entitled "Text Mining Example" has been added to the package documentation
-* The online documentation has a new theme
+* A section on the Farrington Temporal detector has been added to the Anomaly Detection vignette.
+* A trend classification section has been added to the Anomaly Detection vignette.
+* A new vignette entitled "Text Mining Example" has been added to the package documentation.
+* The online documentation has a new theme.
 
 
 ## 0.1.0 (2023-06-22)
