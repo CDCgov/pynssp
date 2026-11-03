@@ -1,5 +1,10 @@
 Welcome to pynssp's documentation!
-======================================
+==================================
+
+.. image:: _static/logo.png
+   :align: right
+   :width: 125px
+   :class: index-logo-right
 
 .. toctree::
    :maxdepth: 2

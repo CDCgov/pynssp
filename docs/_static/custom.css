@@ -92,3 +92,8 @@ body > footer.container-fluid.bg-primary .nav-link {
 .rst-versions .rst-current-version {
   background-color: #43308b;
 }
+
+img.index-logo-right {
+  float: right !important;
+  margin: 0 0 1rem 1rem;
+}
