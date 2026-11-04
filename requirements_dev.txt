@@ -21,3 +21,4 @@ scipy>=1.13
 sphinx-wagtail-theme>=6.6.0
 sphinx-copybutton>=0.5
 sphinx-favicon>=1.0
+sphinxext-opengraph>=0.9
