@@ -75,8 +75,14 @@ extensions = [
     'sphinx_copybutton',
     'sphinx_wagtail_theme',
     'myst_parser',
-    'sphinx_favicon'
+    'sphinx_favicon',
+    'sphinxext.opengraph'
 ]
+
+ogp_site_url = "https://cdcgov.github.io/pynssp/"
+ogp_image = "https://cdcgov.github.io/pynssp/_static/logo.png"
+ogp_image_alt = "pynssp logo"
+ogp_site_name = "pynssp"
 
 # Automatic exclusion of prompts from the copies
 copybutton_exclude = '.linenos, .gp, .go'
