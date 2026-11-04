@@ -182,6 +182,7 @@ html_context = {
     "current_doc_version": release,
     "released_versions": released_versions,
     "latest_release_version": released_versions[0],
+    "analytics_id": "G-5FTLT9PCW7",
 }
 
 # Theme options are theme-specific and customize the look and feel of a
