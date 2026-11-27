@@ -48,3 +48,16 @@ def test_alert_nbinom(df, df2, df3):
 
     with pytest.raises(Exception):
         alert_nbinom(df3, baseline_end='2020-03-01')
+
+
+def test_alert_nbinom_week_ending_saturday():
+    # MMWR weeks end on Saturday; the baseline check should accept any weekday
+    dates = pd.date_range('2014-01-04', periods=422, freq='7D')
+    counts = np.random.poisson(lam=25, size=422)
+    df = pd.DataFrame({'date': dates, 'count': counts})
+
+    df_nbinom = alert_nbinom(df, baseline_end='2020-03-01')
+    assert len(df_nbinom) == len(df)
+
+    with pytest.raises(ValueError, match="Not all weeks"):
+        alert_nbinom(df.drop(index=10), baseline_end='2020-03-01')

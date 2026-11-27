@@ -27,7 +27,7 @@ def serfling_model(df, t, y, baseline_end):
     if baseline_n_yrs < 2:
         raise ValueError("Baseline length must be greater than or equal to 2 years.")
 
-    if len(pd.date_range(start=min(baseline_dates), end=max(baseline_dates), freq="W")) != baseline_n_wks:
+    if len(pd.date_range(start=min(baseline_dates), end=max(baseline_dates), freq="7D")) != baseline_n_wks:
         raise ValueError("Not all weeks in intended baseline date range were found.")
 
     input_data["obs"] = input_data.index + 1
