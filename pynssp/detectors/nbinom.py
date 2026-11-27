@@ -31,7 +31,7 @@ def nb_model(df, t, y, baseline_end, include_time):
         raise ValueError("Baseline length must be greater than or equal to 2 years")
 
     baseline_dates = baseline[t].unique()
-    if len(pd.date_range(start=min(baseline_dates), end=max(baseline_dates), freq="W")) != baseline_n_wks:
+    if len(pd.date_range(start=min(baseline_dates), end=max(baseline_dates), freq="7D")) != baseline_n_wks:
         raise ValueError("Not all weeks in intended baseline date range were found")
 
     # Check that time series observations are non-negative integer counts
